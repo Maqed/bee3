@@ -6,6 +6,9 @@ import {
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
 import { db } from "@/server/db";
+import { env } from "@/env";
+// OAuth
+import Google from "next-auth/providers/google";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -45,6 +48,10 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
+    Google({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+    }),
     /**
      * ...add providers here.
      *
