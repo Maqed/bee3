@@ -67,3 +67,8 @@
     @apply bg-background text-foreground;
   }
 }
+@layer utilities {
+  .h-screen-without-navbar {
+    @apply min-h-[calc(100vh-64px)];
+  }
+}
