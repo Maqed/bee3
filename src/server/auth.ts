@@ -9,7 +9,7 @@ import { db } from "@/server/db";
 import { env } from "@/env";
 // OAuth
 import Google from "next-auth/providers/google";
-
+import Facebook from "next-auth/providers/facebook";
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -56,6 +56,10 @@ export const authOptions: NextAuthOptions = {
     Google({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
+    }),
+    Facebook({
+      clientId: env.FACEBOOK_CLIENT_ID,
+      clientSecret: env.FACEBOOK_CLIENT_SECRET,
     }),
     /**
      * ...add providers here.

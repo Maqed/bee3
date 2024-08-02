@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { DEFAULT_LOGIN_REDIRECT } from "@/consts/routes";
 
 function Social() {
-  function handleClick(provider: "google") {
+  function handleClick(provider: "google" | "facebook") {
     return signIn(provider, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
   }
 
   return (
-    <div className="flex w-full items-center gap-x-2">
+    <div className="flex w-full flex-col items-center gap-y-2">
       <Button
         size="lg"
         className="w-full"
@@ -21,6 +21,21 @@ function Social() {
         <Image
           src="/OAuthProviders/Google.webp"
           alt={"Google"}
+          width={100}
+          height={100}
+          className="ml-2 h-5 w-5"
+        />
+      </Button>
+      <Button
+        size="lg"
+        className="w-full"
+        variant="outline"
+        onClick={() => handleClick("facebook")}
+      >
+        Continue With Facebook
+        <Image
+          src="/OAuthProviders/Facebook.svg"
+          alt={"Facebook"}
           width={100}
           height={100}
           className="ml-2 h-5 w-5"
