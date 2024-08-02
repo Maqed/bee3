@@ -3,16 +3,10 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { DEFAULT_LOGIN_REDIRECT } from "@/consts/routes";
-import { useSearchParams } from "next/navigation";
 
 function Social() {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
-
   function handleClick(provider: "google") {
-    // signIn(provider, {
-    //   callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT,
-    // });
+    return signIn(provider, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
   }
 
   return (
@@ -21,11 +15,9 @@ function Social() {
         size="lg"
         className="w-full"
         variant="outline"
-        onClick={() => {
-          handleClick("google");
-        }}
+        onClick={() => handleClick("google")}
       >
-        Continue With Google{" "}
+        Continue With Google
         <Image
           src="/OAuthProviders/Google.webp"
           alt={"Google"}

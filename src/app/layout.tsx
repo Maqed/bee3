@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import Navbar from "@/components/navbar";
+import Providers from "@/providers";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { env } from "@/env";
@@ -45,11 +46,13 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>
-        <Navbar />
-        {children}
-      </body>
-    </html>
+    <Providers>
+      <html lang="en" className={`${GeistSans.variable}`}>
+        <body>
+          <Navbar />
+          {children}
+        </body>
+      </html>
+    </Providers>
   );
 }
