@@ -13,7 +13,7 @@ function Social() {
     <div className="flex w-full flex-col items-center gap-y-2">
       <Button
         size="lg"
-        className="w-full"
+        className="flex w-full gap-x-2"
         variant="outline"
         onClick={() => handleClick("google")}
       >
@@ -23,12 +23,12 @@ function Social() {
           alt={"Google"}
           width={100}
           height={100}
-          className="ml-2 h-5 w-5"
+          className="h-5 w-5"
         />
       </Button>
       <Button
         size="lg"
-        className="w-full"
+        className="flex w-full gap-x-2"
         variant="outline"
         onClick={() => handleClick("facebook")}
       >
@@ -38,7 +38,7 @@ function Social() {
           alt={"Facebook"}
           width={100}
           height={100}
-          className="ml-2 h-5 w-5"
+          className="h-5 w-5"
         />
       </Button>
     </div>
