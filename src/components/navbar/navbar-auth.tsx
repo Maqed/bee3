@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 
 function NavbarAuth() {
   const t = useTranslations("Navbar");
@@ -22,12 +22,7 @@ function NavbarAuth() {
   return session ? (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
-        <Avatar>
-          <AvatarImage src={session.user?.image} alt={session.user?.name} />
-          <AvatarFallback>
-            {getFirstLettersOfWords(session.user.name)}
-          </AvatarFallback>
-        </Avatar>
+        <Avatar>{getFirstLettersOfWords(session.user.name)}</Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={() => signOut()}>
