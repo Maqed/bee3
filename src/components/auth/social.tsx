@@ -3,8 +3,10 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { DEFAULT_LOGIN_REDIRECT } from "@/consts/routes";
+import { useTranslations } from "next-intl";
 
 function Social() {
+  const t = useTranslations("Social");
   function handleClick(provider: "google" | "facebook") {
     return signIn(provider, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
   }
@@ -17,7 +19,7 @@ function Social() {
         variant="outline"
         onClick={() => handleClick("google")}
       >
-        Continue With Google
+        {t("Google")}
         <Image
           src="/OAuthProviders/Google.webp"
           alt={"Google"}
@@ -32,7 +34,7 @@ function Social() {
         variant="outline"
         onClick={() => handleClick("facebook")}
       >
-        Continue With Facebook
+        {t("Facebook")}
         <Image
           src="/OAuthProviders/Facebook.svg"
           alt={"Facebook"}

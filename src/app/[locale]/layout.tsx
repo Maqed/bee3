@@ -44,10 +44,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  params: { locale },
+}: Readonly<{ children: React.ReactNode; params: { locale: string } }>) {
   return (
     <Providers>
-      <html lang="en" className={`${GeistSans.variable}`}>
+      <html
+        lang={locale}
+        dir={locale === "ar" ? "rtl" : "ltr"}
+        className={`${GeistSans.variable}`}
+      >
         <body>
           <Navbar />
           {children}

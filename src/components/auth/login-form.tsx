@@ -1,10 +1,12 @@
 import CardWrapper from "@/components/auth/card-wrapper";
+import { useTranslations } from "next-intl";
 
 function LoginForm() {
+  const t = useTranslations("/login");
   return (
     <CardWrapper
-      headerLabel="Welcome Back!"
-      backButtonLabel="Don't have an account?"
+      headerLabel={t("headerLabel")}
+      backButtonLabel={t("backButtonLabel")}
       backButtonHref="/register"
       showSocial
     ></CardWrapper>

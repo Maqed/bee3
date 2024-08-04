@@ -1,0 +1,19 @@
+{
+    "Navbar": {
+        "Login": "Login",
+        "Register": "Register",
+        "Logout": "Logout"
+    },
+    "Social": {
+        "Facebook": "Continue With Facebook",
+        "Google": "Continue With Google"
+    },
+    "/login":{
+        "headerLabel": "Weclome Back!",
+        "backButtonLabel": "Don't have an account?"
+    },
+    "/register":{
+        "headerLabel":"Create an account",
+        "backButtonLabel": "Already have an account?"
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "Navbar": {
+        "Login": "تسجيل الدخول",
+        "Register": "انشاء حساب",
+        "Logout": "تسجيل الخروج"
+    },
+    "Social": {
+        "Facebook": "استمر بفيسبوك",
+        "Google": "استمر بجوجل"
+    },
+    "/login":{
+        "headerLabel": "مرحبا بعودتك",
+        "backButtonLabel": "ليس لديك حساب؟"
+    },
+    "/register":{
+        "headerLabel":"انشئ حساب",
+        "backButtonLabel": "مسجل بالفعل؟"
+    }
+}

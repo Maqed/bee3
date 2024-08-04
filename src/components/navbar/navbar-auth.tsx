@@ -1,5 +1,6 @@
 "use client";
-import Link from "next/link";
+import { Link } from "@/navigation";
+import { useTranslations } from "next-intl";
 import { useSession, signOut } from "next-auth/react";
 import { getFirstLettersOfWords } from "@/lib/utils";
 import { LogOut } from "lucide-react";
@@ -14,6 +15,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 function NavbarAuth() {
+  const t = useTranslations("Navbar");
   const { data: session, status } = useSession();
   if (status === "loading")
     return <Skeleton className="h-10 w-10 rounded-full" />;
@@ -30,17 +32,17 @@ function NavbarAuth() {
       <DropdownMenuContent>
         <DropdownMenuItem onClick={() => signOut()}>
           <LogOut className="mr-2 h-4 w-4" />
-          Logout
+          {t("Logout")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ) : (
     <>
       <Button size="sm" variant="secondary" asChild>
-        <Link href="/login">Login</Link>
+        <Link href="/login">{t("Login")}</Link>
       </Button>
       <Button size="sm" asChild>
-        <Link href="/register">Register</Link>
+        <Link href="/register">{t("Register")}</Link>
       </Button>
     </>
   );

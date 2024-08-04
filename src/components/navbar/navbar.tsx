@@ -1,6 +1,7 @@
 "use client";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import NavbarAuth from "./navbar-auth";
+import LocaleSwitcher from "@/components/ui/locale-switcher";
 
 export default function Navbar() {
   return (
@@ -9,6 +10,7 @@ export default function Navbar() {
         <h1 className="text-lg font-semibold">Bee3Online</h1>
       </Link>
       <nav className="flex items-center gap-2">
+        <LocaleSwitcher />
         <NavbarAuth />
       </nav>
     </header>
