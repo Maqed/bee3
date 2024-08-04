@@ -38,11 +38,8 @@ function NavbarAuth() {
     </DropdownMenu>
   ) : (
     <>
-      <Button size="sm" variant="secondary" asChild>
-        <Link href="/login">{t("Login")}</Link>
-      </Button>
       <Button size="sm" asChild>
-        <Link href="/register">{t("Register")}</Link>
+        <Link href="/login">{t("Login")}</Link>
       </Button>
     </>
   );
