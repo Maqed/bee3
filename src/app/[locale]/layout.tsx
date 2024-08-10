@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import Navbar from "@/components/navbar/navbar";
 import Providers from "@/providers";
 import { GeistSans } from "geist/font/sans";
+import { Toaster } from "@/components/ui/toaster";
 import { type Metadata } from "next";
 import { env } from "@/env";
 
@@ -56,6 +57,7 @@ export default function RootLayout({
         <body>
           <Navbar />
           {children}
+          <Toaster />
         </body>
       </html>
     </Providers>

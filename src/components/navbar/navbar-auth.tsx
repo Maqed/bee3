@@ -3,7 +3,7 @@ import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
 import { useSession, signOut } from "next-auth/react";
 import { getFirstLettersOfWords } from "@/lib/utils";
-import { LogOut } from "lucide-react";
+import { Settings, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -11,6 +11,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Avatar } from "@/components/ui/avatar";
 
@@ -25,6 +27,16 @@ function NavbarAuth() {
         <Avatar>{getFirstLettersOfWords(session.user.name)}</Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
+        <DropdownMenuLabel>
+          {t("Greeting")} {session.user.name} 👋
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <Link href="/user-settings">
+          <DropdownMenuItem>
+            <Settings className="mr-2 h-4 w-4" />
+            {t("Settings")}
+          </DropdownMenuItem>
+        </Link>
         <DropdownMenuItem onClick={() => signOut()}>
           <LogOut className="mr-2 h-4 w-4" />
           {t("Logout")}

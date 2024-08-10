@@ -1,7 +1,9 @@
 {
     "Navbar": {
+        "Greeting": "Hello",
         "Login": "Login",
         "Register": "Register",
+        "Settings": "Settings",
         "Logout": "Logout"
     },
     "Social": {
@@ -15,5 +17,22 @@
     "/register":{
         "headerLabel":"Create an account",
         "backButtonLabel": "Already have an account?"
+    },
+    "/user-settings": {
+        "title": "User Settings",
+        "name": "Name",
+        "name-placeholder": "John Doe",
+        "name-description": "Your name is shown to the public",
+        "name-error": "Name must be at least 2 characters.",
+        "button-submit": "Update Profile",
+        "delete-title": "Delete Account",
+        "delete-paragraph" :"Once you delete your account, there is no going back. Please be certain.",
+        "delete-dialog-title" :"Are you absolutely sure?",
+        "delete-dialog-paragraph" :"This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
+        "confirm-delete-name-input": "Type your name",
+        "confirm-delete-message-input": "Confirm by typing this message",
+        "deleted-message": "User has been deleted successfully!",
+        "updated-message": "User has been updated successfully!",
+        "must-be-logged-in-message": "You must be logged in!"
     }
 }
