@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import Image from "next/image";
 import {
   Select,
   SelectContent,
@@ -29,8 +29,30 @@ function LocaleSwitcher() {
         <SelectValue placeholder="Language" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="en">English</SelectItem>
-        <SelectItem value="ar">Arabic (العربية)</SelectItem>
+        <SelectItem value="en">
+          <div className="flex flex-row gap-2">
+            <Image
+              src="/flags/us.png"
+              alt="USA Flag"
+              className="object-contain"
+              width={20}
+              height={10}
+            />
+            English
+          </div>
+        </SelectItem>
+        <SelectItem value="ar">
+          <div className="flex flex-row gap-2">
+            <Image
+              src="/flags/eg.png"
+              alt="EG Flag"
+              className="object-contain"
+              width={20}
+              height={10}
+            />
+            Arabic (العربية)
+          </div>
+        </SelectItem>
       </SelectContent>
     </Select>
   );
