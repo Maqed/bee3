@@ -10,6 +10,20 @@
     "Facebook": "Continue With Facebook",
     "Google": "Continue With Google"
   },
+  "/": {
+    "navigation": {
+      "mobiles-and-tablets": {
+        "title": "Mobiles and Tablets",
+        "mobiles": "Mobiles",
+        "tablets": "Tablets"
+      },
+      "electronics": {
+        "title": "Electronics",
+        "computers": "Computers",
+        "laptops": "Laptops"
+      }
+    }
+  },
   "/login": {
     "headerLabel": "Weclome Back!",
     "backButtonLabel": "Don't have an account?"

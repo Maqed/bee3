@@ -1,5 +1,8 @@
+import Navigation from "./_components/navigation";
 export default function HomePage() {
   return (
-    <main></main>
+    <main>
+      <Navigation />
+    </main>
   );
 }
