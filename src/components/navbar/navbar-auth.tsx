@@ -27,8 +27,8 @@ function NavbarAuth() {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>
-          <h5 className="text-lg">{t("Greeting")}</h5>
-          <h4 className="text-xl">{session.user.name} 👋</h4>
+          <h5 className="text-lg">{t("Greeting")} 👋</h5>
+          <h4 className="text-xl">{session.user.name}</h4>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <Link href="/user-settings">
