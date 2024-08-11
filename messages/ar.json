@@ -1,38 +1,48 @@
 {
-    "Navbar": {
-        "Greeting": "!مرحبا",
-        "Login": "تسجيل الدخول",
-        "Register": "انشاء حساب",
-        "Settings": "الاعدادات",
-        "Logout": "تسجيل الخروج"
+  "Navbar": {
+    "Greeting": "!مرحبا",
+    "Login": "تسجيل الدخول",
+    "Register": "انشاء حساب",
+    "Settings": "الاعدادات",
+    "Logout": "تسجيل الخروج"
+  },
+  "Social": {
+    "Facebook": "استمر بفيسبوك",
+    "Google": "استمر بجوجل"
+  },
+  "/login": {
+    "headerLabel": "مرحبا بعودتك",
+    "backButtonLabel": "ليس لديك حساب؟"
+  },
+  "/register": {
+    "headerLabel": "انشئ حساب",
+    "backButtonLabel": "مسجل بالفعل؟"
+  },
+  "/user-settings": {
+    "settings": {
+      "title": "اعدادات المستخدم",
+      "name": {
+        "title": "الاسم",
+        "placeholder": "محمد احمد",
+        "description": "اسمك ظاهر لجميع المستخدمين",
+        "invalid": "يجب أن يتكون الاسم من 2 أحرف على الأقل."
+      },
+      "button-submit": "حدث الملف الشخصي"
     },
-    "Social": {
-        "Facebook": "استمر بفيسبوك",
-        "Google": "استمر بجوجل"
-    },
-    "/login":{
-        "headerLabel": "مرحبا بعودتك",
-        "backButtonLabel": "ليس لديك حساب؟"
-    },
-    "/register":{
-        "headerLabel":"انشئ حساب",
-        "backButtonLabel": "مسجل بالفعل؟"
-    },
-    "/user-settings": {
-        "title": "اعدادات المستخدم",
-        "name": "الاسم",
-        "name-placeholder": "محمد احمد",
-        "name-description": "اسمك ظاهر لجميع المستخدمين",
-        "name-error": "يجب أن يتكون الاسم من 2 أحرف على الأقل.",
-        "button-submit": "حدث الملف الشخصي",
-        "delete-title": "الغاء الحساب",
-        "delete-paragraph" :"بمجرد حذف حسابك، لن تتمكن من استرجاعه. يرجى التأكد.",
-        "delete-dialog-title" :"هل انت متأكد؟",
-        "delete-dialog-paragraph" :"لا يمكن التراجع عن هذا الإجراء. سيؤدي هذا إلى حذف حسابك نهائيًا وإزالة بياناتك من خوادمنا.",
+    "delete": {
+      "title": "الغاء الحساب",
+      "paragraph": "بمجرد حذف حسابك، لن تتمكن من استرجاعه. يرجى التأكد.",
+      "dialog": {
+        "title": "هل انت متأكد؟",
+        "paragraph": "لا يمكن التراجع عن هذا الإجراء. سيؤدي هذا إلى حذف حسابك نهائيًا وإزالة بياناتك من خوادمنا.",
         "confirm-delete-name-input": "اكتب اسمك",
-        "confirm-delete-message-input": "قم بالتأكيد عن طريق كتابة هذه الرسالة",
-        "deleted-message": "تم حذف المتسخدم بنجاح",
-        "updated-message": "تم تعديل بيانات المستخدم بنجاح",
-        "must-be-logged-in-message": "يجب عليك تسجيل الدخول"
+        "confirm-delete-message-input": "قم بالتأكيد عن طريق كتابة هذه الرسالة"
+      }
+    },
+    "toast": {
+      "deleted": "تم حذف المتسخدم بنجاح",
+      "updated": "تم تعديل بيانات المستخدم بنجاح",
+      "must-be-logged-in": "يجب عليك تسجيل الدخول"
     }
+  }
 }

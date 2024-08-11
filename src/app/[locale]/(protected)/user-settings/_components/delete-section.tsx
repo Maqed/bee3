@@ -40,40 +40,40 @@ function DeleteAccountSection({ isPending, startTransition }: Props) {
       router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
       toast({
         variant: "destructive",
-        title: t(response.message ?? response.error),
+        title: t(`toast.${response.message ?? response.error}`),
       });
     });
   }
   return (
     <section>
       <h1 className="text-3xl font-bold text-destructive">
-        {t("delete-title")}
+        {t("delete.title")}
       </h1>
       <hr className="my-2" />
-      <p className="mb-2">{t("delete-paragraph")}</p>
+      <p className="mb-2">{t("delete.paragraph")}</p>
       <Dialog>
         <DialogTrigger asChild>
           <Button disabled={isPending} variant="destructive">
-            {t("delete-title")}
+            {t("delete.title")}
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>{t("delete-dialog-title")}</DialogTitle>
+            <DialogTitle>{t("delete.dialog.title")}</DialogTitle>
             <DialogDescription>
-              {t("delete-dialog-paragraph")}
+              {t("delete.dialog.paragraph")}
             </DialogDescription>
           </DialogHeader>
           <form className="flex flex-col gap-y-3" onSubmit={deleteAccount}>
             <Label htmlFor="confirm-delete-name-input">
-              {t("confirm-delete-name-input")}{" "}
+              {t("delete.dialog.confirm-delete-name-input")}{" "}
               <span className="italic text-foreground/80">
                 {session?.user.name}
               </span>
             </Label>
             <Input ref={confirmDeleteName} id="confirm-delete-name-input" />
             <Label htmlFor="confirm-delete-message-input">
-              {t("confirm-delete-message-input")}{" "}
+              {t("delete.dialog.confirm-delete-message-input")}{" "}
               <span className="italic text-foreground/80">
                 delete my account
               </span>
@@ -89,7 +89,7 @@ function DeleteAccountSection({ isPending, startTransition }: Props) {
                 </Button>
               </DialogClose>
               <Button disabled={isPending} type="submit" variant="destructive">
-                {t("delete-title")}
+                {t("delete.title")}
               </Button>
             </div>
           </form>

@@ -42,13 +42,13 @@ function EditAccountSection({ isPending, startTransition }: Props) {
       await update();
       toast({
         variant: response.message ? "success" : "destructive",
-        title: t(response.message ?? response.error),
+        title: t(`toast.${response.message ?? response.error}`),
       });
     });
   }
   return (
     <section className="mb-3">
-      <h1 className="text-3xl font-bold">{t("title")}</h1>
+      <h1 className="text-3xl font-bold">{t("settings.title")}</h1>
       <hr className="my-2" />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -57,21 +57,23 @@ function EditAccountSection({ isPending, startTransition }: Props) {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("name")}</FormLabel>
+                <FormLabel>{t("settings.name.title")}</FormLabel>
                 <FormControl>
                   <Input
                     disabled={isPending}
-                    placeholder={t("name-placeholder")}
+                    placeholder={t("settings.name.placeholder")}
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>{t("name-description")}</FormDescription>
+                <FormDescription>
+                  {t("settings.name.description")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button disabled={isPending} type="submit">
-            {t("button-submit")}
+            {t("settings.button-submit")}
           </Button>
         </form>
       </Form>
