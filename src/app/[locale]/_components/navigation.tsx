@@ -2,8 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import {
   HoverCard,
   HoverCardContent,
@@ -57,7 +55,6 @@ export default function Navigation() {
   );
 }
 function ItemDropdown({ title, items }: itemsProps) {
-  const [openHoverCard, setOpenHoverCard] = useState(false);
   const t = useTranslations("/.navigation");
   return (
     <HoverCard closeDelay={50} openDelay={0}>
