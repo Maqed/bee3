@@ -56,7 +56,8 @@
     "toast": {
       "deleted": "User has been deleted successfully!",
       "updated": "User has been updated successfully!",
-      "must-be-logged-in": "You must be logged in!"
+      "must-be-logged-in": "You must be logged in!",
+      "please-wait": "Please wait a minute between each user update!"
     }
   }
 }
