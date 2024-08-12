@@ -39,7 +39,9 @@ function EditAccountSection({ isPending, startTransition }: Props) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       const response = await updateUserAction(values);
-      await update();
+      if (!response.error){
+        await update();
+      }
       toast({
         variant: response.message ? "success" : "destructive",
         title: t(`toast.${response.message ?? response.error}`),
