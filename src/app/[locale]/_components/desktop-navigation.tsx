@@ -46,7 +46,7 @@ export default function DesktopNavigation() {
     },
   ];
   return (
-    <div className="hidden md:flex md:items-center md:justify-center">
+    <div className="hidden lg:flex lg:items-center lg:justify-center">
       {items.map((item) => {
         const { items, title } = item;
         return <ItemDropdown key={title} title={title} items={items} />;
