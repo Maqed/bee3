@@ -25,10 +25,10 @@ function NavbarAuth() {
       <DropdownMenuTrigger className="outline-none">
         <Avatar>{session.user.name[0]}</Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="p-0">
         <DropdownMenuLabel>
           <h5 className="text-lg">{t("Greeting")} 👋</h5>
-          <h4 className="text-xl">{session.user.name}</h4>
+          <h4 className="text-xl text-primary">{session.user.name}</h4>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <Link href="/user-settings">
@@ -37,7 +37,10 @@ function NavbarAuth() {
             {t("Settings")}
           </DropdownMenuItem>
         </Link>
-        <DropdownMenuItem onClick={() => signOut()}>
+        <DropdownMenuItem
+          className="bg-destructive text-destructive-foreground focus:bg-destructive/70 focus:text-destructive-foreground"
+          onClick={() => signOut()}
+        >
           <LogOut className="mr-2 h-4 w-4" />
           {t("Logout")}
         </DropdownMenuItem>
