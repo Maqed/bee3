@@ -16,7 +16,7 @@ type itemsProps = {
   }[];
 };
 
-export default function Navigation() {
+export default function DesktopNavigation() {
   const items: itemsProps[] = [
     {
       title: "mobiles-and-tablets.title",
@@ -46,7 +46,7 @@ export default function Navigation() {
     },
   ];
   return (
-    <div className="flex items-center justify-center">
+    <div className="hidden md:flex md:items-center md:justify-center">
       {items.map((item) => {
         const { items, title } = item;
         return <ItemDropdown key={title} title={title} items={items} />;
