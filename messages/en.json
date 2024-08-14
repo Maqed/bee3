@@ -10,6 +10,7 @@
     "Greeting": "Hello!",
     "Login": "Login",
     "Register": "Register",
+    "Profile": "Profile",
     "Settings": "Settings",
     "Logout": "Logout"
   },
@@ -29,6 +30,16 @@
         "computers": "Computers",
         "laptops": "Laptops"
       }
+    }
+  },
+  "/user/[userId]": {
+    "advertises": {
+      "title": "Advertises"
+    },
+    "not-found": {
+      "title": "Oops, User not found!",
+      "paragraph": "The page you're looking for doesn't seem to exist.",
+      "link": "Go back to home page"
     }
   },
   "/login": {
