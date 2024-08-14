@@ -13,7 +13,7 @@ function ClientSideProviders({ children }: Props) {
   const locale = useLocale();
   return (
     <SessionProvider>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="light">
         <DirectionProvider dir={locale === "ar" ? "rtl" : "ltr"}>
           {children}
         </DirectionProvider>
