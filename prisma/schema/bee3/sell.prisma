@@ -21,6 +21,8 @@ model Ad {
     tier        AdTier   @default(FREE)
     title       String
     description String
+    category    String
+    Tags        String[]
     images      String[]
     price       Float // TODO: Currency?
 }
