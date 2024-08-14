@@ -34,6 +34,11 @@ function EditAccountSection({ isPending, startTransition }: Props) {
   const formSchema = userSettingsSchemaIntl(t);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: session?.user.name,
+      bio: session?.user.bio,
+    },
+    values: session?.user,
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
@@ -65,7 +70,6 @@ function EditAccountSection({ isPending, startTransition }: Props) {
                   ) : (
                     <Input
                       disabled={isPending}
-                      defaultValue={session?.user.name}
                       placeholder={t("settings.name.placeholder")}
                       {...field}
                     />
@@ -81,7 +85,6 @@ function EditAccountSection({ isPending, startTransition }: Props) {
           <FormField
             control={form.control}
             name="bio"
-            defaultValue={session?.user.bio}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{t("settings.bio.title")}</FormLabel>
@@ -91,7 +94,6 @@ function EditAccountSection({ isPending, startTransition }: Props) {
                   ) : (
                     <Textarea
                       disabled={isPending}
-                      defaultValue={session?.user.bio}
                       placeholder={t("settings.bio.placeholder")}
                       {...field}
                     />
