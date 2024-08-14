@@ -1,7 +1,9 @@
 // Necessary for Next auth
 model Account {
-    id                       String  @id @default(cuid())
-    userId                   String
+    id     String @id @default(cuid())
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
     type                     String
     provider                 String
     providerAccountId        String
@@ -12,22 +14,23 @@ model Account {
     scope                    String?
     id_token                 String? // @db.Text
     session_state            String?
-    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
     refresh_token_expires_in Int?
 
     @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
+    id     String @id @default(cuid())
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
     sessionToken String   @unique
-    userId       String
     expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id String @id @default(cuid())
+
     name          String?
     email         String?   @unique
     emailVerified DateTime?
@@ -38,4 +41,6 @@ model User {
 
     accounts Account[]
     sessions Session[]
+
+    sellerProfile SellerProfile?
 }

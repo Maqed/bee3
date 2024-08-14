@@ -1,0 +1,35 @@
+enum AdTier {
+    FREE
+    PRO
+    EXPERT
+}
+
+model SellerProfile {
+    id     String @id @default(cuid())
+    userId String @unique
+    User   User   @relation(fields: [userId], references: [id])
+
+    tokensStorage AdTokenStore[]
+    ads           Ad[]
+}
+
+model Ad {
+    id       String         @id @default(cuid())
+    sellerId String?
+    seller   SellerProfile? @relation(fields: [sellerId], references: [id])
+
+    tier        AdTier   @default(FREE)
+    title       String
+    description String
+    images      String[]
+    price       Float // TODO: Currency?
+}
+
+model AdTokenStore {
+    id              String         @id @default(cuid())
+    sellerProfileId String?
+    SellerProfile   SellerProfile? @relation(fields: [sellerProfileId], references: [id])
+
+    tokenType AdTier
+    count     Int
+}
