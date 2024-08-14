@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { updateUserAction } from "@/actions/users";
 
@@ -34,12 +35,13 @@ function EditAccountSection({ isPending, startTransition }: Props) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: session?.user.name,
+      bio: session?.user.bio,
     },
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       const response = await updateUserAction(values);
-      if (!response.error){
+      if (!response.error) {
         await update();
       }
       toast({
@@ -69,6 +71,26 @@ function EditAccountSection({ isPending, startTransition }: Props) {
                 </FormControl>
                 <FormDescription>
                   {t("settings.name.description")}
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="bio"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("settings.bio.title")}</FormLabel>
+                <FormControl>
+                  <Textarea
+                    disabled={isPending}
+                    placeholder={t("settings.bio.placeholder")}
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>
+                  {t("settings.bio.description")}
                 </FormDescription>
                 <FormMessage />
               </FormItem>

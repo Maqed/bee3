@@ -48,6 +48,12 @@
         "description": "Your name is shown to the public",
         "invalid": "Name must be at least 2 characters."
       },
+      "bio": {
+        "title": "Bio",
+        "placeholder": "My name is... and I sell ... I'm experienced in ...",
+        "description": "Write about yourself here",
+        "invalid": "Bio must be at most 2048 characters."
+      },
       "button-submit": "Update Profile"
     },
     "delete": {
