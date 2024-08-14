@@ -16,6 +16,20 @@
     "Facebook": "استمر بفيسبوك",
     "Google": "استمر بجوجل"
   },
+  "/": {
+    "navigation": {
+      "mobiles-and-tablets": {
+        "title": "الومبايل والتابلت",
+        "mobiles": "الومبايل",
+        "tablets": "التابلت"
+      },
+      "electronics": {
+        "title": "الالكترونيات",
+        "computers": "الكمبيوتر",
+        "laptops": "اللابتوب"
+      }
+    }
+  },
   "/login": {
     "headerLabel": "مرحبا بعودتك",
     "backButtonLabel": "ليس لديك حساب؟"
