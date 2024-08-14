@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { TransitionStartFunction } from "react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Form,
   FormControl,
@@ -27,16 +28,12 @@ type Props = {
 };
 
 function EditAccountSection({ isPending, startTransition }: Props) {
-  const { data: session, update } = useSession();
+  const { data: session, update, status } = useSession();
   const { toast } = useToast();
   const t = useTranslations("/user-settings");
   const formSchema = userSettingsSchemaIntl(t);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: session?.user.name,
-      bio: session?.user.bio,
-    },
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
@@ -63,11 +60,16 @@ function EditAccountSection({ isPending, startTransition }: Props) {
               <FormItem>
                 <FormLabel>{t("settings.name.title")}</FormLabel>
                 <FormControl>
-                  <Input
-                    disabled={isPending}
-                    placeholder={t("settings.name.placeholder")}
-                    {...field}
-                  />
+                  {status === "loading" ? (
+                    <Skeleton className="h-10 w-full" />
+                  ) : (
+                    <Input
+                      disabled={isPending}
+                      defaultValue={session?.user.name}
+                      placeholder={t("settings.name.placeholder")}
+                      {...field}
+                    />
+                  )}
                 </FormControl>
                 <FormDescription>
                   {t("settings.name.description")}
@@ -79,15 +81,21 @@ function EditAccountSection({ isPending, startTransition }: Props) {
           <FormField
             control={form.control}
             name="bio"
+            defaultValue={session?.user.bio}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{t("settings.bio.title")}</FormLabel>
                 <FormControl>
-                  <Textarea
-                    disabled={isPending}
-                    placeholder={t("settings.bio.placeholder")}
-                    {...field}
-                  />
+                  {status === "loading" ? (
+                    <Skeleton className="h-16 w-full" />
+                  ) : (
+                    <Textarea
+                      disabled={isPending}
+                      defaultValue={session?.user.bio}
+                      placeholder={t("settings.bio.placeholder")}
+                      {...field}
+                    />
+                  )}
                 </FormControl>
                 <FormDescription>
                   {t("settings.bio.description")}
