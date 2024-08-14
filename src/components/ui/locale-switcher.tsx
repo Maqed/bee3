@@ -1,13 +1,7 @@
 "use client";
 import Image from "next/image";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useLocale } from "next-intl";
+import { Button } from "@/components/ui/button";
 import { useRouter, usePathname } from "@/navigation";
 
 function LocaleSwitcher() {
@@ -19,42 +13,34 @@ function LocaleSwitcher() {
     router.replace(`/${pathname}`, { locale: nextLocale });
   }
   return (
-    <Select
-      onValueChange={(value: "ar" | "en") => {
-        onSelectChange(value);
-      }}
-      defaultValue={locale}
+    <Button
+      variant="ghost"
+      onClick={() => onSelectChange(locale === "ar" ? "en" : "ar")}
     >
-      <SelectTrigger>
-        <SelectValue placeholder="Language" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="en">
-          <div className="flex flex-row gap-2">
-            <Image
-              src="/flags/us.png"
-              alt="USA Flag"
-              className="object-contain"
-              width={20}
-              height={10}
-            />
-            English
-          </div>
-        </SelectItem>
-        <SelectItem value="ar">
-          <div className="flex flex-row gap-2">
-            <Image
-              src="/flags/eg.png"
-              alt="EG Flag"
-              className="object-contain"
-              width={20}
-              height={10}
-            />
-            Arabic (العربية)
-          </div>
-        </SelectItem>
-      </SelectContent>
-    </Select>
+      {locale === "ar" ? (
+        <div dir="ltr" className="flex flex-row gap-2">
+          <Image
+            src="/flags/us.png"
+            alt="USA Flag"
+            className="object-contain"
+            width={20}
+            height={10}
+          />
+          English
+        </div>
+      ) : (
+        <div dir="rtl" className="flex flex-row gap-2">
+          <Image
+            src="/flags/eg.png"
+            alt="EG Flag"
+            className="object-contain"
+            width={20}
+            height={10}
+          />
+          العربية
+        </div>
+      )}
+    </Button>
   );
 }
 
