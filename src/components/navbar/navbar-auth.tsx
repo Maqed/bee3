@@ -33,7 +33,7 @@ function NavbarAuth() {
         <DropdownMenuSeparator />
         <Link href="/user-settings">
           <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
+            <Settings className="me-2 h-4 w-4" />
             {t("Settings")}
           </DropdownMenuItem>
         </Link>
@@ -41,7 +41,7 @@ function NavbarAuth() {
           className="bg-destructive text-destructive-foreground focus:bg-destructive/70 focus:text-destructive-foreground"
           onClick={() => signOut()}
         >
-          <LogOut className="mr-2 h-4 w-4" />
+          <LogOut className="me-2 h-4 w-4" />
           {t("Logout")}
         </DropdownMenuItem>
       </DropdownMenuContent>
