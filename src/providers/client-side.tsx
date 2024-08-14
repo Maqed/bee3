@@ -1,5 +1,6 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "./theme-provider";
 import type { ReactNode } from "react";
 
 type Props = {
@@ -7,7 +8,13 @@ type Props = {
 };
 
 function ClientSideProviders({ children }: Props) {
-  return <SessionProvider>{children}</SessionProvider>;
+  return (
+    <SessionProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        {children}
+      </ThemeProvider>
+    </SessionProvider>
+  );
 }
 
 export default ClientSideProviders;

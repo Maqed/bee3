@@ -1,4 +1,11 @@
 {
+  "Mode Toggle": {
+    "Light": "Light",
+    "Dark": "Dark",
+    "System": "System",
+    "toggle-theme": "Toggle Theme"
+  },
+
   "Navbar": {
     "Greeting": "Hello!",
     "Login": "Login",

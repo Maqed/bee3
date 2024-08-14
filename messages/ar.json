@@ -1,4 +1,10 @@
 {
+  "Mode Toggle": {
+    "Light": "وضع الضوء",
+    "Dark": "الوضع المظلم",
+    "System": "نظام",
+    "toggle-theme": "تبديل الوضع"
+  },
   "Navbar": {
     "Greeting": "!مرحبا",
     "Login": "تسجيل الدخول",
