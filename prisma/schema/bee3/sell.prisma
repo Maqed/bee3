@@ -28,7 +28,7 @@ model Ad {
 }
 
 model AdTokenStore {
-    id              String         @id @default(cuid())
+    id              Int            @id @default(autoincrement())
     sellerProfileId String?
     SellerProfile   SellerProfile? @relation(fields: [sellerProfileId], references: [id])
 
