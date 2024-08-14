@@ -1,4 +1,4 @@
-import DesktopNavigation from "./_components/navigation";
+import DesktopNavigation from "./_components/desktop-navigation";
 export default function HomePage() {
   return (
     <main>
