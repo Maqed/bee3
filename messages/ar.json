@@ -16,8 +16,10 @@
   },
   "/": {
     "navigation": {
+      "title": "استكشف الفئات",
+      "choose-category": "اختر الفئة التي تريدها",
       "mobiles-and-tablets": {
-        "title": "الومبايل والتابلت",
+        "title": "الموبايل والتابلت",
         "mobiles": "الومبايل",
         "tablets": "التابلت"
       },

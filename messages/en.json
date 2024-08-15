@@ -20,8 +20,10 @@
   },
   "/": {
     "navigation": {
+      "title": "Explore Categories",
+      "choose-category": "Choose the category you want.",
       "mobiles-and-tablets": {
-        "title": "Mobiles and Tablets",
+        "title": "Mobiles & Tablets",
         "mobiles": "Mobiles",
         "tablets": "Tablets"
       },

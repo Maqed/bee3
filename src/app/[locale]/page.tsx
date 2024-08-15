@@ -1,3 +1,8 @@
+import ExploreCategories from "./_components/explore-categories";
 export default function HomePage() {
-  return <main></main>;
+  return (
+    <main>
+      <ExploreCategories />
+    </main>
+  );
 }
