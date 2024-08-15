@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import NavbarAuth from "./navbar-auth";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import ModeToggle from "@/components/ui/mode-toggle";
 import {
   Sheet,
   SheetContent,
@@ -16,13 +17,14 @@ export default function Navbar() {
   return (
     <header className="flex h-16 items-center justify-between bg-background px-4 md:px-10">
       <Link href="/" className="flex items-center gap-2">
-        <h1 className="text-lg font-semibold text-primary">Bee3Online</h1>
+        <h1 className="text-lg font-bold text-primary">Bee3Online</h1>
       </Link>
       <nav className="flex items-center gap-x-2">
         {/* Shown in desktop, Hidden in mobile */}
         <div className="flex items-center gap-x-2 max-md:hidden">
           <LocaleSwitcher />
         </div>
+        <ModeToggle />
         <NavbarAuth />
         {/* Mobile Nav */}
         <Sheet>

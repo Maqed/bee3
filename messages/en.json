@@ -1,8 +1,16 @@
 {
+  "Mode Toggle": {
+    "Light": "Light",
+    "Dark": "Dark",
+    "System": "System",
+    "toggle-theme": "Toggle Theme"
+  },
+
   "Navbar": {
     "Greeting": "Hello!",
     "Login": "Login",
     "Register": "Register",
+    "Profile": "Profile",
     "Settings": "Settings",
     "Logout": "Logout"
   },
@@ -24,6 +32,16 @@
       }
     }
   },
+  "/user/[userId]": {
+    "advertises": {
+      "title": "Advertises"
+    },
+    "not-found": {
+      "title": "Oops, User not found!",
+      "paragraph": "The page you're looking for doesn't seem to exist.",
+      "link": "Go back to home page"
+    }
+  },
   "/login": {
     "headerLabel": "Weclome Back!",
     "backButtonLabel": "Don't have an account?"
@@ -40,6 +58,12 @@
         "placeholder": "John Doe",
         "description": "Your name is shown to the public",
         "invalid": "Name must be at least 2 characters."
+      },
+      "bio": {
+        "title": "Bio",
+        "placeholder": "My name is... and I sell ... I'm experienced in ...",
+        "description": "Write about yourself here",
+        "invalid": "Bio must be at most 2048 characters."
       },
       "button-submit": "Update Profile"
     },

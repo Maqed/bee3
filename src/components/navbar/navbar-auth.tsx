@@ -2,7 +2,7 @@
 import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
 import { useSession, signOut } from "next-auth/react";
-import { Settings, LogOut } from "lucide-react";
+import { Settings, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -31,9 +31,15 @@ function NavbarAuth() {
           <h4 className="text-xl text-primary">{session.user.name}</h4>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <Link href={`/user/${session.user.id}`}>
+          <DropdownMenuItem>
+            <User className="me-2 h-4 w-4" />
+            {t("Profile")}
+          </DropdownMenuItem>
+        </Link>
         <Link href="/user-settings">
           <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
+            <Settings className="me-2 h-4 w-4" />
             {t("Settings")}
           </DropdownMenuItem>
         </Link>
@@ -41,7 +47,7 @@ function NavbarAuth() {
           className="bg-destructive text-destructive-foreground focus:bg-destructive/70 focus:text-destructive-foreground"
           onClick={() => signOut()}
         >
-          <LogOut className="mr-2 h-4 w-4" />
+          <LogOut className="me-2 h-4 w-4" />
           {t("Logout")}
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { TransitionStartFunction } from "react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Form,
   FormControl,
@@ -17,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { updateUserAction } from "@/actions/users";
 
@@ -26,7 +28,7 @@ type Props = {
 };
 
 function EditAccountSection({ isPending, startTransition }: Props) {
-  const { data: session, update } = useSession();
+  const { data: session, update, status } = useSession();
   const { toast } = useToast();
   const t = useTranslations("/user-settings");
   const formSchema = userSettingsSchemaIntl(t);
@@ -34,12 +36,14 @@ function EditAccountSection({ isPending, startTransition }: Props) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: session?.user.name,
+      bio: session?.user.bio,
     },
+    values: session?.user,
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       const response = await updateUserAction(values);
-      if (!response.error){
+      if (!response.error) {
         await update();
       }
       toast({
@@ -61,14 +65,42 @@ function EditAccountSection({ isPending, startTransition }: Props) {
               <FormItem>
                 <FormLabel>{t("settings.name.title")}</FormLabel>
                 <FormControl>
-                  <Input
-                    disabled={isPending}
-                    placeholder={t("settings.name.placeholder")}
-                    {...field}
-                  />
+                  {status === "loading" ? (
+                    <Skeleton className="h-10 w-full" />
+                  ) : (
+                    <Input
+                      disabled={isPending}
+                      placeholder={t("settings.name.placeholder")}
+                      {...field}
+                    />
+                  )}
                 </FormControl>
                 <FormDescription>
                   {t("settings.name.description")}
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="bio"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("settings.bio.title")}</FormLabel>
+                <FormControl>
+                  {status === "loading" ? (
+                    <Skeleton className="h-16 w-full" />
+                  ) : (
+                    <Textarea
+                      disabled={isPending}
+                      placeholder={t("settings.bio.placeholder")}
+                      {...field}
+                    />
+                  )}
+                </FormControl>
+                <FormDescription>
+                  {t("settings.bio.description")}
                 </FormDescription>
                 <FormMessage />
               </FormItem>

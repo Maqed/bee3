@@ -1,10 +1,11 @@
 import "@/styles/globals.css";
 import Navbar from "@/components/navbar/navbar";
-import Providers from "@/providers";
 import { GeistSans } from "geist/font/sans";
 import { Toaster } from "@/components/ui/toaster";
 import { type Metadata } from "next";
 import { env } from "@/env";
+import ServerSideProviders from "@/providers/server-side";
+import ClientSideProviders from "@/providers/client-side";
 
 const title = "Bee3Online";
 const description =
@@ -48,18 +49,20 @@ export default function RootLayout({
   params: { locale },
 }: Readonly<{ children: React.ReactNode; params: { locale: string } }>) {
   return (
-    <Providers>
+    <ServerSideProviders>
       <html
         lang={locale}
         dir={locale === "ar" ? "rtl" : "ltr"}
         className={`${GeistSans.variable}`}
       >
         <body>
-          <Navbar />
-          {children}
-          <Toaster />
+          <ClientSideProviders>
+            <Navbar />
+            {children}
+            <Toaster />
+          </ClientSideProviders>
         </body>
       </html>
-    </Providers>
+    </ServerSideProviders>
   );
 }
