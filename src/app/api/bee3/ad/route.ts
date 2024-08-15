@@ -6,7 +6,10 @@ import { db } from "@/server/db";
 import { AdTiers } from '@prisma/client';
 
 export async function GET(request: Request) {
-  return NextResponse.json({ hello: "world" });
+  const req = await request.json();
+  const ad = db.ad.findUniqueOrThrow({ where: { id: req.id } });
+
+  return NextResponse.json({ ad });
 }
 
 export async function POST(request: Request) {
@@ -19,8 +22,10 @@ export async function POST(request: Request) {
   if (!req.success)
     return NextResponse.json({ error: req.error });
 
-  if (user.sellerData === null) {
-    await db.sellerData.create({
+  let sellerDataId = user.sellerData?.id;
+
+  if (sellerDataId === null) {
+    const sellerData = await db.sellerData.create({
       data: {
         user: {
           connect: { id: user.id }
@@ -45,7 +50,15 @@ export async function POST(request: Request) {
         }
       }
     });
+    sellerDataId = sellerData.id;
   }
+
+  // db.adTokenStore.update({
+  //   where: {
+  //     sellerDataId: sellerDataId,
+  //     tokenType: req.data.tier
+  //   }
+  // });
 
   const ad = await db.ad.create({
     data: {

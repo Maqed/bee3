@@ -45,4 +45,6 @@ model AdTokenStore {
 
     tokenType AdTiers
     count     Int
+
+    @@unique([sellerDataId, tokenType])
 }
