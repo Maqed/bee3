@@ -1,37 +1,50 @@
-enum AdTier {
-    FREE
-    PRO
-    EXPERT
+enum AdTiers {
+    Free
+    Pro
+    Expert
 }
 
-model SellerProfile {
+enum Categories {
+    Vechicles
+    Properties
+    MobilesTablets
+    Jobs
+    ElectronicsAppliances
+    Furniture
+    Clothing
+}
+
+model SellerData {
     id     String @id @default(cuid())
     userId String @unique
-    User   User   @relation(fields: [userId], references: [id])
+    user   User   @relation(fields: [userId], references: [id])
 
     tokensStorage AdTokenStore[]
     ads           Ad[]
 }
 
 model Ad {
-    id       String         @id @default(cuid())
-    sellerId String?
-    seller   SellerProfile? @relation(fields: [sellerId], references: [id])
+    id           String      @id @default(cuid())
+    sellerDataId String?
+    sellerData   SellerData? @relation(fields: [sellerDataId], references: [id])
 
-    tier        AdTier   @default(FREE)
+    tier        AdTiers    @default(Free)
     title       String
     description String
-    category    String
-    Tags        String[]
+    category    Categories
+    tags        String[]
     images      String[]
     price       Float // TODO: Currency?
+    negotiable  Boolean
 }
 
 model AdTokenStore {
-    id              Int            @id @default(autoincrement())
-    sellerProfileId String?
-    SellerProfile   SellerProfile? @relation(fields: [sellerProfileId], references: [id])
+    id           Int         @id @default(autoincrement())
+    sellerDataId String?
+    sellerData   SellerData? @relation(fields: [sellerDataId], references: [id])
 
-    tokenType AdTier
+    tokenType AdTiers
     count     Int
+
+    @@unique([sellerDataId, tokenType])
 }
