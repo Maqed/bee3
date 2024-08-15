@@ -42,7 +42,7 @@ export async function getUserById(id: string) {
   const user = await db.user.findUnique({
     where: { id },
     include: {
-      sellerProfile: true,
+      sellerData: true,
     }
   });
   return user;

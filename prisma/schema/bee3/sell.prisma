@@ -14,7 +14,7 @@ enum Categories {
     Clothing
 }
 
-model SellerProfile {
+model SellerData {
     id     String @id @default(cuid())
     userId String @unique
     user   User   @relation(fields: [userId], references: [id])
@@ -24,9 +24,9 @@ model SellerProfile {
 }
 
 model Ad {
-    id       String         @id @default(cuid())
-    sellerId String?
-    seller   SellerProfile? @relation(fields: [sellerId], references: [id])
+    id           String      @id @default(cuid())
+    sellerDataId String?
+    sellerData   SellerData? @relation(fields: [sellerDataId], references: [id])
 
     tier        AdTiers    @default(Free)
     title       String
@@ -36,14 +36,12 @@ model Ad {
     images      String[]
     price       Float // TODO: Currency?
     negotiable  Boolean
-
-    published Boolean
 }
 
 model AdTokenStore {
-    id              Int            @id @default(autoincrement())
-    sellerProfileId String?
-    sellerProfile   SellerProfile? @relation(fields: [sellerProfileId], references: [id])
+    id           Int         @id @default(autoincrement())
+    sellerDataId String?
+    sellerData   SellerData? @relation(fields: [sellerDataId], references: [id])
 
     tokenType AdTiers
     count     Int
