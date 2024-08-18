@@ -19,7 +19,7 @@ type CarouselProps = {
   opts?: CarouselOptions;
   plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
-  direction: string;
+  direction?: string;
   setApi?: (api: CarouselApi) => void;
 };
 
