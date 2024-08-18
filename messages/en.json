@@ -32,6 +32,9 @@
         "computers": "Computers",
         "laptops": "Laptops"
       }
+    },
+    "ads-carousel": {
+      "show-more": "Show More"
     }
   },
   "/user/[userId]": {

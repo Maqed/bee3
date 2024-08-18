@@ -28,6 +28,9 @@
         "computers": "الكمبيوتر",
         "laptops": "اللابتوب"
       }
+    },
+    "ads-carousel": {
+      "show-more": "عرض المزيد"
     }
   },
   "/user/[userId]": {
