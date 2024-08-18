@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useLocale } from "next-intl";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -58,9 +59,11 @@ const Carousel = React.forwardRef<
     },
     ref,
   ) => {
+    const locale = useLocale();
     const [carouselRef, api] = useEmblaCarousel(
       {
         ...opts,
+        direction: locale === "ar" ? "rtl" : "ltr",
         axis: orientation === "horizontal" ? "x" : "y",
       },
       plugins,

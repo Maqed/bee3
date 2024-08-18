@@ -1,7 +1,7 @@
 import { categoryIcons } from "@/consts/category-icons";
 import { Avatar } from "@/components/ui/avatar";
 import { CATEGORY_MOCK_DATA } from "@/consts/category";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import {
   Carousel,
   CarouselContent,
@@ -21,15 +21,12 @@ import { Link } from "@/navigation";
 
 async function ExploreCategories() {
   const t = await getTranslations("/.navigation");
-  const locale = await getLocale();
+
   return (
     <section className="container">
       <h1 className="mb-5 text-2xl font-bold lg:text-3xl">{t("title")}</h1>
 
-      <Carousel
-        opts={{ dragFree: true, direction: locale === "ar" ? "rtl" : "ltr" }}
-        className="w-full whitespace-nowrap"
-      >
+      <Carousel opts={{ dragFree: true }} className="w-full whitespace-nowrap">
         <CarouselContent>
           {CATEGORY_MOCK_DATA.map((category) => {
             const icon = categoryIcons[category.title];
