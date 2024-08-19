@@ -1,5 +1,5 @@
 import { Avatar } from "@/components/ui/avatar";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { notFound } from "next/navigation";
 import { getUserById } from "@/actions/users";

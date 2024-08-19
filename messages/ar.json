@@ -4,6 +4,7 @@
   },
   "Navbar": {
     "Greeting": "مرحبا!",
+    "Sell": "بيع",
     "Login": "تسجيل الدخول",
     "Register": "انشاء حساب",
     "Profile": "الملف الشخصي",
@@ -16,9 +17,11 @@
   },
   "/": {
     "navigation": {
+      "title": "استكشف الفئات",
+      "choose-category": "اختر الفئة التي تريدها",
       "mobiles-and-tablets": {
-        "title": "الومبايل والتابلت",
-        "mobiles": "الومبايل",
+        "title": "الموبايل والتابلت",
+        "mobiles": "الموبايل",
         "tablets": "التابلت"
       },
       "electronics": {
@@ -26,6 +29,9 @@
         "computers": "الكمبيوتر",
         "laptops": "اللابتوب"
       }
+    },
+    "ads-carousel": {
+      "show-more": "عرض المزيد"
     }
   },
   "/user/[userId]": {
