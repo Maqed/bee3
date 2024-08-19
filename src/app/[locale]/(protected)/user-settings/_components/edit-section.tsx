@@ -2,7 +2,7 @@
 import type { z } from "zod";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { userSettingsSchemaIntl } from "@/zod/user-settings";
+import { userSettingsSchemaIntl } from "@/schema/user-settings";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { TransitionStartFunction } from "react";

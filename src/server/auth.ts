@@ -7,6 +7,7 @@ import {
 import { type Adapter } from "next-auth/adapters";
 import { db } from "@/server/db";
 import { env } from "@/env";
+import { AdTiers } from "@prisma/client";
 // OAuth
 import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
@@ -68,6 +69,33 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+  events: {
+    async createUser(message) {
+      await db.user.update({
+        where: { id: message.user.id },
+        data: {
+          tokensStorage: {
+            createMany: {
+              data: [
+                {
+                  tokenType: AdTiers.Free,
+                  count: 20
+                },
+                {
+                  tokenType: AdTiers.Pro,
+                  count: 3
+                },
+                {
+                  tokenType: AdTiers.Expert,
+                  count: 1
+                }
+              ]
+            }
+          }
+        }
+      });
+    }
+  }
 };
 
 /**

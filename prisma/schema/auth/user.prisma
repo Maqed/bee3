@@ -43,5 +43,6 @@ model User {
     accounts Account[]
     sessions Session[]
 
-    sellerData SellerData?
+    tokensStorage AdTokenStore[]
+    ads           Ad[]
 }

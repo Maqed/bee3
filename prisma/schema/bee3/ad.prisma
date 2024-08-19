@@ -1,0 +1,44 @@
+enum AdTiers {
+    Free
+    Pro
+    Expert
+}
+
+model Category {
+    path             String     @id
+    parentCategory   Category?  @relation("CategoryToCategory", fields: [parentCategoryId], references: [path], onDelete: NoAction, onUpdate: NoAction)
+    parentCategoryId String?
+    productCategory  Category[] @relation("CategoryToCategory")
+
+    name        String  @unique
+    description String? @db.Text
+    depth       Int
+    Ad          Ad[]
+}
+
+model Ad {
+    id           String   @id @default(cuid())
+    userId       String?
+    user         User?    @relation(fields: [userId], references: [id])
+    category     Category @relation(fields: [categoryPath], references: [path])
+    categoryPath String
+
+    tier        AdTiers  @default(Free)
+    title       String
+    description String   @db.Text
+    tags        String[]
+    images      String[]
+    price       Float
+    negotiable  Boolean
+}
+
+model AdTokenStore {
+    id     String @id @default(cuid())
+    userId String
+    user   User   @relation(fields: [userId], references: [id])
+
+    tokenType AdTiers
+    count     Int
+
+    @@unique([userId, tokenType])
+}

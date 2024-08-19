@@ -1,7 +1,7 @@
 "use server";
 import { getServerAuthSession } from "@/server/auth";
 import type { z } from "zod";
-import type { userSettingsSchema } from "@/zod/user-settings";
+import type { userSettingsSchema } from "@/schema/user-settings";
 import { db } from "@/server/db";
 
 export async function deleteAccountAction() {
@@ -40,10 +40,7 @@ export async function updateUserAction(
 
 export async function getUserById(id: string) {
   const user = await db.user.findUnique({
-    where: { id },
-    include: {
-      sellerData: true,
-    }
+    where: { id }
   });
   return user;
 }

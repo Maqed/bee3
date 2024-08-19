@@ -1,0 +1,16 @@
+import { NextResponse } from 'next/server';
+import { db } from "@/server/db";
+
+
+export async function GET(request: Request, context: any) {
+  const { params } = context;
+
+  try {
+    const ad = await db.ad.findUniqueOrThrow({ where: { id: params.adId } });
+
+    return NextResponse.json({ ad });
+  }
+  catch (e) {
+    return NextResponse.json({ error: e });
+  }
+}
