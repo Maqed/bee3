@@ -1,21 +1,36 @@
 import { Avatar } from "@/components/ui/avatar";
-import { Link } from "@/navigation";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getUserById } from "@/actions/users";
 import { getTranslations } from "next-intl/server";
+import { getServerAuthSession } from "@/server/auth";
+
+import { db } from "@/server/db";
+
+import SellButton from "@/components/bee3/sell-button";
+import AdCard from "@/components/bee3/ad-card";
 
 type Props = {
   params: {
     userId: string;
   };
 };
+
 export default async function UserPage({ params: { userId } }: Props) {
   const t = await getTranslations("/user/[userId]");
+  const session = await getServerAuthSession();
   const user = await getUserById(userId);
   if (!user) {
     return notFound();
   }
+
+  const ads = await db.ad.findMany({
+    where: {
+      userId: userId, // Filter ads by userId
+    },
+  });
+
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-8 md:px-6 md:py-12">
       <div className="grid gap-8 md:grid-cols-2">
@@ -32,95 +47,33 @@ export default async function UserPage({ params: { userId } }: Props) {
             <p>{user.bio}</p>
           </div>
         </div>
-        {/* Advertises  */}
+        {/* Advertises */}
         <div className="space-y-6">
           <div>
             <h3 className="mb-4 text-xl font-bold md:text-2xl">
               {t("advertises.title")}
             </h3>
-            {/* TODO: Add ACTUAL DATA */}
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <Card className="border-0 shadow-sm">
-                <CardContent>
-                  <img
-                    src="/placeholder.svg"
-                    width={400}
-                    height={225}
-                    alt="Advert Image"
-                    className="aspect-video w-full rounded-md object-cover"
-                  />
-                  <div className="mt-4 space-y-2">
-                    <h4 className="text-lg font-semibold">
-                      Acme Productivity App
-                    </h4>
-                    <p className="line-clamp-2 text-muted-foreground">
-                      Boost your productivity with our all-in-one app. Manage
-                      tasks, track time, and collaborate with your team.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="border-0 shadow-sm">
-                <CardContent>
-                  <img
-                    src="/placeholder.svg"
-                    width={400}
-                    height={225}
-                    alt="Advert Image"
-                    className="aspect-video w-full rounded-md object-cover"
-                  />
-                  <div className="mt-4 space-y-2">
-                    <h4 className="text-lg font-semibold">
-                      Eco-Friendly Clothing Line
-                    </h4>
-                    <p className="line-clamp-2 text-muted-foreground">
-                      Discover our sustainable fashion collection, crafted with
-                      eco-friendly materials and ethical practices.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="border-0 shadow-sm">
-                <CardContent>
-                  <img
-                    src="/placeholder.svg"
-                    width={400}
-                    height={225}
-                    alt="Advert Image"
-                    className="aspect-video w-full rounded-md object-cover"
-                  />
-                  <div className="mt-4 space-y-2">
-                    <h4 className="text-lg font-semibold">
-                      Smart Home Automation Kit
-                    </h4>
-                    <p className="line-clamp-2 text-muted-foreground">
-                      Transform your home with our cutting-edge smart home
-                      automation kit. Control your devices with ease.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="border-0 shadow-sm">
-                <CardContent>
-                  <img
-                    src="/placeholder.svg"
-                    width={400}
-                    height={225}
-                    alt="Advert Image"
-                    className="aspect-video w-full rounded-md object-cover"
-                  />
-                  <div className="mt-4 space-y-2">
-                    <h4 className="text-lg font-semibold">
-                      Healthy Meal Delivery Service
-                    </h4>
-                    <p className="line-clamp-2 text-muted-foreground">
-                      Enjoy delicious and nutritious meals delivered right to
-                      your doorstep. Fuel your body with our healthy options.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            {ads.length === 0 ? ( // Check if the user has ads
+              <div className="flex flex-col items-center justify-center">
+                <h4 className="mb-3 text-2xl">
+                  {userId === session?.user.id
+                    ? t("advertises.you-have-no-ads")
+                    : t("advertises.user-has-no-ads")}
+                </h4>
+                {userId === session?.user.id && <SellButton />}{" "}
+                {/* Show SellButton if the user is the session user */}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                {ads.map(
+                  (
+                    ad, // Render ads if available
+                  ) => (
+                    <AdCard ad={ad} />
+                  ),
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

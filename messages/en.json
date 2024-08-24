@@ -53,7 +53,9 @@
   },
   "/user/[userId]": {
     "advertises": {
-      "title": "Advertises"
+      "title": "Advertises",
+      "you-have-no-ads": "You have no ads",
+      "user-has-no-ads": "This user has no ads"
     },
     "not-found": {
       "title": "Oops, User not found!",
