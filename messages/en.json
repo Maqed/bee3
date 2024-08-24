@@ -21,17 +21,31 @@
   },
   "/": {
     "navigation": {
-      "title": "Explore Categories",
       "choose-category": "Choose the category you want.",
-      "mobiles-and-tablets": {
-        "title": "Mobiles & Tablets",
-        "mobiles": "Mobiles",
-        "tablets": "Tablets"
+      "vehicles": {
+        "name": "Vehicles",
+        "categories": {
+          "electric-cars": {
+            "name": "Electric Cars"
+          },
+          "gas-cars": {
+            "name": "Gas Cars"
+          }
+        }
       },
-      "electronics": {
-        "title": "Electronics",
-        "computers": "Computers",
-        "laptops": "Laptops"
+      "mobiles-and-tablets": {
+        "name": "Mobiles & Tablets",
+        "categories": {
+          "mobile-phones": {
+            "name": "Mobile Phones"
+          },
+          "tablets": {
+            "name": "Tablets"
+          },
+          "accessories": {
+            "name": "Mobile & Tablet Accessories"
+          }
+        }
       }
     },
     "ads-carousel": {

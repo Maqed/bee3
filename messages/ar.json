@@ -17,17 +17,32 @@
   },
   "/": {
     "navigation": {
-      "title": "استكشف الفئات",
       "choose-category": "اختر الفئة التي تريدها",
-      "mobiles-and-tablets": {
-        "title": "الموبايل والتابلت",
-        "mobiles": "الموبايل",
-        "tablets": "التابلت"
+      "vehicles": {
+        "name": "المركبات",
+        "description": "وصف ملحمي للمركبات.",
+        "categories": {
+          "electric-cars": {
+            "name": "السيارات الكهربائية"
+          },
+          "gas-cars": {
+            "name": "السيارات التي تعمل بالبنزين"
+          }
+        }
       },
-      "electronics": {
-        "title": "الالكترونيات",
-        "computers": "الكمبيوتر",
-        "laptops": "اللابتوب"
+      "mobiles-and-tablets": {
+        "name": "الموبايل والتابلت",
+        "categories": {
+          "mobile-phones": {
+            "name": "هواتف محمولة"
+          },
+          "tablets": {
+            "name": "أجهزة التابلت"
+          },
+          "accessories": {
+            "name": "ملحقات الموبايل والتابلت"
+          }
+        }
       }
     },
     "ads-carousel": {
