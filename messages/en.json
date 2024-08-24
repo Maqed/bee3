@@ -5,10 +5,9 @@
     "System": "System",
     "toggle-theme": "Toggle Theme"
   },
-
+  "Sell": "Sell",
   "Navbar": {
     "Greeting": "Hello!",
-    "Sell": "Sell",
     "Login": "Login",
     "Register": "Register",
     "Profile": "Profile",

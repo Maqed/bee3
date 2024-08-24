@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
+import SellButton from "../bee3/sell-button";
 
 export default function Navbar() {
   const t = useTranslations("Navbar");
@@ -27,9 +28,7 @@ export default function Navbar() {
         <div className="flex items-center gap-x-2 max-md:hidden">
           <LocaleSwitcher />
         </div>
-        <Button asChild className="text-base font-bold" size="lg">
-          <Link href="/sell">{t("Sell")}</Link>
-        </Button>
+        <SellButton className="hidden md:flex" />
         <ModeToggle />
         <NavbarAuth />
         {/* Mobile Nav */}
