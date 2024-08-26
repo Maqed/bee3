@@ -1,19 +1,38 @@
 import { z } from "zod";
 import { AdTiers } from "@prisma/client";
-import { categoriesTree, CategoryTreeItem } from "./categories-tree";
+import { categoriesTree, type CategoryTreeItem } from "./categories-tree";
 
+export const adSchemaIntl = (t: (arg: string) => string) =>
+  z.object({
+    tier: z.nativeEnum(AdTiers),
+    title: z.string().min(1, { message: t("errors.title") }),
+    description: z.string().optional(),
+    price: z.number().min(0, { message: t("errors.price") }),
+    categoryPath: z
+      .string()
+      .regex(/^[\w\s]+(\/[\w\s]+)*$/, { message: t("errors.categoryPath") })
+      .refine((path) => validateCategoryPath(path), {
+        message: t("errors.categoryPath"),
+      }),
+    tags: z.array(z.string()).min(1),
+    images: z.array(z.string().url()).min(1),
+    negotiable: z.boolean(),
+  });
 
 export const adSchema = z.object({
   tier: z.nativeEnum(AdTiers),
-  title: z.string().min(4),
-  description: z.string().min(50),
-  price: z.number().min(1),
-  categoryPath: z.string()
+  title: z.string().min(1),
+  description: z.string().optional(),
+  price: z.number().min(0),
+  categoryPath: z
+    .string()
     .regex(/^[\w\s]+(\/[\w\s]+)*$/, { message: "Invalid category path format" })
-    .refine(path => validateCategoryPath(path), { message: "Invalid category path" }),
-  tags: z.array(z.string()).min(3),
+    .refine((path) => validateCategoryPath(path), {
+      message: "Invalid category path",
+    }),
+  tags: z.array(z.string()).min(1),
   images: z.array(z.string()).min(1),
-  negotiable: z.boolean()
+  negotiable: z.boolean(),
 });
 
 const validateCategoryPath = (path: string): boolean => {
@@ -21,11 +40,13 @@ const validateCategoryPath = (path: string): boolean => {
 
   let currentCategories = categoriesTree.categories as CategoryTreeItem[];
   for (const segment of segments) {
-    const matchedCategory = currentCategories.find(category => category.name === segment);
+    const matchedCategory = currentCategories.find(
+      (category) => category.name === segment,
+    );
     if (!matchedCategory) {
       return false;
     }
-    currentCategories = matchedCategory.categories || [];
+    currentCategories = matchedCategory.categories ?? [];
   }
   return true;
 };
