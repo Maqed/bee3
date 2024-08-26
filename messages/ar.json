@@ -2,9 +2,9 @@
   "Mode Toggle": {
     "toggle-theme": "تبديل الوضع"
   },
+  "Sell": "بيع",
   "Navbar": {
     "Greeting": "مرحبا!",
-    "Sell": "بيع",
     "Login": "تسجيل الدخول",
     "Register": "انشاء حساب",
     "Profile": "الملف الشخصي",
@@ -17,17 +17,32 @@
   },
   "/": {
     "navigation": {
-      "title": "استكشف الفئات",
       "choose-category": "اختر الفئة التي تريدها",
-      "mobiles-and-tablets": {
-        "title": "الموبايل والتابلت",
-        "mobiles": "الموبايل",
-        "tablets": "التابلت"
+      "vehicles": {
+        "name": "المركبات",
+        "description": "وصف ملحمي للمركبات.",
+        "categories": {
+          "electric-cars": {
+            "name": "السيارات الكهربائية"
+          },
+          "gas-cars": {
+            "name": "السيارات التي تعمل بالبنزين"
+          }
+        }
       },
-      "electronics": {
-        "title": "الالكترونيات",
-        "computers": "الكمبيوتر",
-        "laptops": "اللابتوب"
+      "mobiles-and-tablets": {
+        "name": "الموبايل والتابلت",
+        "categories": {
+          "mobile-phones": {
+            "name": "هواتف محمولة"
+          },
+          "tablets": {
+            "name": "أجهزة التابلت"
+          },
+          "accessories": {
+            "name": "ملحقات الموبايل والتابلت"
+          }
+        }
       }
     },
     "ads-carousel": {
@@ -36,7 +51,9 @@
   },
   "/user/[userId]": {
     "advertises": {
-      "title": "الاعلانات"
+      "title": "الاعلانات",
+      "you-have-no-ads": "ليس لديك اعلانات",
+      "user-has-no-ads": "هذا المتسخدم ليس لديه اعلانات"
     },
     "not-found": {
       "title": "عفوًا، لم يتم العثور على المستخدم!",

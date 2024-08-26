@@ -1,7 +1,8 @@
 import { categoryIcons } from "@/consts/category-icons";
 import { Avatar } from "@/components/ui/avatar";
-import { CATEGORY_MOCK_DATA } from "@/consts/category";
 import { getTranslations } from "next-intl/server";
+import { categoriesTree } from "@/schema/categories-tree";
+
 import {
   Carousel,
   CarouselContent,
@@ -24,35 +25,35 @@ async function ExploreCategories() {
 
   return (
     <section className="container">
-      <h1 className="mb-5 text-2xl font-bold lg:text-3xl">{t("title")}</h1>
-
       <Carousel opts={{ dragFree: true }} className="w-full whitespace-nowrap">
         <CarouselContent>
-          {CATEGORY_MOCK_DATA.map((category) => {
-            const icon = categoryIcons[category.title];
+          {categoriesTree.categories.map((category) => {
+            const icon = categoryIcons[category.name];
             return (
-              <CarouselItem key={category.title}>
+              <CarouselItem key={category.name}>
                 <Dialog>
                   <DialogTrigger className="flex flex-col items-center justify-center">
                     <Avatar className="rounded-md bg-primary/40">{icon}</Avatar>
-                    <p className="text-sm">{t(`${category.title}.title`)}</p>
+                    <p className="text-sm">{t(`${category.name}.name`)}</p>
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader className="h-min">
-                      <DialogTitle>{t(`${category.title}.title`)}</DialogTitle>
+                      <DialogTitle>{t(`${category.name}.name`)}</DialogTitle>
                       <DialogDescription>
                         {t("choose-category")}
                       </DialogDescription>
                     </DialogHeader>
                     <div className="flex flex-col items-start justify-start">
-                      {category.subCategories.map((subCategory) => {
+                      {category.categories.map((subCategory) => {
                         return (
                           <Link
-                            key={`explore-subcategory-${subCategory.title}`}
-                            href={subCategory.href}
+                            key={`explore-subcategory-${subCategory.name}`}
+                            href={`/${category.name}/${subCategory.name}`}
                             className="text-primary hover:underline"
                           >
-                            {t(subCategory.title)}
+                            {t(
+                              `${category.name}.categories.${subCategory.name}.name`,
+                            )}
                           </Link>
                         );
                       })}
