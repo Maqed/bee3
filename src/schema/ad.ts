@@ -33,7 +33,6 @@ export const adSchema = z.object({
   tags: z.array(z.string()).min(1),
   images: z.array(z.string()).min(1),
   negotiable: z.boolean(),
-  negotiable: z.boolean(),
 });
 
 const validateCategoryPath = (path: string): boolean => {
@@ -44,13 +43,9 @@ const validateCategoryPath = (path: string): boolean => {
     const matchedCategory = currentCategories.find(
       (category) => category.name === segment,
     );
-    const matchedCategory = currentCategories.find(
-      (category) => category.name === segment,
-    );
     if (!matchedCategory) {
       return false;
     }
-    currentCategories = matchedCategory.categories ?? [];
     currentCategories = matchedCategory.categories ?? [];
   }
   return true;
