@@ -3,7 +3,7 @@ import { Heart } from "lucide-react";
 import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Ad } from "@prisma/client";
+import { type Ad } from "@prisma/client";
 
 async function AdCard({ ad }: { ad: Ad }) {
   const locale = await getLocale();

@@ -1,6 +1,4 @@
 import { Avatar } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getUserById } from "@/actions/users";
 import { getTranslations } from "next-intl/server";
@@ -69,7 +67,7 @@ export default async function UserPage({ params: { userId } }: Props) {
                   (
                     ad, // Render ads if available
                   ) => (
-                    <AdCard ad={ad} />
+                    <AdCard key={`AD-card-${ad.id}`} ad={ad} />
                   ),
                 )}
               </div>
