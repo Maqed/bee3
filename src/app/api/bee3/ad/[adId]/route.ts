@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from "@/server/db";
 
 
-export async function GET(request: Request, context: any) {
+export async function GET(request: Request, context: { params: { adId: string } }) {
   const { params } = context;
 
   try {

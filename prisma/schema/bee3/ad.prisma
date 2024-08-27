@@ -13,7 +13,7 @@ model Category {
     name        String  @unique
     description String? @db.Text
     depth       Int
-    Ad          Ad[]
+    Ads         Ad[]
 }
 
 model Ad {
@@ -25,7 +25,12 @@ model Ad {
 
     tier        AdTiers  @default(Free)
     title       String
+<<<<<<< HEAD
     description String?   @db.Text
+=======
+    description String?  @db.Text
+    tags        String[]
+>>>>>>> 25d30ce271f5048c09fe8d3c93f8bd320d0b51f6
     images      String[]
     price       Float
     negotiable  Boolean
