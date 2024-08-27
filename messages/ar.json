@@ -19,14 +19,14 @@
     "navigation": {
       "choose-category": "اختر الفئة التي تريدها",
       "vehicles": {
-        "name": "المركبات",
-        "description": "وصف ملحمي للمركبات.",
+        "name": "العربيات",
+        "description": "وصف ملحمي العربيات.",
         "categories": {
           "electric-cars": {
-            "name": "السيارات الكهربائية"
+            "name": "العربيات الكهربائية"
           },
           "gas-cars": {
-            "name": "السيارات التي تعمل بالبنزين"
+            "name": "العربيات التي تعمل بالبنزين"
           }
         }
       },
@@ -101,6 +101,65 @@
       "updated": "تم تعديل بيانات المستخدم بنجاح",
       "must-be-logged-in": "يجب عليك تسجيل الدخول",
       "please-wait": "من فضلك انتظر دقيقة بين كل تعديل على البيانات!"
+    }
+  },
+  "sell": {
+    "title": "بيع منتجك",
+
+    "category": {
+      "main": {
+        "label": "ماذا تريد أن تبيع؟",
+        "placeholder": "اختر الفئة الرئيسية"
+      },
+      "sub": {
+        "label": "حدد ما تريد بيعه",
+        "placeholder": "اختر الفئة الفرعية"
+      },
+      "options": {
+        "vehicles-category": "العربيات",
+        "mobiles-and-tablets-category": "الموبايل والتابلت",
+        "vehicles-subcategory": {
+          "electric-cars": "العربيات الكهربائية",
+          "gas-cars": "العربيات التي تعمل بالبنزين"
+        },
+        "mobiles-and-tablets-subcategory": {
+          "mobile-phones": "هواتف محمولة",
+          "tablets": "أجهزة التابلت",
+          "accessories": "ملحقات الموبايل والتابلت"
+        }
+      }
+    },
+    "images": {
+      "label": "الصور",
+      "description": "ارفع صور لمنتجك"
+    },
+    "ad-title": {
+      "label": "العنوان",
+      "placeholder": "أدخل عنوان إعلانك",
+      "description": "عنوان قصير ووصفي لمنتجك"
+    },
+    "description": {
+      "label": "الوصف",
+      "placeholder": "صف منتجك بالتفصيل",
+      "description": "قدم وصفًا مفصلاً لمنتجك"
+    },
+    "price": {
+      "label": "السعر",
+      "placeholder": "أدخل السعر",
+      "description": "حدد سعر منتجك"
+    },
+    "negotiable": {
+      "label": "قابل للتفاوض",
+      "description": "هل السعر قابل للتفاوض؟"
+    },
+    "submit": "نشر الإعلان",
+    "errors": {
+      "title": "يجب أن يكون العنوان 5 أحرف على الأقل",
+      "description": "يجب أن يكون الوصف 20 حرفًا على الأقل",
+      "price": "يجب أن يكون السعر رقمًا موجبًا",
+      "categoryPath": "تنسيق مسار الفئة غير صالح",
+      "submit-error": "خطأ في إرسال الإعلان. يرجى المحاولة مرة أخرى.",
+      "submit-success": "تم إرسال الإعلان بنجاح!"
     }
   }
 }

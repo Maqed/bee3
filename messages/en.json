@@ -104,5 +104,64 @@
       "must-be-logged-in": "You must be logged in!",
       "please-wait": "Please wait a minute between each user update!"
     }
+  },
+  "sell": {
+    "title": "Sell Your Item",
+
+    "category": {
+      "main": {
+        "label": "What do you want to sell?",
+        "placeholder": "Select main category"
+      },
+      "sub": {
+        "label": "Specify what you want to sell",
+        "placeholder": "Select subcategory"
+      },
+      "options": {
+        "vehicles-category": "Vehicles",
+        "mobiles-and-tablets-category": "Mobiles & Tablets",
+        "vehicles-subcategory": {
+          "electric-cars": "Electric Cars",
+          "gas-cars": "Gas Cars"
+        },
+        "mobiles-and-tablets-subcategory": {
+          "mobile-phones": "Mobile Phones",
+          "tablets": "Tablets",
+          "accessories": "Accessories"
+        }
+      }
+    },
+    "images": {
+      "label": "Images",
+      "description": "Upload images of your item"
+    },
+    "ad-title": {
+      "label": "Title",
+      "placeholder": "Enter the title of your ad",
+      "description": "A short, descriptive title for your item"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Describe your item in detail",
+      "description": "Provide a detailed description of your item"
+    },
+    "price": {
+      "label": "Price",
+      "placeholder": "Enter the price",
+      "description": "Set the price for your item"
+    },
+    "negotiable": {
+      "label": "Negotiable",
+      "description": "Is the price negotiable?"
+    },
+    "submit": "Post Ad",
+    "errors": {
+      "title": "Title must be at least 5 characters long",
+      "description": "Description must be at least 20 characters long",
+      "price": "Price must be a positive number",
+      "categoryPath": "Invalid category path format",
+      "submit-error": "Error submitting the ad. Please try again.",
+      "submit-success": "Ad submitted successfully!"
+    }
   }
 }

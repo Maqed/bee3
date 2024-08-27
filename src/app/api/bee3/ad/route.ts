@@ -1,27 +1,27 @@
-import { NextResponse } from 'next/server';
-import { getServerAuthSession } from '@/server/auth';
-import { getUserById } from '@/actions/users';
-import { adSchema } from '@/schema/ad';
+import { NextResponse } from "next/server";
+import { getServerAuthSession } from "@/server/auth";
+import { getUserById } from "@/actions/users";
+import { adSchema } from "@/schema/ad";
+import { getTranslations } from "next-intl/server";
 import { db } from "@/server/db";
-
 
 export async function POST(request: Request) {
   const session = await getServerAuthSession();
   if (!session) return NextResponse.json({ error: "must-be-logged-in" });
   const user = await getUserById(session.user.id);
   if (!user) return NextResponse.json({ error: "must-be-logged-in" });
-
-  const req = adSchema.safeParse(await request.json());
-  if (!req.success)
-    return NextResponse.json({ error: req.error });
+  const t = await getTranslations("sell");
+  const schema = adSchema(t);
+  const req = schema.safeParse(await request.json());
+  if (!req.success) return NextResponse.json({ error: req.error });
 
   const tokenStore = await db.adTokenStore.findUnique({
     where: {
       userId_tokenType: {
         userId: user.id,
-        tokenType: req.data.tier
-      }
-    }
+        tokenType: req.data.tier,
+      },
+    },
   });
 
   if (tokenStore?.count === 0)
@@ -31,12 +31,12 @@ export async function POST(request: Request) {
     where: {
       userId_tokenType: {
         userId: user.id,
-        tokenType: req.data.tier
-      }
+        tokenType: req.data.tier,
+      },
     },
     data: {
-      count: { decrement: 1, }
-    }
+      count: { decrement: 1 },
+    },
   });
 
   const ad = await db.ad.create({
@@ -46,15 +46,14 @@ export async function POST(request: Request) {
       description: req.data.description,
       price: req.data.price,
       negotiable: req.data.negotiable,
-      tags: req.data.tags,
 
       user: {
-        connect: { id: user.id }
+        connect: { id: user.id },
       },
       category: {
-        connect: { path: req.data.categoryPath }
-      }
-    }
+        connect: { path: req.data.categoryPath },
+      },
+    },
   });
 
   return NextResponse.json({ result: ad });
