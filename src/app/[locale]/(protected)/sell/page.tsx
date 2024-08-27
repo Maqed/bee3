@@ -32,13 +32,14 @@ import { UploadButton } from "@/components/uploadthing/buttons";
 import Image from "next/image";
 
 function SellPage() {
-  const t = useTranslations("sell");
+  const tSell = useTranslations("sell");
+  const tCategories = useTranslations("categories");
   const { toast } = useToast();
   const [selectedMainCategory, setSelectedMainCategory] = useState<
     string | null
   >(null);
 
-  const schema = adSchema(t);
+  const schema = adSchema(tSell);
   type FormData = z.infer<typeof schema>;
 
   const form = useForm<FormData>({
@@ -67,20 +68,20 @@ function SellPage() {
 
       if (response.ok) {
         toast({
-          title: t("errors.submit-success"),
+          title: tSell("errors.submit-success"),
           variant: "default",
         });
         form.reset();
       } else {
         toast({
-          title: t("errors.submit-error"),
+          title: tSell("errors.submit-error"),
           description: result.error,
           variant: "destructive",
         });
       }
     } catch (error) {
       toast({
-        title: t("errors.submit-error"),
+        title: tSell("errors.submit-error"),
         variant: "destructive",
       });
     }
@@ -94,7 +95,7 @@ function SellPage() {
 
   return (
     <main className="container mt-4 sm:mx-auto md:max-w-4xl">
-      <h1 className="mb-4 text-2xl font-bold">{t("title")}</h1>
+      <h1 className="mb-4 text-2xl font-bold">{tSell("title")}</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -102,7 +103,7 @@ function SellPage() {
             name="categoryPath"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("category.main.label")}</FormLabel>
+                <FormLabel>{tSell("category.main.label")}</FormLabel>
                 <Select
                   onValueChange={(value) => {
                     setSelectedMainCategory(value);
@@ -116,14 +117,14 @@ function SellPage() {
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue
-                        placeholder={t("category.main.placeholder")}
+                        placeholder={tSell("category.main.placeholder")}
                       />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
                     {mainCategories.map((category) => (
                       <SelectItem key={category.name} value={category.name}>
-                        {t(`category.options.${category.name}-category`)}
+                        {tCategories(`${category.name}.name`)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -139,7 +140,7 @@ function SellPage() {
               name="categoryPath"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("category.sub.label")}</FormLabel>
+                  <FormLabel>{tSell("category.sub.label")}</FormLabel>
                   <Select
                     onValueChange={(value) => {
                       console.log("#".repeat(10));
@@ -152,18 +153,18 @@ function SellPage() {
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue
-                          placeholder={t("category.sub.placeholder")}
+                          placeholder={tSell("category.sub.placeholder")}
                         />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {subCategories.map((category) => (
+                      {subCategories.map((subCategory) => (
                         <SelectItem
-                          key={category.name}
-                          value={`${selectedMainCategory}/${category.name}`}
+                          key={subCategory.name}
+                          value={`${selectedMainCategory}/${subCategory.name}`}
                         >
-                          {t(
-                            `category.options.${selectedMainCategory}-subcategory.${category.name}`,
+                          {tCategories(
+                            `${selectedMainCategory}.categories.${subCategory.name}.name`,
                           )}
                         </SelectItem>
                       ))}
@@ -180,7 +181,7 @@ function SellPage() {
             name="images"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("images.label")}</FormLabel>
+                <FormLabel>{tSell("images.label")}</FormLabel>
                 <div className="flex items-center">
                   <FormControl>
                     <UploadButton
@@ -193,7 +194,7 @@ function SellPage() {
                       }}
                       onUploadError={(error: Error) => {
                         toast({
-                          title: t("errors.upload-error"),
+                          title: tSell("errors.upload-error"),
                           description: error.message,
                           variant: "destructive",
                         });
@@ -215,7 +216,7 @@ function SellPage() {
                     </div>
                   )}
                 </div>
-                <FormDescription>{t("images.description")}</FormDescription>
+                <FormDescription>{tSell("images.description")}</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -226,11 +227,16 @@ function SellPage() {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("ad-title.label")}</FormLabel>
+                <FormLabel>{tSell("ad-title.label")}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t("ad-title.placeholder")} {...field} />
+                  <Input
+                    placeholder={tSell("ad-title.placeholder")}
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>{t("ad-title.description")}</FormDescription>
+                <FormDescription>
+                  {tSell("ad-title.description")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -241,15 +247,15 @@ function SellPage() {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("description.label")}</FormLabel>
+                <FormLabel>{tSell("description.label")}</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder={t("description.placeholder")}
+                    placeholder={tSell("description.placeholder")}
                     {...field}
                   />
                 </FormControl>
                 <FormDescription>
-                  {t("description.description")}
+                  {tSell("description.description")}
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -261,16 +267,16 @@ function SellPage() {
             name="price"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("price.label")}</FormLabel>
+                <FormLabel>{tSell("price.label")}</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
-                    placeholder={t("price.placeholder")}
+                    placeholder={tSell("price.placeholder")}
                     {...field}
                     onChange={(e) => field.onChange(parseFloat(e.target.value))}
                   />
                 </FormControl>
-                <FormDescription>{t("price.description")}</FormDescription>
+                <FormDescription>{tSell("price.description")}</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -283,10 +289,10 @@ function SellPage() {
               <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                 <div className="space-y-0.5">
                   <FormLabel className="text-base">
-                    {t("negotiable.label")}
+                    {tSell("negotiable.label")}
                   </FormLabel>
                   <FormDescription>
-                    {t("negotiable.description")}
+                    {tSell("negotiable.description")}
                   </FormDescription>
                 </div>
                 <FormControl>
@@ -299,7 +305,7 @@ function SellPage() {
             )}
           />
 
-          <Button type="submit">{t("submit")}</Button>
+          <Button type="submit">{tSell("submit")}</Button>
         </form>
       </Form>
     </main>

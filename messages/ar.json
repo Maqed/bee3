@@ -15,35 +15,36 @@
     "Facebook": "استمر بفيسبوك",
     "Google": "استمر بجوجل"
   },
-  "/": {
-    "navigation": {
-      "choose-category": "اختر الفئة التي تريدها",
-      "vehicles": {
-        "name": "العربيات",
-        "description": "وصف ملحمي العربيات.",
-        "categories": {
-          "electric-cars": {
-            "name": "العربيات الكهربائية"
-          },
-          "gas-cars": {
-            "name": "العربيات التي تعمل بالبنزين"
-          }
-        }
-      },
-      "mobiles-and-tablets": {
-        "name": "الموبايل والتابلت",
-        "categories": {
-          "mobile-phones": {
-            "name": "هواتف محمولة"
-          },
-          "tablets": {
-            "name": "أجهزة التابلت"
-          },
-          "accessories": {
-            "name": "ملحقات الموبايل والتابلت"
-          }
+  "categories": {
+    "vehicles": {
+      "name": "العربيات",
+      "categories": {
+        "electric-cars": {
+          "name": "العربيات الكهربائية"
+        },
+        "gas-cars": {
+          "name": "العربيات التي تعمل بالبنزين"
         }
       }
+    },
+    "mobiles-and-tablets": {
+      "name": "الموبايل والتابلت",
+      "categories": {
+        "mobile-phones": {
+          "name": "الموبايل"
+        },
+        "tablets": {
+          "name": "التابلت"
+        },
+        "accessories": {
+          "name": "اكسسوارات الموبايل والتابلت"
+        }
+      }
+    }
+  },
+  "/": {
+    "navigation": {
+      "choose-category": "اختر الفئة التي تريدها"
     },
     "ads-carousel": {
       "show-more": "عرض المزيد"

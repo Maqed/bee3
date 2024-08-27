@@ -18,34 +18,36 @@
     "Facebook": "Continue With Facebook",
     "Google": "Continue With Google"
   },
-  "/": {
-    "navigation": {
-      "choose-category": "Choose the category you want.",
-      "vehicles": {
-        "name": "Vehicles",
-        "categories": {
-          "electric-cars": {
-            "name": "Electric Cars"
-          },
-          "gas-cars": {
-            "name": "Gas Cars"
-          }
-        }
-      },
-      "mobiles-and-tablets": {
-        "name": "Mobiles & Tablets",
-        "categories": {
-          "mobile-phones": {
-            "name": "Mobile Phones"
-          },
-          "tablets": {
-            "name": "Tablets"
-          },
-          "accessories": {
-            "name": "Mobile & Tablet Accessories"
-          }
+  "categories": {
+    "vehicles": {
+      "name": "Vehicles",
+      "categories": {
+        "electric-cars": {
+          "name": "Electric Cars"
+        },
+        "gas-cars": {
+          "name": "Gas Cars"
         }
       }
+    },
+    "mobiles-and-tablets": {
+      "name": "Mobiles & Tablets",
+      "categories": {
+        "mobile-phones": {
+          "name": "Mobile Phones"
+        },
+        "tablets": {
+          "name": "Tablets"
+        },
+        "accessories": {
+          "name": "Mobile & Tablet Accessories"
+        }
+      }
+    }
+  },
+  "/": {
+    "navigation": {
+      "choose-category": "Choose the category you want."
     },
     "ads-carousel": {
       "show-more": "Show More"
@@ -116,19 +118,6 @@
       "sub": {
         "label": "Specify what you want to sell",
         "placeholder": "Select subcategory"
-      },
-      "options": {
-        "vehicles-category": "Vehicles",
-        "mobiles-and-tablets-category": "Mobiles & Tablets",
-        "vehicles-subcategory": {
-          "electric-cars": "Electric Cars",
-          "gas-cars": "Gas Cars"
-        },
-        "mobiles-and-tablets-subcategory": {
-          "mobile-phones": "Mobile Phones",
-          "tablets": "Tablets",
-          "accessories": "Accessories"
-        }
       }
     },
     "images": {

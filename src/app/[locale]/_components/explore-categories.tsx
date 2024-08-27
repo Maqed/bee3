@@ -21,7 +21,8 @@ import {
 import { Link } from "@/navigation";
 
 async function ExploreCategories() {
-  const t = await getTranslations("/.navigation");
+  const tCategories = await getTranslations("categories");
+  const tNavigation = await getTranslations("/.navigation");
 
   return (
     <section className="container">
@@ -34,13 +35,17 @@ async function ExploreCategories() {
                 <Dialog>
                   <DialogTrigger className="flex flex-col items-center justify-center">
                     <Avatar className="rounded-md bg-primary/40">{icon}</Avatar>
-                    <p className="text-sm">{t(`${category.name}.name`)}</p>
+                    <p className="text-sm">
+                      {tCategories(`${category.name}.name`)}
+                    </p>
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader className="h-min">
-                      <DialogTitle>{t(`${category.name}.name`)}</DialogTitle>
+                      <DialogTitle>
+                        {tCategories(`${category.name}.name`)}
+                      </DialogTitle>
                       <DialogDescription>
-                        {t("choose-category")}
+                        {tNavigation("choose-category")}
                       </DialogDescription>
                     </DialogHeader>
                     <div className="flex flex-col items-start justify-start">
@@ -51,7 +56,7 @@ async function ExploreCategories() {
                             href={`/${category.name}/${subCategory.name}`}
                             className="text-primary hover:underline"
                           >
-                            {t(
+                            {tCategories(
                               `${category.name}.categories.${subCategory.name}.name`,
                             )}
                           </Link>
