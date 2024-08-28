@@ -107,7 +107,7 @@
       "please-wait": "Please wait a minute between each user update!"
     }
   },
-  "sell": {
+  "/sell": {
     "title": "Sell Your Item",
 
     "category": {
@@ -143,14 +143,18 @@
       "label": "Negotiable",
       "description": "Is the price negotiable?"
     },
-    "submit": "Post Ad",
+    "submit": "Sell Now!",
     "errors": {
-      "title": "Title must be at least 5 characters long",
-      "description": "Description must be at least 20 characters long",
+      "title": {
+        "min": "Title must be at least 1 character long",
+        "max": "Title must be at most 250 character long"
+      },
+      "images": "Ad should at least contain 1 image of the item",
+      "description": "Description must be at most 2048 characters long",
       "price": "Price must be a positive number",
-      "categoryPath": "Invalid category path format",
-      "submit-error": "Error submitting the ad. Please try again.",
-      "submit-success": "Ad submitted successfully!"
-    }
+      "categoryPath": "Please choose a category",
+      "submit-error": "Error submitting the ad. Please try again."
+    },
+    "submit-success": "Ad submitted successfully!"
   }
 }

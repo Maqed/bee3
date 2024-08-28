@@ -32,18 +32,16 @@ import { UploadButton } from "@/components/uploadthing/buttons";
 import Image from "next/image";
 
 function SellPage() {
-  const tSell = useTranslations("sell");
+  const tSell = useTranslations("/sell");
   const tCategories = useTranslations("categories");
   const { toast } = useToast();
   const [selectedMainCategory, setSelectedMainCategory] = useState<
     string | null
   >(null);
 
-  const schema = adSchema(tSell);
-  type FormData = z.infer<typeof schema>;
-
+  type FormData = z.infer<typeof adSchema>;
   const form = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(adSchema),
     defaultValues: {
       title: "",
       description: "",
@@ -68,7 +66,7 @@ function SellPage() {
 
       if (response.ok) {
         toast({
-          title: tSell("errors.submit-success"),
+          title: tSell("submit-success"),
           variant: "default",
         });
         form.reset();
@@ -86,7 +84,6 @@ function SellPage() {
       });
     }
   };
-  const { setValue } = form;
   const mainCategories = categoriesTree.categories;
   const subCategories = selectedMainCategory
     ? mainCategories.find((category) => category.name === selectedMainCategory)
@@ -98,41 +95,30 @@ function SellPage() {
       <h1 className="mb-4 text-2xl font-bold">{tSell("title")}</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="categoryPath"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{tSell("category.main.label")}</FormLabel>
-                <Select
-                  onValueChange={(value) => {
-                    setSelectedMainCategory(value);
-                    console.log("#".repeat(10));
-                    console.log("Category");
-                    console.log(value);
-                    console.log("#".repeat(10));
-                    field.onChange(value);
-                  }}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue
-                        placeholder={tSell("category.main.placeholder")}
-                      />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {mainCategories.map((category) => (
-                      <SelectItem key={category.name} value={category.name}>
-                        {tCategories(`${category.name}.name`)}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <FormItem>
+            <FormLabel>{tSell("category.main.label")}</FormLabel>
+            <Select
+              onValueChange={(value) => {
+                setSelectedMainCategory(value);
+              }}
+            >
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue
+                    placeholder={tSell("category.main.placeholder")}
+                  />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                {mainCategories.map((category) => (
+                  <SelectItem key={category.name} value={category.name}>
+                    {tCategories(`${category.name}.name`)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <FormMessage />
+          </FormItem>
 
           {selectedMainCategory && (
             <FormField
@@ -143,10 +129,6 @@ function SellPage() {
                   <FormLabel>{tSell("category.sub.label")}</FormLabel>
                   <Select
                     onValueChange={(value) => {
-                      console.log("#".repeat(10));
-                      console.log("SubCategory");
-                      console.log(value);
-                      console.log("#".repeat(10));
                       return field.onChange(value);
                     }}
                   >
@@ -170,7 +152,9 @@ function SellPage() {
                       ))}
                     </SelectContent>
                   </Select>
-                  <FormMessage />
+                  {form.formState.errors.categoryPath && (
+                    <FormMessage>{tSell("errors.categoryPath")}</FormMessage>
+                  )}
                 </FormItem>
               )}
             />
@@ -187,10 +171,8 @@ function SellPage() {
                     <UploadButton
                       endpoint="imageUploader"
                       onClientUploadComplete={(res) => {
-                        field.onChange([
-                          ...field.value,
-                          ...res.map((file) => file.url),
-                        ]);
+                        const newImages = res.map((file) => file.url);
+                        field.onChange([...field.value, ...newImages]);
                       }}
                       onUploadError={(error: Error) => {
                         toast({
@@ -217,7 +199,9 @@ function SellPage() {
                   )}
                 </div>
                 <FormDescription>{tSell("images.description")}</FormDescription>
-                <FormMessage />
+                {form.formState.errors.images && (
+                  <FormMessage>{tSell("errors.images")}</FormMessage>
+                )}
               </FormItem>
             )}
           />
@@ -234,10 +218,11 @@ function SellPage() {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  {tSell("ad-title.description")}
-                </FormDescription>
-                <FormMessage />
+                {form.formState.errors.title && (
+                  <FormMessage>
+                    {tSell(form.formState.errors.title.message)}
+                  </FormMessage>
+                )}
               </FormItem>
             )}
           />
@@ -254,10 +239,11 @@ function SellPage() {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  {tSell("description.description")}
-                </FormDescription>
-                <FormMessage />
+                <FormMessage>
+                  {form.formState.errors.description && (
+                    <span>{tSell("errors.description")}</span>
+                  )}
+                </FormMessage>
               </FormItem>
             )}
           />
@@ -276,8 +262,11 @@ function SellPage() {
                     onChange={(e) => field.onChange(parseFloat(e.target.value))}
                   />
                 </FormControl>
-                <FormDescription>{tSell("price.description")}</FormDescription>
-                <FormMessage />
+                <FormMessage>
+                  {form.formState.errors.price && (
+                    <span>{tSell("errors.price")}</span>
+                  )}
+                </FormMessage>
               </FormItem>
             )}
           />

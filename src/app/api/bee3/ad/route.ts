@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { getServerAuthSession } from "@/server/auth";
 import { getUserById } from "@/actions/users";
 import { adSchema } from "@/schema/ad";
-import { getTranslations } from "next-intl/server";
 import { db } from "@/server/db";
 
 export async function POST(request: Request) {
@@ -10,16 +9,14 @@ export async function POST(request: Request) {
   if (!session) return NextResponse.json({ error: "must-be-logged-in" });
   const user = await getUserById(session.user.id);
   if (!user) return NextResponse.json({ error: "must-be-logged-in" });
-  const t = await getTranslations("sell");
-  const schema = adSchema(t);
-  const req = schema.safeParse(await request.json());
+  const req = adSchema.safeParse(await request.json());
   if (!req.success) return NextResponse.json({ error: req.error });
 
   const tokenStore = await db.adTokenStore.findUnique({
     where: {
       userId_tokenType: {
         userId: user.id,
-        tokenType: req.data.tier,
+        tokenType: "Free",
       },
     },
   });
@@ -31,21 +28,20 @@ export async function POST(request: Request) {
     where: {
       userId_tokenType: {
         userId: user.id,
-        tokenType: req.data.tier,
+        tokenType: "Free",
       },
     },
     data: {
       count: { decrement: 1 },
     },
   });
-
   const ad = await db.ad.create({
     data: {
-      tier: req.data.tier,
       title: req.data.title,
       description: req.data.description,
       price: req.data.price,
       negotiable: req.data.negotiable,
+      images: req.data.images,
 
       user: {
         connect: { id: user.id },

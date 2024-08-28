@@ -1,22 +1,26 @@
 import { z } from "zod";
-import { AdTiers } from "@prisma/client";
 import { categoriesTree, type CategoryTreeItem } from "./categories-tree";
 
-export const adSchema = (t: (arg: string) => string) =>
-  z.object({
-    tier: z.nativeEnum(AdTiers),
-    title: z.string().min(1, { message: t("errors.title") }),
-    description: z.string().optional(),
-    price: z.number().min(0, { message: t("errors.price") }),
-    categoryPath: z
-      .string()
-      .regex(/^[\w-]+(\/[\w-]+)*$/, { message: t("errors.categoryPath") })
-      .refine((path) => validateCategoryPath(path), {
-        message: t("errors.categoryPath"),
-      }),
-    images: z.array(z.string().url()).min(1),
-    negotiable: z.boolean(),
-  });
+// Update the error messages to use translation keys
+export const adSchema = z.object({
+  title: z
+    .string()
+    .min(1, { message: "errors.title.min" })
+    .max(250, { message: "errors.title.max" }),
+  description: z
+    .string()
+    .max(2048, { message: "errors.description" })
+    .optional(),
+  price: z.number().min(0, { message: "errors.price" }),
+  categoryPath: z
+    .string()
+    .regex(/^[\w-]+(\/[\w-]+)*$/, { message: "errors.categoryPath" })
+    .refine((path) => validateCategoryPath(path), {
+      message: "errors.categoryPath", // Keep as is
+    }),
+  images: z.array(z.string().url()).min(1, { message: "errors.images" }),
+  negotiable: z.boolean(),
+});
 
 const validateCategoryPath = (path: string): boolean => {
   const segments = path.split("/");
