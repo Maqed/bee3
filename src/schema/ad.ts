@@ -10,7 +10,7 @@ export const adSchema = (t: (arg: string) => string) =>
     price: z.number().min(0, { message: t("errors.price") }),
     categoryPath: z
       .string()
-      .regex(/^[\w\s]+(\/[\w\s]+)*$/, { message: t("errors.categoryPath") })
+      .regex(/^[\w-]+(\/[\w-]+)*$/, { message: t("errors.categoryPath") })
       .refine((path) => validateCategoryPath(path), {
         message: t("errors.categoryPath"),
       }),
