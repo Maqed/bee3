@@ -167,6 +167,7 @@
         "failed-not-enough-tokens-description": "Please buy more tokens to continue selling."
       }
     },
-    "submit-success": "Ad submitted successfully!"
+    "submit-success": "Ad submitted successfully!",
+    "loading": "Posting ad..."
   }
 }

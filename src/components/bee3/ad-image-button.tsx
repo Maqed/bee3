@@ -7,12 +7,14 @@ import { Upload, X } from "lucide-react";
 import { MAX_AD_IMAGES } from "@/consts/ad";
 import { useToast } from "@/components/ui/use-toast";
 import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 type Props = {
   onUpload: (images: File[]) => void;
+  disabled?: boolean;
 };
 
-export function UploadAdImageButton({ onUpload }: Props) {
+export function UploadAdImageButton({ onUpload, disabled }: Props) {
   const [images, setImages] = useState<File[]>([]);
   const tSell = useTranslations("/sell");
   const { toast } = useToast();
@@ -47,9 +49,14 @@ export function UploadAdImageButton({ onUpload }: Props) {
     accept: { "image/*": [] }, // Accept only image files
   });
   return (
-    <div className="flex w-full flex-col flex-wrap items-center">
+    <div
+      className={cn(
+        "flex w-full flex-col flex-wrap items-center",
+        disabled && "cursor-pointer opacity-50",
+      )}
+    >
       <div className="w-full" {...getRootProps()}>
-        <input {...getInputProps()} className="w-full" />
+        <input {...getInputProps()} disabled={disabled} className="w-full" />
         <div className="flex w-full flex-col items-center justify-center gap-5 border py-10">
           <Upload className="h-10 w-10" />
           <div>{tSell("images.drop-images")}</div>

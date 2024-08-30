@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,6 +29,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { UploadAdImageButton } from "@/components/bee3/ad-image-button";
+import Spinner from "@/components/ui/spinner";
 
 function SellPage() {
   const tSell = useTranslations("/sell");
@@ -37,6 +38,7 @@ function SellPage() {
   const [selectedMainCategory, setSelectedMainCategory] = useState<
     string | null
   >(null);
+  const [isPending, startTransition] = useTransition();
 
   type FormData = z.infer<typeof adSchema>;
   const form = useForm<FormData>({
@@ -52,49 +54,51 @@ function SellPage() {
   });
 
   const onSubmit = async (data: FormData) => {
-    try {
-      const formData = new FormData();
-      formData.append(
-        "json",
-        JSON.stringify({
-          title: data.title,
-          description: data.description,
-          price: data.price,
-          categoryPath: data.categoryPath,
-          negotiable: data.negotiable,
-        }),
-      );
+    startTransition(async () => {
+      try {
+        const formData = new FormData();
+        formData.append(
+          "json",
+          JSON.stringify({
+            title: data.title,
+            description: data.description,
+            price: data.price,
+            categoryPath: data.categoryPath,
+            negotiable: data.negotiable,
+          }),
+        );
 
-      data.images.forEach((image) => {
-        formData.append("images", image);
-      });
-
-      const response = await fetch("/api/bee3/ad", {
-        method: "POST",
-        body: formData,
-      });
-
-      const result = await response.json();
-
-      if (!result.error) {
-        toast({
-          title: tSell("submit-success"),
-          variant: "default",
+        data.images.forEach((image) => {
+          formData.append("images", image);
         });
-        form.reset();
-      } else {
+
+        const response = await fetch("/api/bee3/ad", {
+          method: "POST",
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (!result.error) {
+          toast({
+            title: tSell("submit-success"),
+            variant: "default",
+          });
+          form.reset();
+        } else {
+          toast({
+            title: tSell(`errors.submit.${result.error}`),
+            description: tSell(`errors.submit.${result.error}-description`),
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
         toast({
-          title: tSell(`errors.submit.${result.error}`),
-          description: tSell(`errors.submit.${result.error}-description`),
+          title: tSell("errors.submit-error"),
           variant: "destructive",
         });
       }
-    } catch (error) {
-      toast({
-        title: tSell("errors.submit-error"),
-        variant: "destructive",
-      });
-    }
+    });
   };
   const mainCategories = categoriesTree.categories;
   const subCategories = selectedMainCategory
@@ -113,6 +117,7 @@ function SellPage() {
               onValueChange={(value) => {
                 setSelectedMainCategory(value);
               }}
+              disabled={isPending}
             >
               <FormControl>
                 <SelectTrigger>
@@ -143,6 +148,7 @@ function SellPage() {
                     onValueChange={(value) => {
                       return field.onChange(value);
                     }}
+                    disabled={isPending}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -183,6 +189,7 @@ function SellPage() {
                     onUpload={(images) => {
                       field.onChange([...field.value, ...images]);
                     }}
+                    disabled={isPending}
                   />
                 </FormControl>
 
@@ -204,6 +211,7 @@ function SellPage() {
                   <Input
                     placeholder={tSell("ad-title.placeholder")}
                     {...field}
+                    disabled={isPending}
                   />
                 </FormControl>
                 {form.formState.errors.title && (
@@ -225,6 +233,7 @@ function SellPage() {
                   <Textarea
                     placeholder={tSell("description.placeholder")}
                     {...field}
+                    disabled={isPending}
                   />
                 </FormControl>
                 <FormMessage>
@@ -248,6 +257,7 @@ function SellPage() {
                     placeholder={tSell("price.placeholder")}
                     {...field}
                     onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                    disabled={isPending}
                   />
                 </FormControl>
                 <FormMessage>
@@ -276,13 +286,23 @@ function SellPage() {
                   <Switch
                     checked={field.value}
                     onCheckedChange={field.onChange}
+                    disabled={isPending}
                   />
                 </FormControl>
               </FormItem>
             )}
           />
 
-          <Button type="submit">{tSell("submit")}</Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? (
+              <>
+                <Spinner className="me-1" />
+                {tSell("loading")}
+              </>
+            ) : (
+              tSell("submit")
+            )}
+          </Button>
         </form>
       </Form>
     </main>
