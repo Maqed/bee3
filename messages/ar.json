@@ -133,7 +133,7 @@
     "images": {
       "label": "الصور",
       "description": "ارفع صور لمنتجك",
-      "drop-images": "حط الصور هنا",
+      "drop-images": "ضع الصور هنا",
       "or": "او",
       "browse-images": "تصفح الصور",
       "placeholder": "صورة"
