@@ -76,7 +76,7 @@ function SellPage() {
 
       const result = await response.json();
 
-      if (response.ok) {
+      if (!result.error) {
         toast({
           title: tSell("submit-success"),
           variant: "default",
@@ -84,8 +84,8 @@ function SellPage() {
         form.reset();
       } else {
         toast({
-          title: tSell("errors.submit-error"),
-          description: result.error,
+          title: tSell(`errors.submit.${result.error}`),
+          description: tSell(`errors.submit.${result.error}-description`),
           variant: "destructive",
         });
       }

@@ -171,7 +171,11 @@
       "max-images": "يمكنك تحميل 10 صور فقط لكل إعلان",
       "submit-error": "خطأ في إرسال الإعلان. يرجى المحاولة مرة أخرى.",
       "image-size": "يجب أن يكون حجم الصورة أقل من 4 ميجابايت.",
-      "image-size-description": "يرجى تحميل صورة أصغر."
+      "image-size-description": "يرجى تحميل صورة أصغر.",
+      "submit": {
+        "failed-not-enough-tokens": "You don't have enough tokens.",
+        "failed-not-enough-tokens-description": "Please buy more tokens to continue selling."
+      }
     },
     "submit-success": "تم إرسال الإعلان بنجاح!"
   }

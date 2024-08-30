@@ -161,7 +161,11 @@
       "max-images": "You can only upload 10 images per ad",
       "submit-error": "Error submitting the ad. Please try again.",
       "image-size": "Image size must be smaller than 4MB.",
-      "image-size-description": "Please upload a smaller image."
+      "image-size-description": "Please upload a smaller image.",
+      "submit": {
+        "failed-not-enough-tokens": "You don't have enough tokens.",
+        "failed-not-enough-tokens-description": "Please buy more tokens to continue selling."
+      }
     },
     "submit-success": "Ad submitted successfully!"
   }
