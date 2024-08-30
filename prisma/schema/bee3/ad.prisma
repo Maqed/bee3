@@ -19,6 +19,8 @@ model Category {
 model Ad {
     id           String   @id @default(cuid())
     userId       String?
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
     user         User?    @relation(fields: [userId], references: [id])
     category     Category @relation(fields: [categoryPath], references: [path])
     categoryPath String
