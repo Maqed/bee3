@@ -52,7 +52,7 @@ export function UploadAdImageButton({ onUpload, disabled }: Props) {
     <div
       className={cn(
         "flex w-full flex-col flex-wrap items-center",
-        disabled && "cursor-pointer opacity-50",
+        disabled && "cursor-not-allowed opacity-80",
       )}
     >
       <div className="w-full" {...getRootProps()}>

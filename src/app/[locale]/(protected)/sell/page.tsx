@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -34,6 +35,7 @@ import Spinner from "@/components/ui/spinner";
 function SellPage() {
   const tSell = useTranslations("/sell");
   const tCategories = useTranslations("categories");
+  const router = useRouter();
   const { toast } = useToast();
   const [selectedMainCategory, setSelectedMainCategory] = useState<
     string | null
@@ -85,6 +87,7 @@ function SellPage() {
             variant: "default",
           });
           form.reset();
+          router.push(`/ad/${result.result.id}`);
         } else {
           toast({
             title: tSell(`errors.submit.${result.error}`),
