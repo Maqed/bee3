@@ -31,7 +31,7 @@ export default async function UserPage({ params: { userId } }: Props) {
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-8 md:px-6 md:py-12">
-      <div className="grid gap-8 md:grid-cols-2">
+      <div className="grid gap-8">
         <div className="flex flex-col items-center gap-6 md:items-start">
           <div className="flex flex-col items-center gap-4">
             <Avatar className="h-24 w-24 text-3xl font-bold md:h-32 md:w-32 md:text-5xl">
@@ -62,7 +62,7 @@ export default async function UserPage({ params: { userId } }: Props) {
                 {/* Show SellButton if the user is the session user */}
               </div>
             ) : (
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="flex flex-wrap items-center justify-center gap-2 md:justify-start">
                 {ads.map(
                   (
                     ad, // Render ads if available
