@@ -28,8 +28,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
-import { UploadButton } from "@/components/uploadthing/buttons";
-import Image from "next/image";
+import { UploadAdImageButton } from "@/components/bee3/ad-image-button";
 
 function SellPage() {
   const tSell = useTranslations("/sell");
@@ -54,12 +53,25 @@ function SellPage() {
 
   const onSubmit = async (data: FormData) => {
     try {
+      const formData = new FormData();
+      formData.append(
+        "json",
+        JSON.stringify({
+          title: data.title,
+          description: data.description,
+          price: data.price,
+          categoryPath: data.categoryPath,
+          negotiable: data.negotiable,
+        }),
+      );
+
+      data.images.forEach((image) => {
+        formData.append("images", image);
+      });
+
       const response = await fetch("/api/bee3/ad", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: formData,
       });
 
       const result = await response.json();
@@ -166,38 +178,14 @@ function SellPage() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{tSell("images.label")}</FormLabel>
-                <div className="flex items-center">
-                  <FormControl>
-                    <UploadButton
-                      endpoint="imageUploader"
-                      onClientUploadComplete={(res) => {
-                        const newImages = res.map((file) => file.url);
-                        field.onChange([...field.value, ...newImages]);
-                      }}
-                      onUploadError={(error: Error) => {
-                        toast({
-                          title: tSell("errors.upload-error"),
-                          description: error.message,
-                          variant: "destructive",
-                        });
-                      }}
-                    />
-                  </FormControl>
-                  {field.value.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {field.value.map((url, index) => (
-                        <Image
-                          key={index}
-                          src={url}
-                          alt={`Uploaded preview ${index}`}
-                          width={100}
-                          height={100}
-                          className="rounded-md"
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <FormControl>
+                  <UploadAdImageButton
+                    onUpload={(images) => {
+                      field.onChange([...field.value, ...images]);
+                    }}
+                  />
+                </FormControl>
+
                 <FormDescription>{tSell("images.description")}</FormDescription>
                 {form.formState.errors.images && (
                   <FormMessage>{tSell("errors.images")}</FormMessage>

@@ -14,6 +14,9 @@ const config = {
       {
         hostname: "utfs.io",
       },
+      {
+        hostname: "via.placeholder.com",
+      },
     ],
   },
 };

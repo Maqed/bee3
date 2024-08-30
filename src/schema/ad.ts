@@ -18,7 +18,7 @@ export const adSchema = z.object({
     .refine((path) => validateCategoryPath(path), {
       message: "errors.categoryPath", // Keep as is
     }),
-  images: z.array(z.string().url()).min(1, { message: "errors.images" }),
+  images: z.array(z.instanceof(File)).min(1, { message: "errors.images" }),
   negotiable: z.boolean(),
 });
 
