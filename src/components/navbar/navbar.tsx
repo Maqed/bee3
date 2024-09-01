@@ -16,7 +16,7 @@ import SellButton from "../bee3/sell-button";
 
 export default function Navbar() {
   return (
-    <header className="flex h-16 items-center justify-between bg-background px-4 md:px-10">
+    <header className="container flex h-16 items-center justify-between bg-background">
       <Link href="/" className="flex items-center gap-2">
         <h1 className="text-lg font-bold text-primary">Bee3Online</h1>
       </Link>
