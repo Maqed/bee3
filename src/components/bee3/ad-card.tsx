@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { type Ad } from "@prisma/client";
 import { Link } from "@/navigation";
+import { getLocalizedDate, getLocalizedPrice } from "@/lib/utils";
 
 async function AdCard({ ad }: { ad: Ad }) {
   const locale = await getLocale();
@@ -25,12 +26,7 @@ async function AdCard({ ad }: { ad: Ad }) {
           <div className="flex items-center justify-between">
             <h3 className="flex w-full items-center justify-between text-lg font-semibold text-primary">
               <Link href={`/ad/${ad.id}`}>
-                <span>
-                  {new Intl.NumberFormat(locale, {
-                    style: "currency",
-                    currency: "EGP",
-                  }).format(ad.price)}
-                </span>
+                <span>{getLocalizedPrice(locale, ad.price)}</span>
               </Link>
               <Heart className="h-5 w-5 text-foreground/70 transition-all hover:text-red-500" />
             </h3>
@@ -40,11 +36,7 @@ async function AdCard({ ad }: { ad: Ad }) {
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               {/* Put actual data */}
               <span>AD PLACE</span>
-              <span>
-                {new Intl.DateTimeFormat(locale, {
-                  dateStyle: "long",
-                }).format(ad.createdAt)}
-              </span>
+              <span>{getLocalizedDate(locale, ad.createdAt)}</span>
             </div>
           </Link>
         </div>
