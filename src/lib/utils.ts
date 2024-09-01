@@ -16,3 +16,13 @@ export function getLocalizedDate(locale: string, date: Date | undefined) {
     dateStyle: "long",
   }).format(date);
 }
+export function getCategoryAndSubCategory(categoryPath: string) {
+  const [category, subCategory] = categoryPath.split("/");
+  if (!category) {
+    throw new Error("Invalid category");
+  }
+  if (!subCategory) {
+    throw new Error("Invalid subCategory");
+  }
+  return { category, subCategory };
+}

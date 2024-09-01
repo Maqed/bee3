@@ -169,5 +169,21 @@
     },
     "submit-success": "Ad submitted successfully!",
     "loading": "Posting ad..."
+  },
+  "/ad/[adId]": {
+    "description": "Description",
+    "related-ads": "Related Ads",
+    "user": {
+      "posted-by": "Posted By",
+      "member-since": "Member since:",
+      "phone-number": "Show Phone Number",
+      "chat": "Chat",
+      "whatsapp": "Whatsapp"
+    },
+    "not-found": {
+      "title": "Oops, Ad not found!",
+      "paragraph": "The ad you're looking for doesn't seem to exist.",
+      "link": "Go back to home page"
+    }
   }
 }
