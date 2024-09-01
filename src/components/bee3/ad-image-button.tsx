@@ -10,11 +10,11 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 type Props = {
-  onUpload: (images: File[]) => void;
   disabled?: boolean;
+  onImagesChange: (images: File[]) => void; // New prop
 };
 
-export function UploadAdImageButton({ onUpload, disabled }: Props) {
+export function UploadAdImageButton({ disabled, onImagesChange }: Props) {
   const [images, setImages] = useState<File[]>([]);
   const tSell = useTranslations("/sell");
   const { toast } = useToast();
@@ -33,9 +33,10 @@ export function UploadAdImageButton({ onUpload, disabled }: Props) {
 
     if (acceptedFiles.length + images.length <= MAX_AD_IMAGES) {
       setImages((prevFiles) => {
-        return [...prevFiles, ...acceptedFiles];
+        const newImages = [...prevFiles, ...acceptedFiles];
+        onImagesChange(newImages); // Call the new prop to update form images
+        return newImages;
       });
-      onUpload(acceptedFiles);
     } else {
       toast({
         title: tSell("errors.max-images"),
@@ -79,10 +80,12 @@ export function UploadAdImageButton({ onUpload, disabled }: Props) {
                   className="absolute end-0 top-0 z-10 h-4 w-4 rounded-none p-0"
                   onClick={() => {
                     setImages((prevImages) => {
-                      return [
+                      const newImages = [
                         ...prevImages.slice(0, index),
                         ...prevImages.slice(index + 1, prevImages.length),
                       ];
+                      onImagesChange(newImages);
+                      return newImages;
                     });
                   }}
                 >

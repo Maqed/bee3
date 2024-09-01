@@ -109,6 +109,10 @@ function SellPage() {
         ?.categories || []
     : [];
 
+  const onImagesChange = (newImages: File[]) => {
+    form.setValue("images", newImages); // Update form state with new images
+  };
+
   return (
     <main className="container mt-4 sm:mx-auto md:max-w-4xl">
       <h1 className="mb-4 text-2xl font-bold">{tSell("title")}</h1>
@@ -189,10 +193,8 @@ function SellPage() {
                 <FormLabel>{tSell("images.label")}</FormLabel>
                 <FormControl>
                   <UploadAdImageButton
-                    onUpload={(images) => {
-                      field.onChange([...field.value, ...images]);
-                    }}
                     disabled={isPending}
+                    onImagesChange={onImagesChange} 
                   />
                 </FormControl>
 
