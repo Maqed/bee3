@@ -11,10 +11,13 @@ export function getLocalizedPrice(locale: string, price: number) {
     currency: "EGP",
   }).format(price);
 }
-export function getLocalizedDate(locale: string, date: Date | undefined) {
+export function getLocalizedDate(
+  locale: string,
+  date: Date | string | undefined,
+) {
   return new Intl.DateTimeFormat(locale, {
     dateStyle: "long",
-  }).format(date);
+  }).format(new Date(date as string));
 }
 export function getCategoryAndSubCategory(categoryPath: string) {
   const [category, subCategory] = categoryPath.split("/");
