@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   });
 
   if (tokenStore?.count === 0)
-    return NextResponse.json({ error: "failed-not-enough-tokens" });
+    return NextResponse.json({ error: "failed-not-enough-tokens" }, { status: 500 });
 
   await db.adTokenStore.update({
     where: {
