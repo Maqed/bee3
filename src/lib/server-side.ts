@@ -3,7 +3,7 @@ import { getCategoryAndSubCategory } from "./utils";
 
 export async function getServerSideFullCategory(categoryPath: string) {
   const { category, subCategory } = getCategoryAndSubCategory(categoryPath);
-
+  if (!subCategory) return await getServerSideCategory(category);
   return `${await getServerSideCategory(category)} - ${await getServerSideSubCategory(category, subCategory)}`;
 }
 

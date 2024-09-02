@@ -21,8 +21,5 @@ export function getCategoryAndSubCategory(categoryPath: string) {
   if (!category) {
     throw new Error("Invalid category");
   }
-  if (!subCategory) {
-    throw new Error("Invalid subCategory");
-  }
   return { category, subCategory };
 }
