@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/server/db";
 import { categoriesTree, CategoryTreeItem } from "@/schema/categories-tree";
-import path from "path";
 import { Prisma } from "@prisma/client";
 
 const DEFAULT_PAGE_SIZE = 12;
@@ -10,7 +9,6 @@ const MAX_PAGE_SIZE = 64;
 
 export async function GET(request: NextRequest) {
   const categoryPath = request.nextUrl.searchParams.get("category");
-  console.log({ categoryPath });
 
   const search = request.nextUrl.searchParams.get("q");
   if (!categoryPath && !search)
@@ -67,7 +65,7 @@ export async function GET(request: NextRequest) {
   const totalAdsPromise = db.ad.count();
 
   const [ads, totalAds] = await Promise.all([adsPromise, totalAdsPromise]);
-  const totalPages = Math.ceil(totalAds / DEFAULT_PAGE_SIZE);
+  const totalPages = Math.ceil(totalAds / pageSize);
 
   return NextResponse.json({ ads, totalAds, totalPages });
 }
