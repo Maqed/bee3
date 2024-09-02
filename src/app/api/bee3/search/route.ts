@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
   if (!categoryPath && !search)
     return NextResponse.json({ error: "invalid-query" }, { status: 400 });
 
-  const pageNum = +(request.nextUrl.searchParams.get("page") ?? 0);
+  const pageNum = +(request.nextUrl.searchParams.get("page") ?? 1);
   const pageSize = Math.min(
     Math.max(
       +(request.nextUrl.searchParams.get("pageSize") ?? DEFAULT_PAGE_SIZE),
@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
         ? { gte: +price.split("-")[0]!, lte: +price.split("-")[1]! }
         : undefined,
     },
-    skip: pageNum * pageSize,
+    skip: (pageNum - 1) * pageSize,
     take: pageSize,
   });
 
