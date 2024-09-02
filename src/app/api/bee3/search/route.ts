@@ -6,7 +6,16 @@ import { Prisma } from "@prisma/client";
 const DEFAULT_PAGE_SIZE = 12;
 const MIN_PAGE_SIZE = 1;
 const MAX_PAGE_SIZE = 64;
-
+/**
+ * Toggle visibility of a content tab
+ * category ----> get the category of the ads
+ * page ----> get the page number (used in pagination)
+ *  pageSize ----> number of ads to be fetched
+ * q ----> search query
+ * price ----> price range of the ads, written in this format (min-max) ex: (20-40000)
+ * sort ----> sorting by what? only accepts (price, date)
+ * order ----> order of the ads, by default it's descending
+ */
 export async function GET(request: NextRequest) {
   const categoryPath = request.nextUrl.searchParams.get("category");
 
