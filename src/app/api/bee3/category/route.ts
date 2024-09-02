@@ -4,21 +4,34 @@ import { categoriesTree, CategoryTreeItem } from '@/schema/categories-tree';
 import path from 'path';
 
 
+const DEFAULT_PAGE_SIZE = 12;
+const MAX_PAGE_SIZE = 64;
+
 export async function GET(request: NextRequest) {
     const categoryPath = request.nextUrl.searchParams.get("path");
-
-    console.log(categoryPath);
+    const pageNum = +(request.nextUrl.searchParams.get("page") ?? 0);
+    const pageSize = Math.min(Math.max(+(request.nextUrl.searchParams.get("pageSize") ?? DEFAULT_PAGE_SIZE), 1), MAX_PAGE_SIZE);
 
     if (!categoryPath)
         return NextResponse.json({ error: "invalid-categoryPath" }, { status: 400 });
 
-    const ads = await db.ad.findMany({ where: { categoryPath: categoryPath } });
+    const paths = [categoryPath].concat(getSubCategoryPaths(categoryPath));
 
-    for (const subPath of getSubCategoryPaths(categoryPath)) {
-        ads.push(...await db.ad.findMany({ where: { categoryPath: subPath } }));
-    }
+    const adsPromise = db.ad.findMany({
+        where: {
+            categoryPath: { in: paths }
+        },
+        skip: pageNum * pageSize,
+        take: pageSize
+    });
 
-    return NextResponse.json({ ads });
+    const totalAdsPromise = db.ad.count();
+
+    const [ads, totalAds] = await Promise.all([adsPromise, totalAdsPromise]);
+
+    const totalPages = Math.ceil(totalAds / DEFAULT_PAGE_SIZE);
+
+    return NextResponse.json({ ads, totalAds, totalPages });
 }
 
 function getSubCategoryPaths(rootPath: string): string[] {
