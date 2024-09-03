@@ -3,9 +3,9 @@ import { db } from "@/server/db";
 import { categoriesTree, CategoryTreeItem } from "@/schema/categories-tree";
 import { Prisma } from "@prisma/client";
 
-const DEFAULT_PAGE_SIZE = 12;
-const MIN_PAGE_SIZE = 1;
-const MAX_PAGE_SIZE = 64;
+export const DEFAULT_PAGE_SIZE = 12;
+export const MIN_PAGE_SIZE = 1;
+export const MAX_PAGE_SIZE = 64;
 /**
  * Toggle visibility of a content tab
  * category ----> get the category of the ads

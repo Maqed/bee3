@@ -15,6 +15,25 @@
     "Facebook": "استمر بفيسبوك",
     "Google": "استمر بجوجل"
   },
+  "pagination": {
+    "previous": "السابق",
+    "next": "التالي"
+  },
+  "filter-ads": {
+    "title": "فلتر الاعلانات",
+    "minPriceLabel": "السعر الأدنى",
+    "maxPriceLabel": "السعر الأقصى",
+    "sortByLabel": "ترتيب حسب",
+    "orderLabel": "ترتيب",
+    "sortOptions": {
+      "date": "التاريخ",
+      "price": "السعر"
+    },
+    "orderOptions": {
+      "asc": "تصاعدي",
+      "desc": "تنازلي"
+    }
+  },
   "categories": {
     "vehicles": {
       "name": "العربيات",
@@ -42,6 +61,12 @@
       }
     }
   },
+  "not-found": {
+    "title": "عفوًا، لم يتم العثور على الصفحة!",
+    "paragraph": "الصفحة الذي تبحث عنه لا تبدو أنها موجودة.",
+    "link": "العودة إلى الصفحة الرئيسية"
+  },
+
   "/": {
     "navigation": {
       "choose-category": "اختر الفئة التي تريدها"

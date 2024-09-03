@@ -18,6 +18,25 @@
     "Facebook": "Continue With Facebook",
     "Google": "Continue With Google"
   },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "filter-ads": {
+    "title": "Filter Ads",
+    "minPriceLabel": "Minimum Price",
+    "maxPriceLabel": "Maximum Price",
+    "sortByLabel": "Sort by",
+    "orderLabel": "Order",
+    "sortOptions": {
+      "date": "Date",
+      "price": "Price"
+    },
+    "orderOptions": {
+      "asc": "Ascending",
+      "desc": "Descending"
+    }
+  },
   "categories": {
     "vehicles": {
       "name": "Vehicles",
@@ -44,6 +63,11 @@
         }
       }
     }
+  },
+  "not-found": {
+    "title": "Oops, Page not found!",
+    "paragraph": "The page you're looking for doesn't seem to exist.",
+    "link": "Go back to home page"
   },
   "/": {
     "navigation": {
