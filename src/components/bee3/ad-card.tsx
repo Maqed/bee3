@@ -5,43 +5,75 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { type Ad } from "@prisma/client";
 import { Link } from "@/navigation";
-import { getLocalizedDate, getLocalizedPrice } from "@/lib/utils";
+import { cn, getLocalizedDate, getLocalizedPrice } from "@/lib/utils";
+import { Suspense } from "react";
+import AdCardPlaceholder from "../placeholders/ad-card-placeholder";
 
-async function AdCard({ ad }: { ad: Ad }) {
+type Props = {
+  ad: Ad;
+  orientation?: "horizontal" | "vertical";
+};
+
+async function AdCard({ ad, orientation = "vertical" }: Props) {
   const locale = await getLocale();
   return (
-    <Card className="w-[300px]">
-      <CardContent className="p-0">
-        <Link href={`/ad/${ad.id}`}>
-          <Image
-            src={ad.images[0] ?? ""}
-            alt={`${ad.title} image`}
-            width="300"
-            height="200"
-            className="h-[200px] w-full rounded-t-lg object-cover"
-            style={{ aspectRatio: "300/200", objectFit: "cover" }}
-          />
-        </Link>
-        <div className="space-y-2 p-4">
-          <div className="flex items-center justify-between">
-            <h3 className="flex w-full items-center justify-between text-lg font-semibold text-primary">
-              <Link href={`/ad/${ad.id}`}>
+    <Suspense
+      fallback={
+        <AdCardPlaceholder orientation={orientation}></AdCardPlaceholder>
+      }
+    >
+      <Card className={cn(orientation === "vertical" ? "w-[300px]" : "w-full")}>
+        <CardContent
+          className={cn(
+            "flex p-0",
+            orientation === "vertical" ? "flex-col" : "h-full justify-between",
+          )}
+        >
+          <Link href={`/ad/${ad.id}`}>
+            <Image
+              src={ad.images[0] ?? ""}
+              alt={`${ad.title} image`}
+              width="300"
+              height="200"
+              className={cn(
+                "object-cover",
+                orientation === "vertical"
+                  ? "h-[200px] w-full rounded-t-lg"
+                  : "h-full w-[350px] rounded-s-lg",
+              )}
+              style={{ aspectRatio: "300/200" }}
+            />
+          </Link>
+          <div
+            className={cn(
+              "space-y-2 p-4",
+              orientation === "horizontal" &&
+                "flex h-full w-full flex-col justify-between",
+            )}
+          >
+            <div className="flex w-full items-center justify-between">
+              <Link
+                href={`/ad/${ad.id}`}
+                className="w-full text-lg font-semibold text-primary"
+              >
                 <span>{getLocalizedPrice(locale, ad.price)}</span>
               </Link>
-              <Heart className="h-5 w-5 text-foreground/70 transition-all hover:text-red-500" />
-            </h3>
-          </div>
-          <Link href={`/ad/${ad.id}`}>
-            <p className="text-sm text-muted-foreground">{ad.title}</p>
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
-              {/* Put actual data */}
-              <span>AD PLACE</span>
-              <span>{getLocalizedDate(locale, ad.createdAt)}</span>
+              <Heart className="h-5 w-5 cursor-pointer text-foreground/70 transition-all hover:fill-red-500 hover:text-red-600" />
             </div>
-          </Link>
-        </div>
-      </CardContent>
-    </Card>
+            <Link href={`/ad/${ad.id}`} className="h-full w-full">
+              <p className="text-sm">{ad.title}</p>
+            </Link>
+            <Link href={`/ad/${ad.id}`}>
+              <div className="flex items-center justify-between text-sm">
+                {/* Put actual data */}
+                <span>AD PLACE</span>
+                <span>{getLocalizedDate(locale, ad.createdAt)}</span>
+              </div>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+    </Suspense>
   );
 }
 
