@@ -10,12 +10,13 @@ import { DEFAULT_PAGE_SIZE } from "@/app/api/bee3/search/route";
 import { absoluteURL } from "@/lib/utils";
 
 type Props = {
-  categoryPath: string;
+  categoryPath?: string;
   searchParams: Record<string, string | undefined>;
 };
 
-async function CategoryPage({ categoryPath, searchParams }: Props) {
-  const params = new URLSearchParams({ category: categoryPath });
+async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
+  let params = new URLSearchParams();
+  if (categoryPath) params = new URLSearchParams({ category: categoryPath });
 
   // Add non-empty search params to the URLSearchParams object
   Object.entries(searchParams).forEach(([key, value]) => {
@@ -34,11 +35,14 @@ async function CategoryPage({ categoryPath, searchParams }: Props) {
   const { ads, totalPages }: { ads: Ad[]; totalPages: number } =
     await categoryResponse.json();
 
+  let title = categoryPath
+    ? getServerSideFullCategory(categoryPath)
+    : params.get("q")
+      ? params.get("q")
+      : "";
   return (
     <main className="container">
-      <h1 className="mb-5 text-2xl lg:text-3xl">
-        {getServerSideFullCategory(categoryPath)}
-      </h1>
+      <h1 className="mb-5 text-2xl lg:text-3xl">{title}</h1>
       <div className="grid grid-cols-12 gap-3">
         {/* Filter */}
         <div className="lg:col-span-3">
@@ -67,4 +71,4 @@ async function CategoryPage({ categoryPath, searchParams }: Props) {
   );
 }
 
-export default CategoryPage;
+export default ShowingAdsPage;

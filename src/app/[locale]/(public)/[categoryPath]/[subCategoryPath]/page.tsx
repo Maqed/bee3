@@ -1,4 +1,4 @@
-import CategoryPage from "@/components/bee3/category-path-page";
+import ShowingAdsPage from "@/components/bee3/category-path-page";
 
 type Props = {
   params: { categoryPath: string; subCategoryPath: string };
@@ -7,7 +7,7 @@ type Props = {
 
 function CategoryPathPage({ params, searchParams }: Props) {
   return (
-    <CategoryPage
+    <ShowingAdsPage
       categoryPath={`${params.categoryPath}/${params.subCategoryPath}`}
       searchParams={searchParams}
     />
