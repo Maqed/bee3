@@ -4,7 +4,7 @@ import { Link } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { FrownIcon } from "lucide-react";
 
-async function CategoryNotFound() {
+async function AdNotFound() {
   const t = await getTranslations("not-found");
   return (
     <div className="h-screen-without-navbar flex flex-col items-center justify-center bg-background">
@@ -24,4 +24,4 @@ async function CategoryNotFound() {
   );
 }
 
-export default CategoryNotFound;
+export default AdNotFound;
