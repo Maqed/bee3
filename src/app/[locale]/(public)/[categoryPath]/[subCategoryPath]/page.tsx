@@ -1,4 +1,4 @@
-import ShowingAdsPage from "@/components/bee3/category-path-page";
+import ShowingAdsPage from "@/components/bee3/showing-ads-page";
 
 type Props = {
   params: { categoryPath: string; subCategoryPath: string };
