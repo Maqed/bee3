@@ -11,6 +11,9 @@
     "Settings": "الاعدادات",
     "Logout": "تسجيل الخروج"
   },
+  "search": {
+    "placeholder": "ابحث عن ما تريد"
+  },
   "Social": {
     "Facebook": "استمر بفيسبوك",
     "Google": "استمر بجوجل"

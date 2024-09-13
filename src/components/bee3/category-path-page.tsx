@@ -1,4 +1,3 @@
-import { env } from "@/env";
 import { getServerSideFullCategory } from "@/lib/server-side";
 import AdCard from "./ad-card";
 import { notFound } from "next/navigation";
@@ -8,6 +7,7 @@ import AdFilterDialog from "./ad-filter-dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { PaginationWithLinks } from "../ui/pagination-with-links";
 import { DEFAULT_PAGE_SIZE } from "@/app/api/bee3/search/route";
+import { absoluteURL } from "@/lib/utils";
 
 type Props = {
   categoryPath: string;
@@ -23,7 +23,7 @@ async function CategoryPage({ categoryPath, searchParams }: Props) {
   });
 
   const categoryResponse = await fetch(
-    `${env.NEXTAUTH_URL}/api/bee3/search?${params.toString()}`,
+    absoluteURL(`/api/bee3/search?${params.toString()}`),
     { method: "GET" },
   );
 

@@ -14,6 +14,9 @@
     "Settings": "Settings",
     "Logout": "Logout"
   },
+  "search": {
+    "placeholder": "Search for what you want"
+  },
   "Social": {
     "Facebook": "Continue With Facebook",
     "Google": "Continue With Google"

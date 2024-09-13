@@ -1,18 +1,22 @@
 import ExploreCategories from "./_components/explore-categories";
 import AdsCarousel from "./_components/ads-carousel";
 import SellButton from "@/components/bee3/sell-button";
-import { env } from "process";
+import { absoluteURL } from "@/lib/utils";
 
 const NUMBER_OF_ADS_IN_CAROUSEL = 4;
 
 export default async function HomePage() {
   const vehiclesResponse = await fetch(
-    `${env.NEXTAUTH_URL}/api/bee3/search?category=vehicles&pageSize=${NUMBER_OF_ADS_IN_CAROUSEL}`,
+    absoluteURL(
+      `/api/bee3/search?category=vehicles&pageSize=${NUMBER_OF_ADS_IN_CAROUSEL}`,
+    ),
     { method: "GET" },
   );
   const { ads: vehiclesAds } = await vehiclesResponse.json();
   const mobilesAndTabletsReponse = await fetch(
-    `${env.NEXTAUTH_URL}/api/bee3/search?category=mobiles-and-tablets&pageSize=${NUMBER_OF_ADS_IN_CAROUSEL}`,
+    absoluteURL(
+      `/api/bee3/search?category=mobiles-and-tablets&pageSize=${NUMBER_OF_ADS_IN_CAROUSEL}`,
+    ),
     { method: "GET" },
   );
   const { ads: mobilesAndTabletsAds } = await mobilesAndTabletsReponse.json();

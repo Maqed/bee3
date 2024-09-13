@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { env } from "@/env";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -25,4 +26,7 @@ export function getCategoryAndSubCategory(categoryPath: string) {
     throw new Error("Invalid category");
   }
   return { category, subCategory };
+}
+export function absoluteURL(url: string) {
+  return `${env.NEXT_PUBLIC_APP_URL}/${url}`;
 }
