@@ -36,7 +36,7 @@ async function AdCard({ ad, orientation = "vertical" }: Props) {
               width="300"
               height="200"
               className={cn(
-                "object-cover",
+                "object-contain",
                 orientation === "vertical"
                   ? "h-[200px] w-full rounded-t-lg"
                   : "h-full w-[350px] rounded-s-lg",
