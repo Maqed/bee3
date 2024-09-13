@@ -13,7 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import SellButton from "../bee3/sell-button";
-import AdSearch from "../bee3/ad-search";
+import AdSearch from "../bee3/search/ad-search";
 
 export default function Navbar() {
   return (
