@@ -90,7 +90,9 @@ function AdSearch() {
         ref={searchedAdsRef}
         className={cn(
           "absolute z-50 flex max-h-96 w-full flex-col overflow-auto rounded-b-md border bg-popover transition",
-          areSearchedAdsVisible ? "opacity-1 scale-100" : "scale-95 opacity-0",
+          areSearchedAdsVisible
+            ? "opacity-1 scale-100"
+            : "invisible scale-95 opacity-0",
         )}
       >
         <SearchLink
