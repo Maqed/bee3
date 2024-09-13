@@ -9,6 +9,8 @@ import { PaginationWithLinks } from "../ui/pagination-with-links";
 import { DEFAULT_PAGE_SIZE } from "@/app/api/bee3/search/route";
 import { absoluteURL } from "@/lib/utils";
 
+import ShowingAdsNotFound from "./showing-ads-not-found";
+
 type Props = {
   categoryPath?: string;
   searchParams: Record<string, string | undefined>;
@@ -57,9 +59,13 @@ async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
         </div>
         {/* Ads */}
         <div className="col-span-12 flex flex-col gap-3 lg:col-span-9">
-          {ads.map((ad) => {
-            return <AdCard key={ad.id} orientation="horizontal" ad={ad} />;
-          })}
+          {ads.length ? (
+            ads.map((ad) => {
+              return <AdCard key={ad.id} orientation="horizontal" ad={ad} />;
+            })
+          ) : (
+            <ShowingAdsNotFound />
+          )}
           <PaginationWithLinks
             totalPageCount={totalPages}
             page={Number(params.get("page")) ?? 1}

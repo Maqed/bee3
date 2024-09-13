@@ -16,7 +16,11 @@
   },
   "search": {
     "in": "in",
-    "placeholder": "Search for what you want"
+    "placeholder": "Search for what you want",
+    "not-found": {
+      "title": "Oops... We couldn't find anything matching this search",
+      "paragraph": "Try searching for general terms, change the options, or check for typos"
+    }
   },
   "Social": {
     "Facebook": "Continue With Facebook",
