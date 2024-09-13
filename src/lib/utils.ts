@@ -30,3 +30,14 @@ export function getCategoryAndSubCategory(categoryPath: string) {
 export function absoluteURL(url: string) {
   return `${env.NEXT_PUBLIC_APP_URL}/${url}`;
 }
+export function getURLSearchParamsFromPageParams(searchParams: {
+  [key: string]: string | undefined;
+}) {
+  let params = new URLSearchParams();
+
+  // Add non-empty search params to the URLSearchParams object
+  Object.entries(searchParams).forEach(([key, value]) => {
+    if (value) params.append(key, value);
+  });
+  return params;
+}

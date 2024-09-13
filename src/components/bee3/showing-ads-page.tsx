@@ -7,7 +7,7 @@ import AdFilterDialog from "./ad-filter-dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { PaginationWithLinks } from "../ui/pagination-with-links";
 import { DEFAULT_PAGE_SIZE } from "@/app/api/bee3/search/route";
-import { absoluteURL } from "@/lib/utils";
+import { absoluteURL, getURLSearchParamsFromPageParams } from "@/lib/utils";
 
 import ShowingAdsNotFound from "./showing-ads-not-found";
 
@@ -17,13 +17,8 @@ type Props = {
 };
 
 async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
-  let params = new URLSearchParams();
+  let params = getURLSearchParamsFromPageParams(searchParams);
   if (categoryPath) params = new URLSearchParams({ category: categoryPath });
-
-  // Add non-empty search params to the URLSearchParams object
-  Object.entries(searchParams).forEach(([key, value]) => {
-    if (value) params.append(key, value);
-  });
 
   const categoryResponse = await fetch(
     absoluteURL(`/api/bee3/search?${params.toString()}`),
