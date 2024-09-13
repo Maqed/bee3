@@ -3,14 +3,20 @@ import Image from "next/image";
 import { useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useRouter, usePathname } from "@/navigation";
+import { useSearchParams } from "next/navigation";
 
 function LocaleSwitcher() {
   const router = useRouter();
   const locale = useLocale();
   const pathname = usePathname();
-
+  const searchParams = useSearchParams();
   function onSelectChange(nextLocale: "ar" | "en") {
-    router.replace(`/${pathname}`, { locale: nextLocale });
+    router.replace(
+      `/${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`,
+      {
+        locale: nextLocale,
+      },
+    );
   }
   return (
     <Button
