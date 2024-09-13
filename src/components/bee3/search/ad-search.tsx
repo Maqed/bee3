@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { Ad } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
@@ -7,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState, useRef } from "react";
 import { absoluteURL, cn } from "@/lib/utils";
 import SearchLink from "./search-link";
+import { useRouter } from "next/navigation";
 
 const MAX_SEARCH_ADS = 3;
 // TODO: Integrate it with real data
@@ -17,7 +19,7 @@ function AdSearch() {
   const tSearch = useTranslations("search");
   const searchedAdsRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-
+  const router = useRouter();
   useEffect(() => {
     async function fetchSearchAds() {
       const response = await fetch(
@@ -54,8 +56,13 @@ function AdSearch() {
     };
   }, []);
 
+  function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (query) router.push(`/ads?q=${query}`);
+  }
+
   return (
-    <form className="group relative">
+    <form onSubmit={handleOnSubmit} className="group relative">
       <div className="flex">
         <Input
           ref={searchInputRef}
