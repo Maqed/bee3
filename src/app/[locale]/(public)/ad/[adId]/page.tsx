@@ -2,7 +2,10 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { db } from "@/server/db";
 import { getLocale } from "next-intl/server";
-import { getServerSideSubCategory } from "@/lib/server-side";
+import {
+  getServerSideCategory,
+  getServerSideSubCategory,
+} from "@/lib/server-side";
 import {
   getCategoryAndSubCategory,
   getLocalizedDate,
@@ -40,13 +43,13 @@ export async function generateMetadata({
   }
   const locale = await getLocale();
   const { category, subCategory } = getCategoryAndSubCategory(ad.categoryPath);
-  const localizedSubCategory = await getServerSideSubCategory(
-    category,
-    subCategory,
-  );
+  let localizedCategory = await getServerSideCategory(category);
+  if (subCategory)
+    localizedCategory = await getServerSideSubCategory(category, subCategory);
+
   const localizedPrice = getLocalizedPrice(locale, ad.price);
   return {
-    title: `${ad.title} - ${localizedSubCategory} - ${localizedPrice}`,
+    title: `${ad.title} - ${localizedCategory} - ${localizedPrice}`,
     description: ad.description,
   };
 }
@@ -84,9 +87,9 @@ export default async function AdPage({ params }: { params: { adId: string } }) {
               >
                 <Image
                   width={1500}
-                  height={400}
+                  height={450}
                   src={imageURL}
-                  className="h-auto w-full"
+                  className="h-auto max-h-[450px] w-full object-contain"
                   alt={ad.title}
                 />
               </CarouselItem>
