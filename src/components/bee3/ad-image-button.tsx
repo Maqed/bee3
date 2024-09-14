@@ -76,6 +76,7 @@ export function UploadAdImageButton({ disabled, onImagesChange }: Props) {
                 key={`image-container-${image.name}-${index}`}
               >
                 <Button
+                  type="button"
                   variant="destructive"
                   className="absolute end-0 top-0 z-10 h-4 w-4 rounded-none p-0"
                   onClick={() => {
