@@ -18,7 +18,7 @@ type Props = {
 
 async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
   let params = getURLSearchParamsFromPageParams(searchParams);
-  if (categoryPath) params = new URLSearchParams({ category: categoryPath });
+  if (categoryPath) params.set("category", categoryPath);
 
   const categoryResponse = await fetch(
     absoluteURL(`/api/bee3/search?${params.toString()}`),
@@ -37,6 +37,7 @@ async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
     : params.get("q")
       ? params.get("q")
       : "";
+
   return (
     <main className="container">
       <h1 className="mb-5 text-2xl lg:text-3xl">{title}</h1>

@@ -35,10 +35,14 @@ function FilterAds({ onApplyFilter }: Props) {
   }, [min, max]);
 
   function handleApplyFilter() {
-    const queryParams = new URLSearchParams();
-    queryParams.set("sort", sort);
-    queryParams.set("order", order);
-    queryParams.set("price", `${minPrice}-${maxPrice}`);
+    const queryParams = new URLSearchParams({
+      sort,
+      order,
+      price: `${minPrice}-${maxPrice}`,
+    });
+    if (typeof searchParams.get("q") === "string")
+      queryParams.set("q", searchParams.get("q") as string);
+
     router.push(`${pathname}?${queryParams.toString()}`);
     if (onApplyFilter) {
       onApplyFilter();
