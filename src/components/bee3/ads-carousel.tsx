@@ -13,18 +13,19 @@ import { getServerSideFullCategory } from "@/lib/server-side";
 import AdCard from "@/components/bee3/ad-card";
 
 type Props = {
+  title?: string;
   categoryPath: string;
   ads: Ad[];
 };
 
-export default async function AdsCarousel({ categoryPath, ads }: Props) {
+export default async function AdsCarousel({ title, categoryPath, ads }: Props) {
   const tCarousel = await getTranslations("/.ads-carousel");
   const intlCategory = await getServerSideFullCategory(categoryPath);
   const locale = await getLocale();
   return (
-    <section className="container w-full py-5">
+    <section className="container w-full">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-2xl font-bold">{intlCategory}</h2>
+        <h2 className="text-2xl font-bold">{title ? title : intlCategory}</h2>
         {/* Put actual data */}
         <Link
           href={`/${categoryPath}`}

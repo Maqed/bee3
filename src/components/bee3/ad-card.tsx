@@ -41,7 +41,6 @@ async function AdCard({ ad, orientation = "vertical" }: Props) {
                   ? "h-[200px] w-full rounded-t-lg"
                   : "h-full w-[350px] rounded-s-lg",
               )}
-              style={{ aspectRatio: "300/200" }}
             />
           </Link>
           <div
@@ -60,8 +59,15 @@ async function AdCard({ ad, orientation = "vertical" }: Props) {
               </Link>
               <Heart className="h-5 w-5 cursor-pointer text-foreground/70 transition-all hover:fill-red-500 hover:text-red-600" />
             </div>
-            <Link href={`/ad/${ad.id}`} className="h-full w-full">
-              <p className="text-sm">{ad.title}</p>
+            <Link href={`/ad/${ad.id}`} className="md:h-full md:w-full">
+              {orientation === "horizontal" ? (
+                <>
+                  <h1 className="text-xl font-bold">{ad.title}</h1>{" "}
+                  <p className="hidden text-sm md:block">{ad.description}</p>
+                </>
+              ) : (
+                <p className="text-sm">{ad.title}</p>
+              )}
             </Link>
             <Link href={`/ad/${ad.id}`}>
               <div className="flex items-center justify-between text-sm">

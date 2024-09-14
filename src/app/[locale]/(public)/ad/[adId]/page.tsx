@@ -31,6 +31,7 @@ import { Button } from "@/components/ui/button";
 import { MessageCircle, Phone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import AdCard from "@/components/bee3/ad-card";
+import AdsCarousel from "@/components/bee3/ads-carousel";
 
 export async function generateMetadata({
   params,
@@ -98,7 +99,7 @@ export default async function AdPage({ params }: { params: { adId: string } }) {
           <CarouselPrevious className="start-0 h-10 w-10 bg-background/40 md:h-12 md:w-12" />
           <CarouselNext className="end-0 h-10 w-10 bg-background/40 md:h-12 md:w-12" />
         </Carousel>
-        <div className="flex flex-col max-md:container">
+        <div className="flex flex-col gap-y-5 max-md:container">
           {/* Price and Title */}
           <Card>
             <CardHeader>
@@ -122,24 +123,11 @@ export default async function AdPage({ params }: { params: { adId: string } }) {
           <Separator />
           {/* Related Ads */}
           {relatedAds.length ? (
-            <div className="flex flex-col gap-3">
-              <h2 className="text-xl font-bold md:text-2xl">
-                {tAd("related-ads")}
-              </h2>
-              <Carousel>
-                <CarouselContent>
-                  {relatedAds.map((relatedAd) => {
-                    return (
-                      <CarouselItem>
-                        <AdCard ad={relatedAd} />
-                      </CarouselItem>
-                    );
-                  })}
-                </CarouselContent>
-                <CarouselPrevious className="start-0 h-10 w-10 md:h-12 md:w-12" />
-                <CarouselNext className="end-0 h-10 w-10 md:h-12 md:w-12" />
-              </Carousel>
-            </div>
+            <AdsCarousel
+              title="Related Ads"
+              ads={relatedAds}
+              categoryPath={ad.categoryPath}
+            />
           ) : (
             <></>
           )}

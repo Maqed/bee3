@@ -32,7 +32,7 @@ export default async function UserPage({ params: { userId } }: Props) {
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-8 md:px-6 md:py-12">
       <div className="grid gap-8">
-        <div className="flex flex-col items-center gap-6 md:items-start">
+        <div className="flex flex-col items-center gap-6">
           <div className="flex flex-col items-center gap-4">
             <Avatar className="h-24 w-24 text-3xl font-bold md:h-32 md:w-32 md:text-5xl">
               {user.name?.charAt(0)}
@@ -48,7 +48,7 @@ export default async function UserPage({ params: { userId } }: Props) {
         {/* Advertises */}
         <div className="space-y-6">
           <div>
-            <h3 className="mb-4 text-xl font-bold md:text-2xl">
+            <h3 className="mb-4 text-xl font-bold max-sm:text-center md:text-2xl">
               {t("advertises.title")}
             </h3>
             {ads.length === 0 ? ( // Check if the user has ads

@@ -1,5 +1,5 @@
 import ExploreCategories from "./_components/explore-categories";
-import AdsCarousel from "./_components/ads-carousel";
+import AdsCarousel from "@/components/bee3/ads-carousel";
 import SellButton from "@/components/bee3/sell-button";
 import { absoluteURL } from "@/lib/utils";
 
@@ -21,7 +21,7 @@ export default async function HomePage() {
   );
   const { ads: mobilesAndTabletsAds } = await mobilesAndTabletsReponse.json();
   return (
-    <main>
+    <main className="flex flex-col gap-y-5">
       <ExploreCategories />
       <AdsCarousel ads={vehiclesAds} categoryPath="vehicles" />
       <AdsCarousel
