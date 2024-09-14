@@ -62,6 +62,6 @@
 }
 @layer utilities {
   .h-screen-without-navbar {
-    @apply min-h-[calc(100vh-64px)];
+    @apply min-h-[calc(100vh-140.45px)];
   }
 }
