@@ -1,6 +1,7 @@
 import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
 import { DEFAULT_LOGIN_REDIRECT } from "@/consts/routes";
+import Navbar from "@/components/navbar/navbar";
 
 export default async function RootLayout({
   children,
@@ -10,8 +11,11 @@ export default async function RootLayout({
     redirect(DEFAULT_LOGIN_REDIRECT);
   }
   return (
-    <main className="h-screen-without-navbar flex w-full items-center justify-center">
-      {children}
-    </main>
+    <>
+      <Navbar />
+      <main className="h-screen-without-navbar flex w-full items-center justify-center">
+        {children}
+      </main>
+    </>
   );
 }

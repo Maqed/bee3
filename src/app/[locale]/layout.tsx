@@ -57,7 +57,6 @@ export default function RootLayout({
       >
         <body>
           <ClientSideProviders>
-            <Navbar />
             {children}
             <Toaster />
           </ClientSideProviders>
