@@ -150,13 +150,13 @@ export default async function AdPage({ params }: { params: { adId: string } }) {
           </CardContent>
           {/* TODO: Make it work */}
           <CardFooter className="flex flex-col gap-y-3 *:w-full">
-            <Button variant="secondary">
+            <Button>
               <Phone className="me-1" /> {tAd("user.phone-number")}
             </Button>
-            <Button variant="secondary">
+            <Button>
               <MessageCircle className="me-1" /> {tAd("user.chat")}
             </Button>
-            <Button variant="secondary">
+            <Button variant="whatsapp">
               <MessageCircle className="me-1" /> {tAd("user.whatsapp")}
             </Button>
           </CardFooter>
