@@ -30,8 +30,22 @@ export async function POST(request: Request) {
     },
   });
 
+  if (tokenStore!.refreshInDays != 0 && tokenStore!.nextRefreshTime.getDate() <= Date.now()) {
+    tokenStore!.count = tokenStore!.initialCount;
+  }
+
   if (tokenStore?.count === 0)
     return NextResponse.json({ error: "failed-not-enough-tokens" }, { status: 500 });
+
+  const getRefreshTime = (days: number) => {
+    const date = new Date(Date.now());
+    date.setDate(date.getDate() + days);
+    return date;
+  };
+
+  tokenStore!.count--;
+  if (tokenStore!.refreshInDays != 0)
+    tokenStore!.nextRefreshTime = getRefreshTime(tokenStore!.refreshInDays)
 
   await db.adTokenStore.update({
     where: {
@@ -41,7 +55,7 @@ export async function POST(request: Request) {
       },
     },
     data: {
-      count: { decrement: 1 },
+      ...tokenStore
     },
   });
 
@@ -66,6 +80,9 @@ export async function POST(request: Request) {
       category: {
         connect: { path: req.data.categoryPath },
       },
+      analytics: {
+        create: { views: 0, uniqueViews: 0 }
+      }
     },
   });
 

@@ -31,6 +31,9 @@ model Ad {
     images      String[]
     price       Float
     negotiable  Boolean
+
+    analytics     AdAnalytics @relation(fields: [adAnalyticsId], references: [id])
+    adAnalyticsId String
 }
 
 model AdTokenStore {
@@ -38,8 +41,19 @@ model AdTokenStore {
     userId String
     user   User   @relation(fields: [userId], references: [id])
 
-    tokenType AdTiers
-    count     Int
+    tokenType       AdTiers
+    initialCount    Int
+    count           Int
+    nextRefreshTime DateTime
+    refreshInDays   Int
 
     @@unique([userId, tokenType])
+}
+
+model AdAnalytics {
+    id String @id @default(cuid())
+    Ad Ad[]
+
+    views       Int
+    uniqueViews Int
 }

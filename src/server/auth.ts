@@ -71,6 +71,11 @@ export const authOptions: NextAuthOptions = {
   ],
   events: {
     async createUser(message) {
+      const getRefreshTime = (days: number) => {
+        const date = new Date(Date.now());
+        date.setDate(date.getDate() + days);
+        return date;
+      };
       await db.user.update({
         where: { id: message.user.id },
         data: {
@@ -79,15 +84,24 @@ export const authOptions: NextAuthOptions = {
               data: [
                 {
                   tokenType: AdTiers.Free,
-                  count: 20
+                  initialCount: 20,
+                  count: 20,
+                  refreshInDays: 7,
+                  nextRefreshTime: getRefreshTime(7)
                 },
                 {
                   tokenType: AdTiers.Pro,
-                  count: 3
+                  initialCount: 3,
+                  count: 3,
+                  refreshInDays: 0,
+                  nextRefreshTime: new Date(0)
                 },
                 {
                   tokenType: AdTiers.Expert,
-                  count: 1
+                  initialCount: 1,
+                  count: 1,
+                  refreshInDays: 0,
+                  nextRefreshTime: new Date(0)
                 }
               ]
             }
