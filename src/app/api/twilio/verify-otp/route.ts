@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     await db.user.update({
         where: { id: user.id },
         data: {
-            phoneNumber: phoneNumber
+            phoneNumber: "+20" + phoneNumber
         }
     })
 
