@@ -2,6 +2,8 @@
 import type { z } from "zod";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import UserPhoneButton from "@/components/auth/user-phone-button/user-phone-button";
+import { Label } from "@/components/ui/label";
 import { userSettingsSchemaIntl } from "@/schema/user-settings";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -106,6 +108,20 @@ function EditAccountSection({ isPending, startTransition }: Props) {
               </FormItem>
             )}
           />
+          <div className="flex flex-col gap-3">
+            <Label htmlFor="phoneNumber">
+              {t("settings.phoneNumber.title")}
+            </Label>
+            {status === "loading" ? (
+              <Skeleton className="h-10 w-full" />
+            ) : (
+              <UserPhoneButton
+                id="phoneNumber"
+                value={session?.user.phoneNumber.slice(3)}
+              />
+            )}
+          </div>
+
           <Button disabled={isPending} type="submit">
             {t("settings.button-submit")}
           </Button>

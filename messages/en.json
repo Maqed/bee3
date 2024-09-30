@@ -26,6 +26,35 @@
     "Facebook": "Continue With Facebook",
     "Google": "Continue With Google"
   },
+  "dialog": {
+    "continue": "Continue",
+    "close": "Close"
+  },
+  "phoneNumber": {
+    "InputNumber": {
+      "title": "Enter your phone number to verify your account",
+      "description": "We will send a confirmation code to your number",
+      "placeholder": "Enter your phone number",
+      "sendCode": "Send Code",
+      "errors": {
+        "must-be-logged-in": "You must be logged in to verify your phone number",
+        "failed-too-many-requests": "You're sending your phone number too many times, Please try again in a minute.",
+        "unknown": "An unknown error occurred. Please try again.",
+        "phoneNumber": "Please enter a valid 10-digit phone number"
+      }
+    },
+    "OTP": {
+      "title": "Enter your OTP code you recieved in your phone.",
+      "description": "We will confirm your account by using it.",
+      "otp-description": "",
+      "verifyCode": "Verify code",
+      "errors": {
+        "must-be-logged-in": "You must be logged in to verify your phone number",
+        "code": "Please enter a valid 6-digit OTP",
+        "failed-verify-phone": "Your OTP is invalid, please try again!"
+      }
+    }
+  },
   "pagination": {
     "previous": "Previous",
     "next": "Next"
@@ -120,6 +149,10 @@
         "description": "Write about yourself here",
         "invalid": "Bio must be at most 2048 characters."
       },
+      "phoneNumber": {
+        "title": "Phone Number",
+        "placeholder": "Enter your phone number"
+      },
       "button-submit": "Update Profile"
     },
     "delete": {
@@ -128,6 +161,7 @@
       "dialog": {
         "title": "Are you absolutely sure?",
         "paragraph": "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
+        "close": "Close",
         "confirm-delete-name-input": "Type your name",
         "confirm-delete-message-input": "Confirm by typing this message"
       }

@@ -85,7 +85,7 @@ function DeleteAccountSection({ isPending, startTransition }: Props) {
             <div className="flex flex-wrap gap-x-2">
               <DialogClose asChild>
                 <Button type="button" variant="secondary">
-                  Close
+                  {t("delete.dialog.close")}
                 </Button>
               </DialogClose>
               <Button disabled={isPending} type="submit" variant="destructive">

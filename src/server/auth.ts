@@ -24,6 +24,7 @@ declare module "next-auth" {
       name: string;
       image: string;
       bio: string;
+      phoneNumber: string;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -31,6 +32,7 @@ declare module "next-auth" {
 
   interface User {
     bio: string;
+    phoneNumber: string;
   }
 }
 
@@ -50,6 +52,7 @@ export const authOptions: NextAuthOptions = {
         ...session.user,
         id: user.id,
         bio: user.bio,
+        phoneNumber: user.phoneNumber,
       },
     }),
   },
@@ -87,29 +90,29 @@ export const authOptions: NextAuthOptions = {
                   initialCount: 20,
                   count: 20,
                   refreshInDays: 7,
-                  nextRefreshTime: getRefreshTime(7)
+                  nextRefreshTime: getRefreshTime(7),
                 },
                 {
                   tokenType: AdTiers.Pro,
                   initialCount: 3,
                   count: 3,
                   refreshInDays: 0,
-                  nextRefreshTime: new Date(0)
+                  nextRefreshTime: new Date(0),
                 },
                 {
                   tokenType: AdTiers.Expert,
                   initialCount: 1,
                   count: 1,
                   refreshInDays: 0,
-                  nextRefreshTime: new Date(0)
-                }
-              ]
-            }
-          }
-        }
+                  nextRefreshTime: new Date(0),
+                },
+              ],
+            },
+          },
+        },
       });
-    }
-  }
+    },
+  },
 };
 
 /**
