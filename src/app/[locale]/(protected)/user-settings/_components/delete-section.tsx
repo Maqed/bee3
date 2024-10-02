@@ -5,7 +5,6 @@ import { useSession, signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/navigation";
 import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/consts/routes";
-import { deleteAccountAction } from "@/actions/users";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import {
@@ -20,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { TransitionStartFunction } from "react";
+import { absoluteURL } from "@/lib/utils";
 type Props = {
   isPending: boolean;
   startTransition: TransitionStartFunction;
@@ -35,12 +35,15 @@ function DeleteAccountSection({ isPending, startTransition }: Props) {
   async function deleteAccount(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     startTransition(async () => {
-      const response = await deleteAccountAction();
+      const response = await fetch(absoluteURL("/api/user"), {
+        method: "DELETE",
+      });
+      const responseJson = await response.json();
       await signOut();
       router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
       toast({
         variant: "destructive",
-        title: t(`toast.${response.message ?? response.error}`),
+        title: t(`toast.${responseJson.message ?? responseJson.error}`),
       });
     });
   }

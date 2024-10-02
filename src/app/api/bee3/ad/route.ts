@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerAuthSession } from "@/server/auth";
-import { getUserById } from "@/actions/users";
+import { getUserById } from "@/database/users";
 import { adSchema } from "@/schema/ad";
 import { db } from "@/server/db";
 import { UTApi } from "uploadthing/server";
@@ -10,7 +10,7 @@ const utapi = new UTApi();
 export async function POST(request: Request) {
   const session = await getServerAuthSession();
   if (!session) return NextResponse.json({ error: "must-be-logged-in" });
-  const user = await getUserById(session.user.id);
+  const { user } = await getUserById(session.user.id);
   if (!user) return NextResponse.json({ error: "must-be-logged-in" });
 
   const formData = await request.formData();
@@ -30,12 +30,18 @@ export async function POST(request: Request) {
     },
   });
 
-  if (tokenStore!.refreshInDays != 0 && tokenStore!.nextRefreshTime.getDate() <= Date.now()) {
+  if (
+    tokenStore!.refreshInDays != 0 &&
+    tokenStore!.nextRefreshTime.getDate() <= Date.now()
+  ) {
     tokenStore!.count = tokenStore!.initialCount;
   }
 
   if (tokenStore?.count === 0)
-    return NextResponse.json({ error: "failed-not-enough-tokens" }, { status: 500 });
+    return NextResponse.json(
+      { error: "failed-not-enough-tokens" },
+      { status: 500 },
+    );
 
   const getRefreshTime = (days: number) => {
     const date = new Date(Date.now());
@@ -45,7 +51,7 @@ export async function POST(request: Request) {
 
   tokenStore!.count--;
   if (tokenStore!.refreshInDays != 0)
-    tokenStore!.nextRefreshTime = getRefreshTime(tokenStore!.refreshInDays)
+    tokenStore!.nextRefreshTime = getRefreshTime(tokenStore!.refreshInDays);
 
   await db.adTokenStore.update({
     where: {
@@ -55,7 +61,7 @@ export async function POST(request: Request) {
       },
     },
     data: {
-      ...tokenStore
+      ...tokenStore,
     },
   });
 
@@ -81,8 +87,8 @@ export async function POST(request: Request) {
         connect: { path: req.data.categoryPath },
       },
       analytics: {
-        create: { views: 0, uniqueViews: 0 }
-      }
+        create: { views: 0, uniqueViews: 0 },
+      },
     },
   });
 

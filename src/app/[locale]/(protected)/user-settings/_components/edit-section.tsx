@@ -22,7 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { updateUserAction } from "@/actions/users";
+import { absoluteURL } from "@/lib/utils";
 
 type Props = {
   isPending: boolean;
@@ -44,13 +44,17 @@ function EditAccountSection({ isPending, startTransition }: Props) {
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
-      const response = await updateUserAction(values);
-      if (!response.error) {
+      const response = await fetch(absoluteURL("/api/user"), {
+        method: "POST",
+        body: JSON.stringify(values),
+      });
+      const responseJson = await response.json();
+      if (!responseJson.error) {
         await update();
       }
       toast({
-        variant: response.message ? "success" : "destructive",
-        title: t(`toast.${response.message ?? response.error}`),
+        variant: responseJson.message ? "success" : "destructive",
+        title: t(`toast.${responseJson.message ?? responseJson.error}`),
       });
     });
   }
