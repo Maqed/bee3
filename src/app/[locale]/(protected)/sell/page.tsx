@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -194,7 +194,7 @@ function SellPage() {
                 <FormControl>
                   <UploadAdImageButton
                     disabled={isPending}
-                    onImagesChange={onImagesChange} 
+                    onImagesChange={onImagesChange}
                   />
                 </FormControl>
 
