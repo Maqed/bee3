@@ -37,8 +37,8 @@ function EditAccountSection({ isPending, startTransition }: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: session?.user.name,
-      bio: session?.user.bio,
+      name: session?.user.name ?? "",
+      bio: session?.user.bio ?? "",
     },
     values: session?.user,
   });
