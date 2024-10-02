@@ -48,9 +48,7 @@ export function PaginationWithLinks({
     },
     [searchParams, pathname],
   );
-  if (totalPageCount === 1) {
-    return <></>;
-  }
+
   const renderPageNumbers = () => {
     const items: ReactNode[] = [];
     const maxVisiblePages = 5;
@@ -116,7 +114,9 @@ export function PaginationWithLinks({
 
     return items;
   };
-
+  if (totalPageCount < 2) {
+    return null;
+  }
   return (
     <div className="flex w-full flex-col items-center gap-3 md:flex-row">
       <Pagination>
