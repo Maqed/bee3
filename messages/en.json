@@ -22,6 +22,9 @@
       "paragraph": "Try searching for general terms, change the options, or check for typos"
     }
   },
+  "ads-carousel": {
+    "show-more": "Show More"
+  },
   "Social": {
     "Facebook": "Continue With Facebook",
     "Google": "Continue With Google"
@@ -109,9 +112,6 @@
   "/": {
     "navigation": {
       "choose-category": "Choose the category you want."
-    },
-    "ads-carousel": {
-      "show-more": "Show More"
     }
   },
   "/user/[userId]": {

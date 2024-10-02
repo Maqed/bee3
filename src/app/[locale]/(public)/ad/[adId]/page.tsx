@@ -30,8 +30,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Phone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import AdCard from "@/components/bee3/ad-card";
 import AdsCarousel from "@/components/bee3/ads-carousel";
+import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
 
 export async function generateMetadata({
   params,
@@ -70,7 +70,7 @@ export default async function AdPage({ params }: { params: { adId: string } }) {
         id: ad.id,
       },
     },
-    take: 4,
+    take: NUMBER_OF_ADS_IN_CAROUSEL,
   });
   const locale = await getLocale();
   const tAd = await getTranslations("/ad/[adId]");
@@ -124,13 +124,11 @@ export default async function AdPage({ params }: { params: { adId: string } }) {
           {/* Related Ads */}
           {relatedAds.length ? (
             <AdsCarousel
-              title="Related Ads"
+              title={tAd("related-ads")}
+              showMoreHref={`/${ad.categoryPath}`}
               ads={relatedAds}
-              categoryPath={ad.categoryPath}
             />
-          ) : (
-            <></>
-          )}
+          ) : null}
         </div>
       </div>
       {/* User Information */}
