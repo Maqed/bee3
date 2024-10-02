@@ -117,7 +117,7 @@ function EditAccountSection({ isPending, startTransition }: Props) {
             ) : (
               <UserPhoneButton
                 id="phoneNumber"
-                value={session?.user.phoneNumber.slice(3)}
+                value={session?.user.phoneNumber?.slice(3)}
               />
             )}
           </div>
