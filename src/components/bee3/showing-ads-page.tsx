@@ -22,7 +22,10 @@ async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
 
   const categoryResponse = await fetch(
     absoluteURL(`/api/bee3/search?${params.toString()}`),
-    { method: "GET" },
+    {
+      method: "GET",
+      cache: "no-store",
+    },
   );
 
   if (categoryResponse.status !== 200) {
