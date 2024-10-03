@@ -8,6 +8,10 @@ import { type Adapter } from "next-auth/adapters";
 import { db } from "@/server/db";
 import { env } from "@/env";
 import { AdTiers } from "@prisma/client";
+import { loginSchema } from "@/schema/auth";
+import { getUserByEmail } from "@/database/users";
+import bcrypt from "bcrypt";
+import Credentials from "next-auth/providers/credentials";
 // OAuth
 import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
@@ -46,15 +50,23 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   callbacks: {
-    session: ({ session, user }) => ({
+    session: ({ session, token }) => ({
       ...session,
       user: {
         ...session.user,
-        id: user.id,
-        bio: user.bio,
-        phoneNumber: user.phoneNumber,
+        id: token.sub,
+        bio: token.bio as string | undefined,
+        phoneNumber: token.phoneNumber as string | undefined,
       },
     }),
+    jwt: ({ token, user }) => {
+      if (user) {
+        token.id = user.id;
+        token.bio = user.bio;
+        token.phoneNumber = user.phoneNumber;
+      }
+      return token;
+    },
   },
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
@@ -65,6 +77,22 @@ export const authOptions: NextAuthOptions = {
     Facebook({
       clientId: env.FACEBOOK_CLIENT_ID,
       clientSecret: env.FACEBOOK_CLIENT_SECRET,
+    }),
+    Credentials({
+      //@ts-ignore
+      async authorize(credentials) {
+        const validatedFields = loginSchema.safeParse(credentials);
+        if (!validatedFields.success) return null;
+        const { email, password } = validatedFields.data;
+
+        const user = await getUserByEmail(email);
+        if (!user || !user.password) return null;
+
+        const passwordsMatch = await bcrypt.compare(password, user.password);
+        if (!passwordsMatch) return null;
+
+        return user;
+      },
     }),
     /**
      * ...add providers here.
@@ -112,6 +140,11 @@ export const authOptions: NextAuthOptions = {
         },
       });
     },
+  },
+  secret: env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 Days
   },
 };
 

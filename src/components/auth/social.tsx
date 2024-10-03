@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
@@ -6,13 +7,13 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/consts/routes";
 import { useTranslations } from "next-intl";
 
 function Social() {
-  const t = useTranslations("Social");
+  const t = useTranslations("auth.card-wrapper.social");
   function handleClick(provider: "google" | "facebook") {
     return signIn(provider, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
   }
 
   return (
-    <div className="flex w-full flex-col items-center gap-y-2">
+    <>
       <Button
         size="lg"
         className="flex w-full gap-x-2"
@@ -25,7 +26,7 @@ function Social() {
           alt={"Google"}
           width={100}
           height={100}
-          className="h-5 w-5"
+          className="size-5"
         />
       </Button>
       <Button
@@ -40,10 +41,10 @@ function Social() {
           alt={"Facebook"}
           width={100}
           height={100}
-          className="h-5 w-5"
+          className="size-5"
         />
       </Button>
-    </div>
+    </>
   );
 }
 

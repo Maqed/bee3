@@ -2,22 +2,44 @@ import { getServerAuthSession } from "@/server/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/server/db";
 import { userSettingsSchema } from "@/schema/user-settings";
+import { getUserByEmail, getUserById } from "@/database/users";
 
 export async function GET(request: NextRequest) {
   const id = request.nextUrl.searchParams.get("id");
-  if (!id)
-    return NextResponse.json({ error: "you-must-provide-an-id", status: 400 });
+  const email = request.nextUrl.searchParams.get("email");
+  if (!id && !email)
+    return NextResponse.json({
+      error: "you-must-provide-a-parameter",
+      status: 400,
+    });
+  if (id && email) {
+    return NextResponse.json({
+      error: "you-must-provide-only-one-parameter",
+      status: 400,
+    });
+  }
+
   try {
-    const user = await db.user.findUnique({
-      where: { id },
-      select: {
-        name: true,
-        bio: true,
-        createdAt: true,
-        ads: true,
+    let user = null;
+    if (id) {
+      user = await getUserById(id);
+    }
+    if (email) {
+      user = await getUserByEmail(email);
+    }
+    if (!user) {
+      return NextResponse.json({ error: "user-not-found", status: 404 });
+    }
+
+    return NextResponse.json({
+      user: {
+        ...user,
+        email: undefined,
+        password: undefined,
+        phoneNumber: undefined,
+        image: undefined,
       },
     });
-    return NextResponse.json({ user });
   } catch (error) {
     return NextResponse.json({ error: "user-not-found", status: 404 });
   }

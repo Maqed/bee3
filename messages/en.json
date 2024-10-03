@@ -25,9 +25,93 @@
   "ads-carousel": {
     "show-more": "Show More"
   },
-  "Social": {
-    "Facebook": "Continue With Facebook",
-    "Google": "Continue With Google"
+  "auth": {
+    "card-wrapper": {
+      "or": "Or",
+      "go-back": "Go back",
+      "email": { "title": "Continue With Email" },
+      "register": {
+        "headerLabel": "Create an account",
+        "backButtonLabel": "Already have an account?",
+        "email": {
+          "name": {
+            "label": "Name",
+            "placeholder": "John Doe"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "johndoe@email.com"
+          },
+          "password": {
+            "label": "Password",
+            "errors": {
+              "min-password-characters": "Password should at least contain 8 characters",
+              "specialChar": "Password should at least contain 1 special character",
+              "number": "Password should contain at least 1 number",
+              "capitalAndLowercase": "Password should contain 1 capital and 1 small letter at least"
+            }
+          },
+          "errors": {
+            "invalid-input": {
+              "title": "Invalid input",
+              "description": "Try typing something else"
+            },
+            "email-exists": {
+              "title": "This email already exists",
+              "description": "Try another one or change password"
+            }
+          },
+          "user-created-successfully": {
+            "title": "User has been created successfully!",
+            "description": "Check your email to verify your account!"
+          },
+          "confirmPassword": { "label": "Password" },
+          "submit": "Regsiter"
+        }
+      },
+      "login": {
+        "headerLabel": "Weclome Back!",
+        "backButtonLabel": "Don't have an account?",
+        "email": {
+          "email": {
+            "label": "Email",
+            "placeholder": "johndoe@email.com"
+          },
+          "password": {
+            "label": "Password"
+          },
+          "errors": {
+            "invalid-input": {
+              "title": "Invalid input",
+              "description": "Try typing something else"
+            },
+            "invalid-credentials": {
+              "title": "Wrong email or password",
+              "description": "Try another email or password"
+            }
+          },
+          "submit": "Login"
+        }
+      },
+      "verify-email": {
+        "headerLabel": "Verify Your Email",
+        "backButtonLabel": "Back to login",
+        "success": {
+          "title": "Email has been verified successfully",
+          "description": "You may now login"
+        },
+        "errors": {
+          "missing-token": "Missing token!",
+          "token-doesn't-exist": "Token does not exist!",
+          "token-expired": "Token has expired!",
+          "email-doesn't-exist": "Email does not exist"
+        }
+      },
+      "social": {
+        "Facebook": "Continue With Facebook",
+        "Google": "Continue With Google"
+      }
+    }
   },
   "dialog": {
     "continue": "Continue",
@@ -125,14 +209,6 @@
       "paragraph": "The page you're looking for doesn't seem to exist.",
       "link": "Go back to home page"
     }
-  },
-  "/login": {
-    "headerLabel": "Weclome Back!",
-    "backButtonLabel": "Don't have an account?"
-  },
-  "/register": {
-    "headerLabel": "Create an account",
-    "backButtonLabel": "Already have an account?"
   },
   "/user-settings": {
     "settings": {

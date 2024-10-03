@@ -32,7 +32,8 @@ export const env = createEnv({
     // Twilio
     TWILIO_ACCOUNT_SID: z.string(),
     TWILIO_AUTH_TOKEN: z.string(),
-    TWILIO_SERVICE_SID: z.string()
+    TWILIO_SERVICE_SID: z.string(),
+    RESEND_API_KEY: z.string(),
   },
 
   /**
@@ -61,7 +62,8 @@ export const env = createEnv({
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
-    TWILIO_SERVICE_SID: process.env.TWILIO_SERVICE_SID
+    TWILIO_SERVICE_SID: process.env.TWILIO_SERVICE_SID,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

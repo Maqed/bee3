@@ -1,8 +1,21 @@
-import { absoluteURL } from "@/lib/utils";
+import { db } from "@/server/db";
 
-export async function getUserById(id: string) {
-  const response = await fetch(absoluteURL(`/api/user?id=${id}`), {
-    method: "GET",
-  });
-  return await response.json();
-}
+export const getUserByEmail = async (email: string) => {
+  try {
+    const user = await db.user.findUnique({ where: { email } });
+
+    return user;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getUserById = async (id: string) => {
+  try {
+    const user = await db.user.findUnique({ where: { id } });
+
+    return user;
+  } catch (error) {
+    return null;
+  }
+};

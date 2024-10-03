@@ -23,9 +23,93 @@
   "ads-carousel": {
     "show-more": "اعرض المزيد"
   },
-  "Social": {
-    "Facebook": "استمر بفيسبوك",
-    "Google": "استمر بجوجل"
+  "auth": {
+    "card-wrapper": {
+      "or": "أو",
+      "go-back": "العودة",
+      "email": { "title": "تابع باستخدام البريد الإلكتروني" },
+      "register": {
+        "headerLabel": "إنشاء حساب",
+        "backButtonLabel": "هل لديك حساب بالفعل؟",
+        "email": {
+          "name": {
+            "label": "الاسم",
+            "placeholder": "محمد احمد"
+          },
+          "email": {
+            "label": "البريد الإلكتروني",
+            "placeholder": "mohammedahmed@email.com"
+          },
+          "password": {
+            "label": "كلمة المرور",
+            "errors": {
+              "min-password-characters": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل",
+              "specialChar": "يجب أن تحتوي كلمة المرور على حرف خاص واحد على الأقل",
+              "number": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل",
+              "capitalAndLowercase": "يجب أن تحتوي كلمة المرور على حرف كبير واحد وحرف صغير واحد على الأقل"
+            }
+          },
+          "errors": {
+            "invalid-input": {
+              "title": "إدخال غير صالح",
+              "description": "حاول كتابة شيء آخر"
+            },
+            "email-exists": {
+              "title": "هذا البريد الإلكتروني موجود بالفعل",
+              "description": "حاول بريدًا آخر أو غير كلمة المرور"
+            }
+          },
+          "user-created-successfully": {
+            "title": "تم إنشاء المستخدم بنجاح!",
+            "description": "تحقق من بريدك الإلكتروني لتأكيد حسابك!"
+          },
+          "confirmPassword": { "label": "كلمة المرور" },
+          "submit": "تسجيل"
+        }
+      },
+      "login": {
+        "headerLabel": "مرحبًا بعودتك!",
+        "backButtonLabel": "لا تملك حسابًا؟",
+        "email": {
+          "email": {
+            "label": "البريد الإلكتروني",
+            "placeholder": "mohammedahmed@email.com"
+          },
+          "password": {
+            "label": "كلمة المرور"
+          },
+          "errors": {
+            "invalid-input": {
+              "title": "إدخال غير صالح",
+              "description": "حاول كتابة شيء آخر"
+            },
+            "invalid-credentials": {
+              "title": "البريد الإلكتروني أو كلمة المرور خاطئة",
+              "description": "حاول بريدًا إلكترونيًا أو كلمة مرور أخرى"
+            }
+          },
+          "submit": "تسجيل الدخول"
+        }
+      },
+      "verify-email": {
+        "headerLabel": "تحقق من بريدك الإلكتروني",
+        "backButtonLabel": "الرجوع لتسجيل الدخول",
+        "success": {
+          "title": "تم التحقق من البريد الإلكتروني بنجاح",
+          "description": "يمكنك الآن تسجيل الدخول"
+        },
+        "errors": {
+          "missing-token": "الرمز مفقود!",
+          "token-doesn't-exist": "الرمز غير موجود!",
+          "token-expired": "الرمز قد انتهت صلاحيته!",
+          "email-doesn't-exist": "البريد الإلكتروني غير موجود"
+        }
+      },
+      "social": {
+        "Facebook": "تابع باستخدام فيسبوك",
+        "Google": "تابع باستخدام جوجل"
+      }
+    }
   },
   "dialog": {
     "continue": "استمر",
@@ -124,14 +208,6 @@
       "paragraph": "يبدو أن الصفحة التي تبحث عنها غير موجودة.",
       "link": "العودة إلى الصفحة الرئيسية"
     }
-  },
-  "/login": {
-    "headerLabel": "مرحبا بعودتك",
-    "backButtonLabel": "ليس لديك حساب؟"
-  },
-  "/register": {
-    "headerLabel": "انشئ حساب",
-    "backButtonLabel": "مسجل بالفعل؟"
   },
   "/user-settings": {
     "settings": {
