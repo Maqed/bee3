@@ -14,9 +14,7 @@ export async function fetchCategoryCarousel(categoryPath: string) {
       cache: "no-store",
     },
   );
-  console.log({
-    url: `/api/bee3/search?category=${categoryPath}&pageSize=${NUMBER_OF_ADS_IN_CAROUSEL}`,
-  });
+
   const { ads } = await adsResponse.json();
   return ads;
 }
