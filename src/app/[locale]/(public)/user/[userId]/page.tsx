@@ -18,7 +18,7 @@ type Props = {
 export default async function UserPage({ params: { userId } }: Props) {
   const t = await getTranslations("/user/[userId]");
   const session = await getServerAuthSession();
-  const { user } = await getUserById(userId);
+  const user = await getUserById(userId);
   if (!user) {
     return notFound();
   }
