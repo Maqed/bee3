@@ -50,7 +50,13 @@ function EditAccountSection({ isPending, startTransition }: Props) {
       });
       const responseJson = await response.json();
       if (!responseJson.error) {
-        await update();
+        await update({
+          ...session,
+          user: {
+            ...session?.user,
+            ...values,
+          },
+        });
       }
       toast({
         variant: responseJson.message ? "success" : "destructive",

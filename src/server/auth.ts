@@ -50,22 +50,15 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   callbacks: {
-    session: ({ session, token }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: token.sub,
-        bio: token.bio as string | undefined,
-        phoneNumber: token.phoneNumber as string | undefined,
-      },
-    }),
-    jwt: ({ token, user }) => {
-      if (user) {
-        token.id = user.id;
-        token.bio = user.bio;
-        token.phoneNumber = user.phoneNumber;
+    session: ({ session, token }) => {
+      session.user = token as any;
+      return session;
+    },
+    jwt: ({ token, user, trigger, session }) => {
+      if (trigger === "update") {
+        return { ...token, ...session?.user, password: undefined };
       }
-      return token;
+      return { ...token, ...user, password: undefined };
     },
   },
   adapter: PrismaAdapter(db) as Adapter,
