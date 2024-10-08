@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import UserPhoneButton from "@/components/auth/user-phone-button/user-phone-button";
 import { Label } from "@/components/ui/label";
-import { userSettingsSchemaIntl } from "@/schema/user-settings";
+import { userSettingsSchema } from "@/schema/user-settings";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { TransitionStartFunction } from "react";
@@ -33,16 +33,15 @@ function EditAccountSection({ isPending, startTransition }: Props) {
   const { data: session, update, status } = useSession();
   const { toast } = useToast();
   const t = useTranslations("/user-settings");
-  const formSchema = userSettingsSchemaIntl(t);
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof userSettingsSchema>>({
+    resolver: zodResolver(userSettingsSchema),
     defaultValues: {
       name: session?.user.name ?? "",
       bio: session?.user.bio ?? "",
     },
     values: session?.user,
   });
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof userSettingsSchema>) {
     startTransition(async () => {
       const response = await fetch(absoluteURL("/api/user"), {
         method: "POST",
