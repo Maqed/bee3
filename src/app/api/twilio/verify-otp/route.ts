@@ -9,7 +9,7 @@ import { db } from "@/server/db";
 export async function POST(request: Request) {
     const session = await getServerAuthSession();
     if (!session) return NextResponse.json({ error: "must-be-logged-in" });
-    const {user} = await getUserById(session.user.id);
+    const user = await getUserById(session.user.id);
     if (!user) return NextResponse.json({ error: "must-be-logged-in" });
 
     const req = checkPhoneNumberOTP.safeParse(await request.json());
