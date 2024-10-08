@@ -2,16 +2,18 @@ import { z } from "zod";
 
 export const registerSchema = z
   .object({
-    name: z.string().min(2, { message: "name-min-character" }),
-    email: z.string().email({ message: "invalid-email" }),
-    password: z.string().min(8, { message: "passwords-min-characters" }),
+    name: z.string().min(2, { message: "register.name-min-character" }),
+    email: z.string().email({ message: "register.invalid-email" }),
+    password: z
+      .string()
+      .min(8, { message: "register.passwords-min-characters" }),
     confirmPassword: z.string(),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: "custom",
-        message: "passwords-not-matching",
+        message: "register.passwords-not-matching",
         path: ["confirmPassword"],
       });
     }
@@ -71,6 +73,6 @@ export const registerSchema = z
     }
   });
 export const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(1, { message: "password-min-characters" }),
+  email: z.string().email({ message: "login.invalid-email" }),
+  password: z.string().min(1, { message: "login.password-min-characters" }),
 });

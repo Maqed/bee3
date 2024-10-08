@@ -35,6 +35,7 @@ import Spinner from "@/components/ui/spinner";
 function SellPage() {
   const tSell = useTranslations("/sell");
   const tCategories = useTranslations("categories");
+  const tErrors = useTranslations("errors.sell");
   const router = useRouter();
   const { toast } = useToast();
   const [selectedMainCategory, setSelectedMainCategory] = useState<
@@ -90,14 +91,14 @@ function SellPage() {
           router.push(`/ad/${result.result.id}`);
         } else {
           toast({
-            title: tSell(`errors.submit.${result.error}`),
-            description: tSell(`errors.submit.${result.error}-description`),
+            title: tErrors(`submit.${result.error}.title`),
+            description: tSell(`submit.${result.error}.description`),
             variant: "destructive",
           });
         }
       } catch (error) {
         toast({
-          title: tSell("errors.submit-error"),
+          title: tErrors("submit-error"),
           variant: "destructive",
         });
       }
@@ -177,9 +178,7 @@ function SellPage() {
                       ))}
                     </SelectContent>
                   </Select>
-                  {form.formState.errors.categoryPath && (
-                    <FormMessage>{tSell("errors.categoryPath")}</FormMessage>
-                  )}
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -199,9 +198,7 @@ function SellPage() {
                 </FormControl>
 
                 <FormDescription>{tSell("images.description")}</FormDescription>
-                {form.formState.errors.images && (
-                  <FormMessage>{tSell("errors.images")}</FormMessage>
-                )}
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -219,11 +216,7 @@ function SellPage() {
                     disabled={isPending}
                   />
                 </FormControl>
-                {form.formState.errors.title && (
-                  <FormMessage>
-                    {tSell(form.formState.errors.title.message)}
-                  </FormMessage>
-                )}
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -241,11 +234,7 @@ function SellPage() {
                     disabled={isPending}
                   />
                 </FormControl>
-                <FormMessage>
-                  {form.formState.errors.description && (
-                    <span>{tSell("errors.description")}</span>
-                  )}
-                </FormMessage>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -265,11 +254,7 @@ function SellPage() {
                     disabled={isPending}
                   />
                 </FormControl>
-                <FormMessage>
-                  {form.formState.errors.price && (
-                    <span>{tSell("errors.price")}</span>
-                  )}
-                </FormMessage>
+                <FormMessage />
               </FormItem>
             )}
           />

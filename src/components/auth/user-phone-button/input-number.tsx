@@ -55,7 +55,7 @@ function InputNumber({
         const result = await response.json();
         if (result.error) {
           form.setError("phoneNumber", {
-            message: tPhoneNumber(`errors.${result.error}`),
+            message: `phone-number.input-phone-number.${result.error}`,
           });
         } else {
           setSharedPhoneNumber(values.phoneNumber);
@@ -63,7 +63,7 @@ function InputNumber({
         }
       } catch (err) {
         form.setError("phoneNumber", {
-          message: tPhoneNumber("errors.unknown"),
+          message: "phone-number.input-phone-number.unknown",
         });
       }
     });

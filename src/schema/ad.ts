@@ -5,20 +5,17 @@ import { categoriesTree, type CategoryTreeItem } from "./categories-tree";
 export const adSchema = z.object({
   title: z
     .string()
-    .min(1, { message: "errors.title.min" })
-    .max(250, { message: "errors.title.max" }),
-  description: z
-    .string()
-    .max(2048, { message: "errors.description" })
-    .optional(),
-  price: z.number().min(0, { message: "errors.price" }),
+    .min(1, { message: "sell.title.min" })
+    .max(250, { message: "sell.title.max" }),
+  description: z.string().max(2048, { message: "sell.description" }).optional(),
+  price: z.number().min(0, { message: "sell.price" }),
   categoryPath: z
     .string()
-    .regex(/^[\w-]+(\/[\w-]+)*$/, { message: "errors.categoryPath" })
+    .regex(/^[\w-]+(\/[\w-]+)*$/, { message: "sell.categoryPath" })
     .refine((path) => validateCategoryPath(path), {
-      message: "errors.categoryPath", // Keep as is
+      message: "sell.categoryPath", // Keep as is
     }),
-  images: z.array(z.instanceof(File)).min(1, { message: "errors.images" }),
+  images: z.array(z.instanceof(File)).min(1, { message: "sell.images" }),
   negotiable: z.boolean(),
 });
 

@@ -51,16 +51,6 @@
               "capitalAndLowercase": "Password should contain 1 capital and 1 small letter at least"
             }
           },
-          "errors": {
-            "invalid-input": {
-              "title": "Invalid input",
-              "description": "Try typing something else"
-            },
-            "email-exists": {
-              "title": "This email already exists",
-              "description": "Try another one or change password"
-            }
-          },
           "user-created-successfully": {
             "title": "User has been created successfully!",
             "description": "Check your email to verify your account!"
@@ -80,16 +70,7 @@
           "password": {
             "label": "Password"
           },
-          "errors": {
-            "invalid-input": {
-              "title": "Invalid input",
-              "description": "Try typing something else"
-            },
-            "invalid-credentials": {
-              "title": "Wrong email or password",
-              "description": "Try another email or password"
-            }
-          },
+
           "submit": "Login"
         }
       },
@@ -99,12 +80,6 @@
         "success": {
           "title": "Email has been verified successfully",
           "description": "You may now login"
-        },
-        "errors": {
-          "missing-token": "Missing token!",
-          "token-doesn't-exist": "Token does not exist!",
-          "token-expired": "Token has expired!",
-          "email-doesn't-exist": "Email does not exist"
         }
       },
       "social": {
@@ -122,24 +97,13 @@
       "title": "Enter your phone number to verify your account",
       "description": "We will send a confirmation code to your number",
       "placeholder": "Enter your phone number",
-      "sendCode": "Send Code",
-      "errors": {
-        "must-be-logged-in": "You must be logged in to verify your phone number",
-        "failed-too-many-requests": "You're sending your phone number too many times, Please try again in a minute.",
-        "unknown": "An unknown error occurred. Please try again.",
-        "phoneNumber": "Please enter a valid 10-digit phone number"
-      }
+      "sendCode": "Send Code"
     },
     "OTP": {
       "title": "Enter your OTP code you recieved in your phone.",
       "description": "We will confirm your account by using it.",
       "otp-description": "",
-      "verifyCode": "Verify code",
-      "errors": {
-        "must-be-logged-in": "You must be logged in to verify your phone number",
-        "code": "Please enter a valid 6-digit OTP",
-        "failed-verify-phone": "Your OTP is invalid, please try again!"
-      }
+      "verifyCode": "Verify code"
     }
   },
   "pagination": {
@@ -290,25 +254,7 @@
       "description": "Is the price negotiable?"
     },
     "submit": "Sell Now!",
-    "errors": {
-      "title": {
-        "min": "Title must be at least 1 character long",
-        "max": "Title must be at most 250 character long"
-      },
-      "images": "Ad should at least contain 1 image of the item",
-      "description": "Description must be at most 2048 characters long",
-      "price": "Price must be a positive number",
-      "categoryPath": "Please choose a category",
-      "uploadthing": "An error occured while uploading the image",
-      "max-images": "You can only upload 10 images per ad",
-      "submit-error": "Error submitting the ad. Please try again.",
-      "image-size": "Image size must be smaller than 4MB.",
-      "image-size-description": "Please upload a smaller image.",
-      "submit": {
-        "failed-not-enough-tokens": "You don't have enough tokens.",
-        "failed-not-enough-tokens-description": "Please buy more tokens to continue selling."
-      }
-    },
+
     "submit-success": "Ad submitted successfully!",
     "loading": "Posting ad..."
   },
@@ -326,6 +272,73 @@
       "title": "Oops, Ad not found!",
       "paragraph": "The ad you're looking for doesn't seem to exist.",
       "link": "Go back to home page"
+    }
+  },
+  "errors": {
+    "register": {
+      "name-min-character": "Name should at least contain 2 characters",
+      "invalid-email": "Email is invalid",
+      "passwords-not-matching": "Passwords aren't matching",
+      "invalid-input": {
+        "title": "Invalid input",
+        "description": "Try typing something else"
+      },
+      "email-exists": {
+        "title": "This email already exists",
+        "description": "Try another one or change password"
+      }
+    },
+    "login": {
+      "invalid-email": "Email is required",
+      "password-min-characters": "Password is required.",
+      "invalid-input": {
+        "title": "Invalid input",
+        "description": "Try typing something else"
+      },
+      "invalid-credentials": {
+        "title": "Wrong email or password",
+        "description": "Try another email or password"
+      }
+    },
+    "verify-email": {
+      "missing-token": "Missing token!",
+      "token-doesn't-exist": "Token does not exist!",
+      "token-expired": "Token has expired!",
+      "email-doesn't-exist": "Email does not exist"
+    },
+    "sell": {
+      "title": {
+        "min": "Title must be at least 1 character long",
+        "max": "Title must be at most 250 character long"
+      },
+      "images": "Ad should at least contain 1 image of the item",
+      "description": "Description must be at most 2048 characters long",
+      "price": "Price must be a positive number",
+      "categoryPath": "Please choose a category",
+      "uploadthing": "An error occured while uploading the image",
+      "max-images": "You can only upload 10 images per ad",
+      "submit-error": "Error submitting the ad. Please try again.",
+      "image-size": "Image size must be smaller than 4MB.",
+      "image-size-description": "Please upload a smaller image.",
+      "submit": {
+        "failed-not-enough-tokens": {
+          "title": "You don't have enough tokens.",
+          "description": "Please buy more tokens to continue selling."
+        }
+      }
+    },
+    "phone-number": {
+      "input-phone-number": {
+        "must-be-logged-in": "You must be logged in to verify your phone number",
+        "failed-too-many-requests": "You're sending your phone number too many times, Please try again in a minute.",
+        "unknown": "An unknown error occurred. Please try again.",
+        "invalid-number": "Please enter a valid 10-digit phone number"
+      },
+      "OTP": {
+        "must-be-logged-in": "You must be logged in to verify your phone number",
+        "code": "Please enter a valid 6-digit OTP",
+        "failed-verify-phone": "Your OTP is invalid, please try again!"
+      }
     }
   }
 }

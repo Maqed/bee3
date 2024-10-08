@@ -29,7 +29,8 @@ function EmailLoginForm() {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const router = useRouter();
-  const t = useTranslations("auth.card-wrapper.login.email");
+  const tLoginEmail = useTranslations("auth.card-wrapper.login.email");
+  const tErrors = useTranslations("errors.login");
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -50,8 +51,8 @@ function EmailLoginForm() {
         const data = await response.json();
         if (data.error) {
           toast({
-            title: t(`errors.${data.error}.title`),
-            description: t(`errors.${data.error}.description`),
+            title: tErrors(`${data.error}.title`),
+            description: tErrors(`${data.error}.description`),
             variant: "destructive",
           });
         } else {
@@ -63,11 +64,7 @@ function EmailLoginForm() {
           });
         }
       } catch (error) {
-        toast({
-          title: "Failed to submit the form.",
-          description: "Please try again.",
-          variant: "destructive",
-        });
+        console.log(error);
       }
     });
   }
@@ -81,14 +78,14 @@ function EmailLoginForm() {
             <FormItem>
               <FormLabel>
                 <Mail className="me-1 inline size-5" />
-                {t("email.label")}
+                {tLoginEmail("email.label")}
               </FormLabel>
               <FormControl>
                 <Input
                   disabled={isPending}
                   autoComplete="email"
                   type="email"
-                  placeholder={t("email.placeholder")}
+                  placeholder={tLoginEmail("email.placeholder")}
                   {...field}
                 />
               </FormControl>
@@ -105,7 +102,7 @@ function EmailLoginForm() {
             <FormItem>
               <FormLabel>
                 <Lock className="me-1 inline size-5" />
-                {t("password.label")}
+                {tLoginEmail("password.label")}
               </FormLabel>
               <FormControl>
                 <PasswordInput
@@ -121,7 +118,7 @@ function EmailLoginForm() {
         />
 
         <Button disabled={isPending} className="w-full" type="submit">
-          {t("submit")} {isPending && <Spinner className="ms-1" />}
+          {tLoginEmail("submit")} {isPending && <Spinner className="ms-1" />}
         </Button>
       </form>
     </Form>

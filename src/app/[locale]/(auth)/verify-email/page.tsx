@@ -17,13 +17,14 @@ function VerifyEmailPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
-  const t = useTranslations("auth.card-wrapper.verify-email");
+  const tVerifyEmail = useTranslations("auth.card-wrapper.verify-email");
+  const tErrors = useTranslations("errors.verify-email");
 
   const onSubmit = useCallback(async () => {
     if (success || error) return;
 
     if (!token) {
-      setError(t("errors.missing-token"));
+      setError(tErrors("missing-token"));
       return;
     }
     const response = await fetch(absoluteURL("/api/auth/verify-email"), {
@@ -32,12 +33,12 @@ function VerifyEmailPage() {
     });
     const data = await response.json();
     if (data.error) {
-      setError(t(`errors.${data.error}`));
+      setError(tErrors(data.error));
     } else {
-      setSuccess(t("success.title"));
+      setSuccess(tVerifyEmail("success.title"));
       toast({
-        title: t("success.title"),
-        description: t("success.description"),
+        title: tVerifyEmail("success.title"),
+        description: tVerifyEmail("success.description"),
         variant: "success",
       });
       router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
@@ -51,8 +52,8 @@ function VerifyEmailPage() {
   return (
     <CardWrapper
       isAuthenticationWrapper={false}
-      headerLabel={t("headerLabel")}
-      backButtonLabel={t("backButtonLabel")}
+      headerLabel={tVerifyEmail("headerLabel")}
+      backButtonLabel={tVerifyEmail("backButtonLabel")}
       backButtonHref={DEFAULT_UNAUTHENTICATED_REDIRECT}
     >
       <div className="flex w-full items-center justify-center">

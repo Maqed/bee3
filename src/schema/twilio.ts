@@ -1,10 +1,14 @@
 import { z } from "zod";
 
 export const sendPhoneNumberOTP = z.object({
-  phoneNumber: z.string().regex(/^\d{10}$/, "errors.phoneNumber")
+  phoneNumber: z
+    .string()
+    .regex(/^\d{10}$/, "phone-number.input-phone-number.invalid-number"),
 });
 
 export const checkPhoneNumberOTP = z.object({
-  code: z.string().regex(/^\d{6}$/, "errors.code"),
-  phoneNumber: z.string().regex(/^\d{10}$/, "errors.phoneNumber")
+  code: z.string().regex(/^\d{6}$/, "phone-number.OTP.code"),
+  phoneNumber: z
+    .string()
+    .regex(/^\d{10}$/, "phone-number.input-phone-number.invalid-number"),
 });
