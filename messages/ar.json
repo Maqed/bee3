@@ -63,7 +63,7 @@
             "title": "تم إنشاء المستخدم بنجاح!",
             "description": "تحقق من بريدك الإلكتروني لتأكيد حسابك!"
           },
-          "confirmPassword": { "label": "كلمة المرور" },
+          "confirmPassword": { "label": "تأكيد كلمة المرور" },
           "submit": "تسجيل"
         }
       },

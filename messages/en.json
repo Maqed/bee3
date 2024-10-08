@@ -65,7 +65,7 @@
             "title": "User has been created successfully!",
             "description": "Check your email to verify your account!"
           },
-          "confirmPassword": { "label": "Password" },
+          "confirmPassword": { "label": "Confirm Password" },
           "submit": "Regsiter"
         }
       },
