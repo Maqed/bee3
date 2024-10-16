@@ -10,7 +10,7 @@ export const EmailVerificationToken: React.FC<
 > = ({ name, confirmLink }) => (
   <div>
     <nav>
-      <h1 className="text-2xl">Bee3Online</h1>
+      <h1 className="text-2xl">Bee3Live</h1>
     </nav>
     <h2 className="text-xl">Welcome, {name}!</h2>
     <p className="text-lg">

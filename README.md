@@ -1,4 +1,4 @@
-# Bee3Online
+# Bee3Live
 ## Setup
 - Clone the repository
 - Make a .env file based on the provided .env.example file

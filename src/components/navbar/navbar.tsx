@@ -20,7 +20,7 @@ export default function Navbar() {
     <header className="container sticky top-0 z-50 mb-5 flex flex-col justify-between gap-1 border-b bg-background py-4">
       <div className="flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <h1 className="text-lg font-bold text-primary">Bee3Online</h1>
+          <h1 className="text-lg font-bold text-primary">Bee3Live</h1>
         </Link>
         <nav className="flex items-center gap-x-2">
           {/* Shown in desktop, Hidden in mobile */}

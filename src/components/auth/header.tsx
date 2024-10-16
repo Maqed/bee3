@@ -13,9 +13,9 @@ export default function HeaderComponent({ label }: HeaderProps) {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-y-4">
       <h1 className={cn("text-3xl font-semibold", poppinsFont.className)}>
-        Bee3Online
+        Bee3Live
       </h1>
-      <p className="text-muted-foreground text-sm">{label}</p>
+      <p className="text-sm text-muted-foreground">{label}</p>
     </div>
   );
 }
