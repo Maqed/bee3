@@ -7,16 +7,16 @@ import { env } from "@/env";
 import ServerSideProviders from "@/providers/server-side";
 import ClientSideProviders from "@/providers/client-side";
 
-const title = "Bee3Live";
+const title = "Bee3";
 const description =
-  "Bee3Live is a platform made for selling and buying online completely for free!";
+  "Bee3 is a platform made for selling and buying online completely for free!";
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXTAUTH_URL),
   title: {
     default: title,
     template: `%s | ${title}`,
   },
-  keywords: ["Bee3Live", "Bee3", "Sell", "Buy", "Shop", "Live"],
+  keywords: ["Bee3", "Sell", "Buy", "Shop", "Live"],
   description,
   openGraph: {
     title: title,
