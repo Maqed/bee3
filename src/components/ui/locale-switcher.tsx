@@ -26,7 +26,7 @@ function LocaleSwitcher() {
       {locale === "ar" ? (
         <div dir="ltr" className="flex flex-row gap-2">
           <Image
-            src="/flags/us.png"
+            src="https://flagsapi.com/US/flat/64.png"
             alt="USA Flag"
             className="object-contain"
             width={20}
@@ -37,7 +37,7 @@ function LocaleSwitcher() {
       ) : (
         <div dir="rtl" className="flex flex-row gap-2">
           <Image
-            src="/flags/eg.png"
+            src="https://flagsapi.com/EG/flat/64.png"
             alt="EG Flag"
             className="object-contain"
             width={20}

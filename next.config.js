@@ -17,6 +17,9 @@ const config = {
       {
         hostname: "via.placeholder.com",
       },
+      {
+        hostname: "flagsapi.com",
+      },
     ],
   },
 };
