@@ -11,6 +11,6 @@ export async function GET(request: Request, context: { params: { adId: string } 
     return NextResponse.json({ ad });
   }
   catch (e) {
-    return NextResponse.json({ error: e });
+    return NextResponse.json({ error: e }, { status: 404 });
   }
 }

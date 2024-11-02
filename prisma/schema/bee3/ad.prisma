@@ -17,11 +17,12 @@ model Category {
 }
 
 model Ad {
-    id           String   @id @default(cuid())
+    id           String   @id
     userId       String?
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
     user         User?    @relation(fields: [userId], references: [id])
+    favoritedBy  User[]   @relation("favoriteAds")
     category     Category @relation(fields: [categoryPath], references: [path])
     categoryPath String
 
@@ -31,6 +32,9 @@ model Ad {
     images      String[]
     price       Float
     negotiable  Boolean
+
+    city   City @relation(fields: [cityId], references: [id])
+    cityId Int
 
     analytics     AdAnalytics @relation(fields: [adAnalyticsId], references: [id])
     adAnalyticsId String

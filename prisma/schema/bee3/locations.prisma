@@ -1,0 +1,19 @@
+model Governorate {
+  id                  Int    @id @default(autoincrement())
+  governorate_name_ar String @db.VarChar(50)
+  governorate_name_en String @db.VarChar(50)
+  cities              City[]
+
+  @@map("governorates")
+}
+
+model City {
+  id             Int         @id @default(autoincrement())
+  governorate    Governorate @relation(fields: [governorate_id], references: [id])
+  governorate_id Int
+  city_name_ar   String      @db.VarChar(200)
+  city_name_en   String      @db.VarChar(200)
+  Ad             Ad[]
+
+  @@map("cities")
+}

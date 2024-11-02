@@ -29,16 +29,6 @@ async function populateItemTree(items: CategoryTreeItem[], depth = 0, parentPath
     }
 }
 
-async function main() {
+export function seedCategories() {
     populateItemTree(categoriesTree.categories as CategoryTreeItem[]);
 }
-
-main()
-    .then(async () => {
-        await db.$disconnect()
-    })
-    .catch(async (e) => {
-        console.error(e)
-        await db.$disconnect()
-        process.exit(1)
-    })

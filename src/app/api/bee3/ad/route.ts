@@ -4,6 +4,7 @@ import { getUserById } from "@/database/users";
 import { adSchema } from "@/schema/ad";
 import { db } from "@/server/db";
 import { UTApi } from "uploadthing/server";
+import { createId } from "@paralleldrive/cuid2"
 
 const utapi = new UTApi();
 
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
   const imageFiles = formData.getAll("images") as File[];
 
   const req = adSchema.safeParse({ ...jsonData, images: imageFiles });
-  if (!req.success) return NextResponse.json({ error: req.error });
+  if (!req.success) return NextResponse.json({ error: req.error }, { status: 500 });
 
   // Check token store and decrement token count
   const tokenStore = await db.adTokenStore.findUnique({
@@ -74,6 +75,7 @@ export async function POST(request: Request) {
   // Create ad
   const ad = await db.ad.create({
     data: {
+      id: `${req.data.title.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}-${createId()}`,
       title: req.data.title,
       description: req.data.description,
       price: req.data.price,
@@ -82,6 +84,9 @@ export async function POST(request: Request) {
 
       user: {
         connect: { id: user.id },
+      },
+      city: {
+        connect: { id: req.data.cityId },
       },
       category: {
         connect: { path: req.data.categoryPath },
