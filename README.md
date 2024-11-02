@@ -1,5 +1,7 @@
-# Bee3Live
+# Bee3
+
 ## Setup
+
 - Clone the repository
 - Make a .env file based on the provided .env.example file
 - Run `docker compose up` to create the database with the credentials provided in .env
