@@ -18,7 +18,7 @@ export const adSchema = z.object({
     }),
   images: z.array(z.instanceof(File)).min(1, { message: "sell.images" }),
   negotiable: z.boolean(),
-  cityId: z.number().min(0, { message: "sell.cityId" }).max(cities.length - 1, { message: "sell.cityId" }),
+  cityId: z.number().refine((id) => cities.some(c => c.id == id), { message: "sell.cityId" }),
 });
 
 export const favAdSchema = z.object({
