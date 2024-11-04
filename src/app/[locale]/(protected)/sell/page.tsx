@@ -31,6 +31,7 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { UploadAdImageButton } from "@/components/bee3/ad-image-button";
 import Spinner from "@/components/ui/spinner";
+import { Separator } from "@/components/ui/separator";
 
 function SellPage() {
   const tSell = useTranslations("/sell");
@@ -52,6 +53,7 @@ function SellPage() {
       price: 0,
       categoryPath: "",
       images: [],
+      cityId: 0,
       negotiable: false,
     },
   });
@@ -183,7 +185,7 @@ function SellPage() {
               )}
             />
           )}
-
+          <Separator/>
           <FormField
             control={form.control}
             name="images"
@@ -238,6 +240,8 @@ function SellPage() {
               </FormItem>
             )}
           />
+
+          <Separator/>
 
           <FormField
             control={form.control}
