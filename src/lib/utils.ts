@@ -32,6 +32,17 @@ export function getCategoryAndSubCategory(categoryPath: string) {
 export function absoluteURL(url: string) {
   return `${env.NEXT_PUBLIC_APP_URL}/${url}`;
 }
+export function getLocalizedLocation(locale: string, cityId: number) {
+  const city = getCity(cityId);
+  const governorate = getGovernorate(city?.governorate_id as number);
+  const governorateName =
+    locale === "ar"
+      ? governorate?.governorate_name_ar
+      : governorate?.governorate_name_en;
+  const cityName = locale === "ar" ? city?.city_name_ar : city?.city_name_en;
+  return `${governorateName}, ${cityName}`;
+}
+
 export function getURLSearchParamsFromPageParams(searchParams: {
   [key: string]: string | undefined;
 }) {

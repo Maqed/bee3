@@ -1,4 +1,5 @@
-import { getLocale } from "next-intl/server";
+"use client";
+import { useLocale } from "next-intl";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 
@@ -8,29 +9,37 @@ import { Link } from "@/navigation";
 import { cn, getLocalizedDate, getLocalizedPrice } from "@/lib/utils";
 import { Suspense } from "react";
 import AdCardPlaceholder from "../placeholders/ad-card-placeholder";
-import { getServerSideFullLocation } from "@/lib/server-side";
+import { getLocalizedLocation } from "@/lib/utils";
 
 type Props = {
   ad: Ad;
   orientation?: "horizontal" | "vertical";
 };
 
-async function AdCard({ ad, orientation = "vertical" }: Props) {
-  const locale = await getLocale();
+function AdCard({ ad, orientation = "vertical" }: Props) {
+  const locale = useLocale();
+  const handleHeartClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
   return (
     <Suspense
       fallback={
         <AdCardPlaceholder orientation={orientation}></AdCardPlaceholder>
       }
     >
-      <Card className={cn(orientation === "vertical" ? "w-[300px]" : "w-full")}>
-        <CardContent
-          className={cn(
-            "flex p-0",
-            orientation === "vertical" ? "flex-col" : "h-full justify-between",
-          )}
+      <Link href={`/ad/${ad.id}`}>
+        <Card
+          className={cn(orientation === "vertical" ? "w-[300px]" : "w-full")}
         >
-          <Link href={`/ad/${ad.id}`}>
+          <CardContent
+            className={cn(
+              "flex p-0",
+              orientation === "vertical"
+                ? "flex-col"
+                : "h-full justify-between",
+            )}
+          >
             <Image
               src={ad.images[0] ?? ""}
               alt={`${ad.title} image`}
@@ -43,24 +52,22 @@ async function AdCard({ ad, orientation = "vertical" }: Props) {
                   : "h-full w-[350px] rounded-s-lg",
               )}
             />
-          </Link>
-          <div
-            className={cn(
-              "space-y-2 p-4",
-              orientation === "horizontal" &&
-                "flex h-full w-full flex-col justify-between",
-            )}
-          >
-            <div className="flex w-full items-center justify-between">
-              <Link
-                href={`/ad/${ad.id}`}
-                className="w-full text-lg font-semibold text-primary"
-              >
-                <span>{getLocalizedPrice(locale, ad.price)}</span>
-              </Link>
-              <Heart className="h-5 w-5 cursor-pointer text-foreground/70 transition-all hover:fill-red-500 hover:text-red-600" />
-            </div>
-            <Link href={`/ad/${ad.id}`} className="md:h-full md:w-full">
+            <div
+              className={cn(
+                "space-y-2 p-4",
+                orientation === "horizontal" &&
+                  "flex h-full w-full flex-col justify-between",
+              )}
+            >
+              <div className="relative flex w-full items-center justify-between">
+                <span className="w-full text-lg font-semibold text-primary">
+                  {getLocalizedPrice(locale, ad.price)}
+                </span>
+                <Heart
+                  onClick={handleHeartClick}
+                  className="absolute end-0 h-5 w-5 cursor-pointer text-foreground/70 transition-all hover:fill-red-500 hover:text-red-600"
+                />
+              </div>
               {orientation === "horizontal" ? (
                 <>
                   <h1 className="text-xl font-bold">{ad.title}</h1>{" "}
@@ -69,16 +76,14 @@ async function AdCard({ ad, orientation = "vertical" }: Props) {
               ) : (
                 <p className="text-sm">{ad.title}</p>
               )}
-            </Link>
-            <Link href={`/ad/${ad.id}`}>
               <div className="flex items-center justify-between text-sm">
-                <span>{getServerSideFullLocation(ad.cityId)}</span>
+                <span>{getLocalizedLocation(locale, ad.cityId)}</span>
                 <span>{getLocalizedDate(locale, ad.createdAt)}</span>
               </div>
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
+            </div>
+          </CardContent>
+        </Card>
+      </Link>
     </Suspense>
   );
 }

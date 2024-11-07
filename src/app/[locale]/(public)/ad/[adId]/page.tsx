@@ -32,7 +32,7 @@ import { MapPin, MessageCircle, Phone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import AdsCarousel from "@/components/bee3/ads-carousel";
 import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
-import { getServerSideFullLocation } from "@/lib/server-side";
+import { getLocalizedLocation } from "@/lib/utils";
 
 export async function generateMetadata({
   params,
@@ -113,7 +113,7 @@ export default async function AdPage({ params }: { params: { adId: string } }) {
               <div className="flex items-center justify-between text-sm">
                 <h3 className="flex items-center">
                   <MapPin className="me-2 inline" />
-                  {getServerSideFullLocation(ad.cityId)}
+                  {getLocalizedLocation(locale, ad.cityId)}
                 </h3>
                 <p>{getLocalizedDate(locale, ad.createdAt)}</p>
               </div>
