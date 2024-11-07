@@ -126,6 +126,7 @@ function SellPage() {
             <Select
               onValueChange={(value) => {
                 setSelectedMainCategory(value);
+                form.setValue("categoryPath", "")
               }}
               disabled={isPending}
             >
