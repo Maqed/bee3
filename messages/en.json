@@ -331,6 +331,8 @@
       "submit-error": "Error submitting the ad. Please try again.",
       "image-size": "Image size must be smaller than 4MB.",
       "image-size-description": "Please upload a smaller image.",
+      "governorateId": "Please choose a governorate",
+      "cityId": "Please choose a city",
       "submit": {
         "failed-not-enough-tokens": {
           "title": "You don't have enough tokens.",
