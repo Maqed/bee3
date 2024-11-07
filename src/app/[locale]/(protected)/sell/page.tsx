@@ -77,11 +77,7 @@ function SellPage() {
         formData.append(
           "json",
           JSON.stringify({
-            title: data.title,
-            description: data.description,
-            price: data.price,
-            categoryPath: data.categoryPath,
-            negotiable: data.negotiable,
+            ...data,
           }),
         );
 
@@ -95,7 +91,6 @@ function SellPage() {
         });
 
         const result = await response.json();
-
         if (!result.error) {
           toast({
             title: tSell("submit-success"),
@@ -268,7 +263,6 @@ function SellPage() {
                     onValueChange={(value) => {
                       field.onChange(value);
                       form.setValue("cityId", 0);
-                      console.log(form.getValues());
                     }}
                     filterItems={(inputValue, items) =>
                       items.filter(({ value }) => {
@@ -343,8 +337,6 @@ function SellPage() {
                       {...field}
                       onValueChange={(value) => {
                         field.onChange(value);
-
-                        console.log(form.getValues());
                       }}
                       filterItems={(inputValue, items) =>
                         items.filter(({ value }) => {
