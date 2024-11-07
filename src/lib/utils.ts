@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { env } from "@/env";
+import { governorates } from "@/schema/governorates";
+import { cities } from "@/schema/cities";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -40,4 +42,10 @@ export function getURLSearchParamsFromPageParams(searchParams: {
     if (value) params.append(key, value);
   });
   return params;
+}
+export function getGovernorate(governorateId: number) {
+  return governorates.find((governorate) => governorate.id === governorateId);
+}
+export function getCity(cityId: number) {
+  return cities.find((city) => city.id === cityId);
 }

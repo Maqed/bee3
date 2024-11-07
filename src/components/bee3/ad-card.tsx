@@ -8,6 +8,7 @@ import { Link } from "@/navigation";
 import { cn, getLocalizedDate, getLocalizedPrice } from "@/lib/utils";
 import { Suspense } from "react";
 import AdCardPlaceholder from "../placeholders/ad-card-placeholder";
+import { getServerSideFullLocation } from "@/lib/server-side";
 
 type Props = {
   ad: Ad;
@@ -71,8 +72,7 @@ async function AdCard({ ad, orientation = "vertical" }: Props) {
             </Link>
             <Link href={`/ad/${ad.id}`}>
               <div className="flex items-center justify-between text-sm">
-                {/* Put actual data */}
-                <span>AD PLACE</span>
+                <span>{getServerSideFullLocation(ad.cityId)}</span>
                 <span>{getLocalizedDate(locale, ad.createdAt)}</span>
               </div>
             </Link>
