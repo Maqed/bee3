@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { adSchema } from "@/schema/ad";
 import { categoriesTree } from "@/schema/categories-tree";
 import { Button } from "@/components/ui/button";
@@ -32,11 +32,22 @@ import { useToast } from "@/components/ui/use-toast";
 import { UploadAdImageButton } from "@/components/bee3/ad-image-button";
 import Spinner from "@/components/ui/spinner";
 import { Separator } from "@/components/ui/separator";
+import {
+  ComboBox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+} from "@/components/ui/combobox";
+import { CheckIcon } from "lucide-react";
+import { governorates } from "@/schema/governorates";
+import { cities } from "@/schema/cities";
 
 function SellPage() {
   const tSell = useTranslations("/sell");
   const tCategories = useTranslations("categories");
   const tErrors = useTranslations("errors.sell");
+  const locale = useLocale();
   const router = useRouter();
   const { toast } = useToast();
   const [selectedMainCategory, setSelectedMainCategory] = useState<
@@ -53,6 +64,7 @@ function SellPage() {
       price: 0,
       categoryPath: "",
       images: [],
+      governorateId: 0,
       cityId: 0,
       negotiable: false,
     },
@@ -126,7 +138,7 @@ function SellPage() {
             <Select
               onValueChange={(value) => {
                 setSelectedMainCategory(value);
-                form.setValue("categoryPath", "")
+                form.setValue("categoryPath", "");
               }}
               disabled={isPending}
             >
@@ -186,7 +198,7 @@ function SellPage() {
               )}
             />
           )}
-          <Separator/>
+          <Separator />
           <FormField
             control={form.control}
             name="images"
@@ -242,7 +254,159 @@ function SellPage() {
             )}
           />
 
-          <Separator/>
+          <Separator />
+
+          <FormField
+            control={form.control}
+            name="governorateId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{tSell("location.governorate.label")}</FormLabel>
+                <FormControl>
+                  <ComboBox
+                    {...field}
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                      form.setValue("cityId", 0);
+                      console.log(form.getValues());
+                    }}
+                    filterItems={(inputValue, items) =>
+                      items.filter(({ value }) => {
+                        const governorate = governorates.find(
+                          (governorate) => governorate.id === value,
+                        );
+                        if (!governorate) return <></>;
+                        const { governorate_name_ar, governorate_name_en } =
+                          governorate;
+                        const label =
+                          locale === "ar"
+                            ? governorate_name_ar
+                            : governorate_name_en;
+                        return (
+                          !inputValue ||
+                          (governorate &&
+                            label
+                              .toLowerCase()
+                              .includes(inputValue.toLowerCase()))
+                        );
+                      })
+                    }
+                  >
+                    <ComboboxInput
+                      placeholder={tSell("location.governorate.placeholder")}
+                    />
+                    <ComboboxContent>
+                      {governorates.map(
+                        ({ id, governorate_name_ar, governorate_name_en }) => {
+                          const label =
+                            locale === "ar"
+                              ? governorate_name_ar
+                              : governorate_name_en;
+                          return (
+                            <ComboboxItem
+                              key={`governorate-${id}`}
+                              value={id}
+                              label={label}
+                              className="ps-8"
+                            >
+                              <span className="text-sm text-foreground">
+                                {label}
+                              </span>
+                              {field.value === id && (
+                                <span className="absolute start-2 top-0 flex h-full items-center justify-center">
+                                  <CheckIcon className="size-4" />
+                                </span>
+                              )}
+                            </ComboboxItem>
+                          );
+                        },
+                      )}
+                      <ComboboxEmpty>
+                        {tSell("location.no-results")}
+                      </ComboboxEmpty>
+                    </ComboboxContent>
+                  </ComboBox>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {form.getValues().governorateId !== 0 && (
+            <FormField
+              control={form.control}
+              name="cityId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{tSell("location.city.label")}</FormLabel>
+                  <FormControl>
+                    <ComboBox
+                      {...field}
+                      onValueChange={(value) => {
+                        field.onChange(value);
+
+                        console.log(form.getValues());
+                      }}
+                      filterItems={(inputValue, items) =>
+                        items.filter(({ value }) => {
+                          const city = cities.find((city) => city.id === value);
+                          if (!city) return <></>;
+                          const { city_name_ar, city_name_en } = city;
+                          const label =
+                            locale === "ar" ? city_name_ar : city_name_en;
+                          return (
+                            !inputValue ||
+                            (city &&
+                              label
+                                .toLowerCase()
+                                .includes(inputValue.toLowerCase()))
+                          );
+                        })
+                      }
+                    >
+                      <ComboboxInput
+                        placeholder={tSell("location.city.placeholder")}
+                      />
+                      <ComboboxContent>
+                        {cities
+                          .filter(
+                            (city) =>
+                              city.governorate_id ===
+                              form.getValues().governorateId,
+                          )
+                          .map(({ id, city_name_ar, city_name_en }) => {
+                            const label =
+                              locale === "ar" ? city_name_ar : city_name_en;
+                            return (
+                              <ComboboxItem
+                                key={`city-${id}`}
+                                value={id}
+                                label={label}
+                                className="ps-8"
+                              >
+                                <span className="text-sm text-foreground">
+                                  {label}
+                                </span>
+                                {field.value === id && (
+                                  <span className="absolute start-2 top-0 flex h-full items-center justify-center">
+                                    <CheckIcon className="size-4" />
+                                  </span>
+                                )}
+                              </ComboboxItem>
+                            );
+                          })}
+                        <ComboboxEmpty>
+                          {tSell("location.no-results")}
+                        </ComboboxEmpty>
+                      </ComboboxContent>
+                    </ComboBox>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+
+          <Separator />
 
           <FormField
             control={form.control}

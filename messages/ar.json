@@ -258,6 +258,17 @@
       "placeholder": "صف منتجك بالتفصيل",
       "description": "قدم وصفًا مفصلاً لمنتجك"
     },
+    "location": {
+      "no-results": "لا توجد نتائج.",
+      "governorate": {
+        "label": "المحافظة",
+        "placeholder": "اختر محافظتك"
+      },
+      "city": {
+        "label": "المدينة",
+        "placeholder": "اختر مدينتك"
+      }
+    },
     "price": {
       "label": "السعر",
       "placeholder": "أدخل السعر",

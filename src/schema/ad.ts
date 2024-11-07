@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { categoriesTree, type CategoryTreeItem } from "./categories-tree";
 import { cities } from "./cities";
+import { governorates } from "./governorates";
 
 // Update the error messages to use translation keys
 export const adSchema = z.object({
@@ -18,6 +19,7 @@ export const adSchema = z.object({
     }),
   images: z.array(z.instanceof(File)).min(1, { message: "sell.images" }),
   negotiable: z.boolean(),
+  governorateId: z.number().refine((id) => governorates.some(g => g.id == id), { message: "sell.governorateId" }),
   cityId: z.number().refine((id) => cities.some(c => c.id == id), { message: "sell.cityId" }),
 });
 

@@ -244,6 +244,17 @@
       "placeholder": "Describe your item in detail",
       "description": "Provide a detailed description of your item"
     },
+    "location": {
+      "no-results": "No results.",
+      "governorate": {
+        "label": "Governorate",
+        "placeholder": "Choose your governorate"
+      },
+      "city": {
+        "label": "City",
+        "placeholder": "Choose your city"
+      }
+    },
     "price": {
       "label": "Price",
       "placeholder": "Enter the price",
