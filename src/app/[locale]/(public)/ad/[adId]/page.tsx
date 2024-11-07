@@ -28,10 +28,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Phone } from "lucide-react";
+import { MapPin, MessageCircle, Phone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import AdsCarousel from "@/components/bee3/ads-carousel";
 import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
+import { getServerSideFullLocation } from "@/lib/server-side";
 
 export async function generateMetadata({
   params,
@@ -108,7 +109,14 @@ export default async function AdPage({ params }: { params: { adId: string } }) {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <h1 className="text-xl md:text-2xl">{ad.title}</h1>
+              <h1 className="mb-1 text-xl md:text-2xl">{ad.title}</h1>
+              <div className="flex items-center justify-between text-sm">
+                <h3 className="flex items-center">
+                  <MapPin className="me-2 inline" />
+                  {getServerSideFullLocation(ad.cityId)}
+                </h3>
+                <p>{getLocalizedDate(locale, ad.createdAt)}</p>
+              </div>
             </CardContent>
           </Card>
           {/* Description */}
