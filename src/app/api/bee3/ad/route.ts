@@ -89,7 +89,7 @@ export async function POST(request: Request) {
         connect: { id: req.data.cityId },
       },
       category: {
-        connect: { path: req.data.categoryPath },
+        connect: { id: req.data.categoryId },
       },
       analytics: {
         create: { views: 0, uniqueViews: 0 },

@@ -5,26 +5,27 @@ enum AdTiers {
 }
 
 model Category {
-    path             String     @id
-    parentCategory   Category?  @relation("CategoryToCategory", fields: [parentCategoryId], references: [path], onDelete: NoAction, onUpdate: NoAction)
-    parentCategoryId String?
+    id               Int        @id
+    parentCategory   Category?  @relation("CategoryToCategory", fields: [parentCategoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    parentCategoryId Int?
     productCategory  Category[] @relation("CategoryToCategory")
 
-    name        String  @unique
+    name_en     String  @unique
+    name_ar     String  @unique
     description String? @db.Text
     depth       Int
     Ads         Ad[]
 }
 
 model Ad {
-    id           String   @id
-    userId       String?
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-    user         User?    @relation(fields: [userId], references: [id])
-    favoritedBy  User[]   @relation("favoriteAds")
-    category     Category @relation(fields: [categoryPath], references: [path])
-    categoryPath String
+    id          String    @id
+    userId      String?
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    user        User?     @relation(fields: [userId], references: [id])
+    favoritedBy User[]    @relation("favoriteAds")
+    category    Category? @relation(fields: [categoryId], references: [id])
+    categoryId  Int?
 
     tier        AdTiers  @default(Free)
     title       String

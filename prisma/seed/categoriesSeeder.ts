@@ -1,34 +1,35 @@
 import { db } from "@/server/db";
 import { categoriesTree, CategoryTreeItem } from "src/schema/categories-tree";
 
-async function populateItemTree(items: CategoryTreeItem[], depth = 0, parentPath: string | undefined = undefined) {
+async function populateItemTree(items: CategoryTreeItem[], depth = 0, parentId: number | undefined = undefined) {
     if (!items) return;
 
     for (const item of items) {
-        const path = parentPath ? `${parentPath}/${item.name}` : item.name;
-        console.log(path);
+        console.log(item.id);
 
         await db.category.upsert({
-            where: { path: path },
+            where: { id: item.id },
             update: {
-                path: path,
-                name: item.name,
+                name_en: item.name_en,
+                name_ar: item.name_ar,
                 description: item.description,
                 depth: depth,
-                parentCategory: parentPath ? { connect: { path: parentPath } } : undefined
+                parentCategory: parentId ? { connect: { id: parentId } } : undefined
             },
             create: {
-                path: path,
-                name: item.name,
+                id: item.id,
+                name_en: item.name_en,
+                name_ar: item.name_ar,
                 description: item.description,
                 depth: depth,
-                parentCategory: parentPath ? { connect: { path: parentPath } } : undefined
+                parentCategory: parentId ? { connect: { id: parentId } } : undefined
             }
         });
-        populateItemTree(item.categories as CategoryTreeItem[], depth + 1, path);
+        if (item.categories)
+            populateItemTree(item.categories, depth + 1, item.id);
     }
 }
 
 export function seedCategories() {
-    populateItemTree(categoriesTree.categories as CategoryTreeItem[]);
+    populateItemTree(categoriesTree);
 }

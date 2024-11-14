@@ -17,10 +17,10 @@ export const MAX_PAGE_SIZE = 64;
  * order ----> order of the ads, by default it's descending
  */
 export async function GET(request: NextRequest) {
-    const categoryPath = request.nextUrl.searchParams.get("category");
+    const categoryId = +(request.nextUrl.searchParams.get("category") ?? 0);
 
     const search = request.nextUrl.searchParams.get("q");
-    if (!categoryPath && !search)
+    if (!categoryId && !search)
         return NextResponse.json({ error: "invalid-query" }, { status: 400 });
 
     const pageNum = +(request.nextUrl.searchParams.get("page") ?? 1);
@@ -42,9 +42,7 @@ export async function GET(request: NextRequest) {
         ]; // asc, desc
     if (!order) order = Prisma.SortOrder.desc;
 
-    const paths = categoryPath
-        ? [categoryPath].concat(getSubCategoryPaths(categoryPath))
-        : [];
+    const Ids = getCategoryChildrenIds(categoryId, categoriesTree);
 
     const adsPromise = db.ad.findMany({
         orderBy: [
@@ -61,7 +59,7 @@ export async function GET(request: NextRequest) {
             { createdAt: sort === "date" ? order : undefined },
         ],
         where: {
-            categoryPath: paths.length > 0 ? { in: paths } : undefined,
+            categoryId: Ids.length > 0 ? { in: Ids } : undefined,
             title: search ? { search: search } : undefined,
             price: price
                 ? { gte: +price.split("-")[0]!, lte: +price.split("-")[1]! }
@@ -79,27 +77,27 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ ads, totalAds, totalPages });
 }
 
-function getSubCategoryPaths(rootPath: string): string[] {
-    const subPaths = Array<string>();
+function getCategoryChildrenIds(categoryId: number, categoriesTree: CategoryTreeItem[]): number[] {
+    // Helper function to collect all nested children IDs
+    const collectChildrenIds = (category: CategoryTreeItem): number[] => {
+        const children = category.categories || [];
+        return [
+            ...children.map(child => child.id),
+            ...children.flatMap(child => collectChildrenIds(child))
+        ];
+    };
 
-    const tree = getTreeFromPath(rootPath);
-    if (tree) {
-        for (const subTree of tree) {
-            const subPath = `${rootPath}/${subTree.name}`;
-            subPaths.push(subPath);
-            subPaths.push(...getSubCategoryPaths(subPath));
+    // Find target category and collect children IDs
+    const findAndCollectIds = (categories: CategoryTreeItem[]): number[] => {
+        for (const category of categories) {
+            if (category.id === categoryId) return collectChildrenIds(category);
+            if (category.categories) {
+                const result = findAndCollectIds(category.categories);
+                if (result.length > 0) return result;
+            }
         }
-    }
+        return [];
+    };
 
-    return subPaths;
-}
-
-function getTreeFromPath(path: string): CategoryTreeItem[] {
-    const segments = path.split("/");
-    let tree = categoriesTree.categories as CategoryTreeItem[];
-    for (const segment of segments) {
-        tree = tree.find((c) => c.name == segment)!
-            .categories as CategoryTreeItem[];
-    }
-    return tree;
+    return findAndCollectIds(categoriesTree);
 }
