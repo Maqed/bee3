@@ -258,6 +258,17 @@
       "placeholder": "صف منتجك بالتفصيل",
       "description": "قدم وصفًا مفصلاً لمنتجك"
     },
+    "location": {
+      "no-results": "لا توجد نتائج.",
+      "governorate": {
+        "label": "المحافظة",
+        "placeholder": "اختر محافظتك"
+      },
+      "city": {
+        "label": "المدينة",
+        "placeholder": "اختر مدينتك"
+      }
+    },
     "price": {
       "label": "السعر",
       "placeholder": "أدخل السعر",
@@ -333,6 +344,8 @@
       "submit-error": "حدث خطأ أثناء تقديم الإعلان. يرجى المحاولة مرة أخرى.",
       "image-size": "يجب أن يكون حجم الصورة أقل من 4 ميجابايت.",
       "image-size-description": "يرجى تحميل صورة أصغر.",
+      "governorateId": "برجاء اختيار محافظة",
+      "cityId": "برجاء اختيار مدينة",
       "submit": {
         "failed-not-enough-tokens": {
           "title": "ليس لديك ما يكفي من الرموز.",

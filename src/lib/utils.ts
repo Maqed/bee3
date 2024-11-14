@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { env } from "@/env";
+import { governorates } from "@/schema/governorates";
+import { cities } from "@/schema/cities";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -30,6 +32,17 @@ export function getCategoryAndSubCategory(categoryPath: string) {
 export function absoluteURL(url: string) {
   return `${env.NEXT_PUBLIC_APP_URL}/${url}`;
 }
+export function getLocalizedLocation(locale: string, cityId: number) {
+  const city = getCity(cityId);
+  const governorate = getGovernorate(city?.governorate_id as number);
+  const governorateName =
+    locale === "ar"
+      ? governorate?.governorate_name_ar
+      : governorate?.governorate_name_en;
+  const cityName = locale === "ar" ? city?.city_name_ar : city?.city_name_en;
+  return `${governorateName}, ${cityName}`;
+}
+
 export function getURLSearchParamsFromPageParams(searchParams: {
   [key: string]: string | undefined;
 }) {
@@ -40,4 +53,10 @@ export function getURLSearchParamsFromPageParams(searchParams: {
     if (value) params.append(key, value);
   });
   return params;
+}
+export function getGovernorate(governorateId: number) {
+  return governorates.find((governorate) => governorate.id === governorateId);
+}
+export function getCity(cityId: number) {
+  return cities.find((city) => city.id === cityId);
 }
