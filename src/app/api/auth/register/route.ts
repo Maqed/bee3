@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { db } from "@/server/db";
 import { generateVerificationToken } from "@/lib/tokens";
 import { sendVerificationEmail } from "@/lib/mail";
+import { authOptions } from "@/server/auth";
 
 export async function POST(request: Request) {
   const req = registerSchema.safeParse(await request.json());
@@ -20,13 +21,20 @@ export async function POST(request: Request) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    await db.user.create({
+    const user = await db.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
       },
     });
+    // @ts-ignore
+    await authOptions.events?.createUser({
+      // @ts-ignore
+      user: {
+        ...user
+      }
+    })
   } catch (error) {
     return NextResponse.json({
       error: `Error occured during creating user ${error}`,

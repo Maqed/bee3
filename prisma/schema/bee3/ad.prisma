@@ -19,14 +19,14 @@ model Category {
 }
 
 model Ad {
-    id           String   @id
-    userId       String?
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-    user         User?    @relation(fields: [userId], references: [id])
-    favoritedBy  User[]   @relation("favoriteAds")
-    category     Category @relation(fields: [categoryPath], references: [path])
-    categoryPath String
+    id          String    @id
+    userId      String?
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    user        User?     @relation(fields: [userId], references: [id])
+    favoritedBy User[]    @relation("favoriteAds")
+    category    Category? @relation(fields: [categoryId], references: [id])
+    categoryId  Int?
 
     tier        AdTiers  @default(Free)
     title       String

@@ -17,7 +17,7 @@ async function populateItemTree(items: CategoryTreeItem[], depth = 0, parentPath
                 name_ar: item.name_ar,
                 description: item.description,
                 depth: depth,
-                parentCategory: parentPath ? { connect: { path: parentPath } } : undefined
+                parentCategory: parentPath ? { connect: { id: parentPath } } : undefined
             },
             create: {
                 id: item.id,
@@ -26,7 +26,7 @@ async function populateItemTree(items: CategoryTreeItem[], depth = 0, parentPath
                 name_ar: item.name_ar,
                 description: item.description,
                 depth: depth,
-                parentCategory: parentPath ? { connect: { path: parentPath } } : undefined
+                parentCategory: parentPath ? { connect: { id: parentPath } } : undefined
             }
         });
         if (item.categories)
