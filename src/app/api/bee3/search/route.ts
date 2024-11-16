@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/server/db";
-import { categoriesTree, CategoryTreeItem } from "@/schema/categories-tree";
+import { categoriesTree, CategoryTreeItem, toPathFormat } from "@/schema/categories-tree";
 import { Prisma } from "@prisma/client";
 
 export const DEFAULT_PAGE_SIZE = 12;
@@ -85,7 +85,7 @@ function getSubCategoryPaths(rootPath: string): string[] {
     const tree = getTreeFromPath(rootPath);
     if (tree) {
         for (const subTree of tree) {
-            const subPath = `${rootPath}/${subTree.name}`;
+            const subPath = `${rootPath}/${toPathFormat(subTree.name_en)}`;
             subPaths.push(subPath);
             subPaths.push(...getSubCategoryPaths(subPath));
         }
@@ -96,9 +96,9 @@ function getSubCategoryPaths(rootPath: string): string[] {
 
 function getTreeFromPath(path: string): CategoryTreeItem[] {
     const segments = path.split("/");
-    let tree = categoriesTree.categories as CategoryTreeItem[];
+    let tree = categoriesTree;
     for (const segment of segments) {
-        tree = tree.find((c) => c.name == segment)!
+        tree = tree.find((c) => toPathFormat(c.name_en) == segment)!
             .categories as CategoryTreeItem[];
     }
     return tree;

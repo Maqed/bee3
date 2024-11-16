@@ -5,12 +5,14 @@ enum AdTiers {
 }
 
 model Category {
-    path             String     @id
+    id               Int        @id
+    path             String     @unique
     parentCategory   Category?  @relation("CategoryToCategory", fields: [parentCategoryId], references: [path], onDelete: NoAction, onUpdate: NoAction)
     parentCategoryId String?
     productCategory  Category[] @relation("CategoryToCategory")
 
-    name        String  @unique
+    name_en     String  @unique
+    name_ar     String  @unique
     description String? @db.Text
     depth       Int
     Ads         Ad[]
