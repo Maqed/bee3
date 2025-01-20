@@ -124,6 +124,33 @@
       "desc": "تنازلي"
     }
   },
+  "categories": {
+    "vehicles": {
+      "name": "العربيات",
+      "categories": {
+        "electric-cars": {
+          "name": "العربيات الكهربائية"
+        },
+        "gas-cars": {
+          "name": "العربيات التي تعمل بالبنزين"
+        }
+      }
+    },
+    "mobiles-and-tablets": {
+      "name": "الموبايل والتابلت",
+      "categories": {
+        "mobile-phones": {
+          "name": "الموبايل"
+        },
+        "tablets": {
+          "name": "التابلت"
+        },
+        "accessories": {
+          "name": "اكسسوارات الموبايل والتابلت"
+        }
+      }
+    }
+  },
   "not-found": {
     "title": "عفوًا، لم يتم العثور على الصفحة!",
     "paragraph": "الصفحة الذي تبحث عنه لا تبدو أنها موجودة.",
