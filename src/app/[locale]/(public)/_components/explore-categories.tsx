@@ -1,6 +1,6 @@
 import { categoryIcons } from "@/consts/category-icons";
 import { Avatar } from "@/components/ui/avatar";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { categoriesTree } from "@/schema/categories-tree";
 
 import {
@@ -19,46 +19,50 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Link } from "@/navigation";
+import { getCategoryName, toPathFormat } from "@/lib/utils";
 
 async function ExploreCategories() {
-  const tCategories = await getTranslations("categories");
   const tNavigation = await getTranslations("/.navigation");
+  const locale = await getLocale();
 
   return (
     <section className="container">
       <Carousel opts={{ dragFree: true }} className="w-full whitespace-nowrap">
         <CarouselContent>
-          {categoriesTree.categories.map((category) => {
-            const icon = categoryIcons[category.name];
+          {categoriesTree.map((category) => {
+            const categoryNamePathFormat = toPathFormat(category.name_en);
+            const icon = categoryIcons[categoryNamePathFormat];
+            const categoryName = getCategoryName(locale, category);
             return (
-              <CarouselItem key={category.name}>
+              <CarouselItem key={categoryName}>
                 <Dialog>
                   <DialogTrigger className="flex flex-col items-center justify-center">
                     <Avatar className="rounded-md bg-primary/40">{icon}</Avatar>
-                    <p className="text-sm">
-                      {tCategories(`${category.name}.name`)}
-                    </p>
+                    <p className="text-sm">{categoryName}</p>
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader className="h-min">
-                      <DialogTitle>
-                        {tCategories(`${category.name}.name`)}
-                      </DialogTitle>
+                      <DialogTitle>{categoryName}</DialogTitle>
                       <DialogDescription>
                         {tNavigation("choose-category")}
                       </DialogDescription>
                     </DialogHeader>
                     <div className="flex flex-col items-start justify-start">
-                      {category.categories.map((subCategory) => {
+                      {category.categories?.map((subCategory) => {
+                        const subCategoryNamePathFormat = toPathFormat(
+                          subCategory.name_en,
+                        );
+                        const subCategoryName = getCategoryName(
+                          locale,
+                          subCategory,
+                        );
                         return (
                           <Link
-                            key={`explore-subcategory-${subCategory.name}`}
-                            href={`/${category.name}/${subCategory.name}`}
+                            key={`explore-subcategory-${subCategoryNamePathFormat}`}
+                            href={`/${categoryNamePathFormat}/${subCategoryNamePathFormat}`}
                             className="text-primary hover:underline"
                           >
-                            {tCategories(
-                              `${category.name}.categories.${subCategory.name}.name`,
-                            )}
+                            {subCategoryName}
                           </Link>
                         );
                       })}
