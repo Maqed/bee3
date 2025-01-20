@@ -125,33 +125,6 @@
       "desc": "Descending"
     }
   },
-  "categories": {
-    "vehicles": {
-      "name": "Vehicles",
-      "categories": {
-        "electric-cars": {
-          "name": "Electric Cars"
-        },
-        "gas-cars": {
-          "name": "Gas Cars"
-        }
-      }
-    },
-    "mobiles-and-tablets": {
-      "name": "Mobiles & Tablets",
-      "categories": {
-        "mobile-phones": {
-          "name": "Mobile Phones"
-        },
-        "tablets": {
-          "name": "Tablets"
-        },
-        "accessories": {
-          "name": "Mobile & Tablet Accessories"
-        }
-      }
-    }
-  },
   "not-found": {
     "title": "Oops, Page not found!",
     "paragraph": "The page you're looking for doesn't seem to exist.",
