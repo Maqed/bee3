@@ -68,3 +68,6 @@ export function toPathFormat(input: string): string {
     .replace(/[^a-z0-9\s]/g, "")
     .replace(/\s+/g, "-");
 }
+export function getCategoryName(locale: string, category: CategoryTreeItem) {
+  return locale === "ar" ? category.name_ar : category.name_en;
+}
