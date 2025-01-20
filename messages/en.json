@@ -318,6 +318,7 @@
       "email-doesn't-exist": "Email does not exist"
     },
     "sell": {
+      "categoryId": "Please choose a sub category",
       "title": {
         "min": "Title must be at least 1 character long",
         "max": "Title must be at most 250 character long"
