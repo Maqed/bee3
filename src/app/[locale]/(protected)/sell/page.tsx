@@ -42,10 +42,10 @@ import {
 import { CheckIcon } from "lucide-react";
 import { governorates } from "@/schema/governorates";
 import { cities } from "@/schema/cities";
+import { getCategoryName } from "@/lib/utils";
 
 function SellPage() {
   const tSell = useTranslations("/sell");
-  const tCategories = useTranslations("categories");
   const tErrors = useTranslations("errors.sell");
   const locale = useLocale();
   const router = useRouter();
@@ -53,6 +53,9 @@ function SellPage() {
   const [selectedMainCategory, setSelectedMainCategory] = useState<
     string | null
   >(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
+    null,
+  );
   const [isPending, startTransition] = useTransition();
 
   type FormData = z.infer<typeof adSchema>;
@@ -62,7 +65,7 @@ function SellPage() {
       title: "",
       description: "",
       price: 0,
-      categoryPath: "",
+      categoryId: 0,
       images: [],
       governorateId: 0,
       cityId: 0,
@@ -113,10 +116,11 @@ function SellPage() {
       }
     });
   };
-  const mainCategories = categoriesTree.categories;
+  const mainCategories = categoriesTree;
   const subCategories = selectedMainCategory
-    ? mainCategories.find((category) => category.name === selectedMainCategory)
-        ?.categories || []
+    ? mainCategories.find(
+        (category) => category.name_en === selectedMainCategory,
+      )?.categories || []
     : [];
 
   const onImagesChange = (newImages: File[]) => {
@@ -133,7 +137,7 @@ function SellPage() {
             <Select
               onValueChange={(value) => {
                 setSelectedMainCategory(value);
-                form.setValue("categoryPath", "");
+                form.setValue("categoryId", 0);
               }}
               disabled={isPending}
             >
@@ -145,11 +149,14 @@ function SellPage() {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                {mainCategories.map((category) => (
-                  <SelectItem key={category.name} value={category.name}>
-                    {tCategories(`${category.name}.name`)}
-                  </SelectItem>
-                ))}
+                {mainCategories.map((category) => {
+                  const categoryName = getCategoryName(locale, category);
+                  return (
+                    <SelectItem key={categoryName} value={category.name_en}>
+                      {categoryName}
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
             <FormMessage />
@@ -158,13 +165,21 @@ function SellPage() {
           {selectedMainCategory && (
             <FormField
               control={form.control}
-              name="categoryPath"
+              name="categoryId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{tSell("category.sub.label")}</FormLabel>
                   <Select
                     onValueChange={(value) => {
-                      return field.onChange(value);
+                      // Did this approach because the value is the ID, not the name. So I get the name of the subCategory by ID
+                      const selected = subCategories.find(
+                        (subCategory) => subCategory.id === Number(value),
+                      );
+                      const subCategoryName = selected
+                        ? getCategoryName(locale, selected)
+                        : null;
+                      setSelectedSubCategory(subCategoryName);
+                      field.onChange(Number(value));
                     }}
                     disabled={isPending}
                   >
@@ -172,20 +187,26 @@ function SellPage() {
                       <SelectTrigger>
                         <SelectValue
                           placeholder={tSell("category.sub.placeholder")}
-                        />
+                        >
+                          {selectedSubCategory}
+                        </SelectValue>
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {subCategories.map((subCategory) => (
-                        <SelectItem
-                          key={subCategory.name}
-                          value={`${selectedMainCategory}/${subCategory.name}`}
-                        >
-                          {tCategories(
-                            `${selectedMainCategory}.categories.${subCategory.name}.name`,
-                          )}
-                        </SelectItem>
-                      ))}
+                      {subCategories.map((subCategory) => {
+                        const subCategoryName = getCategoryName(
+                          locale,
+                          subCategory,
+                        );
+                        return (
+                          <SelectItem
+                            key={subCategoryName}
+                            value={subCategory.id}
+                          >
+                            {subCategoryName}
+                          </SelectItem>
+                        );
+                      })}
                     </SelectContent>
                   </Select>
                   <FormMessage />
