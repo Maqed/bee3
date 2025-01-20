@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { env } from "@/env";
 import { governorates } from "@/schema/governorates";
 import { cities } from "@/schema/cities";
+import { CategoryTreeItem } from "@/schema/categories-tree";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -59,4 +60,11 @@ export function getGovernorate(governorateId: number) {
 }
 export function getCity(cityId: number) {
   return cities.find((city) => city.id === cityId);
+}
+export function toPathFormat(input: string): string {
+  return input
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "")
+    .replace(/\s+/g, "-");
 }
