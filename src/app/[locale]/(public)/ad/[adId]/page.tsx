@@ -80,26 +80,36 @@ export default async function AdPage({ params }: { params: { adId: string } }) {
     <div className="mt-10 grid grid-cols-12 gap-4 md:container md:mx-auto">
       {/* Ad Information */}
       <div className="col-span-12 flex flex-col gap-y-5 md:col-span-8">
-        <Carousel>
-          <CarouselContent>
-            {ad.images.map((imageURL) => (
-              <CarouselItem
-                className="min-w-0 shrink-0 grow-0 basis-full"
-                key={`carousel-item-${imageURL}`}
-              >
-                <Image
-                  width={1500}
-                  height={450}
-                  src={imageURL}
-                  className="h-auto max-h-[450px] w-full object-contain"
-                  alt={ad.title}
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="start-0 h-10 w-10 bg-background/40 md:h-12 md:w-12" />
-          <CarouselNext className="end-0 h-10 w-10 bg-background/40 md:h-12 md:w-12" />
-        </Carousel>
+        {ad.images.length > 1 ? (
+          <Carousel>
+            <CarouselContent>
+              {ad.images.map((imageURL) => (
+                <CarouselItem
+                  className="min-w-0 shrink-0 grow-0 basis-full"
+                  key={`carousel-item-${imageURL}`}
+                >
+                  <Image
+                    width={1500}
+                    height={450}
+                    src={imageURL}
+                    className="h-auto max-h-[450px] w-full object-contain"
+                    alt={ad.title}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="start-0 h-10 w-10 bg-background/40 md:h-12 md:w-12" />
+            <CarouselNext className="end-0 h-10 w-10 bg-background/40 md:h-12 md:w-12" />
+          </Carousel>
+        ) : (
+          <Image
+            width={1500}
+            height={450}
+            src={ad.images[0]!}
+            className="h-auto max-h-[450px] w-full object-contain"
+            alt={ad.title}
+          />
+        )}
         <div className="flex flex-col gap-y-5 max-md:container">
           {/* Price and Title */}
           <Card>
