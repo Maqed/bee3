@@ -1,6 +1,5 @@
 "use client";
 import { useLocale } from "next-intl";
-import { Heart } from "lucide-react";
 import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,6 +9,7 @@ import { cn, getLocalizedDate, getLocalizedPrice } from "@/lib/utils";
 import { Suspense } from "react";
 import AdCardPlaceholder from "../placeholders/ad-card-placeholder";
 import { getLocalizedLocation } from "@/lib/utils";
+import FavoritesHeart from "./favorites-heart";
 
 type Props = {
   ad: Ad;
@@ -18,10 +18,7 @@ type Props = {
 
 function AdCard({ ad, orientation = "vertical" }: Props) {
   const locale = useLocale();
-  const handleHeartClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
+
   return (
     <Suspense
       fallback={
@@ -63,10 +60,7 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
                 <span className="w-full text-lg font-semibold text-primary">
                   {getLocalizedPrice(locale, ad.price)}
                 </span>
-                <Heart
-                  onClick={handleHeartClick}
-                  className="absolute end-0 h-5 w-5 cursor-pointer text-foreground/70 transition-all hover:fill-red-500 hover:text-red-600"
-                />
+                <FavoritesHeart adId={ad.id} />
               </div>
               {orientation === "horizontal" ? (
                 <>
