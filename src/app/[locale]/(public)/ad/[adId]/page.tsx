@@ -33,6 +33,7 @@ import { Separator } from "@/components/ui/separator";
 import AdsCarousel from "@/components/bee3/ads-carousel";
 import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
 import { getLocalizedLocation } from "@/lib/utils";
+import FavoritesHeart from "@/components/bee3/favorites-heart";
 
 export async function generateMetadata({
   params,
@@ -104,8 +105,9 @@ export default async function AdPage({ params }: { params: { adId: string } }) {
           {/* Price and Title */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-3xl text-primary md:text-5xl">
+              <CardTitle className="flex items-center justify-between text-3xl text-primary md:text-5xl">
                 {getLocalizedPrice(locale, ad.price)}
+                <FavoritesHeart className="size-6" adId={ad.id} />
               </CardTitle>
             </CardHeader>
             <CardContent>
