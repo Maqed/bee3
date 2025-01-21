@@ -1,5 +1,4 @@
-"use client";
-import { useLocale } from "next-intl";
+import { getLocale } from "next-intl/server";
 import Image from "next/image";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,8 +15,8 @@ type Props = {
   orientation?: "horizontal" | "vertical";
 };
 
-function AdCard({ ad, orientation = "vertical" }: Props) {
-  const locale = useLocale();
+async function AdCard({ ad, orientation = "vertical" }: Props) {
+  const locale = await getLocale();
 
   return (
     <Suspense
