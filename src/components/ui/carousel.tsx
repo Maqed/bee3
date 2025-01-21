@@ -66,7 +66,6 @@ const Carousel = React.forwardRef<
         ...opts,
         direction: locale === "ar" ? "rtl" : "ltr",
         axis: orientation === "horizontal" ? "x" : "y",
-        dragFree: true,
       },
       plugins,
     );
