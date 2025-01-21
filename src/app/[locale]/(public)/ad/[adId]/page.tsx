@@ -7,6 +7,7 @@ import {
   getServerSideSubCategory,
 } from "@/lib/server-side";
 import {
+  absoluteURL,
   getCategoryAndSubCategory,
   getLocalizedDate,
   getLocalizedPrice,
@@ -34,6 +35,7 @@ import AdsCarousel from "@/components/bee3/ads-carousel";
 import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
 import { getLocalizedLocation } from "@/lib/utils";
 import FavoritesHeart from "@/components/bee3/favorites-heart";
+import { Ad } from "@prisma/client";
 
 export async function generateMetadata({
   params,
@@ -58,10 +60,11 @@ export async function generateMetadata({
 }
 
 export default async function AdPage({ params }: { params: { adId: string } }) {
-  const ad = await db.ad.findUnique({
-    where: { id: params.adId },
-    include: { user: true },
-  });
+  const adsRequest = await fetch(absoluteURL(`/api/bee3/ad/${params.adId}`));
+  const {
+    ad,
+  }: { ad: Ad & { user: { id: string; name: string; createdAt: Date } } } =
+    await adsRequest.json();
   if (!ad) {
     return notFound();
   }
