@@ -39,13 +39,13 @@ async function AdCard({ ad, orientation = "vertical" }: Props) {
             <Image
               src={ad.images[0] ?? ""}
               alt={`${ad.title} image`}
-              width="300"
+              width="200"
               height="200"
               className={cn(
-                "object-contain",
+                "object-cover",
                 orientation === "vertical"
                   ? "h-[200px] w-full rounded-t-lg"
-                  : "h-full w-[350px] rounded-s-lg",
+                  : "h-full w-[200px] rounded-s-lg",
               )}
             />
             <div
