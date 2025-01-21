@@ -19,7 +19,10 @@ export const adSchema = z.object({
 });
 
 export const favAdSchema = z.object({
-  adId: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]{24}$/, { message: "ad.id" }),
+  adId: z.string().regex(
+    /^[\u0600-\u06FFa-z0-9]+(?:-[\u0600-\u06FFa-z0-9]+)*-[a-z0-9]{24}$/, 
+    { message: "ad.id" }
+  ),
   state: z.boolean()
 });
 
