@@ -32,7 +32,6 @@ import { Button } from "@/components/ui/button";
 import { MapPin, MessageCircle, Phone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import AdsCarousel from "@/components/bee3/ads-carousel";
-import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
 import { getLocalizedLocation } from "@/lib/utils";
 import FavoritesHeart from "@/components/bee3/favorites-heart";
 import { Ad } from "@prisma/client";
