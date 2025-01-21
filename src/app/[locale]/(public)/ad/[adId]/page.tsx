@@ -68,15 +68,12 @@ export default async function AdPage({ params }: { params: { adId: string } }) {
   if (!ad) {
     return notFound();
   }
-  const relatedAds = await db.ad.findMany({
-    where: {
-      categoryPath: ad.categoryPath,
-      NOT: {
-        id: ad.id,
-      },
-    },
-    take: NUMBER_OF_ADS_IN_CAROUSEL,
-  });
+  const relatedAdsRequest = await fetch(
+    absoluteURL(
+      `/api/bee3/relatedAds?adId=${ad.id}&categoryPath=${ad.categoryPath}`,
+    ),
+  );
+  const { relatedAds } = await relatedAdsRequest.json();
   const locale = await getLocale();
   const tAd = await getTranslations("/ad/[adId]");
 
