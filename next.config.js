@@ -10,12 +10,13 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import("next").NextConfig} */
 const config = {
   images: {
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         hostname: "utfs.io",
       },
       {
-        hostname: "via.placeholder.com",
+        hostname: "placehold.co",
       },
       {
         hostname: "flagsapi.com",

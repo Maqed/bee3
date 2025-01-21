@@ -107,11 +107,11 @@ export function UploadAdImageButton({ disabled, onImagesChange }: Props) {
         {Array.apply(null, Array(MAX_AD_IMAGES - images.length)).map((_) => {
           return (
             <Image
-              src={`https://via.placeholder.com/104x104?text=${tSell("images.placeholder")}`}
+              src={`https://placehold.co/100?text=${tSell("images.placeholder")}`}
               alt="placeholder"
               className="border border-primary"
-              width={104}
-              height={104}
+              width={100}
+              height={100}
             />
           );
         })}
