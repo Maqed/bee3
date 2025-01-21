@@ -1,7 +1,7 @@
 import { getLocale } from "next-intl/server";
 import Image from "next/image";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { type Ad } from "@prisma/client";
 import { Link } from "@/navigation";
 import { cn, getLocalizedDate, getLocalizedPrice } from "@/lib/utils";
@@ -55,12 +55,22 @@ async function AdCard({ ad, orientation = "vertical" }: Props) {
                   "flex h-full w-full flex-col justify-between",
               )}
             >
-              <div className="relative flex w-full items-center justify-between">
-                <span className="w-full text-lg font-semibold text-primary">
+              <CardTitle className="relative flex w-full items-center justify-between">
+                <span
+                  className={cn(
+                    "w-full font-semibold text-primary",
+                    orientation === "horizontal" ? "text-3xl" : "text-lg",
+                  )}
+                >
                   {getLocalizedPrice(locale, ad.price)}
                 </span>
-                <FavoritesHeart adId={ad.id} />
-              </div>
+                <FavoritesHeart
+                  className={cn(
+                    orientation === "horizontal" ? "size-7" : "size-6",
+                  )}
+                  adId={ad.id}
+                />
+              </CardTitle>
               {orientation === "horizontal" ? (
                 <>
                   <h1 className="text-xl font-bold">{ad.title}</h1>{" "}
