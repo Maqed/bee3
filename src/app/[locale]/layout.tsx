@@ -1,5 +1,4 @@
 import "@/styles/globals.css";
-import Navbar from "@/components/navbar/navbar";
 import { GeistSans } from "geist/font/sans";
 import { Toaster } from "@/components/ui/toaster";
 import { type Metadata } from "next";
