@@ -52,7 +52,7 @@ export default function RootLayout({
       <html
         lang={locale}
         dir={locale === "ar" ? "rtl" : "ltr"}
-        className={`${GeistSans.variable}`}
+        className={`${GeistSans.className}`}
       >
         <body>
           <ClientSideProviders>
