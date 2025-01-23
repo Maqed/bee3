@@ -164,7 +164,11 @@
     }
   },
   "/favorites": {
-    "title": "Favorite Ads"
+    "title": "Favorite Ads",
+    "no-favorites": {
+      "message": "No favorite ads found",
+      "hint": "Click the heart icon to add ads to your favorites"
+    }
   },
   "/user/[userId]": {
     "advertises": {
