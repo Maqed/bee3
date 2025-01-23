@@ -62,7 +62,7 @@ export default async function UserPage({ params: { userId } }: Props) {
                 {/* Show SellButton if the user is the session user */}
               </div>
             ) : (
-              <div className="flex flex-wrap items-center justify-center gap-2 md:justify-start">
+              <div className="flex flex-wrap justify-center gap-2 md:justify-start">
                 {ads.map(
                   (
                     ad, // Render ads if available
