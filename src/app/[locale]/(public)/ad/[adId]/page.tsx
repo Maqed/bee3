@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { db } from "@/server/db";
 import { getLocale } from "next-intl/server";
 import {
   getServerSideCategory,
