@@ -1,4 +1,3 @@
-import { getLocale } from "next-intl/server";
 import Image from "next/image";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { type Ad } from "@prisma/client";
@@ -6,14 +5,15 @@ import { Link } from "@/navigation";
 import { cn, getLocalizedDate, getLocalizedPrice } from "@/lib/utils";
 import { getLocalizedLocation } from "@/lib/utils";
 import FavoritesHeart from "./favorites-heart";
+import { useLocale } from "next-intl";
 
 type Props = {
   ad: Ad;
   orientation?: "horizontal" | "vertical";
 };
 
-async function AdCard({ ad, orientation = "vertical" }: Props) {
-  const locale = await getLocale();
+function AdCard({ ad, orientation = "vertical" }: Props) {
+  const locale = useLocale();
 
   return (
     <Link href={`/ad/${ad.id}`}>
