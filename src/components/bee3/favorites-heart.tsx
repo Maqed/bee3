@@ -4,21 +4,31 @@ import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
 import { useRouter } from "@/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useFavoriteAds } from "@/hooks/useFavAds";
+import { useEffect, useState } from "react";
 
 type Props = {
   adId: string;
   className?: string;
-  initialFavorited?: boolean;
 };
 
-function FavoritesHeart({ adId, className, initialFavorited = false }: Props) {
+function FavoritesHeart({ adId, className }: Props) {
   const { data: session } = useSession();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { data: favoriteAdsData, isLoading: isFavoritesLoading } =
+    useFavoriteAds();
 
-  // TODO: get the initialFavorited from the API endpoint
-  const [isFavorited, setIsFavorited] = useState(initialFavorited);
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  useEffect(() => {
+    if (favoriteAdsData?.favoriteAds) {
+      const isAdFavorited = favoriteAdsData.favoriteAds.some(
+        (favAd) => favAd.id === adId,
+      );
+      setIsFavorited(isAdFavorited);
+    }
+  }, [favoriteAdsData, adId]);
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -71,7 +81,7 @@ function FavoritesHeart({ adId, className, initialFavorited = false }: Props) {
         isFavorited
           ? "text-red-600 hover:text-red-700"
           : "text-foreground/70 hover:fill-red-500 hover:text-red-600",
-        mutation.isPending && "animate-pulse",
+        (mutation.isPending || isFavoritesLoading) && "animate-pulse",
         className,
       )}
       aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
