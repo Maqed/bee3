@@ -284,6 +284,9 @@
     "loading": "جاري البيع..."
   },
   "/ad/[adId]": {
+    "metadata": {
+      "ad-not-found": "لم يتم العثور على الإعلان"
+    },
     "description": "الوصف",
     "related-ads": "اعلانات مشابهة",
     "user": {

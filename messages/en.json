@@ -274,6 +274,9 @@
     "loading": "Posting ad..."
   },
   "/ad/[adId]": {
+    "metadata": {
+      "ad-not-found": "Ad not found"
+    },
     "description": "Description",
     "related-ads": "Related Ads",
     "user": {
