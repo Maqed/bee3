@@ -41,7 +41,11 @@ export async function generateMetadata({
 }: {
   params: { adId: string };
 }) {
-  const ad = await db.ad.findUnique({ where: { id: params.adId } });
+  const adsRequest = await fetch(absoluteURL(`/api/bee3/ad/${params.adId}`));
+  const {
+    ad,
+  }: { ad: Ad & { user: { id: string; name: string; createdAt: Date } } } =
+    await adsRequest.json();
   if (!ad) {
     return { title: "Ad Not Found" };
   }
