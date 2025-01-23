@@ -1,11 +1,11 @@
 import { getServerSideFullCategory } from "@/lib/server-side";
-import AdCard from "./ad-card";
+import AdCard from "../ad-card";
 import { notFound } from "next/navigation";
 import { Ad } from "@prisma/client";
 import FilterAds from "./filter-ads";
 import AdFilterDialog from "./ad-filter-dialog";
 import { Card, CardContent } from "@/components/ui/card";
-import { PaginationWithLinks } from "../ui/pagination-with-links";
+import { PaginationWithLinks } from "@/components/ui/pagination-with-links";
 import { DEFAULT_PAGE_SIZE } from "@/app/api/bee3/search/route";
 import { absoluteURL, getURLSearchParamsFromPageParams } from "@/lib/utils";
 
