@@ -1,15 +1,12 @@
 import { getServerSideFullCategory } from "@/lib/server-side";
-import AdCard from "../ad-card";
-import { notFound } from "next/navigation";
-import { Ad } from "@prisma/client";
 import FilterAds from "./filter-ads";
 import AdFilterDialog from "./ad-filter-dialog";
 import { Card, CardContent } from "@/components/ui/card";
-import { PaginationWithLinks } from "@/components/ui/pagination-with-links";
+import { getURLSearchParamsFromPageParams } from "@/lib/utils";
+import ShowingAds from "./showing-ads";
+import { Suspense } from "react";
+import AdCardPlaceholder from "@/components/placeholders/ad-card-placeholder";
 import { DEFAULT_PAGE_SIZE } from "@/app/api/bee3/search/route";
-import { absoluteURL, getURLSearchParamsFromPageParams } from "@/lib/utils";
-
-import ShowingAdsNotFound from "./showing-ads-not-found";
 
 type Props = {
   categoryPath?: string;
@@ -19,21 +16,6 @@ type Props = {
 async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
   let params = getURLSearchParamsFromPageParams(searchParams);
   if (categoryPath) params.set("category", categoryPath);
-
-  const categoryResponse = await fetch(
-    absoluteURL(`/api/bee3/search?${params.toString()}`),
-    {
-      method: "GET",
-      cache: "no-store",
-    },
-  );
-
-  if (categoryResponse.status !== 200) {
-    notFound();
-  }
-
-  const { ads, totalPages }: { ads: Ad[]; totalPages: number } =
-    await categoryResponse.json();
 
   let title = categoryPath
     ? getServerSideFullCategory(categoryPath)
@@ -58,18 +40,13 @@ async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
         </div>
         {/* Ads */}
         <div className="col-span-12 flex flex-col gap-3 lg:col-span-9">
-          {ads.length ? (
-            ads.map((ad) => {
-              return <AdCard key={ad.id} orientation="horizontal" ad={ad} />;
-            })
-          ) : (
-            <ShowingAdsNotFound />
-          )}
-          <PaginationWithLinks
-            totalPageCount={totalPages}
-            page={Number(params.get("page")) ?? 1}
-            pageSize={DEFAULT_PAGE_SIZE}
-          />
+          <Suspense
+            fallback={[...Array(12)].map(() => (
+              <AdCardPlaceholder orientation="horizontal" />
+            ))}
+          >
+            <ShowingAds params={params} />
+          </Suspense>
         </div>
       </div>
     </main>
