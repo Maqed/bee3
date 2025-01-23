@@ -1,13 +1,15 @@
-"use client";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import Navbar from "@/components/navbar/navbar";
-function FavoritesPage() {
-  const tFavorites = useTranslations("/favorites");
+import { FavoriteAds } from "./_components/favorite-ads";
+
+async function FavoritesPage() {
+  const tFavorites = await getTranslations("/favorites");
   return (
     <div>
       <Navbar />
-      <main className="container mt-4 sm:mx-auto md:max-w-4xl">
-        <h1>{tFavorites("title")}</h1>
+      <main className="container mt-4 sm:mx-auto md:max-w-5xl">
+        <h1 className="text-3xl font-black">{tFavorites("title")}</h1>
+        <FavoriteAds />
       </main>
     </div>
   );
