@@ -55,7 +55,10 @@ function FavoritesHeart({ adId, className }: Props) {
       console.error("Error updating favorite status:", error);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["favorite-ads"] });
+      queryClient.invalidateQueries({
+        queryKey: ["favorite-ads"],
+        refetchType: "inactive",
+      });
     },
   });
 

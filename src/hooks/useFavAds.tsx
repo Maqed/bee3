@@ -18,5 +18,6 @@ export function useFavoriteAds() {
 
       return response.json();
     },
+    staleTime: Infinity,
   });
 }
