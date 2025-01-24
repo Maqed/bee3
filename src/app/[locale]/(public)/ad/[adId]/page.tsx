@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import {
   getServerSideCategory,
   getServerSideSubCategory,
@@ -33,7 +33,7 @@ async function AdPageContent({ params }: { params: { adId: string } }) {
 export async function generateMetadata({
   params,
 }: {
-  params: { adId: string };
+  params: { locale: string; adId: string };
 }) {
   const ad = await fetchAdData(params.adId);
 
@@ -41,8 +41,6 @@ export async function generateMetadata({
     const tAd = await getTranslations("/ad/[adId].metadata");
     return { title: tAd("ad-not-found") };
   }
-
-  const locale = await getLocale();
   const { category, subCategory } = getCategoryAndSubCategory(ad.categoryPath);
   let localizedCategory = await getServerSideCategory(category);
 
@@ -50,7 +48,7 @@ export async function generateMetadata({
     localizedCategory = await getServerSideSubCategory(category, subCategory);
   }
 
-  const localizedPrice = getLocalizedPrice(locale, ad.price);
+  const localizedPrice = getLocalizedPrice(params.locale, ad.price);
 
   return {
     title: `${ad.title} - ${localizedCategory} - ${localizedPrice}`,
