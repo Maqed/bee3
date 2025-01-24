@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
 import { useRouter } from "@/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useFavoriteAds } from "@/hooks/useFavAds";
 import { useEffect, useState } from "react";
 
@@ -16,6 +17,7 @@ function FavoritesHeart({ adId, className }: Props) {
   const { data: session } = useSession();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const tFavoritesHeart = useTranslations("favorites-heart");
   const { data: favoriteAdsData, isFetching: isFavoritesFetching } =
     useFavoriteAds();
 
@@ -87,7 +89,11 @@ function FavoritesHeart({ adId, className }: Props) {
         (mutation.isPending || isFavoritesFetching) && "animate-pulse",
         className,
       )}
-      aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
+      aria-label={
+        isFavorited
+          ? tFavoritesHeart("aria-label.remove-from-favorites")
+          : tFavoritesHeart("aria-label.add-to-favorites")
+      }
     />
   );
 }

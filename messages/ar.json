@@ -24,6 +24,12 @@
   "ads-carousel": {
     "show-more": "اعرض المزيد"
   },
+  "favorites-heart": {
+    "aria-label": {
+      "remove-from-favorites": "الغي من المفضلة",
+      "add-to-favorites": "اضف الى المفضلة"
+    }
+  },
   "auth": {
     "card-wrapper": {
       "or": "أو",

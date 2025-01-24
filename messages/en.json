@@ -26,6 +26,12 @@
   "ads-carousel": {
     "show-more": "Show More"
   },
+  "favorites-heart": {
+    "aria-label": {
+      "remove-from-favorites": "Remove from favorites",
+      "add-to-favorites": "Add to favorites"
+    }
+  },
   "auth": {
     "card-wrapper": {
       "or": "Or",
