@@ -130,7 +130,8 @@
     "orderOptions": {
       "asc": "Ascending",
       "desc": "Descending"
-    }
+    },
+    "apply-filters": "Apply filters"
   },
   "categories": {
     "vehicles": {

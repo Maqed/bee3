@@ -109,7 +109,7 @@ function FilterAds({ onApplyFilter }: Props) {
         </Select>
       </div>
 
-      <Button onClick={handleApplyFilter}>Apply filter</Button>
+      <Button onClick={handleApplyFilter}>{t("apply-filters")}</Button>
     </div>
   );
 }

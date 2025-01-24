@@ -129,7 +129,8 @@
     "orderOptions": {
       "asc": "تصاعدي",
       "desc": "تنازلي"
-    }
+    },
+    "apply-filters": "فلتر"
   },
   "categories": {
     "vehicles": {
