@@ -16,7 +16,7 @@ function FavoritesHeart({ adId, className }: Props) {
   const { data: session } = useSession();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { data: favoriteAdsData, isLoading: isFavoritesLoading } =
+  const { data: favoriteAdsData, isFetching: isFavoritesFetching } =
     useFavoriteAds();
 
   const [isFavorited, setIsFavorited] = useState(false);
@@ -81,10 +81,10 @@ function FavoritesHeart({ adId, className }: Props) {
       fill={isFavorited ? "currentColor" : "none"}
       className={cn(
         "size-5 cursor-pointer transition-all",
-        isFavorited
+        isFavorited && !isFavoritesFetching
           ? "text-red-600 hover:text-red-700"
           : "text-foreground/70 hover:fill-red-500 hover:text-red-600",
-        (mutation.isPending || isFavoritesLoading) && "animate-pulse",
+        (mutation.isPending || isFavoritesFetching) && "animate-pulse",
         className,
       )}
       aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
