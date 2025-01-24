@@ -6,7 +6,7 @@ type Props = {
   orientation?: "horizontal" | "vertical";
 };
 
-async function AdCardPlaceholder({ orientation = "vertical" }: Props) {
+function AdCardPlaceholder({ orientation = "vertical" }: Props) {
   return (
     <Card className={cn(orientation === "vertical" ? "w-[300px]" : "w-full")}>
       <CardContent
