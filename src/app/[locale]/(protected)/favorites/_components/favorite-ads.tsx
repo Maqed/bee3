@@ -7,9 +7,9 @@ import AdCardPlaceholder from "@/components/placeholders/ad-card-placeholder";
 
 export function FavoriteAds() {
   const t = useTranslations("/favorites");
-  const { data, isLoading, error } = useFavoriteAds();
+  const { data, isFetching, error } = useFavoriteAds();
 
-  if (isLoading) {
+  if (isFetching) {
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         {[...Array(3)].map(() => (
