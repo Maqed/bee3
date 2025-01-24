@@ -1,4 +1,15 @@
 {
+  "metadata": {
+    "title": "Bee3",
+    "description": "Bee3 is a platform made for selling and buying online completely for free!",
+    "keywords": {
+      "0": "Bee3",
+      "1": "Sell",
+      "2": "Buy",
+      "3": "Shop",
+      "4": "Live"
+    }
+  },
   "Mode Toggle": {
     "Light": "Light",
     "Dark": "Dark",
