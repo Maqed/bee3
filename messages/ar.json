@@ -176,6 +176,11 @@
       "hint": "انقر على أيقونة القلب لإضافة الإعلانات إلى المفضلة"
     }
   },
+  "/[categoryPath]": {
+    "metadata": {
+      "description": "اشتري {category} مع بيع"
+    }
+  },
   "/user/[userId]": {
     "advertises": {
       "title": "الاعلانات",

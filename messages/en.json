@@ -176,6 +176,11 @@
       "hint": "Click the heart icon to add ads to your favorites"
     }
   },
+  "/[categoryPath]": {
+    "metadata": {
+      "description": "Buy {category} with bee3"
+    }
+  },
   "/user/[userId]": {
     "advertises": {
       "title": "Advertises",
