@@ -6,19 +6,18 @@ import { getURLSearchParamsFromPageParams } from "@/lib/utils";
 import ShowingAds from "./showing-ads";
 import { Suspense } from "react";
 import AdCardPlaceholder from "@/components/placeholders/ad-card-placeholder";
-import { DEFAULT_PAGE_SIZE } from "@/app/api/bee3/search/route";
 
 type Props = {
-  categoryPath?: string;
+  categoryPath?: string[];
   searchParams: Record<string, string | undefined>;
 };
 
 async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
   let params = getURLSearchParamsFromPageParams(searchParams);
-  if (categoryPath) params.set("category", categoryPath);
+  if (categoryPath) params.set("category", categoryPath.join("/"));
 
   let title = categoryPath
-    ? getServerSideFullCategory(categoryPath)
+    ? getServerSideFullCategory(categoryPath.join("/"))
     : params.get("q")
       ? params.get("q")
       : "";

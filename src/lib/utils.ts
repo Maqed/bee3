@@ -23,8 +23,9 @@ export function getLocalizedDate(
     dateStyle: "long",
   }).format(new Date(date as string));
 }
-export function getCategoryAndSubCategory(categoryPath: string) {
-  const [category, subCategory] = categoryPath.split("/");
+export function getCategoryAndSubCategory(categoryPath: string[] | string) {
+  const [category, subCategory] =
+    typeof categoryPath === "string" ? categoryPath.split("/") : categoryPath;
   if (!category) {
     throw new Error("Invalid category");
   }

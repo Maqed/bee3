@@ -1,7 +1,7 @@
 import ShowingAdsPage from "@/components/bee3/showing-ads/showing-ads-page";
 
 type Props = {
-  params: { categoryPath: string };
+  params: { categoryPath: string[] };
   searchParams: { [key: string]: string | undefined };
 };
 
