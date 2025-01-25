@@ -352,7 +352,7 @@
       "token-expired": "Token has expired!",
       "email-doesn't-exist": "Email does not exist"
     },
-    "sell": {
+    "/sell": {
       "categoryId": "Please choose a sub category",
       "title": {
         "min": "Title must be at least 1 character long",
