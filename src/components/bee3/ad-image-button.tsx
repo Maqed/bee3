@@ -1,120 +1,123 @@
 "use client";
-import { useDropzone } from "@uploadthing/react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { Upload, X } from "lucide-react";
-import { MAX_AD_IMAGES } from "@/consts/ad";
+import Dropzone from "react-dropzone";
+import { XCircleIcon, ImageIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { useTranslations } from "next-intl";
-import { cn } from "@/lib/utils";
+import { MAX_AD_IMAGES } from "@/consts/ad";
 
 type Props = {
   disabled?: boolean;
-  onImagesChange: (images: File[]) => void; // New prop
+  onImagesChange: (images: File[]) => void;
+  initialValue?: File[];
 };
 
-export function UploadAdImageButton({ disabled, onImagesChange }: Props) {
-  const [images, setImages] = useState<File[]>([]);
-  const tSell = useTranslations("/sell");
+export function UploadAdImageButton({
+  disabled = false,
+  onImagesChange,
+  initialValue = [],
+}: Props) {
+  const [images, setImages] = useState<File[]>(initialValue);
+  const tErrors = useTranslations("errors./sell");
   const { toast } = useToast();
-  const onDrop = (acceptedFiles: File[]) => {
+
+  const handleDrop = (acceptedFiles: File[]) => {
     const oversizedFiles = acceptedFiles.filter(
       (file) => file.size > 4 * 1024 * 1024,
-    ); // Check if file size is greater than 4MB
+    );
+
     if (oversizedFiles.length > 0) {
       toast({
-        title: tSell("errors.image-size"),
-        description: tSell("errors.image-size-description"),
+        title: tErrors("image-size"),
+        description: tErrors("image-size-description"),
         variant: "destructive",
       });
-      return; // Exit if there are oversized files
+      return;
     }
 
-    if (acceptedFiles.length + images.length <= MAX_AD_IMAGES) {
-      setImages((prevFiles) => {
-        const newImages = [...prevFiles, ...acceptedFiles];
-        onImagesChange(newImages); // Call the new prop to update form images
-        return newImages;
-      });
-    } else {
+    const newTotalImages = images.length + acceptedFiles.length;
+    if (newTotalImages > MAX_AD_IMAGES) {
       toast({
-        title: tSell("errors.max-images"),
+        title: tErrors("max-images"),
         variant: "destructive",
       });
+      return;
     }
+
+    const newImages = [...images, ...acceptedFiles];
+    setImages(newImages);
+    onImagesChange(newImages);
   };
 
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    accept: { "image/*": [] }, // Accept only image files
-  });
+  const removeImage = (indexToRemove: number) => {
+    const newImages = images.filter((_, index) => index !== indexToRemove);
+
+    setImages(newImages);
+    onImagesChange(newImages);
+  };
+
   return (
-    <div
-      className={cn(
-        "flex w-full flex-col flex-wrap items-center",
-        disabled && "cursor-not-allowed opacity-80",
-      )}
-    >
-      <div className="w-full" {...getRootProps()}>
-        <input {...getInputProps()} disabled={disabled} className="w-full" />
-        <div className="flex w-full flex-col items-center justify-center gap-5 border py-10">
-          <Upload className="h-10 w-10" />
-          <div>{tSell("images.drop-images")}</div>
-          <div>{tSell("images.or")}</div>
-          <Button type="reset" variant="outline">
-            {tSell("images.browse-images")}
-          </Button>
-        </div>
-      </div>
-      <div className="flex flex-wrap items-center">
-        {images.length > 0 && (
-          <>
-            {images.map((image, index) => (
+    <div className={cn("w-full", disabled && "cursor-not-allowed opacity-50")}>
+      <div className="flex flex-wrap items-center gap-2">
+        {images.map((image, index) => (
+          <div key={`image-${index}`} className="relative size-20 md:size-40">
+            <button
+              type="button"
+              disabled={disabled}
+              className="absolute -end-1 -top-1 z-10"
+              onClick={() => removeImage(index)}
+            >
+              <XCircleIcon className="h-5 w-5 fill-primary text-primary-foreground" />
+            </button>
+            <Image
+              src={URL.createObjectURL(image)}
+              alt={`Uploaded image ${index + 1}`}
+              fill
+              className="rounded-md border border-border object-cover"
+            />
+          </div>
+        ))}
+        {[...Array(MAX_AD_IMAGES - images.length)].map(() => (
+          <Dropzone
+            disabled={disabled}
+            onDrop={handleDrop}
+            accept={{
+              "image/png": [".png", ".jpg", ".jpeg", ".webp"],
+            }}
+          >
+            {({
+              getRootProps,
+              getInputProps,
+              isDragActive,
+              isDragAccept,
+              isDragReject,
+            }) => (
               <div
-                className="relative"
-                key={`image-container-${image.name}-${index}`}
+                {...getRootProps()}
+                className={cn(
+                  "flex size-20 items-center justify-center rounded-md border border-dashed focus:border-primary focus:outline-none md:size-40",
+                  {
+                    "border-primary bg-secondary": isDragActive && isDragAccept,
+                    "border-destructive bg-destructive/20":
+                      isDragActive && isDragReject,
+                    "cursor-not-allowed": disabled,
+                  },
+                )}
               >
-                <Button
-                  type="button"
-                  variant="destructive"
-                  className="absolute end-0 top-0 z-10 h-4 w-4 rounded-none p-0"
-                  onClick={() => {
-                    setImages((prevImages) => {
-                      const newImages = [
-                        ...prevImages.slice(0, index),
-                        ...prevImages.slice(index + 1, prevImages.length),
-                      ];
-                      onImagesChange(newImages);
-                      return newImages;
-                    });
-                  }}
-                >
-                  <X />
-                </Button>
-                <Image
-                  src={URL.createObjectURL(image)}
-                  alt={`Uploaded preview ${index}`}
-                  width={104}
-                  height={104}
-                  className="rounded-md"
+                <input {...getInputProps()} disabled={disabled} />
+                <ImageIcon
+                  className={cn(
+                    "h-10 w-10",
+                    disabled ? "text-muted-foreground" : "",
+                  )}
+                  strokeWidth={1.25}
                 />
               </div>
-            ))}
-          </>
-        )}
-        {/* Copied from https://stackoverflow.com/questions/4852017/how-to-initialize-an-arrays-length-in-javascript */}
-        {Array.apply(null, Array(MAX_AD_IMAGES - images.length)).map((_) => {
-          return (
-            <Image
-              src={`https://placehold.co/100?text=${tSell("images.placeholder")}`}
-              alt="placeholder"
-              className="border border-primary"
-              width={100}
-              height={100}
-            />
-          );
-        })}
+            )}
+          </Dropzone>
+        ))}
       </div>
     </div>
   );
