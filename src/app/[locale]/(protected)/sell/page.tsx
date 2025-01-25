@@ -224,6 +224,7 @@ function SellPage() {
                 <FormControl>
                   <UploadAdImageButton
                     disabled={isPending}
+                    images={form.getValues("images")}
                     onImagesChange={onImagesChange}
                   />
                 </FormControl>

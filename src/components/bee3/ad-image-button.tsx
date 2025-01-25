@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import Image from "next/image";
 import Dropzone from "react-dropzone";
 import { XCircleIcon, ImageIcon } from "lucide-react";
@@ -11,15 +10,14 @@ import { MAX_AD_IMAGES } from "@/consts/ad";
 type Props = {
   disabled?: boolean;
   onImagesChange: (images: File[]) => void;
-  initialValue?: File[];
+  images: File[];
 };
 
 export function UploadAdImageButton({
   disabled = false,
   onImagesChange,
-  initialValue = [],
+  images,
 }: Props) {
-  const [images, setImages] = useState<File[]>(initialValue);
   const tErrors = useTranslations("errors./sell");
   const { toast } = useToast();
 
@@ -47,14 +45,11 @@ export function UploadAdImageButton({
     }
 
     const newImages = [...images, ...acceptedFiles];
-    setImages(newImages);
     onImagesChange(newImages);
   };
 
   const removeImage = (indexToRemove: number) => {
     const newImages = images.filter((_, index) => index !== indexToRemove);
-
-    setImages(newImages);
     onImagesChange(newImages);
   };
 
