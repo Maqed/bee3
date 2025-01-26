@@ -7,6 +7,37 @@ import { useToast } from "@/components/ui/use-toast";
 import { useTranslations } from "next-intl";
 import { MAX_AD_IMAGES } from "@/consts/ad";
 
+function AdImage({
+  index,
+  disabled,
+  removeImage,
+  image,
+}: {
+  index: number;
+  disabled: boolean;
+  removeImage: () => void;
+  image: File;
+}) {
+  return (
+    <div key={`image-${index}`} className="relative size-16 md:size-24">
+      <button
+        type="button"
+        disabled={disabled}
+        className="absolute -end-1 -top-1 z-10"
+        onClick={removeImage}
+      >
+        <XCircleIcon className="h-5 w-5 fill-primary text-primary-foreground" />
+      </button>
+      <Image
+        src={URL.createObjectURL(image)}
+        alt={`Uploaded image ${index + 1}`}
+        fill
+        className="rounded-md border border-border object-cover"
+      />
+    </div>
+  );
+}
+
 type Props = {
   disabled?: boolean;
   onImagesChange: (images: File[]) => void;
@@ -57,22 +88,12 @@ export function UploadAdImageButton({
     <div className={cn("w-full", disabled && "cursor-not-allowed opacity-50")}>
       <div className="flex flex-wrap items-center gap-2">
         {images.map((image, index) => (
-          <div key={`image-${index}`} className="relative size-16 md:size-24">
-            <button
-              type="button"
-              disabled={disabled}
-              className="absolute -end-1 -top-1 z-10"
-              onClick={() => removeImage(index)}
-            >
-              <XCircleIcon className="h-5 w-5 fill-primary text-primary-foreground" />
-            </button>
-            <Image
-              src={URL.createObjectURL(image)}
-              alt={`Uploaded image ${index + 1}`}
-              fill
-              className="rounded-md border border-border object-cover"
-            />
-          </div>
+          <AdImage
+            disabled={disabled}
+            image={image}
+            index={index}
+            removeImage={() => removeImage(index)}
+          />
         ))}
         {[...Array(MAX_AD_IMAGES - images.length)].map(() => (
           <Dropzone
