@@ -6,8 +6,17 @@ import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { useTranslations } from "next-intl";
 import { MAX_AD_IMAGES } from "@/consts/ad";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+  useDraggable,
+  useDroppable,
+} from "@dnd-kit/core";
+import { useState } from "react";
 
-function AdImage({
+function DraggableImage({
   index,
   disabled,
   removeImage,
@@ -18,8 +27,25 @@ function AdImage({
   removeImage: () => void;
   image: File;
 }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef: setDraggableNodeRef,
+  } = useDraggable({
+    id: `image-${index}`,
+  });
+  const { setNodeRef: setDroppableNodeRef } = useDroppable({
+    id: `image-${index}`,
+  });
   return (
-    <div key={`image-${index}`} className="relative size-16 md:size-24">
+    <div
+      ref={(node) => {
+        setDraggableNodeRef(node);
+        setDroppableNodeRef(node);
+      }}
+      key={`image-${index}`}
+      className="relative size-16 md:size-24"
+    >
       <button
         type="button"
         disabled={disabled}
@@ -32,7 +58,9 @@ function AdImage({
         src={URL.createObjectURL(image)}
         alt={`Uploaded image ${index + 1}`}
         fill
-        className="rounded-md border border-border object-cover"
+        className="cursor-move rounded-md border border-border object-cover"
+        {...attributes}
+        {...listeners}
       />
     </div>
   );
@@ -51,6 +79,9 @@ export function UploadAdImageButton({
 }: Props) {
   const tErrors = useTranslations("errors./sell");
   const { toast } = useToast();
+  const [imageBeingDragged, setImageBeingDragged] = useState<string | null>(
+    null,
+  );
 
   const handleDrop = (acceptedFiles: File[]) => {
     const oversizedFiles = acceptedFiles.filter(
@@ -84,11 +115,43 @@ export function UploadAdImageButton({
     onImagesChange(newImages);
   };
 
+  function handleDragStart(event: DragStartEvent) {
+    setImageBeingDragged(event.active.id.toString());
+  }
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+
+    if (!active.id || !over?.id) return;
+
+    const activeIndex = Number(active.id.toString().split("-")[1]);
+    const overIndex = Number(over.id.toString().split("-")[1]);
+    const newImages = [...images];
+    if (
+      newImages[activeIndex] === undefined ||
+      newImages[overIndex] === undefined
+    )
+      return;
+
+    [newImages[activeIndex], newImages[overIndex]] = [
+      newImages[overIndex],
+      newImages[activeIndex],
+    ];
+    onImagesChange(newImages);
+
+    setImageBeingDragged(null);
+  }
+
   return (
-    <div className={cn("w-full", disabled && "cursor-not-allowed opacity-50")}>
-      <div className="flex flex-wrap items-center gap-2">
+    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <div
+        className={cn(
+          "flex w-full flex-wrap items-center gap-2",
+          disabled && "cursor-not-allowed opacity-50",
+        )}
+      >
         {images.map((image, index) => (
-          <AdImage
+          <DraggableImage
             disabled={disabled}
             image={image}
             index={index}
@@ -134,7 +197,21 @@ export function UploadAdImageButton({
             )}
           </Dropzone>
         ))}
+        <DragOverlay>
+          {imageBeingDragged ? (
+            <Image
+              src={URL.createObjectURL(
+                images[
+                  Number(imageBeingDragged[imageBeingDragged.length - 1])
+                ]!,
+              )}
+              alt={"Image being Dragged"}
+              fill
+              className="cursor-move rounded-md border border-border object-cover opacity-50"
+            />
+          ) : null}
+        </DragOverlay>
       </div>
-    </div>
+    </DndContext>
   );
 }
