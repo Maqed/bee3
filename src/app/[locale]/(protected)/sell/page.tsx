@@ -46,7 +46,7 @@ import { getCategoryName } from "@/lib/utils";
 
 function SellPage() {
   const tSell = useTranslations("/sell");
-  const tErrors = useTranslations("errors.sell");
+  const tErrors = useTranslations("errors./sell");
   const locale = useLocale();
   const router = useRouter();
   const { toast } = useToast();
