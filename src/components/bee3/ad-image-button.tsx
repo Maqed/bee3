@@ -57,7 +57,7 @@ export function UploadAdImageButton({
     <div className={cn("w-full", disabled && "cursor-not-allowed opacity-50")}>
       <div className="flex flex-wrap items-center gap-2">
         {images.map((image, index) => (
-          <div key={`image-${index}`} className="relative size-20 md:size-40">
+          <div key={`image-${index}`} className="relative size-16 md:size-24">
             <button
               type="button"
               disabled={disabled}
@@ -92,7 +92,7 @@ export function UploadAdImageButton({
               <div
                 {...getRootProps()}
                 className={cn(
-                  "flex size-20 items-center justify-center rounded-md border border-dashed focus:border-primary focus:outline-none md:size-40",
+                  "flex size-16 items-center justify-center rounded-md border border-dashed focus:border-primary focus:outline-none md:size-24",
                   {
                     "border-primary bg-secondary": isDragActive && isDragAccept,
                     "border-destructive bg-destructive/20":
