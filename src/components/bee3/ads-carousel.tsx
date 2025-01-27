@@ -24,8 +24,7 @@ export default async function AdsCarousel({ title, showMoreHref, ads }: Props) {
     return (
       <section className="container w-full">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-2xl font-bold">{title}</h2>
-          {/* Put actual data */}
+          <h2 className="text-lg font-bold md:text-2xl">{title}</h2>
           <Link
             href={showMoreHref}
             className="group text-sm text-primary hover:underline"
