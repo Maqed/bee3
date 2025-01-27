@@ -71,7 +71,6 @@ function FilterAds({ onApplyFilter }: Props) {
             id="minPrice"
             value={minPrice}
             onChange={(e) => setMinPrice(Number(e.target.value))}
-            thousandSeparator=","
             placeholder={t("minPriceLabel")}
           />
         </div>
