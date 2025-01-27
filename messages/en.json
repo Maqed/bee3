@@ -179,7 +179,8 @@
   },
   "/": {
     "navigation": {
-      "choose-category": "Choose the category you want."
+      "choose-category": "Choose the category you want.",
+      "show-all": "Show all"
     }
   },
   "/favorites": {

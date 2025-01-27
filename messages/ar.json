@@ -178,7 +178,8 @@
 
   "/": {
     "navigation": {
-      "choose-category": "اختر الفئة التي تريدها"
+      "choose-category": "اختر الفئة التي تريدها",
+      "show-all": "اعرض الكل"
     }
   },
   "/favorites": {
