@@ -82,7 +82,6 @@ function FilterAds({ onApplyFilter }: Props) {
             id="maxPrice"
             value={maxPrice}
             onChange={(e) => setMaxPrice(Number(e.target.value))}
-            thousandSeparator=","
             placeholder={t("maxPriceLabel")}
           />
         </div>
