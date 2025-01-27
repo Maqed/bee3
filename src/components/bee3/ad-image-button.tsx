@@ -1,4 +1,4 @@
-"use client";
+import React, { useMemo, useState } from "react";
 import Image from "next/image";
 import Dropzone from "react-dropzone";
 import { XCircleIcon, ImageIcon } from "lucide-react";
@@ -13,8 +13,11 @@ import {
   DragStartEvent,
   useDraggable,
   useDroppable,
+  TouchSensor,
+  MouseSensor,
+  useSensor,
+  useSensors,
 } from "@dnd-kit/core";
-import { useEffect, useMemo, useState } from "react";
 
 function DraggableImage({
   index,
@@ -31,14 +34,26 @@ function DraggableImage({
     attributes,
     listeners,
     setNodeRef: setDraggableNodeRef,
+    isDragging,
   } = useDraggable({
     id: `image-${index}`,
   });
+
   const { setNodeRef: setDroppableNodeRef } = useDroppable({
     id: `image-${index}`,
   });
 
   const imageUrl = useMemo(() => URL.createObjectURL(image), [image]);
+
+  // Combine touch and mouse event listeners
+  const combinedListeners = {
+    ...listeners,
+    onTouchStart: (e: React.TouchEvent) => {
+      // Prevent scrolling while dragging
+      e.preventDefault();
+      listeners?.onTouchStart?.(e);
+    },
+  };
 
   return (
     <div
@@ -47,24 +62,32 @@ function DraggableImage({
         setDroppableNodeRef(node);
       }}
       key={`image-${index}`}
-      className="relative size-16 md:size-24"
+      className={cn(
+        "relative size-16 md:size-24",
+        isDragging ? "opacity-50" : "opacity-100",
+      )}
+      {...attributes}
     >
       <button
         type="button"
         disabled={disabled}
         className="absolute -end-1 -top-1 z-10"
-        onClick={removeImage}
+        onClick={(e) => {
+          e.stopPropagation();
+          removeImage();
+        }}
       >
         <XCircleIcon className="h-5 w-5 fill-primary text-primary-foreground" />
       </button>
-      <Image
-        src={imageUrl}
-        alt={`Uploaded image ${index + 1}`}
-        fill
-        className="cursor-move rounded-md border border-border object-cover"
-        {...attributes}
-        {...listeners}
-      />
+      <div className="size-full touch-none" {...combinedListeners}>
+        <Image
+          src={imageUrl}
+          alt={`Uploaded image ${index + 1}`}
+          fill
+          className="rounded-md border border-border object-cover"
+          draggable={false}
+        />
+      </div>
     </div>
   );
 }
@@ -84,6 +107,15 @@ export function UploadAdImageButton({
   const { toast } = useToast();
   const [imageBeingDragged, setImageBeingDragged] = useState<string | null>(
     null,
+  );
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
+    }),
   );
 
   const handleDrop = (acceptedFiles: File[]) => {
@@ -146,7 +178,11 @@ export function UploadAdImageButton({
   }
 
   return (
-    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+    <DndContext
+      sensors={sensors}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
       <div
         className={cn(
           "flex w-full flex-wrap items-center gap-2",
@@ -162,7 +198,7 @@ export function UploadAdImageButton({
             removeImage={() => removeImage(index)}
           />
         ))}
-        {[...Array(MAX_AD_IMAGES - images.length)].map((number) => (
+        {[...Array(MAX_AD_IMAGES - images.length)].map((_, number) => (
           <Dropzone
             key={`dropzone-${number}`}
             disabled={disabled}
@@ -204,19 +240,21 @@ export function UploadAdImageButton({
         ))}
         <DragOverlay>
           {imageBeingDragged ? (
-            <Image
-              src={URL.createObjectURL(
-                images[
-                  Number(imageBeingDragged[imageBeingDragged.length - 1])
-                ]!,
-              )}
-              alt={"Image being Dragged"}
-              fill
-              className="cursor-move rounded-md border border-border object-cover opacity-50"
-            />
+            <div className="size-16 md:size-24">
+              <Image
+                src={URL.createObjectURL(
+                  images[Number(imageBeingDragged.split("-")[1])]!,
+                )}
+                alt="Image being dragged"
+                fill
+                className="rounded-md border border-border object-cover opacity-50"
+              />
+            </div>
           ) : null}
         </DragOverlay>
       </div>
     </DndContext>
   );
 }
+
+export default UploadAdImageButton;
