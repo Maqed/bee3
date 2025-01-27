@@ -65,7 +65,7 @@ function renderAdImages(ad: AdPageUIProps["ad"]) {
               <Image
                 width={1500}
                 height={450}
-                src={imageURL || "/placeholder.svg"}
+                src={imageURL}
                 className="h-auto max-h-[450px] w-full object-contain"
                 alt={ad.title}
               />
@@ -82,7 +82,7 @@ function renderAdImages(ad: AdPageUIProps["ad"]) {
     <Image
       width={1500}
       height={450}
-      src={ad.images[0]! || "/placeholder.svg"}
+      src={ad.images[0]!}
       className="h-auto max-h-[450px] w-full object-contain"
       alt={ad.title}
     />
