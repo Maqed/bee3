@@ -27,8 +27,8 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
           <Image
             src={ad.images[0] ?? ""}
             alt={`${ad.title} image`}
-            width="200"
-            height="200"
+            width="1200"
+            height="1200"
             className={cn(
               "object-cover",
               orientation === "vertical"
