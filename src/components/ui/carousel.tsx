@@ -30,6 +30,7 @@ type CarouselContextProps = {
   scrollNext: () => void;
   canScrollPrev: boolean;
   canScrollNext: boolean;
+  scrollTo: (index: number, jump?: boolean) => void;
 } & CarouselProps;
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
@@ -89,6 +90,13 @@ const Carousel = React.forwardRef<
       api?.scrollNext();
     }, [api]);
 
+    const scrollTo = React.useCallback(
+      (index: number) => {
+        api?.scrollTo(index);
+      },
+      [api],
+    );
+
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
@@ -140,6 +148,7 @@ const Carousel = React.forwardRef<
           scrollNext,
           canScrollPrev,
           canScrollNext,
+          scrollTo,
         }}
       >
         <div
@@ -264,6 +273,27 @@ const CarouselNext = React.forwardRef<
 });
 CarouselNext.displayName = "CarouselNext";
 
+const CarouselDot = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentProps<typeof Button> & { index: number }
+>(({ className, index, ...props }, ref) => {
+  const { scrollTo } = useCarousel();
+
+  return (
+    <button
+      ref={ref}
+      className={cn(
+        "inline outline-2 outline-primary hover:outline focus:outline",
+        className,
+      )}
+      onClick={() => {
+        scrollTo(index);
+      }}
+      {...props}
+    ></button>
+  );
+});
+CarouselDot.displayName = "CarouselDot";
 export {
   type CarouselApi,
   Carousel,
@@ -271,4 +301,5 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselDot,
 };
