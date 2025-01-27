@@ -7,8 +7,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+  CarouselDot,
 } from "@/components/ui/carousel";
 import {
   Card,
@@ -56,7 +55,7 @@ function renderAdImages(ad: AdPageUIProps["ad"]) {
   if (ad.images.length > 1) {
     return (
       <Carousel>
-        <CarouselContent>
+        <CarouselContent className="mb-3">
           {ad.images.map((imageURL) => (
             <CarouselItem
               key={`carousel-item-${imageURL}`}
@@ -72,8 +71,23 @@ function renderAdImages(ad: AdPageUIProps["ad"]) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="start-0 h-10 w-10 bg-background/40 md:h-12 md:w-12" />
-        <CarouselNext className="end-0 h-10 w-10 bg-background/40 md:h-12 md:w-12" />
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {ad.images.map((imageURL, index) => (
+            <CarouselDot
+              className="inline hover:outline hover:outline-2 hover:outline-primary"
+              key={`carousel-dot-${imageURL}`}
+              index={index}
+            >
+              <Image
+                width={100}
+                height={100}
+                src={imageURL}
+                className="h-auto max-h-[450px] w-full object-contain"
+                alt={ad.title}
+              />
+            </CarouselDot>
+          ))}
+        </div>
       </Carousel>
     );
   }
