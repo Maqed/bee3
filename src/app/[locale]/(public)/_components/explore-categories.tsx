@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Link } from "@/navigation";
 import { getCategoryName, toPathFormat } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
 
 async function ExploreCategories() {
   const tNavigation = await getTranslations("/.navigation");
@@ -42,12 +43,25 @@ async function ExploreCategories() {
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader className="h-min">
-                      <DialogTitle>{categoryName}</DialogTitle>
+                      <DialogTitle>
+                        <Link href={`/${categoryNamePathFormat}`}>
+                          {categoryName}
+                        </Link>
+                      </DialogTitle>
                       <DialogDescription>
                         {tNavigation("choose-category")}
                       </DialogDescription>
                     </DialogHeader>
                     <div className="flex flex-col items-start justify-start">
+                      <Link
+                        className="text-primary hover:underline"
+                        href={`/${categoryNamePathFormat}`}
+                      >
+                        {tNavigation("show-all")}
+                      </Link>
+                      <div className="flex w-full items-center justify-center">
+                        <Separator className="my-1 w-1/2" />
+                      </div>
                       {category.categories?.map((subCategory) => {
                         const subCategoryNamePathFormat = toPathFormat(
                           subCategory.name_en,
