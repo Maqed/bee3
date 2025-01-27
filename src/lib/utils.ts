@@ -13,6 +13,7 @@ export function getLocalizedPrice(locale: string, price: number) {
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency: "EGP",
+    maximumFractionDigits: 0,
   }).format(price);
 }
 export function getLocalizedDate(
