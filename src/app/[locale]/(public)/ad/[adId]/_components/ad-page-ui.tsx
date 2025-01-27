@@ -40,7 +40,7 @@ async function AdPageUI({ ad }: AdPageUIProps) {
     <>
       <div className="col-span-12 flex flex-col gap-y-5 md:col-span-8">
         {renderAdImages(ad)}
-        <div className="flex flex-col gap-y-5 max-md:container">
+        <div className="flex flex-col gap-y-5 max-sm:mx-1">
           {renderPriceAndTitle(ad, locale)}
           {renderDescription(ad, tAd)}
           <Separator />
