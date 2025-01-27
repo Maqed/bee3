@@ -14,7 +14,7 @@ import {
   useDraggable,
   useDroppable,
 } from "@dnd-kit/core";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 function DraggableImage({
   index,
@@ -37,6 +37,9 @@ function DraggableImage({
   const { setNodeRef: setDroppableNodeRef } = useDroppable({
     id: `image-${index}`,
   });
+
+  const imageUrl = useMemo(() => URL.createObjectURL(image), [image]);
+
   return (
     <div
       ref={(node) => {
@@ -55,7 +58,7 @@ function DraggableImage({
         <XCircleIcon className="h-5 w-5 fill-primary text-primary-foreground" />
       </button>
       <Image
-        src={URL.createObjectURL(image)}
+        src={imageUrl}
         alt={`Uploaded image ${index + 1}`}
         fill
         className="cursor-move rounded-md border border-border object-cover"
