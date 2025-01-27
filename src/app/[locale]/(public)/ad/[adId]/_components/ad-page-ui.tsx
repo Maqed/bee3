@@ -26,6 +26,7 @@ import {
 import FavoritesHeart from "@/components/bee3/favorites-heart";
 import RelatedAds from "./related-ads";
 import { AdWithUser } from "./ad-page-types";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 type AdPageUIProps = {
   ad: AdWithUser;
@@ -71,23 +72,26 @@ function renderAdImages(ad: AdPageUIProps["ad"]) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          {ad.images.map((imageURL, index) => (
-            <CarouselDot
-              className="inline hover:outline hover:outline-2 hover:outline-primary"
-              key={`carousel-dot-${imageURL}`}
-              index={index}
-            >
-              <Image
-                width={100}
-                height={100}
-                src={imageURL}
-                className="h-auto max-h-[450px] w-full object-contain"
-                alt={ad.title}
-              />
-            </CarouselDot>
-          ))}
-        </div>
+        <ScrollArea className="w-full whitespace-nowrap rounded-md border">
+          <div className="flex w-max space-x-4 p-1 pb-3">
+            {ad.images.map((imageURL, index) => (
+              <CarouselDot
+                className="inline hover:outline hover:outline-2 hover:outline-primary"
+                key={`carousel-dot-${imageURL}`}
+                index={index}
+              >
+                <Image
+                  width={100}
+                  height={100}
+                  src={imageURL}
+                  className="h-auto max-h-[450px] w-full object-contain"
+                  alt={ad.title}
+                />
+              </CarouselDot>
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </Carousel>
     );
   }
