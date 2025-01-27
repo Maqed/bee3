@@ -62,7 +62,7 @@ function FilterAds({ onApplyFilter }: Props) {
             value={minPrice}
             onChange={(e) => setMinPrice(Number(e.target.value))}
             type="number"
-            placeholder="min price"
+            placeholder={t("minPriceLabel")}
           />
         </div>
         <div className="flex flex-col">
@@ -74,7 +74,7 @@ function FilterAds({ onApplyFilter }: Props) {
             value={maxPrice}
             type="number"
             onChange={(e) => setMaxPrice(Number(e.target.value))}
-            placeholder="max price"
+            placeholder={t("maxPriceLabel")}
           />
         </div>
       </div>
@@ -85,7 +85,7 @@ function FilterAds({ onApplyFilter }: Props) {
         </Label>
         <Select value={sort} onValueChange={setSort}>
           <SelectTrigger>
-            <SelectValue placeholder="Sort by" />
+            <SelectValue placeholder={t("sortByLabel")} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="date">{t("sortOptions.date")}</SelectItem>
@@ -100,7 +100,7 @@ function FilterAds({ onApplyFilter }: Props) {
         </Label>
         <Select value={order} onValueChange={setOrder}>
           <SelectTrigger>
-            <SelectValue placeholder="Order" />
+            <SelectValue placeholder={t("orderLabel")} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="asc">{t(`orderOptions.${sort}.asc`)}</SelectItem>
