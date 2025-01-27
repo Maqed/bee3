@@ -26,8 +26,9 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
       >
         <CardContent
           className={cn(
-            "flex p-0",
-            orientation === "vertical" ? "flex-col" : "h-full justify-between",
+            "flex flex-col p-0",
+            orientation === "horizontal" &&
+              "md:h-full md:flex-row md:justify-between",
           )}
         >
           <Image
@@ -36,43 +37,44 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
             width="1200"
             height="1200"
             className={cn(
-              "object-cover",
-              orientation === "vertical"
-                ? "h-[200px] w-full rounded-t-lg"
-                : "h-full w-[200px] rounded-s-lg",
+              "h-[200px] w-full rounded-t-lg object-cover",
+              orientation === "horizontal" &&
+                "md:h-[200px] md:w-[250px] md:rounded-s-lg md:rounded-t-none",
             )}
           />
           <div
             className={cn(
               "space-y-2 p-4",
               orientation === "horizontal" &&
-                "flex h-full w-full flex-col justify-between",
+                "md:flex md:h-full md:w-full md:flex-col md:justify-between",
             )}
           >
             <CardTitle className="relative flex w-full items-center justify-between">
               <span
                 className={cn(
-                  "w-full font-semibold text-primary",
-                  orientation === "horizontal" ? "text-3xl" : "text-lg",
+                  "w-full text-lg font-semibold text-primary",
+                  orientation === "horizontal" && "md:ext-3xl",
                 )}
               >
                 {getLocalizedPrice(locale, ad.price)}
               </span>
               <FavoritesHeart
                 className={cn(
-                  orientation === "horizontal" ? "size-7" : "size-6",
+                  "size-6",
+                  orientation === "horizontal" && "md:size-7",
                 )}
                 adId={ad.id}
               />
             </CardTitle>
-            {orientation === "horizontal" ? (
-              <>
-                <h1 className="text-xl font-bold">{ad.title}</h1>{" "}
-                <p className="hidden text-sm md:block">{ad.description}</p>
-              </>
-            ) : (
-              <p className="text-sm">{ad.title}</p>
-            )}
+            <h1
+              className={cn(
+                "text-sm md:text-xl",
+                orientation === "horizontal" && "md:font-bold",
+              )}
+            >
+              {ad.title}
+            </h1>{" "}
+            <p className="hidden text-sm md:block">{ad.description}</p>
             <div className="flex flex-wrap items-center justify-between text-sm">
               <span>{getLocalizedLocation(locale, ad.cityId)}</span>
               <span>{getLocalizedDate(locale, ad.createdAt)}</span>

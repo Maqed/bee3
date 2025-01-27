@@ -17,22 +17,23 @@ function AdCardPlaceholder({ orientation = "vertical" }: Props) {
     >
       <CardContent
         className={cn(
-          "flex p-0",
-          orientation === "vertical" ? "flex-col" : "h-full justify-between",
+          "flex flex-col p-0",
+          orientation === "horizontal" &&
+            "md:h-full md:flex-row md:justify-between",
         )}
       >
         <Skeleton
           className={cn(
-            orientation === "vertical"
-              ? "h-[200px] w-full rounded-t-lg"
-              : "h-full w-[300px] rounded-s-lg",
+            "h-[200px] w-full rounded-t-lg",
+            orientation === "horizontal" &&
+              "md:h-full md:w-[300px] md:rounded-s-lg md:rounded-t-none",
           )}
         />
         <div
           className={cn(
             "space-y-2 p-4",
             orientation === "horizontal" &&
-              "flex h-full w-full flex-col justify-between",
+              "md:flex md:h-full md:w-full md:flex-col md:justify-between",
           )}
         >
           <div className="flex w-full items-center justify-between">
