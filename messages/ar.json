@@ -138,8 +138,8 @@
       "price": "السعر"
     },
     "orderOptions": {
-      "asc": "تصاعدي",
-      "desc": "تنازلي"
+      "price": { "asc": "أرخص", "desc": "أغلى" },
+      "date": { "asc": "أقدم", "desc": "أحدث" }
     },
     "apply-filters": "فلتر"
   },

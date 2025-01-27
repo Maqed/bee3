@@ -103,8 +103,10 @@ function FilterAds({ onApplyFilter }: Props) {
             <SelectValue placeholder="Order" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="asc">{t("orderOptions.asc")}</SelectItem>
-            <SelectItem value="desc">{t("orderOptions.desc")}</SelectItem>
+            <SelectItem value="asc">{t(`orderOptions.${sort}.asc`)}</SelectItem>
+            <SelectItem value="desc">
+              {t(`orderOptions.${sort}.desc`)}
+            </SelectItem>
           </SelectContent>
         </Select>
       </div>
