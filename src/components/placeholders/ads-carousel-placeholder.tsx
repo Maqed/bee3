@@ -11,8 +11,8 @@ function AdsCarouselPlaceholder() {
   return (
     <section className="container w-full">
       <div className="mb-3 flex items-center justify-between">
-        <Skeleton className="h-7 w-64" />
-        <Skeleton className="h-5 w-24" />
+        <Skeleton className="h-7 w-32 md:w-64" />
+        <Skeleton className="h-5 w-20 md:w-24" />
       </div>
       <Carousel opts={{ dragFree: true }} className="w-full max-w-full">
         <CarouselContent>

@@ -8,7 +8,13 @@ type Props = {
 
 function AdCardPlaceholder({ orientation = "vertical" }: Props) {
   return (
-    <Card className={cn(orientation === "vertical" ? "w-[300px]" : "w-full")}>
+    <Card
+      className={cn(
+        orientation === "vertical"
+          ? "w-[250px] md:w-[300px] lg:w-[325px]"
+          : "w-full",
+      )}
+    >
       <CardContent
         className={cn(
           "flex p-0",
