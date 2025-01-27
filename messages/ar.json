@@ -33,7 +33,7 @@
     }
   },
   "ads-carousel": {
-    "show-more": "اعرض المزيد"
+    "show-more": "عرض المزيد"
   },
   "favorites-heart": {
     "aria-label": {
@@ -179,7 +179,7 @@
   "/": {
     "navigation": {
       "choose-category": "اختر الفئة التي تريدها",
-      "show-all": "اعرض الكل"
+      "show-all": "عرض الكل"
     }
   },
   "/favorites": {
