@@ -2,7 +2,7 @@
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { NumberInput } from "@/components/ui/number-input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import {
@@ -12,27 +12,36 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 type Props = {
   onApplyFilter?: () => void;
 };
+
 function FilterAds({ onApplyFilter }: Props) {
   const t = useTranslations("filter-ads");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
   const priceRange = searchParams.get("price")?.split("-");
-  const [min, max] = priceRange ? priceRange : [0, 9999999999];
-  const [minPrice, setMinPrice] = useState(min);
-  const [maxPrice, setMaxPrice] = useState(max);
+  const initialMin = priceRange ? Number(priceRange[0]) : 0;
+  const initialMax = priceRange ? Number(priceRange[1]) : 9999999999;
+
+  const [minPrice, setMinPrice] = useState<number>(initialMin);
+  const [maxPrice, setMaxPrice] = useState<number>(initialMax);
   const [sort, setSort] = useState(searchParams.get("sort") ?? "date");
   const [order, setOrder] = useState(searchParams.get("order") ?? "desc");
 
   useEffect(() => {
     const priceRange = searchParams.get("price")?.split("-");
-    const [min, max] = priceRange ? priceRange : [0, 9999999999];
-    setMinPrice(min);
-    setMaxPrice(max);
-  }, [min, max]);
+    if (priceRange) {
+      setMinPrice(Number(priceRange[0]));
+      setMaxPrice(Number(priceRange[1]));
+    } else {
+      setMinPrice(0);
+      setMaxPrice(9999999999);
+    }
+  }, [searchParams]);
 
   function handleApplyFilter() {
     const queryParams = new URLSearchParams({
@@ -40,8 +49,9 @@ function FilterAds({ onApplyFilter }: Props) {
       order,
       price: `${minPrice}-${maxPrice}`,
     });
-    if (typeof searchParams.get("q") === "string")
+    if (typeof searchParams.get("q") === "string") {
       queryParams.set("q", searchParams.get("q") as string);
+    }
 
     router.push(`${pathname}?${queryParams.toString()}`);
     if (onApplyFilter) {
@@ -57,11 +67,11 @@ function FilterAds({ onApplyFilter }: Props) {
           <Label className="mb-2" htmlFor="minPrice">
             {t("minPriceLabel")}
           </Label>
-          <Input
+          <NumberInput
             id="minPrice"
             value={minPrice}
             onChange={(e) => setMinPrice(Number(e.target.value))}
-            type="number"
+            thousandSeparator=","
             placeholder={t("minPriceLabel")}
           />
         </div>
@@ -69,11 +79,11 @@ function FilterAds({ onApplyFilter }: Props) {
           <Label className="mb-2" htmlFor="maxPrice">
             {t("maxPriceLabel")}
           </Label>
-          <Input
+          <NumberInput
             id="maxPrice"
             value={maxPrice}
-            type="number"
             onChange={(e) => setMaxPrice(Number(e.target.value))}
+            thousandSeparator=","
             placeholder={t("maxPriceLabel")}
           />
         </div>
