@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
   const sort = request.nextUrl.searchParams.get("sort"); // price, date
   let order =
     Prisma.SortOrder[
-      request.nextUrl.searchParams.get("order") as keyof typeof Prisma.SortOrder
+    request.nextUrl.searchParams.get("order") as keyof typeof Prisma.SortOrder
     ]; // asc, desc
   if (!order) order = Prisma.SortOrder.desc;
 
@@ -52,10 +52,10 @@ export async function GET(request: NextRequest) {
       {
         _relevance: search
           ? {
-              fields: ["title"],
-              search: search,
-              sort: "asc",
-            }
+            fields: ["title"],
+            search: search.trim().split(" ").join(" & "),
+            sort: "asc",
+          }
           : undefined,
       },
       { price: sort === "price" ? order : undefined },
@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
     ],
     where: {
       categoryPath: paths.length > 0 ? { in: paths } : undefined,
-      title: search ? { search: search } : undefined,
+      title: search ? { search: search.trim().split(" ").join(" & ") } : undefined,
       price: price
         ? { gte: +price.split("-")[0]!, lte: +price.split("-")[1]! }
         : undefined,
