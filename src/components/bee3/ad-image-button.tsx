@@ -152,14 +152,16 @@ export function UploadAdImageButton({
       >
         {images.map((image, index) => (
           <DraggableImage
+            key={`image-${index}`}
             disabled={disabled}
             image={image}
             index={index}
             removeImage={() => removeImage(index)}
           />
         ))}
-        {[...Array(MAX_AD_IMAGES - images.length)].map(() => (
+        {[...Array(MAX_AD_IMAGES - images.length)].map((number) => (
           <Dropzone
+            key={`dropzone-${number}`}
             disabled={disabled}
             onDrop={handleDrop}
             accept={{
