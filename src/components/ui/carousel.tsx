@@ -91,15 +91,18 @@ const Carousel = React.forwardRef<
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+          return;
+        }
+        event.preventDefault();
+        const isRTL = locale !== "en";
         if (event.key === "ArrowLeft") {
-          event.preventDefault();
-          scrollPrev();
-        } else if (event.key === "ArrowRight") {
-          event.preventDefault();
-          scrollNext();
+          isRTL ? scrollNext() : scrollPrev();
+        } else {
+          isRTL ? scrollPrev() : scrollNext();
         }
       },
-      [scrollPrev, scrollNext],
+      [scrollPrev, scrollNext, locale],
     );
 
     React.useEffect(() => {
