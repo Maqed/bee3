@@ -17,7 +17,13 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
 
   return (
     <Link href={`/ad/${ad.id}`}>
-      <Card className={cn(orientation === "vertical" ? "w-[300px]" : "w-full")}>
+      <Card
+        className={cn(
+          orientation === "vertical"
+            ? "w-[250px] md:w-[300px] lg:w-[325px]"
+            : "w-full",
+        )}
+      >
         <CardContent
           className={cn(
             "flex p-0",
@@ -67,7 +73,7 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
             ) : (
               <p className="text-sm">{ad.title}</p>
             )}
-            <div className="flex items-center justify-between text-sm">
+            <div className="flex flex-wrap items-center justify-between text-sm">
               <span>{getLocalizedLocation(locale, ad.cityId)}</span>
               <span>{getLocalizedDate(locale, ad.createdAt)}</span>
             </div>
