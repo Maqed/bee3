@@ -76,7 +76,7 @@ export async function POST(request: Request) {
   // Create ad
   const ad = await db.ad.create({
     data: {
-      id: `${req.data.title.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}-${createId()}`,
+      id: `${req.data.title.toLowerCase().trim().replace(/[^\u0600-\u06FFa-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}-${createId()}`,
       title: req.data.title,
       description: req.data.description,
       price: req.data.price,
