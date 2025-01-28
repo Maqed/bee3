@@ -3,10 +3,12 @@ import { db } from "@/server/db";
 import { categoriesTree, CategoryTreeItem } from "@/schema/categories-tree";
 import { toPathFormat } from "@/lib/utils";
 import { Prisma } from "@prisma/client";
+import {
+  DEFAULT_PAGE_SIZE,
+  MIN_PAGE_SIZE,
+  MAX_PAGE_SIZE,
+} from "@/consts/ad-search";
 
-export const DEFAULT_PAGE_SIZE = 12;
-export const MIN_PAGE_SIZE = 1;
-export const MAX_PAGE_SIZE = 64;
 /**
  * Toggle visibility of a content tab
  * category ----> get the category of the ads
@@ -41,7 +43,7 @@ export async function GET(request: NextRequest) {
   const sort = request.nextUrl.searchParams.get("sort"); // price, date
   let order =
     Prisma.SortOrder[
-    request.nextUrl.searchParams.get("order") as keyof typeof Prisma.SortOrder
+      request.nextUrl.searchParams.get("order") as keyof typeof Prisma.SortOrder
     ]; // asc, desc
   if (!order) order = Prisma.SortOrder.desc;
 
@@ -57,10 +59,10 @@ export async function GET(request: NextRequest) {
       {
         _relevance: search
           ? {
-            fields: ["title"],
-            search: search.trim().split(" ").join(" & "),
-            sort: "asc",
-          }
+              fields: ["title"],
+              search: search.trim().split(" ").join(" & "),
+              sort: "asc",
+            }
           : undefined,
       },
       { price: sort === "price" ? order : undefined },
@@ -68,7 +70,9 @@ export async function GET(request: NextRequest) {
     ],
     where: {
       categoryPath: paths.length > 0 ? { in: paths } : undefined,
-      title: search ? { search: search.trim().split(" ").join(" & ") } : undefined,
+      title: search
+        ? { search: search.trim().split(" ").join(" & ") }
+        : undefined,
       price: price
         ? { gte: +price.split("-")[0]!, lte: +price.split("-")[1]! }
         : undefined,

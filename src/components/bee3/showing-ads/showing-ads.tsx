@@ -5,7 +5,7 @@ import React from "react";
 import AdCard from "../ad-card";
 import ShowingAdsNotFound from "./showing-ads-not-found";
 import { PaginationWithLinks } from "@/components/ui/pagination-with-links";
-import { DEFAULT_PAGE_SIZE } from "@/app/api/bee3/search/route";
+import { DEFAULT_PAGE_SIZE } from "@/consts/ad-search";
 
 async function ShowingAds({ params }: { params: URLSearchParams }) {
   const searchResponse = await fetch(
