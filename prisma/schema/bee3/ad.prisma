@@ -38,6 +38,9 @@ model Ad {
     city   City @relation(fields: [cityId], references: [id])
     cityId Int
 
+    governorate   Governorate @relation(fields: [governorateId], references: [id])
+    governorateId Int
+
     analytics     AdAnalytics @relation(fields: [adAnalyticsId], references: [id])
     adAnalyticsId String
 }

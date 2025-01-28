@@ -16,6 +16,8 @@ export const MAX_PAGE_SIZE = 64;
  * price ----> price range of the ads, written in this format (min-max) ex: (20-40000)
  * sort ----> sorting by what? only accepts (price, date)
  * order ----> order of the ads, by default it's descending
+ * governorate ----> add governorate filter to query (id)
+ * city ----> add city filter to query (id)
  */
 export async function GET(request: NextRequest) {
   const categoryPath = request.nextUrl.searchParams.get("category");
@@ -43,6 +45,9 @@ export async function GET(request: NextRequest) {
     ]; // asc, desc
   if (!order) order = Prisma.SortOrder.desc;
 
+  const govId = request.nextUrl.searchParams.get("governorate");
+  const cityId = request.nextUrl.searchParams.get("city");
+
   const paths = categoryPath
     ? [categoryPath].concat(getSubCategoryPaths(categoryPath))
     : [];
@@ -67,6 +72,8 @@ export async function GET(request: NextRequest) {
       price: price
         ? { gte: +price.split("-")[0]!, lte: +price.split("-")[1]! }
         : undefined,
+      governorate: govId ? { id: +govId } : undefined,
+      city: cityId ? { id: +cityId } : undefined,
     },
     skip: (pageNum - 1) * pageSize,
     take: pageSize,

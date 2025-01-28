@@ -5,6 +5,7 @@ import { adSchema } from "@/schema/ad";
 import { db } from "@/server/db";
 import { UTApi } from "uploadthing/server";
 import { createId } from "@paralleldrive/cuid2"
+import { cities } from "@/schema/cities";
 
 const utapi = new UTApi();
 
@@ -87,6 +88,9 @@ export async function POST(request: Request) {
       },
       city: {
         connect: { id: req.data.cityId },
+      },
+      governorate: {
+        connect: { id: cities.find((c) => c.id === req.data.cityId)!.governorate_id },
       },
       category: {
         connect: { id: req.data.categoryId },

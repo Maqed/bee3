@@ -3,6 +3,7 @@ model Governorate {
   governorate_name_ar String @db.VarChar(50)
   governorate_name_en String @db.VarChar(50)
   cities              City[]
+  Ad                  Ad[]
 
   @@map("governorates")
 }

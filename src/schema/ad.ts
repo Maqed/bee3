@@ -23,12 +23,12 @@ export const adSchema = z.object({
   negotiable: z.boolean(),
   governorateId: z
     .number()
-    .refine((id) => governorates.some((g) => g.id == id), {
+    .refine((id) => governorates.some((g) => g.id === id), {
       message: "/sell.governorateId",
     }),
   cityId: z
     .number()
-    .refine((id) => cities.some((c) => c.id == id), {
+    .refine((id) => cities.some((c) => c.id === id), {
       message: "/sell.cityId",
     }),
 });
