@@ -102,8 +102,10 @@ function renderAdImages(ad: AdPageUIProps["ad"]) {
 
   return (
     <Image
+      priority
       width={1500}
       height={450}
+      placeholder={generateImagePlaceholder(1500, 450)}
       src={ad.images[0]!}
       className="h-auto max-h-[450px] w-full object-contain"
       alt={ad.title}
