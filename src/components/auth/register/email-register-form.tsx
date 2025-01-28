@@ -30,6 +30,7 @@ function EmailRegisterForm() {
   const { toast } = useToast();
   const router = useRouter();
   const t = useTranslations("auth.card-wrapper.register.email");
+  const tErrors = useTranslations("errors.register");
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -50,8 +51,8 @@ function EmailRegisterForm() {
         const data = await response.json();
         if (data.error) {
           toast({
-            title: t(`errors.${data.error}.title`),
-            description: t(`errors.${data.error}.description`),
+            title: tErrors(`${data.error}.title`),
+            description: tErrors(`${data.error}.description`),
             variant: "destructive",
           });
         } else {
