@@ -43,6 +43,7 @@ import { CheckIcon } from "lucide-react";
 import { governorates } from "@/schema/governorates";
 import { cities } from "@/schema/cities";
 import { getCategoryName } from "@/lib/utils";
+import { NumberInput } from "@/components/ui/number-input";
 
 function SellPage() {
   const tSell = useTranslations("/sell");
@@ -429,8 +430,7 @@ function SellPage() {
               <FormItem>
                 <FormLabel>{tSell("price.label")}</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
+                  <NumberInput
                     placeholder={tSell("price.placeholder")}
                     {...field}
                     onChange={(e) => field.onChange(parseFloat(e.target.value))}
