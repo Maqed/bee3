@@ -35,6 +35,23 @@
       "paragraph": "Try searching for general terms, change the options, or check for typos"
     }
   },
+  "password-checklist": {
+    "must-contain": "Must contain",
+    "aria-label": "Password Strength",
+    "req": { "met": " - Requirement met", "not-met": " - Requirement not met" },
+    "messages": {
+      "min-password-characters": "Password should at least contain 8 characters",
+      "number": "Password should contain at least 1 number",
+      "capital-and-lowercase": "Password should contain 1 capital and 1 small letter at least",
+      "special-char": "Password should at least contain 1 special character"
+    },
+    "strength-text": {
+      "enter": "Enter a password",
+      "weak": "Weak password",
+      "medium": "Medium password",
+      "strong": "Strong password"
+    }
+  },
   "ads-carousel": {
     "show-more": "Show More"
   },
@@ -62,13 +79,7 @@
             "placeholder": "johndoe@email.com"
           },
           "password": {
-            "label": "Password",
-            "errors": {
-              "min-password-characters": "Password should at least contain 8 characters",
-              "specialChar": "Password should at least contain 1 special character",
-              "number": "Password should contain at least 1 number",
-              "capitalAndLowercase": "Password should contain 1 capital and 1 small letter at least"
-            }
+            "label": "Password"
           },
           "user-created-successfully": {
             "title": "User has been created successfully!",

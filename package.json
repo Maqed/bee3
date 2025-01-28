@@ -55,7 +55,6 @@
     "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.52.2",
     "react-number-format": "^5.4.3",
-    "react-password-checklist": "^1.8.0",
     "resend": "^4.0.0",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",

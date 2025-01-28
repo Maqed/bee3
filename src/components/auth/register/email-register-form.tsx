@@ -6,8 +6,7 @@ import * as z from "zod";
 import { registerSchema } from "@/schema/auth";
 import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/consts/routes";
 // ui
-import { Check, Mail, User, X, Lock } from "lucide-react";
-import PasswordChecklist from "react-password-checklist";
+import { Mail, User, Lock } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,9 +20,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useTranslations } from "next-intl";
-import { absoluteURL, cn } from "@/lib/utils";
+import { absoluteURL } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/ui/spinner";
+import PasswordCheckList from "@/components/ui/password-checklist";
 
 function EmailRegisterForm() {
   const [isPending, startTransition] = useTransition();
@@ -138,30 +138,7 @@ function EmailRegisterForm() {
                   {...field}
                 />
               </FormControl>
-              <PasswordChecklist
-                className={cn("hidden", {
-                  block: field.value?.length,
-                })}
-                rules={[
-                  "minLength",
-                  "specialChar",
-                  "number",
-                  "capitalAndLowercase",
-                ]}
-                minLength={8}
-                value={field.value ?? ""}
-                messages={{
-                  minLength: t("password.errors.min-password-characters"),
-                  specialChar: t("password.errors.specialChar"),
-                  number: t("password.errors.number"),
-                  capitalAndLowercase: t("password.errors.capitalAndLowercase"),
-                }}
-                iconSize={16}
-                iconComponents={{
-                  InvalidIcon: <X className="me-1 text-destructive" />,
-                  ValidIcon: <Check className="me-1 text-success" />,
-                }}
-              />
+              <PasswordCheckList password={form.getValues("password")} />
             </FormItem>
           )}
         />
