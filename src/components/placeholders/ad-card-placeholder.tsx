@@ -11,7 +11,7 @@ function AdCardPlaceholder({ orientation = "vertical" }: Props) {
     <Card
       className={cn(
         orientation === "vertical"
-          ? "w-[250px] md:w-[300px] lg:w-[325px]"
+          ? "w-[225px] md:w-[275px] lg:w-[300px]"
           : "w-full",
       )}
     >
