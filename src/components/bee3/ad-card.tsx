@@ -67,14 +67,23 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
               />
             </CardTitle>
             <h1
-              className={cn(
-                "text-sm md:text-xl",
-                orientation === "horizontal" && "md:font-bold",
-              )}
+              className={cn("text-sm", {
+                "md:text-xl md:font-bold": orientation === "horizontal",
+              })}
             >
-              {ad.title}
-            </h1>{" "}
-            <p className="hidden text-sm md:block">{ad.description}</p>
+              {ad.title.length > 40
+                ? `${ad.title.substring(0, 40)}...`
+                : ad.title}
+            </h1>
+            <p
+              className={cn("hidden text-sm", {
+                "md:block": orientation == "horizontal",
+              })}
+            >
+              {ad.description && ad.description.length > 40
+                ? `${ad.description?.substring(0, 40)}...`
+                : ad.description}
+            </p>
             <div className="flex flex-wrap items-center justify-between text-sm">
               <span>{getLocalizedLocation(locale, ad.cityId)}</span>
               <span>{getLocalizedDate(locale, ad.createdAt)}</span>
