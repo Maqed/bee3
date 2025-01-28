@@ -2,7 +2,12 @@ import Image from "next/image";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { type Ad } from "@prisma/client";
 import { Link } from "@/navigation";
-import { cn, getLocalizedDate, getLocalizedPrice } from "@/lib/utils";
+import {
+  cn,
+  generateImagePlaceholder,
+  getLocalizedDate,
+  getLocalizedPrice,
+} from "@/lib/utils";
 import { getLocalizedLocation } from "@/lib/utils";
 import FavoritesHeart from "./favorites-heart";
 import { useLocale } from "next-intl";
@@ -20,7 +25,7 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
       <Card
         className={cn(
           orientation === "vertical"
-            ? "w-[250px] md:w-[300px] lg:w-[325px]"
+            ? "w-[225px] md:w-[275px] lg:w-[300px]"
             : "w-full",
         )}
       >
@@ -34,10 +39,15 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
           <Image
             src={ad.images[0] ?? ""}
             alt={`${ad.title} image`}
+            placeholder={
+              orientation === "horizontal"
+                ? generateImagePlaceholder(200, 250)
+                : generateImagePlaceholder(150, 300)
+            }
             width="1200"
             height="1200"
             className={cn(
-              "h-[200px] w-full rounded-t-lg object-cover",
+              "h-[150px] w-full rounded-t-lg object-cover",
               orientation === "horizontal" &&
                 "md:h-[200px] md:w-[250px] md:rounded-s-lg md:rounded-t-none",
             )}
@@ -67,14 +77,23 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
               />
             </CardTitle>
             <h1
-              className={cn(
-                "text-sm md:text-xl",
-                orientation === "horizontal" && "md:font-bold",
-              )}
+              className={cn("text-sm", {
+                "md:text-xl md:font-bold": orientation === "horizontal",
+              })}
             >
-              {ad.title}
-            </h1>{" "}
-            <p className="hidden text-sm md:block">{ad.description}</p>
+              {ad.title.length > 40
+                ? `${ad.title.substring(0, 40)}...`
+                : ad.title}
+            </h1>
+            <p
+              className={cn("hidden text-sm", {
+                "md:block": orientation == "horizontal",
+              })}
+            >
+              {ad.description && ad.description.length > 40
+                ? `${ad.description?.substring(0, 40)}...`
+                : ad.description}
+            </p>
             <div className="flex flex-wrap items-center justify-between text-sm">
               <span>{getLocalizedLocation(locale, ad.cityId)}</span>
               <span>{getLocalizedDate(locale, ad.createdAt)}</span>

@@ -11,7 +11,7 @@ function AdCardPlaceholder({ orientation = "vertical" }: Props) {
     <Card
       className={cn(
         orientation === "vertical"
-          ? "w-[250px] md:w-[300px] lg:w-[325px]"
+          ? "w-[225px] md:w-[275px] lg:w-[300px]"
           : "w-full",
       )}
     >
@@ -24,7 +24,7 @@ function AdCardPlaceholder({ orientation = "vertical" }: Props) {
       >
         <Skeleton
           className={cn(
-            "h-[200px] w-full rounded-t-lg",
+            "h-[150px] w-full rounded-t-lg",
             orientation === "horizontal" &&
               "md:h-full md:w-[300px] md:rounded-s-lg md:rounded-t-none",
           )}
@@ -42,7 +42,11 @@ function AdCardPlaceholder({ orientation = "vertical" }: Props) {
           <Skeleton className="h-5 w-48" />
           <div className="flex items-center justify-between text-sm">
             <Skeleton className="h-5 w-20" />
-            <Skeleton className="h-5 w-28" />
+            <Skeleton
+              className={cn("hidden h-5 w-28", {
+                "md:block": orientation == "horizontal",
+              })}
+            />
           </div>
         </div>
       </CardContent>
