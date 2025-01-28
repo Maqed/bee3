@@ -22,6 +22,7 @@ import {
   getLocalizedLocation,
   getLocalizedDate,
   getLocalizedPrice,
+  generateImagePlaceholder,
 } from "@/lib/utils";
 import FavoritesHeart from "@/components/bee3/favorites-heart";
 import RelatedAds from "./related-ads";
@@ -67,6 +68,7 @@ function renderAdImages(ad: AdPageUIProps["ad"]) {
                 width={1500}
                 height={450}
                 src={imageURL}
+                placeholder={generateImagePlaceholder(1500, 450)}
                 className="h-auto max-h-[450px] w-full object-contain"
                 alt={ad.title}
               />
@@ -85,6 +87,7 @@ function renderAdImages(ad: AdPageUIProps["ad"]) {
                   width={100}
                   height={100}
                   src={imageURL}
+                  placeholder={generateImagePlaceholder(100, 100)}
                   className="h-auto max-h-[100px] w-full object-contain"
                   alt={ad.title}
                 />

@@ -2,7 +2,12 @@ import Image from "next/image";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { type Ad } from "@prisma/client";
 import { Link } from "@/navigation";
-import { cn, getLocalizedDate, getLocalizedPrice } from "@/lib/utils";
+import {
+  cn,
+  generateImagePlaceholder,
+  getLocalizedDate,
+  getLocalizedPrice,
+} from "@/lib/utils";
 import { getLocalizedLocation } from "@/lib/utils";
 import FavoritesHeart from "./favorites-heart";
 import { useLocale } from "next-intl";
@@ -34,6 +39,11 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
           <Image
             src={ad.images[0] ?? ""}
             alt={`${ad.title} image`}
+            placeholder={
+              orientation === "horizontal"
+                ? generateImagePlaceholder(200, 250)
+                : generateImagePlaceholder(150, 300)
+            }
             width="1200"
             height="1200"
             className={cn(
