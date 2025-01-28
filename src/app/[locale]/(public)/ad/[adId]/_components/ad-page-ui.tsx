@@ -57,12 +57,13 @@ function renderAdImages(ad: AdPageUIProps["ad"]) {
     return (
       <Carousel>
         <CarouselContent className="mb-3">
-          {ad.images.map((imageURL) => (
+          {ad.images.map((imageURL, index) => (
             <CarouselItem
               key={`carousel-item-${imageURL}`}
               className="min-w-0 shrink-0 grow-0 basis-full"
             >
               <Image
+                priority={index == 0 || index == 1 ? true : false}
                 width={1500}
                 height={450}
                 src={imageURL}
