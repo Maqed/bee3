@@ -30,7 +30,7 @@ export default async function UserPage({ params: { userId } }: Props) {
   });
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-8 md:px-6 md:py-12">
+    <div className="mx-auto w-full py-8 md:px-8 md:py-12">
       <div className="grid gap-8">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-col items-center gap-4">
@@ -46,33 +46,31 @@ export default async function UserPage({ params: { userId } }: Props) {
           </div>
         </div>
         {/* Advertises */}
-        <div className="space-y-6">
-          <div>
-            <h3 className="mb-4 text-xl font-bold max-sm:text-center md:text-2xl">
-              {t("advertises.title")}
-            </h3>
-            {ads.length === 0 ? ( // Check if the user has ads
-              <div className="flex flex-col items-center justify-center">
-                <h4 className="mb-3 text-2xl">
-                  {userId === session?.user.id
-                    ? t("advertises.you-have-no-ads")
-                    : t("advertises.user-has-no-ads")}
-                </h4>
-                {userId === session?.user.id && <SellButton />}{" "}
-                {/* Show SellButton if the user is the session user */}
-              </div>
-            ) : (
-              <div className="flex flex-wrap justify-center gap-2 md:justify-start">
-                {ads.map(
-                  (
-                    ad, // Render ads if available
-                  ) => (
-                    <AdCard key={`AD-card-${ad.id}`} ad={ad} />
-                  ),
-                )}
-              </div>
-            )}
-          </div>
+        <div>
+          <h3 className="mb-4 text-center text-xl font-bold md:text-2xl">
+            {t("advertises.title")}
+          </h3>
+          {ads.length === 0 ? ( // Check if the user has ads
+            <div className="flex flex-col items-center justify-center">
+              <h4 className="mb-3 text-2xl">
+                {userId === session?.user.id
+                  ? t("advertises.you-have-no-ads")
+                  : t("advertises.user-has-no-ads")}
+              </h4>
+              {userId === session?.user.id && <SellButton />}{" "}
+              {/* Show SellButton if the user is the session user */}
+            </div>
+          ) : (
+            <div className="flex flex-wrap justify-center gap-2 px-3">
+              {ads.map(
+                (
+                  ad, // Render ads if available
+                ) => (
+                  <AdCard key={`AD-card-${ad.id}`} ad={ad} />
+                ),
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
