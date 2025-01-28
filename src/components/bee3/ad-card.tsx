@@ -37,7 +37,7 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
             width="1200"
             height="1200"
             className={cn(
-              "h-[200px] w-full rounded-t-lg object-cover",
+              "h-[150px] w-full rounded-t-lg object-cover",
               orientation === "horizontal" &&
                 "md:h-[200px] md:w-[250px] md:rounded-s-lg md:rounded-t-none",
             )}

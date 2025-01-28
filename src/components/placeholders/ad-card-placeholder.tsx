@@ -24,7 +24,7 @@ function AdCardPlaceholder({ orientation = "vertical" }: Props) {
       >
         <Skeleton
           className={cn(
-            "h-[200px] w-full rounded-t-lg",
+            "h-[150px] w-full rounded-t-lg",
             orientation === "horizontal" &&
               "md:h-full md:w-[300px] md:rounded-s-lg md:rounded-t-none",
           )}
