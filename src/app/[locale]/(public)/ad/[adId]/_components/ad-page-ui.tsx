@@ -84,7 +84,7 @@ function renderAdImages(ad: AdPageUIProps["ad"]) {
                   width={100}
                   height={100}
                   src={imageURL}
-                  className="h-auto max-h-[450px] w-full object-contain"
+                  className="h-auto max-h-[100px] w-full object-contain"
                   alt={ad.title}
                 />
               </CarouselDot>
