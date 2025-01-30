@@ -94,9 +94,9 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
                 ? `${ad.description?.substring(0, 40)}...`
                 : ad.description}
             </p>
-            <div className="flex flex-wrap items-center justify-between text-sm">
-              <span>{getLocalizedLocation(locale, ad.cityId)}</span>
-              <span>{getLocalizedDate(locale, ad.createdAt)}</span>
+            <div className="text-sm">
+              <div>{getLocalizedLocation(locale, ad.cityId)}</div>
+              <div>{getLocalizedDate(locale, ad.createdAt)}</div>
             </div>
           </div>
         </CardContent>

@@ -40,13 +40,9 @@ function AdCardPlaceholder({ orientation = "vertical" }: Props) {
             <Skeleton className="h-5 w-32" />
           </div>
           <Skeleton className="h-5 w-48" />
-          <div className="flex items-center justify-between text-sm">
+          <div>
+            <Skeleton className="mb-1 h-5 w-28" />
             <Skeleton className="h-5 w-20" />
-            <Skeleton
-              className={cn("hidden h-5 w-28", {
-                "md:block": orientation == "horizontal",
-              })}
-            />
           </div>
         </div>
       </CardContent>
