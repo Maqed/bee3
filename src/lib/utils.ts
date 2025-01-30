@@ -17,13 +17,37 @@ export function getLocalizedPrice(locale: string, price: number) {
     maximumFractionDigits: 0,
   }).format(price);
 }
-export function getLocalizedDate(
+export function getLocalizedTimeAgo(
   locale: string,
   date: Date | string | undefined,
-) {
-  return new Intl.DateTimeFormat(locale, {
-    dateStyle: "long",
-  }).format(new Date(date as string));
+): string {
+  if (!date) return "";
+
+  const inputDate = new Date(date);
+  const now = new Date();
+  const diffInMilliseconds = now.getTime() - inputDate.getTime();
+  const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+
+  const timeUnits = [
+    { unit: "second", limit: 60, value: diffInSeconds },
+    { unit: "minute", limit: 60, value: Math.floor(diffInSeconds / 60) },
+    { unit: "hour", limit: 24, value: Math.floor(diffInSeconds / 3600) },
+    { unit: "day", limit: 30, value: Math.floor(diffInSeconds / 86400) },
+    { unit: "month", limit: 12, value: Math.floor(diffInSeconds / 2592000) },
+  ];
+
+  for (const { unit, limit, value } of timeUnits) {
+    if (value < limit) {
+      return new Intl.RelativeTimeFormat(locale).format(
+        -value,
+        unit as Intl.RelativeTimeFormatUnit,
+      );
+    }
+  }
+
+  return new Intl.DateTimeFormat(locale, { dateStyle: "long" }).format(
+    inputDate,
+  );
 }
 export function getCategoryAndSubCategory(categoryPath: string[] | string) {
   const [category, subCategory] =

@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
   getLocalizedLocation,
-  getLocalizedDate,
+  getLocalizedTimeAgo,
   getLocalizedPrice,
   generateImagePlaceholder,
 } from "@/lib/utils";
@@ -129,7 +129,7 @@ function renderPriceAndTitle(ad: AdPageUIProps["ad"], locale: string) {
             <MapPin className="me-2 inline" />
             {getLocalizedLocation(locale, ad.cityId)}
           </h3>
-          <p>{getLocalizedDate(locale, ad.createdAt)}</p>
+          <p>{getLocalizedTimeAgo(locale, ad.createdAt)}</p>
         </div>
       </CardContent>
     </Card>
@@ -165,7 +165,7 @@ function renderUserInformation(
             <h5 className="text-lg font-bold">{ad.user?.name}</h5>
             <p>
               {tAd("user.member-since")}{" "}
-              {getLocalizedDate(locale, ad.user?.createdAt)}
+              {getLocalizedTimeAgo(locale, ad.user?.createdAt)}
             </p>
           </Link>
         </CardContent>

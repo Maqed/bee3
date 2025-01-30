@@ -5,7 +5,7 @@ import { Link } from "@/navigation";
 import {
   cn,
   generateImagePlaceholder,
-  getLocalizedDate,
+  getLocalizedTimeAgo,
   getLocalizedPrice,
 } from "@/lib/utils";
 import { getLocalizedLocation } from "@/lib/utils";
@@ -96,7 +96,7 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
             </p>
             <div className="text-sm">
               <div>{getLocalizedLocation(locale, ad.cityId)}</div>
-              <div>{getLocalizedDate(locale, ad.createdAt)}</div>
+              <div>{getLocalizedTimeAgo(locale, ad.createdAt)}</div>
             </div>
           </div>
         </CardContent>
