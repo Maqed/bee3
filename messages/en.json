@@ -35,6 +35,10 @@
       "paragraph": "Try searching for general terms, change the options, or check for typos"
     }
   },
+  "ad-search": {
+    "placeholder": "Search...",
+    "not-found": "No results found"
+  },
   "password-checklist": {
     "must-contain": "Must contain",
     "aria-label": "Password Strength",

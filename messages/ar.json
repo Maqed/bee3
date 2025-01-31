@@ -32,6 +32,10 @@
       "paragraph": "حاول البحث عن مصطلحات عامة أو غير الإختيارات او تحقق من اخطاء الكتابة"
     }
   },
+  "ad-search": {
+    "placeholder": "ابحث...",
+    "not-found": "لا توجد نتائج"
+  },
   "password-checklist": {
     "must-contain": "يجب أن يحتوي",
     "aria-label": "قوة كلمة المرور",
