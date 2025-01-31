@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useFavoriteAds } from "@/hooks/useFavAds";
 import { useEffect, useState } from "react";
+import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/consts/routes";
 
 type Props = {
   adId: string;
@@ -69,7 +70,7 @@ function FavoritesHeart({ adId, className }: Props) {
     e.stopPropagation();
 
     if (!session) {
-      router.push("/register");
+      router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
       return;
     }
 
