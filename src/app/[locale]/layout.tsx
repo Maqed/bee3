@@ -29,7 +29,7 @@ export async function generateMetadata({
       description,
       siteName: title,
       url: process.env.NEXTAUTH_URL,
-      locale: locale === "ar" ? "ar_EG" : "en_US",
+      locale: t("locale"),
       type: "website",
     },
     twitter: {
