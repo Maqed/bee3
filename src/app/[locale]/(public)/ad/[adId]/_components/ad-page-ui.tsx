@@ -28,6 +28,8 @@ import FavoritesHeart from "@/components/bee3/favorites-heart";
 import RelatedAds from "./related-ads";
 import { AdWithUser } from "./ad-page-types";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import WhatsAppButton from "@/components/bee3/contact-info/whatsapp-button";
+import PhoneButton from "@/components/bee3/contact-info/phone-button";
 
 type AdPageUIProps = {
   ad: AdWithUser;
@@ -169,16 +171,9 @@ function renderUserInformation(
             </p>
           </Link>
         </CardContent>
-        <CardFooter className="flex flex-col gap-y-3 *:w-full">
-          <Button>
-            <Phone className="me-1" /> {tAd("user.phone-number")}
-          </Button>
-          <Button>
-            <MessageCircle className="me-1" /> {tAd("user.chat")}
-          </Button>
-          <Button variant="whatsapp">
-            <MessageCircle className="me-1" /> {tAd("user.whatsapp")}
-          </Button>
+        <CardFooter className="flex flex-col gap-y-3">
+          <PhoneButton showTitle={true} phoneNumber={ad.user.phoneNumber} />
+          <WhatsAppButton showTitle={true} phoneNumber={ad.user.phoneNumber} />
         </CardFooter>
       </Card>
     </div>
