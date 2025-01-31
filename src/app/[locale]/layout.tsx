@@ -63,10 +63,8 @@ export default function RootLayout({
         className={`${GeistSans.className}`}
       >
         <body>
-          <ClientSideProviders>
-            {children}
-            <Toaster />
-          </ClientSideProviders>
+          <ClientSideProviders>{children}</ClientSideProviders>
+          <Toaster />
         </body>
       </html>
     </ServerSideProviders>
