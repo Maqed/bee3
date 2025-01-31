@@ -37,6 +37,9 @@
     "placeholder": "ابحث...",
     "not-found": "لا توجد نتائج"
   },
+  "clipboard": {
+    "copied": "تم نسخ {text} إلى الحافظة!"
+  },
   "password-checklist": {
     "must-contain": "يجب أن يحتوي",
     "aria-label": "قوة كلمة المرور",

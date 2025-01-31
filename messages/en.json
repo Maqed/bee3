@@ -36,6 +36,9 @@
       "paragraph": "Try searching for general terms, change the options, or check for typos"
     }
   },
+  "clipboard": {
+    "copied": "{text} has been copied to clipboard!"
+  },
   "ad-search": {
     "placeholder": "Search...",
     "not-found": "No results found"
