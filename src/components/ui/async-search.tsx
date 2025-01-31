@@ -92,7 +92,7 @@ export function AsyncSearch<T>({
     };
   }, []);
   return (
-    <Command className="w-[450px]" shouldFilter={false}>
+    <Command className="w-[300px] md:w-[450px]" shouldFilter={false}>
       <div className="relative w-full border-b">
         <CommandInput
           placeholder={placeholder}
@@ -118,7 +118,7 @@ export function AsyncSearch<T>({
       <CommandList
         ref={searchedAdsRef}
         className={cn(
-          "fixed top-28 w-[450px] bg-background shadow-xl",
+          "fixed top-28 w-[300px] bg-background shadow-xl md:w-[450px]",
           areSearchedAdsVisible ? "block" : "hidden",
         )}
       >
