@@ -21,14 +21,12 @@ import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useTranslations } from "next-intl";
 import { absoluteURL } from "@/lib/utils";
-import { useRouter } from "next/navigation";
 import Spinner from "@/components/ui/spinner";
 import { signIn } from "next-auth/react";
 
 function EmailLoginForm() {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
-  const router = useRouter();
   const tLoginEmail = useTranslations("auth.card-wrapper.login.email");
   const tErrors = useTranslations("errors.login");
   const form = useForm<z.infer<typeof loginSchema>>({
