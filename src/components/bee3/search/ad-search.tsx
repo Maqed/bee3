@@ -1,4 +1,3 @@
-import { absoluteURL } from "@/lib/utils";
 import { MAX_SEARCHED_ADS } from "@/consts/ad-search";
 import { AsyncSearch } from "@/components/ui/async-search";
 import { Ad } from "@prisma/client";
@@ -8,7 +7,7 @@ import { useRouter } from "next/navigation";
 async function fetchData(query?: string) {
   if (!query) return [];
   const response = await fetch(
-    absoluteURL(`/api/bee3/search?q=${query}&pageSize=${MAX_SEARCHED_ADS}`),
+    `/api/bee3/search?q=${query}&pageSize=${MAX_SEARCHED_ADS}`,
     { method: "GET" },
   );
 
