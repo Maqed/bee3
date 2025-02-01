@@ -20,4 +20,12 @@ export const auth = betterAuth({
       clientSecret: env.FACEBOOK_CLIENT_SECRET,
     },
   },
+  user: {
+    deleteUser: {
+      enabled: true,
+      beforeDelete: async (user) => {
+        // TODO: remove all ads and therefore all images related to that user
+      },
+    },
+  },
 });
