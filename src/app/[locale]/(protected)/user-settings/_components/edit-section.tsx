@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 
 type Props = {
   isPending: boolean;
@@ -29,6 +30,7 @@ function EditAccountSection({ isPending, startTransition }: Props) {
   const { data: session, isPending: isSessionPending } =
     authClient.useSession();
   const t = useTranslations("/user-settings");
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof userSettingsSchema>>({
     resolver: zodResolver(userSettingsSchema),
     defaultValues: {
@@ -43,6 +45,11 @@ function EditAccountSection({ isPending, startTransition }: Props) {
       await authClient.updateUser({
         name,
         bio,
+        fetchOptions: {
+          onSuccess: () => {
+            toast({ title: t("toast.updated"), variant: "success" });
+          },
+        },
       });
     });
   }
