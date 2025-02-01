@@ -357,6 +357,12 @@
     }
   },
   "errors": {
+    "social": {
+      "account_not_linked": {
+        "title": "هذا الحساب مسجل بالفعل.",
+        "description": "يرجى تجربة (Google, Facebook) أو تسجيل الدخول باستخدام البريد الإلكتروني"
+      }
+    },
     "register": {
       "name-min-character": "يجب أن يحتوي الاسم على الأقل على حرفين",
       "invalid-email": "البريد الإلكتروني غير صالح",

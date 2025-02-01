@@ -341,6 +341,12 @@
     }
   },
   "errors": {
+    "social": {
+      "account_not_linked": {
+        "title": "This account is already signed up.",
+        "description": "Please try (Google, Facebook) or sign in with email"
+      }
+    },
     "register": {
       "name-min-character": "Name should at least contain 2 characters",
       "invalid-email": "Email is invalid",
