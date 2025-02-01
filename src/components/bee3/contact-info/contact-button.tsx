@@ -18,7 +18,7 @@ function ContactButton({
 }) {
   return (
     <Button
-      size={showTitle ? "default" : "icon"}
+      size={showTitle ? "default" : "lg"}
       className={cn(
         {
           "w-full": showTitle,
@@ -28,11 +28,7 @@ function ContactButton({
       {...props}
       variant={variant}
     >
-      <Icon
-        className={cn("size-6", {
-          "me-1": showTitle,
-        })}
-      />
+      <Icon className={cn("size-6", showTitle ? "me-1" : "size-7")} />
       {showTitle && title}
     </Button>
   );

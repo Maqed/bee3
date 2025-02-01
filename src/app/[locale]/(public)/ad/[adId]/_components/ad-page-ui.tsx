@@ -41,16 +41,18 @@ async function AdPageUI({ ad }: AdPageUIProps) {
 
   return (
     <>
-      <div className="col-span-12 flex flex-col gap-y-5 md:col-span-8">
+      <div className="col-span-12 flex flex-col gap-y-5 pb-20 md:col-span-8 md:pb-0">
         {renderAdImages(ad)}
         <div className="flex flex-col gap-y-5 max-sm:mx-1">
           {renderPriceAndTitle(ad, locale)}
           {renderDescription(ad, tAd)}
+          {renderUserInformationMobile(ad, tAd, locale)}
           <Separator />
           <RelatedAds adId={ad.id} relatedCategories={ad.categoryPath} />
         </div>
+        {renderContactInfoMobile(ad.user.phoneNumber)}
       </div>
-      {renderUserInformation(ad, tAd, locale)}
+      {renderUserInformationDesktop(ad, tAd, locale)}
     </>
   );
 }
@@ -150,8 +152,29 @@ function renderDescription(ad: AdPageUIProps["ad"], tAd: any) {
     </Card>
   );
 }
-
-function renderUserInformation(
+function renderUserInformationMobile(
+  ad: AdPageUIProps["ad"],
+  tAd: any,
+  locale: string,
+) {
+  return (
+    <Card className="md:hidden">
+      <Link href={`/user/${ad.user?.id}`}>
+        <CardHeader>
+          <CardTitle>{tAd("user.posted-by")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <h5 className="text-lg font-bold">{ad.user?.name}</h5>
+          <p>
+            {tAd("user.member-since")}{" "}
+            {getLocalizedTimeAgo(locale, ad.user?.createdAt)}
+          </p>
+        </CardContent>
+      </Link>
+    </Card>
+  );
+}
+function renderUserInformationDesktop(
   ad: AdPageUIProps["ad"],
   tAd: any,
   locale: string,
@@ -159,24 +182,57 @@ function renderUserInformation(
   return (
     <div className="hidden md:col-span-4 md:block">
       <Card>
-        <CardHeader>
-          <CardTitle>{tAd("user.posted-by")}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Link href={`/user/${ad.user?.id}`}>
-            <h5 className="text-lg font-bold">{ad.user?.name}</h5>
-            <p>
-              {tAd("user.member-since")}{" "}
-              {getLocalizedTimeAgo(locale, ad.user?.createdAt)}
-            </p>
-          </Link>
-        </CardContent>
+        <UserInformation ad={ad} tAd={tAd} locale={locale} />
         <CardFooter className="flex flex-col gap-y-3">
-          <PhoneButton showTitle={true} phoneNumber={ad.user.phoneNumber} />
-          <WhatsAppButton showTitle={true} phoneNumber={ad.user.phoneNumber} />
+          <ContactInfo showTitle={true} phoneNumber={ad.user.phoneNumber} />
         </CardFooter>
       </Card>
     </div>
+  );
+}
+function renderContactInfoMobile(phoneNumber: string) {
+  return (
+    <div className="fixed bottom-0 start-0 flex w-full items-center justify-center gap-3 border-t bg-background py-3 md:hidden">
+      <ContactInfo showTitle={false} phoneNumber={phoneNumber} />
+    </div>
+  );
+}
+function UserInformation({
+  ad,
+  tAd,
+  locale,
+}: {
+  ad: AdPageUIProps["ad"];
+  tAd: any;
+  locale: string;
+}) {
+  return (
+    <Link href={`/user/${ad.user?.id}`}>
+      <CardHeader>
+        <CardTitle>{tAd("user.posted-by")}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <h5 className="text-lg font-bold">{ad.user?.name}</h5>
+        <p>
+          {tAd("user.member-since")}{" "}
+          {getLocalizedTimeAgo(locale, ad.user?.createdAt)}
+        </p>
+      </CardContent>
+    </Link>
+  );
+}
+function ContactInfo({
+  showTitle,
+  phoneNumber,
+}: {
+  showTitle: boolean;
+  phoneNumber: string;
+}) {
+  return (
+    <>
+      <PhoneButton showTitle={showTitle} phoneNumber={phoneNumber} />
+      <WhatsAppButton showTitle={showTitle} phoneNumber={phoneNumber} />
+    </>
   );
 }
 
