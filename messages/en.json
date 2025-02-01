@@ -349,7 +349,7 @@
         "title": "Invalid input",
         "description": "Try typing something else"
       },
-      "email-exists": {
+      "USER_ALREADY_EXISTS": {
         "title": "This email already exists",
         "description": "Try another one or change password"
       }

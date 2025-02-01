@@ -63,8 +63,8 @@ function EmailRegisterForm() {
           },
           onError: (ctx) => {
             toast({
-              title: tErrors(`${ctx.error}.title`),
-              description: tErrors(`${ctx.error}.description`),
+              title: tErrors(`${ctx.error.code}.title`),
+              description: tErrors(`${ctx.error.code}.description`),
               variant: "destructive",
             });
           },
