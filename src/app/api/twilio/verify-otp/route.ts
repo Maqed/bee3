@@ -2,7 +2,7 @@ import { checkPhoneNumberOTP } from "@/schema/twilio";
 import { NextResponse } from "next/server";
 import twilio from "twilio";
 import { env } from "@/env";
-import { getServerAuthSession } from "@/server/next-auth";
+import { getServerAuthSession } from "@/lib/auth";
 import { getUserById } from "@/database/users";
 import { db } from "@/server/db";
 

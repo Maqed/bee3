@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getServerAuthSession } from "@/server/next-auth";
+import { getServerAuthSession } from "@/lib/auth";
 import { getUserById } from "@/database/users";
 import { db } from "@/server/db";
 import { favAdSchema } from "../../../../schema/ad";

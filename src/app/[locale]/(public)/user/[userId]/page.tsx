@@ -2,7 +2,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { notFound } from "next/navigation";
 import { getUserById } from "@/database/users";
 import { getTranslations } from "next-intl/server";
-import { getServerAuthSession } from "@/server/next-auth";
+import { getServerAuthSession } from "@/lib/auth";
 
 import { db } from "@/server/db";
 
