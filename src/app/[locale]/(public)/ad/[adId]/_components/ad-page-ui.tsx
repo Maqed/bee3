@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Link } from "@/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
-import { MapPin, MessageCircle, Phone } from "lucide-react";
+import { MapPin } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
