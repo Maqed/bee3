@@ -1,5 +1,5 @@
 "use client";
-import { useSession } from "next-auth/react";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
 import { useRouter } from "@/navigation";
@@ -15,7 +15,8 @@ type Props = {
 };
 
 function FavoritesHeart({ adId, className }: Props) {
-  const { data: session } = useSession();
+  const { data: session, isPending: isSessionPending } =
+    authClient.useSession();
   const router = useRouter();
   const queryClient = useQueryClient();
   const tFavoritesHeart = useTranslations("favorites-heart");
@@ -69,7 +70,7 @@ function FavoritesHeart({ adId, className }: Props) {
     e.preventDefault();
     e.stopPropagation();
 
-    if (!session) {
+    if (!session && !isSessionPending) {
       router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
       return;
     }
