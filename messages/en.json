@@ -361,7 +361,7 @@
         "title": "Invalid input",
         "description": "Try typing something else"
       },
-      "invalid-credentials": {
+      "INVALID_EMAIL_OR_PASSWORD": {
         "title": "Wrong email or password",
         "description": "Try another email or password"
       }

@@ -377,7 +377,7 @@
         "title": "إدخال غير صالح",
         "description": "حاول كتابة شيء آخر"
       },
-      "invalid-credentials": {
+      "INVALID_EMAIL_OR_PASSWORD": {
         "title": "البريد الإلكتروني أو كلمة المرور خاطئة",
         "description": "حاول بريدًا إلكترونيًا أو كلمة مرور أخرى"
       }
