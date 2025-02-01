@@ -1,5 +1,7 @@
 "use client";
 import { Link } from "@/navigation";
+import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/consts/routes";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { authClient } from "@/lib/auth-client";
 import { Settings, LogOut, User, Heart } from "lucide-react";
@@ -18,6 +20,7 @@ import { Avatar } from "@/components/ui/avatar";
 function NavbarAuth() {
   const t = useTranslations("Navbar");
   const { data: session, isPending } = authClient.useSession();
+  const router = useRouter();
   if (isPending) return <Skeleton className="h-10 w-10 rounded-full" />;
   return session ? (
     <DropdownMenu>
@@ -50,7 +53,15 @@ function NavbarAuth() {
         </Link>
         <DropdownMenuItem
           className="bg-destructive text-destructive-foreground focus:bg-destructive/70 focus:text-destructive-foreground"
-          onClick={() => authClient.signOut()}
+          onClick={() =>
+            authClient.signOut({
+              fetchOptions: {
+                onSuccess: () => {
+                  router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
+                },
+              },
+            })
+          }
         >
           <LogOut className="me-2 h-4 w-4" />
           {t("Logout")}
