@@ -19,7 +19,7 @@ export default function PasswordCheckList({
       },
       { regex: /[0-9]/, text: t("messages.number") },
       {
-        regex: /[a-zA-Z]/,
+        regex: /^(?=.*[a-z])(?=.*[A-Z]).+$/,
         text: t("messages.capital-and-lowercase"),
       },
       {
