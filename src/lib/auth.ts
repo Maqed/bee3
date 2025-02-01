@@ -21,6 +21,11 @@ export const auth = betterAuth({
     },
   },
   user: {
+    additionalFields: {
+      bio: {
+        type: "string",
+      },
+    },
     deleteUser: {
       enabled: true,
       beforeDelete: async (user) => {
