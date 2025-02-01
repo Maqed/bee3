@@ -76,6 +76,7 @@ function EmailLoginForm() {
               <FormControl>
                 <Input
                   disabled={isPending}
+                  autoFocus
                   autoComplete="email"
                   type="email"
                   placeholder={tLoginEmail("email.placeholder")}

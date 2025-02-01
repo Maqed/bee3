@@ -86,6 +86,7 @@ function CardWrapper({
         {!selectedMethod && isAuthenticationWrapper && (
           <>
             <Button
+              autoFocus
               onClick={() => {
                 setSelectedMethod("email");
               }}
