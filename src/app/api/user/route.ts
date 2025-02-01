@@ -1,4 +1,4 @@
-import { getServerAuthSession } from "@/server/auth";
+import { getServerAuthSession } from "@/server/next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/server/db";
 import { userSettingsSchema } from "@/schema/user-settings";

@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { db } from "@/server/db";
 import { generateVerificationToken } from "@/lib/tokens";
 import { sendVerificationEmail } from "@/lib/mail";
-import { authOptions } from "@/server/auth";
+import { authOptions } from "@/server/next-auth";
 
 export async function POST(request: Request) {
   const req = registerSchema.safeParse(await request.json());
@@ -32,9 +32,9 @@ export async function POST(request: Request) {
     await authOptions.events?.createUser({
       // @ts-ignore
       user: {
-        ...user
-      }
-    })
+        ...user,
+      },
+    });
   } catch (error) {
     return NextResponse.json({
       error: `Error occured during creating user ${error}`,

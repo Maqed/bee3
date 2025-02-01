@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/server/db";
-import { getServerAuthSession } from "@/server/auth";
+import { getServerAuthSession } from "@/server/next-auth";
 
 export async function GET() {
   try {

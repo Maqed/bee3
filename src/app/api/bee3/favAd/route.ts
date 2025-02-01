@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import { getServerAuthSession } from "@/server/auth";
+import { getServerAuthSession } from "@/server/next-auth";
 import { getUserById } from "@/database/users";
 import { db } from "@/server/db";
 import { favAdSchema } from "../../../../schema/ad";
-
 
 export async function POST(request: Request) {
   const session = await getServerAuthSession();
@@ -12,7 +11,8 @@ export async function POST(request: Request) {
   if (!user) return NextResponse.json({ error: "must-be-logged-in" });
 
   const req = favAdSchema.safeParse(await request.json());
-  if (!req.success) return NextResponse.json({ error: req.error }, { status: 500 });
+  if (!req.success)
+    return NextResponse.json({ error: req.error }, { status: 500 });
 
   const ad = await db.ad.findUnique({ where: { id: req.data!.adId } });
   if (!ad) return NextResponse.json({ error: "ad-not-found" }, { status: 404 });
@@ -22,10 +22,10 @@ export async function POST(request: Request) {
       where: { id: user.id },
       data: {
         favoriteAds: req.data.state
-          ? { connect: { id: ad.id } }   // Add to favorites
-          : { disconnect: { id: ad.id } } // Remove from favorites
-      }
-    })
+          ? { connect: { id: ad.id } } // Add to favorites
+          : { disconnect: { id: ad.id } }, // Remove from favorites
+      },
+    });
 
     return NextResponse.json({ success: true });
   } catch (e) {
