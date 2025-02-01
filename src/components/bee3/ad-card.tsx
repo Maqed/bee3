@@ -94,7 +94,12 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
                 ? `${ad.description?.substring(0, 40)}...`
                 : ad.description}
             </p>
-            <div className="text-sm">
+            <div
+              className={cn("text-sm", {
+                "flex items-center justify-between":
+                  orientation === "horizontal",
+              })}
+            >
               <div>{getLocalizedLocation(locale, ad.cityId)}</div>
               <div>{getLocalizedTimeAgo(locale, ad.createdAt)}</div>
             </div>
