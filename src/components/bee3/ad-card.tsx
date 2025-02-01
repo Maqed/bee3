@@ -21,7 +21,7 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
   const locale = useLocale();
 
   return (
-    <Link href={`/ad/${ad.id}`}>
+    <Link title={ad.title} href={`/ad/${ad.id}`}>
       <Card
         className={cn(
           orientation === "vertical"
