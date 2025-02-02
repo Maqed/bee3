@@ -5,6 +5,7 @@ import { db } from "@/server/db";
 import { env } from "@/env";
 import { headers } from "next/headers";
 import { AdTiers } from "@prisma/client";
+import { phoneNumber } from "better-auth/plugins";
 
 export const auth = betterAuth({
   database: prismaAdapter(db, {
@@ -81,6 +82,13 @@ export const auth = betterAuth({
       },
     },
   },
+  plugins: [
+    phoneNumber({
+      sendOTP: ({ phoneNumber, code }, request) => {
+        // TODO: Implement sending OTP code via Whatsapp
+      },
+    }),
+  ],
 });
 
 export const getServerAuthSession = async () =>
