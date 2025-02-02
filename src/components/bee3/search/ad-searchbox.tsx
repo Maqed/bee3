@@ -57,6 +57,9 @@ const AdSearch = () => {
           </div>
         );
       }}
+      onSubmit={() => {
+        router.push(`/ads?q=${searchValue}`);
+      }}
       getOptionValue={(suggestion) => {
         const { title, category } = suggestion;
         if (category) {

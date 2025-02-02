@@ -27,6 +27,7 @@ export interface AsyncSearchProps<T> {
   getOptionValue: (option: T) => string;
   /** When user searches an item **/
   onSearch: (option: T) => void;
+  onSubmit: () => void;
   /**SearchTerm value */
   searchTerm: string;
   /**Setter for searchTerm */
@@ -48,6 +49,7 @@ export function AsyncSearch<T>({
   renderOption,
   getOptionValue,
   onSearch,
+  onSubmit,
   searchTerm,
   setSearchTerm,
   notFound,
@@ -106,6 +108,9 @@ export function AsyncSearch<T>({
     <Command className="w-[300px] md:w-[450px]" shouldFilter={false}>
       <div className="relative w-full border-b">
         <CommandInput
+          onKeyDown={(e) => {
+            if (e.key === "Enter") onSubmit();
+          }}
           placeholder={placeholder}
           disabled={disabled}
           value={searchTerm}
