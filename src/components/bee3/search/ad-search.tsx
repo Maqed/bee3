@@ -1,37 +1,73 @@
-import { MAX_SEARCHED_ADS } from "@/consts/ad-search";
 import { AsyncSearch } from "@/components/ui/async-search";
-import { Ad } from "@prisma/client";
-import { useTranslations } from "next-intl";
+import { getCategoryName } from "@/lib/utils";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 async function fetchData(query?: string) {
   if (!query) return [];
-  const response = await fetch(
-    `/api/bee3/search?q=${query}&pageSize=${MAX_SEARCHED_ADS}`,
-    { method: "GET" },
-  );
+  const response = await fetch(`/api/bee3/searchbox?q=${query}`, {
+    method: "GET",
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch ads");
   }
 
-  const { ads } = await response.json();
-  return ads;
+  const data = await response.json();
+  let { categorizedHits, uncategorizedHits } = data;
+  uncategorizedHits = uncategorizedHits.map((hit: string) => ({
+    title: hit,
+  }));
+
+  return [...categorizedHits, { title: query }, ...uncategorizedHits];
 }
+type fetchedDataType = {
+  title: string;
+  category?: {
+    categoryPath: string;
+    name_en: string;
+    name_ar: string;
+  };
+};
 
 const AdSearch = () => {
-  const t = useTranslations("ad-search");
+  const t = useTranslations("ad-searchbox");
+  const locale = useLocale();
   const router = useRouter();
 
   return (
-    <AsyncSearch<Ad>
+    <AsyncSearch<fetchedDataType>
       fetcher={fetchData}
       placeholder={t("placeholder")}
-      renderOption={(item) => <div>{item.title}</div>}
-      getOptionValue={(item) => item.id}
+      renderOption={(suggestion) => {
+        const { title, category } = suggestion;
+        return (
+          <div className="flex gap-1">
+            {title}
+            {category && (
+              <span className="text-foreground/80">
+                {t("in")} {getCategoryName(locale, category)}
+              </span>
+            )}
+          </div>
+        );
+      }}
+      getOptionValue={(suggestion) => {
+        const { title, category } = suggestion;
+        if (category) {
+          return `/${category}?q=${title}`;
+        } else {
+          return `/ads?q=${title}`;
+        }
+      }}
       noResultsMessage={t("not-found")}
-      onSearch={(ad) => {
-        router.push(`/ad/${ad.id}`);
+      onSearch={(suggestion) => {
+        const { title, category } = suggestion;
+        if (category) {
+          router.push(`/${category.categoryPath}?q=${title}`);
+        } else {
+          router.push(`/ads?q=${title}`);
+        }
       }}
     />
   );
