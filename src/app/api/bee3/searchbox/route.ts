@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
   const uncategorizedHits: string[] = [];
   const usedCategories = new Set<string>();
 
-  const isQueryStrong = ads.length > 0 && search.trim().length / ads[0]!.title.split(" ")[0]!.length >= 0.8;
+  const isQueryStrong = ads.length > 0 && search.trim().length / ads[0]!.title.trim().split(' ')[0]!.length >= 0.8;
 
   for (const ad of ads) {
     const categoryName = ad.categoryPath;
@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
   }
 
   return NextResponse.json({
-    "categorized-hits": categorizedHits,
-    "uncategorized-hits": uncategorizedHits,
+    "categorizedHits": categorizedHits,
+    "uncategorizedHits": uncategorizedHits,
   });
 }
