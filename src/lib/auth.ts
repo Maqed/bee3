@@ -1,11 +1,12 @@
 import { betterAuth } from "better-auth";
-import { createAuthMiddleware } from "better-auth/api";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { db } from "@/server/db";
 import { env } from "@/env";
 import { headers } from "next/headers";
 import { AdTiers } from "@prisma/client";
 import { phoneNumber } from "better-auth/plugins";
+import { toPathFormat } from "./utils";
+import { createId } from "@paralleldrive/cuid2";
 
 export const auth = betterAuth({
   database: prismaAdapter(db, {
@@ -27,6 +28,18 @@ export const auth = betterAuth({
   databaseHooks: {
     user: {
       create: {
+        before: async (user) => {
+          return {
+            data: {
+              ...user,
+              id: `${toPathFormat(user.name)
+                .toLowerCase()
+                .trim()
+                .replace(/[^\u0600-\u06FFa-z0-9]+/g, "-")
+                .replace(/^-+|-+$/g, "")}-${createId()}`,
+            },
+          };
+        },
         after: async (user) => {
           const getRefreshTime = (days: number) => {
             const date = new Date(Date.now());
