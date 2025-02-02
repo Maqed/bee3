@@ -95,6 +95,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({ ads, totalAds, totalPages });
 }
 
+// Returns a string array of all sub categories in the given path recursively.
 function getSubCategoryPaths(rootPath: string): string[] {
   const subPaths = Array<string>();
 
@@ -110,6 +111,8 @@ function getSubCategoryPaths(rootPath: string): string[] {
   return subPaths;
 }
 
+// Traverses the categoriesTree structure to find the specified path within the tree..
+// ..so that it's possible to get its children.
 function getTreeFromPath(path: string): CategoryTreeItem[] {
   const segments = path.split("/");
   let tree = categoriesTree;
