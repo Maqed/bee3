@@ -95,7 +95,10 @@ export function toPathFormat(input: string): string {
     .replace(/[^a-z0-9\u0600-\u06FF\s]/g, "") // \u0600-\u06FF\ for arabic characters
     .replace(/\s+/g, "-");
 }
-export function getCategoryName(locale: string, category: CategoryTreeItem) {
+export function getCategoryName(
+  locale: string,
+  category: Pick<CategoryTreeItem, "name_en" | "name_ar">,
+) {
   return locale === "ar" ? category.name_ar : category.name_en;
 }
 const shimmerPlaceholder = (w: number, h: number) => `
