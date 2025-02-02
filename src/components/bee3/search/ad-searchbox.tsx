@@ -1,7 +1,8 @@
 import { AsyncSearch } from "@/components/ui/async-search";
 import { getCategoryName } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 async function fetchData(query?: string) {
   if (!query) return [];
@@ -34,11 +35,15 @@ const AdSearch = () => {
   const t = useTranslations("ad-searchbox");
   const locale = useLocale();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [searchValue, setSearchValue] = useState(searchParams.get("q") ?? "");
 
   return (
     <AsyncSearch<fetchedDataType>
       fetcher={fetchData}
       placeholder={t("placeholder")}
+      setSearchTerm={setSearchValue}
+      searchTerm={searchValue}
       renderOption={(suggestion) => {
         const { title, category } = suggestion;
         return (
@@ -63,6 +68,7 @@ const AdSearch = () => {
       noResultsMessage={t("not-found")}
       onSearch={(suggestion) => {
         const { title, category } = suggestion;
+        setSearchValue(title);
         if (category) {
           router.push(`/${category.categoryPath}?q=${title}`);
         } else {
