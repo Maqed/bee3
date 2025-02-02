@@ -81,13 +81,18 @@ export function AsyncSearch<T>({
         setLoading(false);
       }
     };
+    if (searchTerm !== debouncedSearchTerm) {
+      setAreSearchedAdsVisible(false);
+    } else {
+      setAreSearchedAdsVisible(true);
+    }
 
-    if (debouncedSearchTerm) {
+    if (debouncedSearchTerm === searchTerm) {
       fetchOptions();
     } else {
       setOptions([]);
     }
-  }, [fetcher, debouncedSearchTerm]);
+  }, [fetcher, debouncedSearchTerm, searchTerm]);
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
