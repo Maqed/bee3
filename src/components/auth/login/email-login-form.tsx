@@ -20,14 +20,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useTranslations } from "next-intl";
-import { absoluteURL } from "@/lib/utils";
 import Spinner from "@/components/ui/spinner";
-import { signIn } from "next-auth/react";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 function EmailLoginForm() {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const tLoginEmail = useTranslations("auth.card-wrapper.login.email");
+  const router = useRouter();
   const tErrors = useTranslations("errors.login");
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -39,31 +40,25 @@ function EmailLoginForm() {
 
   function onSubmit(values: z.infer<typeof loginSchema>) {
     startTransition(async () => {
-      try {
-        const response = await fetch(absoluteURL("/api/auth/login"), {
-          method: "POST",
-          body: JSON.stringify(values),
-        });
-        const { email, password } = values;
-
-        const data = await response.json();
-        if (data.error) {
-          toast({
-            title: tErrors(`${data.error}.title`),
-            description: tErrors(`${data.error}.description`),
-            variant: "destructive",
-          });
-        } else {
-          await signIn("credentials", {
-            redirect: true,
-            callbackUrl: DEFAULT_LOGIN_REDIRECT,
-            email,
-            password,
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      }
+      const { email, password } = values;
+      await authClient.signIn.email(
+        {
+          email: email,
+          password: password,
+        },
+        {
+          onSuccess: () => {
+            router.push(DEFAULT_LOGIN_REDIRECT);
+          },
+          onError: (ctx) => {
+            toast({
+              title: tErrors(`${ctx.error.code}.title`),
+              description: tErrors(`${ctx.error.code}.description`),
+              variant: "destructive",
+            });
+          },
+        },
+      );
     });
   }
   return (
@@ -81,6 +76,7 @@ function EmailLoginForm() {
               <FormControl>
                 <Input
                   disabled={isPending}
+                  autoFocus
                   autoComplete="email"
                   type="email"
                   placeholder={tLoginEmail("email.placeholder")}

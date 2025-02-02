@@ -1,5 +1,6 @@
 "use client";
 import React, { useTransition } from "react";
+import { authClient } from "@/lib/auth-client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -43,33 +44,32 @@ function EmailRegisterForm() {
 
   function onSubmit(values: z.infer<typeof registerSchema>) {
     startTransition(async () => {
-      try {
-        const response = await fetch(absoluteURL("/api/auth/register"), {
-          method: "POST",
-          body: JSON.stringify(values),
-        });
-        const data = await response.json();
-        if (data.error) {
-          toast({
-            title: tErrors(`${data.error}.title`),
-            description: tErrors(`${data.error}.description`),
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: t("user-created-successfully.title"),
-            description: t("user-created-successfully.description"),
-            variant: "success",
-          });
-          router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
-        }
-      } catch (error) {
-        toast({
-          title: "Failed to submit the form.",
-          description: "Please try again.",
-          variant: "destructive",
-        });
-      }
+      const { name, email, password } = values;
+      const { data, error } = await authClient.signUp.email(
+        {
+          email,
+          password,
+          name,
+          image: undefined,
+        },
+        {
+          onSuccess: () => {
+            toast({
+              title: t("user-created-successfully.title"),
+              description: t("user-created-successfully.description"),
+              variant: "success",
+            });
+            router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
+          },
+          onError: (ctx) => {
+            toast({
+              title: tErrors(`${ctx.error.code}.title`),
+              description: tErrors(`${ctx.error.code}.description`),
+              variant: "destructive",
+            });
+          },
+        },
+      );
     });
   }
   return (
@@ -86,6 +86,7 @@ function EmailRegisterForm() {
               </FormLabel>
               <FormControl>
                 <Input
+                  autoFocus
                   disabled={isPending}
                   autoComplete="username"
                   placeholder={t("name.placeholder")}

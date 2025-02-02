@@ -6,15 +6,16 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-
+import { Alert } from "@/components/ui/alert";
 import Social from "@/components/auth/social";
 import BackButton from "@/components/auth/back-button";
-import { Mail } from "lucide-react";
+import { AlertCircle, Mail } from "lucide-react";
 import { Button } from "../ui/button";
 import { useTranslations } from "next-intl";
 import SeparatorWithText from "../ui/separator-with-text";
 import { ReactNode, useState } from "react";
 import { BackwardArrow } from "../ui/arrows";
+import { useSearchParams } from "next/navigation";
 
 type CardWrapperProps = {
   headerLabel: string;
@@ -45,6 +46,9 @@ function CardWrapper({
   isAuthenticationWrapper = false,
 }: CardWrapperProps) {
   const t = useTranslations("auth.card-wrapper");
+  const tSocialErrors = useTranslations("errors.social");
+  const searchParams = useSearchParams();
+  const error = searchParams.get("error");
   const [selectedMethod, setSelectedMethod] = useState<Methods>("");
   return (
     <Card className="w-[400px] shadow-md">
@@ -53,6 +57,15 @@ function CardWrapper({
           <h1 className="text-3xl font-semibold">Bee3</h1>
           <p className="text-sm text-muted-foreground">{headerLabel}</p>
         </div>
+        {error && (
+          <Alert
+            variant="destructive"
+            message={tSocialErrors(`${searchParams.get("error")}.title`)}
+            description={tSocialErrors(
+              `${searchParams.get("error")}.description`,
+            )}
+          />
+        )}
       </CardHeader>
       <CardContent className="pb-0">
         {selectedMethod === "email" && continueWithEmailForm}
@@ -73,6 +86,7 @@ function CardWrapper({
         {!selectedMethod && isAuthenticationWrapper && (
           <>
             <Button
+              autoFocus
               onClick={() => {
                 setSelectedMethod("email");
               }}

@@ -24,7 +24,7 @@ import { cn } from "@/lib/utils";
 import { useTransition } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { AlertDialogFooter } from "@/components/ui/alert-dialog";
-import { useSession } from "next-auth/react";
+import { authClient } from "@/lib/auth-client";
 
 const MAX_LENGTH = 6;
 
@@ -40,7 +40,6 @@ function PhoneInputOTP({
   setDialogState,
   setIsDialogOpen,
 }: Props) {
-  const { update: updateSessionUI } = useSession();
   const [isPending, startTransition] = useTransition();
   const tPhoneNumber = useTranslations("phoneNumber.OTP");
   const locale = useLocale();
@@ -54,27 +53,22 @@ function PhoneInputOTP({
   });
   function onSubmit(values: z.infer<typeof checkPhoneNumberOTP>) {
     startTransition(async () => {
-      try {
-        const response = await fetch("/api/twilio/verify-otp", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values),
-        });
-
-        const result = await response.json();
-        if (result.error) {
-          form.setError("code", {
-            message: tPhoneNumber(`errors.${result.error}`),
-          });
-        } else {
-          setIsDialogOpen(false);
-          await updateSessionUI();
-        }
-      } catch (err) {
-        form.setError("code", {
-          message: tPhoneNumber("errors.failed-verify-phone"),
-        });
-      }
+      const { code, phoneNumber } = values;
+      // TODO: test it
+      await authClient.phoneNumber.verify({
+        phoneNumber,
+        code,
+        fetchOptions: {
+          onError: (ctx) => {
+            form.setError("code", {
+              message: tPhoneNumber(`errors.${ctx.error.code}`),
+            });
+          },
+          onSuccess: () => {
+            setIsDialogOpen(false);
+          },
+        },
+      });
     });
   }
   return (

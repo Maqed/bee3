@@ -1,15 +1,21 @@
 "use client";
-import React from "react";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { DEFAULT_LOGIN_REDIRECT } from "@/consts/routes";
+import {
+  DEFAULT_LOGIN_REDIRECT,
+  DEFAULT_UNAUTHENTICATED_REDIRECT,
+} from "@/consts/routes";
 import { useTranslations } from "next-intl";
+import { authClient } from "@/lib/auth-client";
 
 function Social() {
   const t = useTranslations("auth.card-wrapper.social");
   function handleClick(provider: "google" | "facebook") {
-    return signIn(provider, { callbackUrl: DEFAULT_LOGIN_REDIRECT });
+    return authClient.signIn.social({
+      provider,
+      callbackURL: DEFAULT_LOGIN_REDIRECT,
+      errorCallbackURL: DEFAULT_UNAUTHENTICATED_REDIRECT,
+    });
   }
 
   return (

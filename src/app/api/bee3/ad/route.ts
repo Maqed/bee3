@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { getServerAuthSession } from "@/server/auth";
+import { getServerAuthSession } from "@/lib/auth";
 import { getUserById } from "@/database/users";
 import { adSchema } from "@/schema/ad";
 import { db } from "@/server/db";
 import { UTApi } from "uploadthing/server";
-import { createId } from "@paralleldrive/cuid2"
+import { createId } from "@paralleldrive/cuid2";
 import { cities } from "@/schema/cities";
 
 const utapi = new UTApi();
@@ -20,7 +20,8 @@ export async function POST(request: Request) {
   const imageFiles = formData.getAll("images") as File[];
 
   const req = adSchema.safeParse({ ...jsonData, images: imageFiles });
-  if (!req.success) return NextResponse.json({ error: req.error }, { status: 500 });
+  if (!req.success)
+    return NextResponse.json({ error: req.error }, { status: 500 });
 
   // Check token store and decrement token count
   const tokenStore = await db.adTokenStore.findUnique({
@@ -76,7 +77,11 @@ export async function POST(request: Request) {
   // Create ad
   const ad = await db.ad.create({
     data: {
-      id: `${req.data.title.toLowerCase().trim().replace(/[^\u0600-\u06FFa-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}-${createId()}`,
+      id: `${req.data.title
+        .toLowerCase()
+        .trim()
+        .replace(/[^\u0600-\u06FFa-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")}-${createId()}`,
       title: req.data.title,
       description: req.data.description,
       price: req.data.price,
@@ -90,7 +95,9 @@ export async function POST(request: Request) {
         connect: { id: req.data.cityId },
       },
       governorate: {
-        connect: { id: cities.find((c) => c.id === req.data.cityId)!.governorate_id },
+        connect: {
+          id: cities.find((c) => c.id === req.data.cityId)!.governorate_id,
+        },
       },
       category: {
         connect: { id: req.data.categoryId },

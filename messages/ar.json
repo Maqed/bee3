@@ -358,6 +358,12 @@
     }
   },
   "errors": {
+    "social": {
+      "account_not_linked": {
+        "title": "هذا الحساب مسجل بالفعل.",
+        "description": "يرجى تجربة (Google, Facebook) أو تسجيل الدخول باستخدام البريد الإلكتروني"
+      }
+    },
     "register": {
       "name-min-character": "يجب أن يحتوي الاسم على الأقل على حرفين",
       "invalid-email": "البريد الإلكتروني غير صالح",
@@ -366,7 +372,7 @@
         "title": "إدخال غير صالح",
         "description": "حاول كتابة شيء آخر"
       },
-      "email-exists": {
+      "USER_ALREADY_EXISTS": {
         "title": "هذا البريد الإلكتروني موجود بالفعل",
         "description": "حاول بريدًا آخر أو غير كلمة المرور"
       }
@@ -378,7 +384,7 @@
         "title": "إدخال غير صالح",
         "description": "حاول كتابة شيء آخر"
       },
-      "invalid-credentials": {
+      "INVALID_EMAIL_OR_PASSWORD": {
         "title": "البريد الإلكتروني أو كلمة المرور خاطئة",
         "description": "حاول بريدًا إلكترونيًا أو كلمة مرور أخرى"
       }

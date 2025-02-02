@@ -1,10 +1,10 @@
 "use client";
 import { useRef } from "react";
 import type { FormEvent } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { authClient } from "@/lib/auth-client";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/navigation";
 import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/consts/routes";
+import { useRouter } from "@/navigation";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import {
@@ -19,31 +19,36 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { TransitionStartFunction } from "react";
-import { absoluteURL } from "@/lib/utils";
 type Props = {
   isPending: boolean;
   startTransition: TransitionStartFunction;
 };
 
 function DeleteAccountSection({ isPending, startTransition }: Props) {
-  const { data: session } = useSession();
-  const { toast } = useToast();
+  const { data: session } = authClient.useSession();
   const router = useRouter();
+  const { toast } = useToast();
   const t = useTranslations("/user-settings");
   const confirmDeleteName = useRef<HTMLInputElement | null>(null);
   const confirmDeleteMessage = useRef<HTMLInputElement | null>(null);
   async function deleteAccount(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (
+      confirmDeleteName.current?.value !== session?.user.name ||
+      confirmDeleteMessage.current?.value !== "delete my account"
+    )
+      return;
     startTransition(async () => {
-      const response = await fetch(absoluteURL("/api/user"), {
-        method: "DELETE",
-      });
-      const responseJson = await response.json();
-      await signOut();
-      router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
-      toast({
-        variant: "destructive",
-        title: t(`toast.${responseJson.message ?? responseJson.error}`),
+      await authClient.deleteUser({
+        fetchOptions: {
+          onSuccess: () => {
+            toast({
+              variant: "destructive",
+              title: t(`toast.deleted`),
+            });
+            router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
+          },
+        },
       });
     });
   }
@@ -69,15 +74,15 @@ function DeleteAccountSection({ isPending, startTransition }: Props) {
           </DialogHeader>
           <form className="flex flex-col gap-y-3" onSubmit={deleteAccount}>
             <Label htmlFor="confirm-delete-name-input">
-              {t("delete.dialog.confirm-delete-name-input")}{" "}
-              <span className="italic text-foreground/80">
+              {t("delete.dialog.confirm-delete-name-input")}
+              <span className="ms-2 italic text-foreground/80">
                 {session?.user.name}
               </span>
             </Label>
             <Input ref={confirmDeleteName} id="confirm-delete-name-input" />
             <Label htmlFor="confirm-delete-message-input">
-              {t("delete.dialog.confirm-delete-message-input")}{" "}
-              <span className="italic text-foreground/80">
+              {t("delete.dialog.confirm-delete-message-input")}
+              <span className="ms-2 italic text-foreground/80">
                 delete my account
               </span>
             </Label>

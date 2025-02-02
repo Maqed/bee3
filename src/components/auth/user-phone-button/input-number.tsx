@@ -21,6 +21,7 @@ import {
 import { dialogStates } from "./user-phone-button";
 import { InputProps } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { authClient } from "@/lib/auth-client";
 
 type Props = {
   setSharedPhoneNumber: React.Dispatch<React.SetStateAction<string>>;
@@ -45,27 +46,22 @@ function InputNumber({
 
   const onSubmit = async (values: z.infer<typeof sendPhoneNumberOTP>) => {
     startTransition(async () => {
-      try {
-        const response = await fetch("/api/twilio/send-otp", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values),
-        });
-
-        const result = await response.json();
-        if (result.error) {
-          form.setError("phoneNumber", {
-            message: `phone-number.input-phone-number.${result.error}`,
-          });
-        } else {
-          setSharedPhoneNumber(values.phoneNumber);
-          setDialogState("OTP");
-        }
-      } catch (err) {
-        form.setError("phoneNumber", {
-          message: "phone-number.input-phone-number.unknown",
-        });
-      }
+      const { phoneNumber } = values;
+      // TODO: test it
+      await authClient.phoneNumber.sendOtp({
+        phoneNumber,
+        fetchOptions: {
+          onError: (ctx) => {
+            form.setError("phoneNumber", {
+              message: `phone-number.input-phone-number.${ctx.error.code}`,
+            });
+          },
+          onSuccess: (ctx) => {
+            setSharedPhoneNumber(values.phoneNumber);
+            setDialogState("OTP");
+          },
+        },
+      });
     });
   };
 

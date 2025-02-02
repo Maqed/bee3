@@ -1,13 +1,12 @@
 import { Avatar } from "@/components/ui/avatar";
 import { notFound } from "next/navigation";
-import { getUserById } from "@/database/users";
 import { getTranslations } from "next-intl/server";
-import { getServerAuthSession } from "@/server/auth";
-
-import { db } from "@/server/db";
 
 import SellButton from "@/components/bee3/sell-button";
 import AdCard from "@/components/bee3/ad-card";
+import { getServerAuthSession } from "@/lib/auth";
+import { Ad } from "@prisma/client";
+import { absoluteURL } from "@/lib/utils";
 
 type Props = {
   params: {
@@ -18,16 +17,14 @@ type Props = {
 export default async function UserPage({ params: { userId } }: Props) {
   const t = await getTranslations("/user/[userId]");
   const session = await getServerAuthSession();
-  const user = await getUserById(userId);
+  if (!userId) {
+    return notFound();
+  }
+  const userResponse = await fetch(absoluteURL(`/api/user?id=${userId}`));
+  const user = await userResponse.json();
   if (!user) {
     return notFound();
   }
-
-  const ads = await db.ad.findMany({
-    where: {
-      userId: userId, // Filter ads by userId
-    },
-  });
 
   return (
     <div className="mx-auto w-full py-8 md:px-8 md:py-12">
@@ -50,7 +47,7 @@ export default async function UserPage({ params: { userId } }: Props) {
           <h3 className="mb-4 text-center text-xl font-bold md:text-2xl">
             {t("advertises.title")}
           </h3>
-          {ads.length === 0 ? ( // Check if the user has ads
+          {user.ads.length === 0 ? ( // Check if the user has ads
             <div className="flex flex-col items-center justify-center">
               <h4 className="mb-3 text-2xl">
                 {userId === session?.user.id
@@ -62,9 +59,9 @@ export default async function UserPage({ params: { userId } }: Props) {
             </div>
           ) : (
             <div className="flex flex-wrap justify-center gap-2 px-3">
-              {ads.map(
+              {user.ads.map(
                 (
-                  ad, // Render ads if available
+                  ad: Ad, // Render ads if available
                 ) => (
                   <AdCard key={`AD-card-${ad.id}`} ad={ad} />
                 ),

@@ -1,6 +1,6 @@
 "use client";
 import type { z } from "zod";
-import { useSession } from "next-auth/react";
+import { authClient } from "@/lib/auth-client";
 import { useTranslations } from "next-intl";
 import { userSettingsSchema } from "@/schema/user-settings";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,7 +20,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { absoluteURL } from "@/lib/utils";
 
 type Props = {
   isPending: boolean;
@@ -28,9 +27,10 @@ type Props = {
 };
 
 function EditAccountSection({ isPending, startTransition }: Props) {
-  const { data: session, update, status } = useSession();
-  const { toast } = useToast();
+  const { data: session, isPending: isSessionPending } =
+    authClient.useSession();
   const t = useTranslations("/user-settings");
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof userSettingsSchema>>({
     resolver: zodResolver(userSettingsSchema),
     defaultValues: {
@@ -41,23 +41,15 @@ function EditAccountSection({ isPending, startTransition }: Props) {
   });
   async function onSubmit(values: z.infer<typeof userSettingsSchema>) {
     startTransition(async () => {
-      const response = await fetch(absoluteURL("/api/user"), {
-        method: "POST",
-        body: JSON.stringify(values),
-      });
-      const responseJson = await response.json();
-      if (!responseJson.error) {
-        await update({
-          ...session,
-          user: {
-            ...session?.user,
-            ...values,
+      const { name, bio } = values;
+      await authClient.updateUser({
+        name,
+        bio,
+        fetchOptions: {
+          onSuccess: () => {
+            toast({ title: t("toast.updated"), variant: "success" });
           },
-        });
-      }
-      toast({
-        variant: responseJson.message ? "success" : "destructive",
-        title: t(`toast.${responseJson.message ?? responseJson.error}`),
+        },
       });
     });
   }
@@ -74,7 +66,7 @@ function EditAccountSection({ isPending, startTransition }: Props) {
               <FormItem>
                 <FormLabel>{t("settings.name.title")}</FormLabel>
                 <FormControl>
-                  {status === "loading" ? (
+                  {isSessionPending ? (
                     <Skeleton className="h-10 w-full" />
                   ) : (
                     <Input
@@ -98,7 +90,7 @@ function EditAccountSection({ isPending, startTransition }: Props) {
               <FormItem>
                 <FormLabel>{t("settings.bio.title")}</FormLabel>
                 <FormControl>
-                  {status === "loading" ? (
+                  {isSessionPending ? (
                     <Skeleton className="h-16 w-full" />
                   ) : (
                     <Textarea

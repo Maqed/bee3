@@ -342,6 +342,12 @@
     }
   },
   "errors": {
+    "social": {
+      "account_not_linked": {
+        "title": "This account is already signed up.",
+        "description": "Please try (Google, Facebook) or sign in with email"
+      }
+    },
     "register": {
       "name-min-character": "Name should at least contain 2 characters",
       "invalid-email": "Email is invalid",
@@ -350,7 +356,7 @@
         "title": "Invalid input",
         "description": "Try typing something else"
       },
-      "email-exists": {
+      "USER_ALREADY_EXISTS": {
         "title": "This email already exists",
         "description": "Try another one or change password"
       }
@@ -362,7 +368,7 @@
         "title": "Invalid input",
         "description": "Try typing something else"
       },
-      "invalid-credentials": {
+      "INVALID_EMAIL_OR_PASSWORD": {
         "title": "Wrong email or password",
         "description": "Try another email or password"
       }

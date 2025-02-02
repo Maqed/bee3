@@ -7,7 +7,7 @@ import {
   PROTECTED_ROUTES,
   DEFAULT_LOGIN_REDIRECT,
 } from "./consts/routes";
-import { getToken } from "next-auth/jwt";
+import { absoluteURL } from "./lib/utils";
 
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -16,12 +16,14 @@ const intlMiddleware = createMiddleware({
   // Used when no locale matches
   defaultLocale: "ar",
 });
+
 export default async function middleware(req: NextRequest) {
-  // Get the user's authentication token
-  const token = await getToken({
-    req,
-    secret: process.env.NEXTAUTH_SECRET,
+  const data = await fetch(absoluteURL("/api/auth/get-session"), {
+    headers: {
+      cookie: req.headers.get("cookie") || "",
+    },
   });
+  const session = await data.json();
 
   // Remove locale and clean pathname
   const localeMatch = req.nextUrl.pathname.match(/^\/(ar|en)(\/|$)/);
@@ -34,14 +36,14 @@ export default async function middleware(req: NextRequest) {
     pathnameWithoutLocale.startsWith(route),
   );
 
-  if (isProtectedRoute && !token) {
+  if (isProtectedRoute && !session) {
     return NextResponse.redirect(
       new URL(DEFAULT_UNAUTHENTICATED_REDIRECT, req.url),
     );
   }
 
   if (
-    token &&
+    session &&
     ONLY_UNAUTHENTICATED_ROUTES.some((route) =>
       pathnameWithoutLocale.startsWith(route),
     )
