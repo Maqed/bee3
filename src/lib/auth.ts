@@ -24,50 +24,50 @@ export const auth = betterAuth({
       clientSecret: env.FACEBOOK_CLIENT_SECRET,
     },
   },
-  hooks: {
-    after: createAuthMiddleware(async (ctx) => {
-      if (ctx.path.startsWith("/sign-up")) {
-        const newSession = ctx.context.newSession;
-        if (!newSession) return;
-        const getRefreshTime = (days: number) => {
-          const date = new Date(Date.now());
-          date.setDate(date.getDate() + days);
-          return date;
-        };
-        await db.user.update({
-          where: { id: newSession.user.id },
-          data: {
-            tokensStorage: {
-              createMany: {
-                data: [
-                  {
-                    tokenType: AdTiers.Free,
-                    initialCount: 20,
-                    count: 20,
-                    refreshInDays: 7,
-                    nextRefreshTime: getRefreshTime(7),
-                  },
-                  {
-                    tokenType: AdTiers.Pro,
-                    initialCount: 3,
-                    count: 3,
-                    refreshInDays: 0,
-                    nextRefreshTime: new Date(0),
-                  },
-                  {
-                    tokenType: AdTiers.Expert,
-                    initialCount: 1,
-                    count: 1,
-                    refreshInDays: 0,
-                    nextRefreshTime: new Date(0),
-                  },
-                ],
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          const getRefreshTime = (days: number) => {
+            const date = new Date(Date.now());
+            date.setDate(date.getDate() + days);
+            return date;
+          };
+          await db.user.update({
+            where: { id: user.id },
+            data: {
+              tokensStorage: {
+                createMany: {
+                  data: [
+                    {
+                      tokenType: AdTiers.Free,
+                      initialCount: 20,
+                      count: 20,
+                      refreshInDays: 7,
+                      nextRefreshTime: getRefreshTime(7),
+                    },
+                    {
+                      tokenType: AdTiers.Pro,
+                      initialCount: 3,
+                      count: 3,
+                      refreshInDays: 0,
+                      nextRefreshTime: new Date(0),
+                    },
+                    {
+                      tokenType: AdTiers.Expert,
+                      initialCount: 1,
+                      count: 1,
+                      refreshInDays: 0,
+                      nextRefreshTime: new Date(0),
+                    },
+                  ],
+                },
               },
             },
-          },
-        });
-      }
-    }),
+          });
+        },
+      },
+    },
   },
   user: {
     additionalFields: {
