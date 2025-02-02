@@ -47,7 +47,6 @@ function DeleteAccountSection({ isPending, startTransition }: Props) {
               title: t(`toast.deleted`),
             });
             router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
-            // TODO: fix the session not refreshing
           },
         },
       });
