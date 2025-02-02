@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -21,6 +27,10 @@ export interface AsyncSearchProps<T> {
   getOptionValue: (option: T) => string;
   /** When user searches an item **/
   onSearch: (option: T) => void;
+  /**SearchTerm value */
+  searchTerm: string;
+  /**Setter for searchTerm */
+  setSearchTerm: Dispatch<SetStateAction<string>>;
   /** Custom not found message */
   notFound?: React.ReactNode;
   /** Custom loading skeleton */
@@ -38,6 +48,8 @@ export function AsyncSearch<T>({
   renderOption,
   getOptionValue,
   onSearch,
+  searchTerm,
+  setSearchTerm,
   notFound,
   loadingSkeleton,
   placeholder,
@@ -47,7 +59,6 @@ export function AsyncSearch<T>({
   const [options, setOptions] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const [areSearchedAdsVisible, setAreSearchedAdsVisible] = useState(false);
   const searchedAdsRef = useRef<HTMLDivElement>(null);
