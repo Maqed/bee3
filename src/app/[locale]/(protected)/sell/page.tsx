@@ -143,7 +143,7 @@ function SellPage() {
               disabled={isPending}
             >
               <FormControl>
-                <SelectTrigger>
+                <SelectTrigger autoFocus>
                   <SelectValue
                     placeholder={tSell("category.main.placeholder")}
                   />
