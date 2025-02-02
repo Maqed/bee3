@@ -1,12 +1,13 @@
 // Necessary for Better auth
 model User {
-    id            String  @id
-    name          String
-    email         String
-    emailVerified Boolean
-    bio           String?
-    image         String?
-    phoneNumber   String?
+    id                  String   @id
+    name                String
+    email               String
+    emailVerified       Boolean
+    bio                 String?
+    image               String?
+    phoneNumber         String?
+    phoneNumberVerified Boolean?
 
     createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt
