@@ -39,8 +39,9 @@
   "clipboard": {
     "copied": "{text} has been copied to clipboard!"
   },
-  "ad-search": {
+  "ad-searchbox": {
     "placeholder": "Search...",
+    "in": "in",
     "not-found": "No results found"
   },
   "password-checklist": {
