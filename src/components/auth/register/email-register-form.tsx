@@ -5,7 +5,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { registerSchema } from "@/schema/auth";
-import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/consts/routes";
+import {
+  DEFAULT_LOGIN_REDIRECT,
+  DEFAULT_UNAUTHENTICATED_REDIRECT,
+} from "@/consts/routes";
 // ui
 import { Mail, User, Lock } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
@@ -53,6 +56,7 @@ function EmailRegisterForm() {
           image: undefined,
           bio: "",
           phoneNumber: "",
+          callbackURL: DEFAULT_LOGIN_REDIRECT,
         },
         {
           onSuccess: () => {
