@@ -51,6 +51,8 @@ function EmailRegisterForm() {
           password,
           name,
           image: undefined,
+          bio: "",
+          phoneNumber: "",
         },
         {
           onSuccess: () => {
