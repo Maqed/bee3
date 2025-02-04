@@ -109,6 +109,9 @@
           "password": {
             "label": "Password"
           },
+          "rememberMe": {
+            "label": "Remember me"
+          },
 
           "submit": "Login"
         }
