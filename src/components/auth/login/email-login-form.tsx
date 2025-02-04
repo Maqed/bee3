@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useTranslations } from "next-intl";
 import Spinner from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
@@ -35,16 +36,18 @@ function EmailLoginForm() {
     defaultValues: {
       email: "",
       password: "",
+      rememberMe: false,
     },
   });
 
   function onSubmit(values: z.infer<typeof loginSchema>) {
     startTransition(async () => {
-      const { email, password } = values;
+      const { email, password, rememberMe } = values;
       await authClient.signIn.email(
         {
-          email: email,
-          password: password,
+          email,
+          password,
+          rememberMe,
         },
         {
           onSuccess: () => {
@@ -88,7 +91,6 @@ function EmailLoginForm() {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="password"
@@ -107,6 +109,23 @@ function EmailLoginForm() {
                 />
               </FormControl>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="rememberMe"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start gap-1 space-y-0">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel>{tLoginEmail("rememberMe.label")}</FormLabel>
+              </div>
             </FormItem>
           )}
         />
