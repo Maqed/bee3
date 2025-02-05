@@ -42,17 +42,23 @@ function UserPhoneButton({ className, value, ...props }: PhoneInputProps) {
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        <InputNumber
-          className={cn(dialogState !== "InputNumber" && "hidden")}
-          setDialogState={setDialogState}
-          setSharedPhoneNumber={setSharedPhoneNumber}
-        />
-        <PhoneInputOTP
-          className={cn(dialogState !== "OTP" && "hidden")}
-          setDialogState={setDialogState}
-          phoneNumber={sharedPhoneNumber}
-          setIsDialogOpen={setIsDialogOpen}
-        />
+        {dialogState === "InputNumber" ? (
+          <InputNumber
+            setDialogState={setDialogState}
+            setSharedPhoneNumber={setSharedPhoneNumber}
+          />
+        ) : (
+          <></>
+        )}
+        {dialogState === "OTP" ? (
+          <PhoneInputOTP
+            setDialogState={setDialogState}
+            phoneNumber={sharedPhoneNumber}
+            setIsDialogOpen={setIsDialogOpen}
+          />
+        ) : (
+          <></>
+        )}
       </AlertDialogContent>
     </AlertDialog>
   );
