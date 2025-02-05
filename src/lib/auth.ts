@@ -1,4 +1,4 @@
-import { betterAuth } from "better-auth";
+import { APIError, betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { db } from "@/server/db";
 import { env } from "@/env";
@@ -97,8 +97,27 @@ export const auth = betterAuth({
   },
   plugins: [
     phoneNumber({
-      sendOTP: ({ phoneNumber, code }, request) => {
+      sendOTP: async ({ phoneNumber, code }, request) => {
         // TODO: Implement sending OTP code via Whatsapp
+      },
+      callbackOnVerification: async ({ phoneNumber }, request) => {
+        // TODO: check for a better approach...
+        const session = await getServerAuthSession();
+        if (!session || !session.user.id) {
+          throw new APIError("UNAUTHORIZED");
+        }
+        if (!phoneNumber.startsWith("+20")) {
+          phoneNumber = "+20" + phoneNumber;
+        }
+        await db.user.update({
+          where: {
+            id: session.user.id,
+          },
+          data: {
+            phoneNumber,
+            phoneNumberVerified: true,
+          },
+        });
       },
     }),
   ],
