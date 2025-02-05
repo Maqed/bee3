@@ -93,6 +93,24 @@ export const auth = betterAuth({
   plugins: [
     phoneNumber({
       sendOTP: async ({ phoneNumber, code }, request) => {
+        if (!phoneNumber.startsWith("+20")) {
+          phoneNumber = "+20" + phoneNumber;
+        }
+        const session = await getServerAuthSession();
+        if (!session) {
+          throw new APIError("UNAUTHORIZED");
+        }
+        const isPhoneNumberExist = await db.user.findUnique({
+          where: {
+            phoneNumber,
+          },
+        });
+        if (!!isPhoneNumberExist) {
+          throw new APIError("BAD_REQUEST", {
+            message: "Phone number already exists",
+            code: "PHONE_NUMBER_EXISTS",
+          });
+        }
         // TODO: Implement sending OTP code via Whatsapp
       },
       callbackOnVerification: async ({ phoneNumber }, request) => {
