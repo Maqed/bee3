@@ -47,7 +47,6 @@ function InputNumber({
   const onSubmit = async (values: z.infer<typeof sendPhoneNumberOTP>) => {
     startTransition(async () => {
       const { phoneNumber } = values;
-      // TODO: test it
       await authClient.phoneNumber.sendOtp({
         phoneNumber,
         fetchOptions: {
