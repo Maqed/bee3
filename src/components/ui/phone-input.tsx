@@ -11,7 +11,12 @@ function PhoneInput({ className, ...props }: PhoneInputProps) {
       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-foreground/70">
         +20
       </span>
-      <Input className={cn("pl-10", className)} type="tel" {...props} />
+      <Input
+        className={cn("pl-10", className)}
+        maxLength={10}
+        type="tel"
+        {...props}
+      />
     </div>
   );
 }
