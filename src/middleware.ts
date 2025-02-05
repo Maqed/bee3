@@ -7,7 +7,6 @@ import {
   PROTECTED_ROUTES,
   DEFAULT_LOGIN_REDIRECT,
 } from "./consts/routes";
-import { absoluteURL } from "./lib/utils";
 
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -18,12 +17,7 @@ const intlMiddleware = createMiddleware({
 });
 
 export default async function middleware(req: NextRequest) {
-  const data = await fetch(absoluteURL("/api/auth/get-session"), {
-    headers: {
-      cookie: req.headers.get("cookie") || "",
-    },
-  });
-  const session = await data.json();
+  const session = req.cookies.has("better-auth.session_token");
 
   // Remove locale and clean pathname
   const localeMatch = req.nextUrl.pathname.match(/^\/(ar|en)(\/|$)/);
