@@ -412,7 +412,8 @@
         "must-be-logged-in": "You must be logged in to verify your phone number",
         "failed-too-many-requests": "You're sending your phone number too many times, Please try again in a minute.",
         "unknown": "An unknown error occurred. Please try again.",
-        "invalid-number": "Please enter a valid 10-digit phone number"
+        "invalid-number": "Please enter a valid 10-digit phone number",
+        "PHONE_NUMBER_ALREADY_EXISTS": "This phone number already exists, please try another one!"
       },
       "OTP": {
         "must-be-logged-in": "You must be logged in to verify your phone number",
