@@ -88,12 +88,6 @@ export const auth = betterAuth({
         type: "string",
       },
     },
-    deleteUser: {
-      enabled: true,
-      beforeDelete: async (user) => {
-        // TODO: remove all ads and therefore all images related to that user
-      },
-    },
   },
   plugins: [
     phoneNumber({
