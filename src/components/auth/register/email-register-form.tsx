@@ -66,6 +66,7 @@ function EmailRegisterForm() {
               variant: "success",
             });
             router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
+            router.refresh();
           },
           onError: (ctx) => {
             toast({

@@ -52,6 +52,7 @@ function EmailLoginForm() {
         {
           onSuccess: () => {
             router.push(DEFAULT_LOGIN_REDIRECT);
+            router.refresh();
           },
           onError: (ctx) => {
             toast({
