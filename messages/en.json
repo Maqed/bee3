@@ -416,7 +416,9 @@
       "OTP": {
         "must-be-logged-in": "You must be logged in to verify your phone number",
         "code": "Please enter a valid 6-digit OTP",
-        "failed-verify-phone": "Your OTP is invalid, please try again!"
+        "INVALID_OTP": "Your OTP is invalid, please try again!",
+        "OTP_EXPIRED": "OTP has expired, please try again!",
+        "OTP_NOT_FOUND": "OTP not found, please try agian!"
       }
     }
   }
