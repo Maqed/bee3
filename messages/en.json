@@ -321,6 +321,9 @@
       "label": "Negotiable",
       "description": "Is the price negotiable?"
     },
+    "user-phone-button": {
+      "label": "Phone Number"
+    },
     "submit": "Sell Now!",
 
     "submit-success": "Ad submitted successfully!",
@@ -404,6 +407,10 @@
         "failed-not-enough-tokens": {
           "title": "You don't have enough tokens.",
           "description": "Please buy more tokens to continue selling."
+        },
+        "must-have-phone-number": {
+          "title": "You must have a phone number",
+          "description": "Please type your phone number"
         }
       }
     },

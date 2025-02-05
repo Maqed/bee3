@@ -338,6 +338,9 @@
       "label": "قابل للتفاوض",
       "description": "هل السعر قابل للتفاوض؟"
     },
+    "user-phone-button": {
+      "label": "رقم الهاتف"
+    },
     "submit": "بيع دلوقتي!",
     "submit-success": "تم إرسال الإعلان بنجاح!",
     "loading": "جاري البيع..."
@@ -420,6 +423,10 @@
         "failed-not-enough-tokens": {
           "title": "ليس لديك ما يكفي من الرموز.",
           "description": "يرجى شراء المزيد من الرموز للاستمرار في البيع."
+        },
+        "must-have-phone-number": {
+          "title": "يجب أن يكون لديك رقم هاتف",
+          "description": "يرجى إدخال رقم هاتفك"
         }
       }
     },

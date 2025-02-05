@@ -44,6 +44,9 @@ import { governorates } from "@/schema/governorates";
 import { cities } from "@/schema/cities";
 import { getCategoryName } from "@/lib/utils";
 import { NumberInput } from "@/components/ui/number-input";
+import { authClient } from "@/lib/auth-client";
+import UserPhoneButton from "@/components/auth/user-phone-button/user-phone-button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function SellPage() {
   const tSell = useTranslations("/sell");
@@ -51,6 +54,8 @@ function SellPage() {
   const locale = useLocale();
   const router = useRouter();
   const { toast } = useToast();
+  const { data: session, isPending: isSessionPending } =
+    authClient.useSession();
   const [selectedMainCategory, setSelectedMainCategory] = useState<
     string | null
   >(null);
@@ -127,12 +132,20 @@ function SellPage() {
   const onImagesChange = (newImages: File[]) => {
     form.setValue("images", newImages); // Update form state with new images
   };
-
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter" && event.target === event.currentTarget) {
+      event.preventDefault();
+    }
+  };
   return (
     <main className="container mt-4 sm:mx-auto md:max-w-4xl">
       <h1 className="mb-4 text-2xl font-bold">{tSell("title")}</h1>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onKeyDown={handleKeyDown}
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-8"
+        >
           <FormItem>
             <FormLabel>{tSell("category.main.label")}</FormLabel>
             <Select
@@ -465,8 +478,25 @@ function SellPage() {
               </FormItem>
             )}
           />
+          <Separator />
+          <FormItem className="flex flex-col gap-3">
+            <FormLabel className="text-base">
+              {tSell("user-phone-button.label")}
+            </FormLabel>
+            <FormControl>
+              {isSessionPending ? (
+                <Skeleton className="h-10 w-full" />
+              ) : (
+                <UserPhoneButton
+                  id="phoneNumber"
+                  value={session?.user.phoneNumber?.slice(3)}
+                />
+              )}
+            </FormControl>
+            <FormMessage />
+          </FormItem>
 
-          <Button type="submit" disabled={isPending}>
+          <Button type="submit" disabled={isPending || isSessionPending}>
             {isPending ? (
               <>
                 <Spinner className="me-1" />
