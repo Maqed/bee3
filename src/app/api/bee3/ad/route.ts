@@ -15,6 +15,9 @@ export async function POST(request: Request) {
   const user = await getUserById(session.user.id);
   if (!user) return NextResponse.json({ error: "must-be-logged-in" });
 
+  if (!user.phoneNumber || !user.phoneNumberVerified)
+    return NextResponse.json({ error: "must-have-phone-number" });
+
   const formData = await request.formData();
   const jsonData = JSON.parse(formData.get("json") as string);
   const imageFiles = formData.getAll("images") as File[];
