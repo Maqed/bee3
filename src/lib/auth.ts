@@ -111,7 +111,53 @@ export const auth = betterAuth({
             code: "PHONE_NUMBER_EXISTS",
           });
         }
-        // TODO: Implement sending OTP code via Whatsapp
+
+        const sendMessageURL = `https://graph.facebook.com/v16.0/${env.WA_PHONE_NUMBER_ID}/messages`;
+        const payload = {
+          messaging_product: "whatsapp",
+          recipient_type: "individual",
+          to: phoneNumber,
+          type: "template",
+          template: {
+            name: env.WA_TEMPLATE_NAME,
+            language: {
+              code: "en_US"
+            },
+            components: [
+              {
+                type: "body",
+                parameters: [
+                  {
+                    type: "text",
+                    text: code
+                  }
+                ]
+              },
+              {
+                type: "button",
+                sub_type: "url",
+                index: "0",
+                parameters: [
+                  {
+                    type: "text",
+                    text: code
+                  }
+                ]
+              }
+            ]
+          }
+        };
+
+        await fetch(sendMessageURL, {
+          headers: {
+            Authorization: `Bearer ${env.WA_ACCESS_TOKEN}`
+          },
+          body: JSON.stringify(payload)
+        }).catch(error => {
+          const errorCode = error.response?.status;
+          const errorText = error.response?.data?.error?.error_data?.details;
+          console.log(`Error (${errorCode}) from calling send message API: ${errorText}`);
+        });
       },
       callbackOnVerification: async ({ phoneNumber }, request) => {
         // TODO: check for a better approach...
