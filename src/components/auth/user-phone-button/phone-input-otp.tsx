@@ -41,7 +41,8 @@ function PhoneInputOTP({
   setIsDialogOpen,
 }: Props) {
   const [isPending, startTransition] = useTransition();
-  const tPhoneNumber = useTranslations("phoneNumber.OTP");
+  const tPhoneNumber = useTranslations("phoneNumber");
+  const tPhoneNumberOTP = useTranslations("phoneNumber.OTP");
   const locale = useLocale();
 
   const form = useForm<z.infer<typeof checkPhoneNumberOTP>>({
@@ -107,21 +108,30 @@ function PhoneInputOTP({
                 </FormControl>
               </div>
               <FormDescription>
-                {tPhoneNumber("otp-description")}
+                {tPhoneNumberOTP("otp-description")}
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <AlertDialogFooter className="flex sm:space-x-0">
+        <AlertDialogFooter className="flex justify-between sm:space-x-0">
+          <Button
+            variant="ghost"
+            type="reset"
+            onClick={() => {
+              setDialogState("InputNumber");
+            }}
+          >
+            {tPhoneNumber("go-back")}
+          </Button>
           <Button
             variant="link"
-            type="button"
+            type="submit"
             onClick={form.handleSubmit(onSubmit)}
             disabled={isPending}
           >
-            {tPhoneNumber("verifyCode")}
+            {tPhoneNumberOTP("verifyCode")}
           </Button>
         </AlertDialogFooter>
       </form>

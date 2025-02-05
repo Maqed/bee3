@@ -135,6 +135,7 @@
     "close": "Close"
   },
   "phoneNumber": {
+    "go-back": "Go back",
     "InputNumber": {
       "title": "Enter your phone number to verify your account",
       "description": "We will send a confirmation code to your number",

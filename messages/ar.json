@@ -137,6 +137,7 @@
     "close": "اغلق"
   },
   "phoneNumber": {
+    "go-back": "الرجوع",
     "InputNumber": {
       "title": "أدخل رقم هاتفك للتحقق من حسابك",
       "description": "سنرسل رمز تأكيد إلى رقمك",
