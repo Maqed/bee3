@@ -1,7 +1,6 @@
-"use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import type { z } from "zod";
 import { checkPhoneNumberOTP } from "@/schema/twilio";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,13 +17,14 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { dialogStates } from "./user-phone-button";
-import { InputProps } from "@/components/ui/input";
+import type { dialogStates } from "./user-phone-button";
+import type { InputProps } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useTransition } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { authClient } from "@/lib/auth-client";
+import type React from "react"; // Import React
 
 const MAX_LENGTH = 6;
 
@@ -52,6 +52,7 @@ function PhoneInputOTP({
       phoneNumber,
     },
   });
+
   function onSubmit(values: z.infer<typeof checkPhoneNumberOTP>) {
     startTransition(async () => {
       const { code, phoneNumber } = values;
@@ -73,10 +74,19 @@ function PhoneInputOTP({
       });
     });
   }
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      form.handleSubmit(onSubmit)();
+    }
+  };
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
+        onKeyDown={handleKeyDown}
         className={cn("flex flex-col gap-3", className)}
       >
         <FormField
@@ -127,7 +137,7 @@ function PhoneInputOTP({
           </Button>
           <Button
             variant="link"
-            type="submit"
+            type="button"
             onClick={form.handleSubmit(onSubmit)}
             disabled={isPending}
           >

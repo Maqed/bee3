@@ -1,7 +1,6 @@
-"use client";
 import { useTranslations } from "next-intl";
 import { useTransition } from "react";
-import z from "zod";
+import type z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { sendPhoneNumberOTP } from "@/schema/twilio";
@@ -18,10 +17,11 @@ import {
   AlertDialogFooter,
   AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
-import { dialogStates } from "./user-phone-button";
-import { InputProps } from "@/components/ui/input";
+import type { dialogStates } from "./user-phone-button";
+import type { InputProps } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
+import type React from "react"; // Added import for React
 
 type Props = {
   setSharedPhoneNumber: React.Dispatch<React.SetStateAction<string>>;
@@ -64,10 +64,18 @@ function InputNumber({
     });
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      form.handleSubmit(onSubmit)();
+    }
+  };
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
+        onKeyDown={handleKeyDown}
         className={cn("space-y-4", className)}
       >
         <FormField
