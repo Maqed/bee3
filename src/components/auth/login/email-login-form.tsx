@@ -121,6 +121,7 @@ function EmailLoginForm() {
                 <Checkbox
                   checked={field.value}
                   onCheckedChange={field.onChange}
+                  disabled={isPending}
                 />
               </FormControl>
               <div className="space-y-1 leading-none">
