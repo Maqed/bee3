@@ -79,6 +79,7 @@ function InputNumber({
               <FormControl>
                 <PhoneInput
                   {...field}
+                  autoFocus
                   disabled={isPending}
                   onChange={(e) => field.onChange(e.target.value)}
                   placeholder={tPhoneNumber("placeholder")}
