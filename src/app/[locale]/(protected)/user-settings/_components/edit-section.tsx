@@ -20,6 +20,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { Label } from "@/components/ui/label";
+import UserPhoneButton from "@/components/auth/user-phone-button/user-phone-button";
 
 type Props = {
   isPending: boolean;
@@ -58,7 +60,7 @@ function EditAccountSection({ isPending, startTransition }: Props) {
       <h1 className="text-3xl font-bold">{t("settings.title")}</h1>
       <hr className="my-2" />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="mb-6 space-y-6">
           <FormField
             control={form.control}
             name="name"
@@ -113,6 +115,17 @@ function EditAccountSection({ isPending, startTransition }: Props) {
           </Button>
         </form>
       </Form>
+      <div className="flex flex-col gap-3">
+        <Label htmlFor="phoneNumber">{t("settings.phoneNumber.title")}</Label>
+        {isPending ? (
+          <Skeleton className="h-10 w-full" />
+        ) : (
+          <UserPhoneButton
+            id="phoneNumber"
+            value={session?.user.phoneNumber?.slice(3)}
+          />
+        )}
+      </div>
     </section>
   );
 }
