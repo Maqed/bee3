@@ -117,7 +117,7 @@ function EditAccountSection({ isPending, startTransition }: Props) {
       </Form>
       <div className="flex flex-col gap-3">
         <Label htmlFor="phoneNumber">{t("settings.phoneNumber.title")}</Label>
-        {isPending ? (
+        {isSessionPending ? (
           <Skeleton className="h-10 w-full" />
         ) : (
           <UserPhoneButton
