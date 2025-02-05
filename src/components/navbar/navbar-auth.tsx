@@ -58,6 +58,7 @@ function NavbarAuth() {
               fetchOptions: {
                 onSuccess: () => {
                   router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
+                  router.refresh();
                 },
               },
             })
