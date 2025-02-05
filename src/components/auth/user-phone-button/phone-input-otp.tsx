@@ -54,18 +54,19 @@ function PhoneInputOTP({
   function onSubmit(values: z.infer<typeof checkPhoneNumberOTP>) {
     startTransition(async () => {
       const { code, phoneNumber } = values;
-      // TODO: test it
       await authClient.phoneNumber.verify({
         phoneNumber,
         code,
+        disableSession: true,
         fetchOptions: {
           onError: (ctx) => {
             form.setError("code", {
-              message: tPhoneNumber(`errors.${ctx.error.code}`),
+              message: `phone-number.OTP.${ctx.error.code}`,
             });
           },
           onSuccess: () => {
             setIsDialogOpen(false);
+            setDialogState("InputNumber");
           },
         },
       });
@@ -90,7 +91,7 @@ function PhoneInputOTP({
                 dir="ltr"
               >
                 <FormControl>
-                  <InputOTP maxLength={MAX_LENGTH} {...field}>
+                  <InputOTP autoFocus maxLength={MAX_LENGTH} {...field}>
                     <InputOTPGroup>
                       <InputOTPSlot index={0} />
                       <InputOTPSlot index={1} />
