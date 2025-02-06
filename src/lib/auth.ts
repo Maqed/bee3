@@ -149,15 +149,16 @@ export const auth = betterAuth({
         };
 
         await fetch(sendMessageURL, {
+          method: "POST",
           headers: {
             Authorization: `Bearer ${env.WA_ACCESS_TOKEN}`
           },
           body: JSON.stringify(payload)
         }).catch(error => {
-          const errorCode = error.response?.status;
-          const errorText = error.response?.data?.error?.error_data?.details;
-          console.log(`Error (${errorCode}) from calling send message API: ${errorText}`);
+          console.log(`Error from calling send message API: ${error}`);
         });
+
+        console.log(payload);
       },
       callbackOnVerification: async ({ phoneNumber }, request) => {
         // TODO: check for a better approach...
