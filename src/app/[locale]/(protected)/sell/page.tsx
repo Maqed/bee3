@@ -452,13 +452,12 @@ function SellPage() {
                 <FormLabel>{tSell("price.label")}</FormLabel>
                 <FormControl>
                   <NumberInput
-                    {...field}
+                    value={field.value}
                     prefix={locale === "ar" ? "ج.م " : "EGP "}
                     placeholder={tSell("price.placeholder")}
                     thousandSeparator=","
-                    onChange={(e) => {
-                      const value = Number(e.target.value.replaceAll(",", ""));
-                      field.onChange(value ? value : 0);
+                    onValueChange={(value) => {
+                      field.onChange(value);
                     }}
                     disabled={isPending}
                   />
