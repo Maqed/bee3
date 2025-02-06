@@ -69,8 +69,11 @@ function FilterAds({ onApplyFilter }: Props) {
           </Label>
           <NumberInput
             id="minPrice"
+            thousandSeparator=","
             value={minPrice}
-            onChange={(e) => setMinPrice(Number(e.target.value))}
+            onValueChange={(value) => {
+              setMinPrice(value ? value : 0);
+            }}
             placeholder={t("minPriceLabel")}
           />
         </div>
@@ -80,8 +83,11 @@ function FilterAds({ onApplyFilter }: Props) {
           </Label>
           <NumberInput
             id="maxPrice"
+            thousandSeparator=","
             value={maxPrice}
-            onChange={(e) => setMaxPrice(Number(e.target.value))}
+            onValueChange={(value) => {
+              setMaxPrice(value ? value : 0);
+            }}
             placeholder={t("maxPriceLabel")}
           />
         </div>
