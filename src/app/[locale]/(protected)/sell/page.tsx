@@ -80,6 +80,14 @@ function SellPage() {
   });
 
   const onSubmit = async (data: FormData) => {
+    if (!session?.user.phoneNumber || !session?.user.phoneNumberVerified) {
+      toast({
+        title: tErrors(`submit.must-have-phone-number.title`),
+        description: tErrors(`submit.must-have-phone-number.description`),
+        variant: "destructive",
+      });
+      return;
+    }
     startTransition(async () => {
       try {
         const formData = new FormData();
