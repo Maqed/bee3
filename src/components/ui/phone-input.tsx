@@ -1,8 +1,9 @@
 "use client";
-import { Input, InputProps } from "./input";
+import { PatternFormat, PatternFormatProps } from "react-number-format";
+import { Input } from "./input";
 import { cn } from "@/lib/utils";
 
-export type PhoneInputProps = {} & InputProps;
+export type PhoneInputProps = Omit<PatternFormatProps, "format">;
 
 function PhoneInput({ className, ...props }: PhoneInputProps) {
   return (
@@ -11,10 +12,12 @@ function PhoneInput({ className, ...props }: PhoneInputProps) {
       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-foreground/70">
         +20
       </span>
-      <Input
+      <PatternFormat
         className={cn("pl-10", className)}
-        maxLength={10}
-        type="tel"
+        allowEmptyFormatting
+        mask="_"
+        customInput={Input}
+        format="### ### ####"
         {...props}
       />
     </div>

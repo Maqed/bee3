@@ -85,10 +85,11 @@ function InputNumber({
             <FormItem>
               <FormControl>
                 <PhoneInput
-                  {...field}
-                  autoFocus
+                  value={field.value}
                   disabled={isPending}
-                  onChange={(e) => field.onChange(e.target.value)}
+                  onValueChange={({ value }) => {
+                    field.onChange(value);
+                  }}
                   placeholder={tPhoneNumber("placeholder")}
                 />
               </FormControl>
