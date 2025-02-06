@@ -75,5 +75,4 @@ export const registerSchema = z
 export const loginSchema = z.object({
   email: z.string().email({ message: "login.invalid-email" }),
   password: z.string().min(1, { message: "login.password-min-characters" }),
-  rememberMe: z.boolean(),
 });
