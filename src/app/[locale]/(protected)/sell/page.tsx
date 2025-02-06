@@ -444,9 +444,13 @@ function SellPage() {
                 <FormLabel>{tSell("price.label")}</FormLabel>
                 <FormControl>
                   <NumberInput
-                    placeholder={tSell("price.placeholder")}
                     {...field}
-                    onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                    placeholder={tSell("price.placeholder")}
+                    thousandSeparator=","
+                    onChange={(e) => {
+                      const value = Number(e.target.value.replaceAll(",", ""));
+                      field.onChange(value ? value : 0);
+                    }}
                     disabled={isPending}
                   />
                 </FormControl>
