@@ -26,8 +26,12 @@ function UserPhoneButton({ className, value, ...props }: PhoneInputProps) {
   const tPhoneNumber = useTranslations("phoneNumber");
   return (
     <AlertDialog onOpenChange={setIsDialogOpen} open={isDialogOpen}>
-      <AlertDialogTrigger>
-        <PhoneInput className={cn(className)} {...props} value={value} />
+      <AlertDialogTrigger asChild>
+        <PhoneInput
+          className={cn("text-start", className)}
+          {...props}
+          value={value}
+        />
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

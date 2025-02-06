@@ -111,10 +111,6 @@
           "password": {
             "label": "كلمة المرور"
           },
-          "rememberMe": {
-            "label": "تذكرني"
-          },
-
           "submit": "تسجيل الدخول"
         }
       },

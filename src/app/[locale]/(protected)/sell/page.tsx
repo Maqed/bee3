@@ -80,6 +80,14 @@ function SellPage() {
   });
 
   const onSubmit = async (data: FormData) => {
+    if (!session?.user.phoneNumber || !session?.user.phoneNumberVerified) {
+      toast({
+        title: tErrors(`submit.must-have-phone-number.title`),
+        description: tErrors(`submit.must-have-phone-number.description`),
+        variant: "destructive",
+      });
+      return;
+    }
     startTransition(async () => {
       try {
         const formData = new FormData();
@@ -110,7 +118,7 @@ function SellPage() {
         } else {
           toast({
             title: tErrors(`submit.${result.error}.title`),
-            description: tSell(`submit.${result.error}.description`),
+            description: tErrors(`submit.${result.error}.description`),
             variant: "destructive",
           });
         }
@@ -444,9 +452,13 @@ function SellPage() {
                 <FormLabel>{tSell("price.label")}</FormLabel>
                 <FormControl>
                   <NumberInput
+                    value={field.value}
+                    prefix={locale === "ar" ? "ج.م " : "EGP "}
                     placeholder={tSell("price.placeholder")}
-                    {...field}
-                    onChange={(e) => field.onChange(parseFloat(e.target.value))}
+                    thousandSeparator=","
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                    }}
                     disabled={isPending}
                   />
                 </FormControl>
