@@ -110,7 +110,7 @@ function SellPage() {
         } else {
           toast({
             title: tErrors(`submit.${result.error}.title`),
-            description: tSell(`submit.${result.error}.description`),
+            description: tErrors(`submit.${result.error}.description`),
             variant: "destructive",
           });
         }
