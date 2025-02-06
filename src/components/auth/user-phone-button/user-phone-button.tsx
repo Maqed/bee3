@@ -27,7 +27,11 @@ function UserPhoneButton({ className, value, ...props }: PhoneInputProps) {
   return (
     <AlertDialog onOpenChange={setIsDialogOpen} open={isDialogOpen}>
       <AlertDialogTrigger asChild>
-        <PhoneInput className={cn(className)} {...props} value={value} />
+        <PhoneInput
+          className={cn("text-start", className)}
+          {...props}
+          value={value}
+        />
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
