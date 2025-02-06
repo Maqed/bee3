@@ -453,6 +453,7 @@ function SellPage() {
                 <FormControl>
                   <NumberInput
                     {...field}
+                    prefix={locale === "ar" ? "ج.م " : "EGP "}
                     placeholder={tSell("price.placeholder")}
                     thousandSeparator=","
                     onChange={(e) => {
