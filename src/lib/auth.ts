@@ -112,7 +112,7 @@ export const auth = betterAuth({
           });
         }
 
-        const sendMessageURL = `https://graph.facebook.com/v16.0/${env.WA_PHONE_NUMBER_ID}/messages`;
+        const sendMessageURL = `https://graph.facebook.com/v22.0/${env.WA_PHONE_NUMBER_ID}/messages`;
         const payload = {
           messaging_product: "whatsapp",
           recipient_type: "individual",
@@ -121,7 +121,7 @@ export const auth = betterAuth({
           template: {
             name: env.WA_TEMPLATE_NAME,
             language: {
-              code: "en_US"
+              code: "en_US",
             },
             components: [
               {
@@ -129,9 +129,9 @@ export const auth = betterAuth({
                 parameters: [
                   {
                     type: "text",
-                    text: code
-                  }
-                ]
+                    text: code,
+                  },
+                ],
               },
               {
                 type: "button",
@@ -140,25 +140,25 @@ export const auth = betterAuth({
                 parameters: [
                   {
                     type: "text",
-                    text: code
-                  }
-                ]
-              }
-            ]
-          }
+                    text: code,
+                  },
+                ],
+              },
+            ],
+          },
         };
 
-        await fetch(sendMessageURL, {
+        const response = await fetch(sendMessageURL, {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${env.WA_ACCESS_TOKEN}`
+            Authorization: `Bearer ${env.WA_ACCESS_TOKEN}`,
+            "Content-Type": "application/json"
           },
-          body: JSON.stringify(payload)
-        }).catch(error => {
-          console.log(`Error from calling send message API: ${error}`);
+          body: JSON.stringify(payload),
         });
+        console.log({ response: await response.json() });
 
-        console.log(payload);
+        console.log({ payload });
       },
       callbackOnVerification: async ({ phoneNumber }, request) => {
         // TODO: check for a better approach...
