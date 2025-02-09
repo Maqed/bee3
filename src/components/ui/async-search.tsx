@@ -81,15 +81,12 @@ export function AsyncSearch<T>({
         setLoading(false);
       }
     };
-    if (searchTerm !== debouncedSearchTerm) {
-      setAreSearchedAdsVisible(false);
-    } else {
-      setAreSearchedAdsVisible(true);
-    }
 
     if (debouncedSearchTerm === searchTerm) {
+      setAreSearchedAdsVisible(true);
       fetchOptions();
     } else {
+      setAreSearchedAdsVisible(false);
       setOptions([]);
     }
   }, [fetcher, debouncedSearchTerm, searchTerm]);
