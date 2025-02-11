@@ -27,7 +27,7 @@ export default async function UserPage({ params: { userId } }: Props) {
   }
 
   return (
-    <div className="mx-auto w-full py-8 md:px-8 md:py-12">
+    <main className="mx-auto w-full py-8 md:px-8 md:py-12">
       <div className="grid gap-8">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-col items-center gap-4">
@@ -70,6 +70,6 @@ export default async function UserPage({ params: { userId } }: Props) {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
