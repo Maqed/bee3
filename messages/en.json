@@ -321,9 +321,14 @@
     "user-phone-button": {
       "label": "Phone Number"
     },
+    "toast": {
+      "loading": {
+        "title": "Ad is being processed by our servers",
+        "description": "This is how it's going to look like"
+      },
+      "submit-success": "Ad submitted successfully!"
+    },
     "submit": "Sell Now!",
-
-    "submit-success": "Ad submitted successfully!",
     "loading": "Posting ad..."
   },
   "/ad/[adId]": {
