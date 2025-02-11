@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Whatsapp from "@/components/icons/whatsapp";
 import {
@@ -17,33 +16,8 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import AdCardPlaceholder from "@/components/placeholders/ad-card-placeholder";
-import SafetyTipsCard from "@/components/bee3/ad-page/safety-matters";
 
-export default function AdPagePlaceholder() {
-  return (
-    <>
-      <div className="col-span-12 flex flex-col gap-y-5 pb-20 md:col-span-8 md:pb-0">
-        {renderAdImagesPlaceholder()}
-        <div className="flex flex-col gap-y-5 max-sm:mx-1">
-          {renderPriceAndTitlePlaceholder()}
-          {renderDescriptionPlaceholder()}
-          {renderUserInformationMobilePlaceholder()}
-          <SafetyTipsCard />
-          <Separator />
-          {renderRelatedAdsPlaceholder()}
-        </div>
-        {renderContactInfoMobilePlaceholder()}
-      </div>
-      <div className="hidden md:col-span-4 md:block">
-        {renderUserInformationDesktopPlaceholder()}
-        <SafetyTipsCard />
-      </div>
-    </>
-  );
-}
-
-function renderAdImagesPlaceholder() {
+export function AdImagesPlaceholder() {
   return (
     <div className="space-y-3">
       <Skeleton className="h-[450px] w-full" />
@@ -59,7 +33,7 @@ function renderAdImagesPlaceholder() {
   );
 }
 
-function renderPriceAndTitlePlaceholder() {
+export function PriceAndTitlePlaceholder() {
   return (
     <Card>
       <CardHeader>
@@ -82,7 +56,7 @@ function renderPriceAndTitlePlaceholder() {
   );
 }
 
-function renderDescriptionPlaceholder() {
+export function DescriptionPlaceholder() {
   return (
     <Card>
       <CardHeader>
@@ -97,53 +71,27 @@ function renderDescriptionPlaceholder() {
   );
 }
 
-function renderUserInformationMobilePlaceholder() {
-  return (
-    <Card className="md:hidden">
-      <CardHeader>
-        <CardTitle>
-          <Skeleton className="h-6 w-1/2" />
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Skeleton className="mb-2 h-6 w-3/4" />
-        <Skeleton className="h-4 w-1/2" />
-      </CardContent>
-    </Card>
-  );
-}
+export function UserInformationPlaceholder({
+  variant = "desktop",
+}: {
+  variant?: "mobile" | "desktop";
+}) {
+  if (variant === "mobile") {
+    return (
+      <Card className="md:hidden">
+        <CardHeader>
+          <CardTitle>
+            <Skeleton className="h-6 w-1/2" />
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Skeleton className="mb-2 h-6 w-3/4" />
+          <Skeleton className="h-4 w-1/2" />
+        </CardContent>
+      </Card>
+    );
+  }
 
-function renderRelatedAdsPlaceholder() {
-  return (
-    <div className="space-y-3">
-      <Skeleton className="h-6 w-1/4" />
-      <Carousel className="w-full max-w-full">
-        <CarouselContent>
-          {[...Array(4)].map((_, index) => (
-            <CarouselItem key={`ad-card-placeholder-${index}`}>
-              <AdCardPlaceholder />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-    </div>
-  );
-}
-
-function renderContactInfoMobilePlaceholder() {
-  return (
-    <div className="fixed bottom-0 start-0 flex w-full items-center justify-center gap-3 border-t bg-background py-3 md:hidden">
-      <Button disabled size="lg">
-        <Phone className="me-2" />
-      </Button>
-      <Button disabled size="lg" variant="whatsapp">
-        <Whatsapp className="me-2 size-6" />
-      </Button>
-    </div>
-  );
-}
-
-function renderUserInformationDesktopPlaceholder() {
   return (
     <Card>
       <CardHeader>
@@ -166,5 +114,39 @@ function renderUserInformationDesktopPlaceholder() {
         </Button>
       </CardFooter>
     </Card>
+  );
+}
+
+export function ContactInfoPlaceholder() {
+  return (
+    <div className="fixed bottom-0 start-0 flex w-full items-center justify-center gap-3 border-t bg-background py-3 md:hidden">
+      <Button disabled size="lg">
+        <Phone className="me-2" />
+      </Button>
+      <Button disabled size="lg" variant="whatsapp">
+        <Whatsapp className="me-2 size-6" />
+      </Button>
+    </div>
+  );
+}
+
+export function RelatedAdsPlaceholder() {
+  return (
+    <div className="space-y-3">
+      <Skeleton className="h-6 w-1/4" />
+      <Carousel className="w-full max-w-full">
+        <CarouselContent>
+          {[...Array(4)].map((_, index) => (
+            <CarouselItem key={`ad-card-placeholder-${index}`}>
+              <Card>
+                <CardContent className="p-4">
+                  <Skeleton className="h-40 w-full" />
+                </CardContent>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+    </div>
   );
 }

@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
 import {
   getServerSideCategory,
@@ -9,9 +8,8 @@ import {
   getCategoryAndSubCategory,
   getLocalizedPrice,
 } from "@/lib/utils";
-import { AdWithUser } from "./_components/ad-page-types";
-import AdPageUI from "./_components/ad-page-ui";
-import AdPagePlaceholder from "./_components/ad-page-placeholder";
+import type { AdWithUser } from "@/types/ad-page-types";
+import AdPageUI from "@/components/bee3/ad-page/ad-page-ui";
 import { notFound } from "next/navigation";
 
 async function fetchAdData(adId: string): Promise<AdWithUser | null> {
@@ -59,9 +57,7 @@ export async function generateMetadata({
 export default function AdPage({ params }: { params: { adId: string } }) {
   return (
     <div className="mt-10 grid grid-cols-12 gap-4 md:container md:mx-auto">
-      <Suspense fallback={<AdPagePlaceholder />}>
-        <AdPageContent params={params} />
-      </Suspense>
+      <AdPageContent params={params} />
     </div>
   );
 }
