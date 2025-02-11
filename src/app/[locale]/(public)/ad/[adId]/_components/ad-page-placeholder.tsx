@@ -18,6 +18,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import AdCardPlaceholder from "@/components/placeholders/ad-card-placeholder";
+import SafetyTipsCard from "@/components/bee3/ad-page/safety-matters";
 
 export default function AdPagePlaceholder() {
   return (
@@ -28,12 +29,16 @@ export default function AdPagePlaceholder() {
           {renderPriceAndTitlePlaceholder()}
           {renderDescriptionPlaceholder()}
           {renderUserInformationMobilePlaceholder()}
+          <SafetyTipsCard />
           <Separator />
           {renderRelatedAdsPlaceholder()}
         </div>
         {renderContactInfoMobilePlaceholder()}
       </div>
-      {renderUserInformationDesktopPlaceholder()}
+      <div className="hidden md:col-span-4 md:block">
+        {renderUserInformationDesktopPlaceholder()}
+        <SafetyTipsCard />
+      </div>
     </>
   );
 }
@@ -140,28 +145,26 @@ function renderContactInfoMobilePlaceholder() {
 
 function renderUserInformationDesktopPlaceholder() {
   return (
-    <div className="hidden md:col-span-4 md:block">
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            <Skeleton className="h-6 w-1/2" />
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="mb-2 h-6 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
-        </CardContent>
-        <CardFooter className="flex flex-col gap-y-3">
-          <Button disabled className="w-full">
-            <Phone className="me-2" />
-            <Skeleton className="h-4 w-24" />
-          </Button>
-          <Button disabled variant="whatsapp" className="w-full">
-            <Whatsapp className="me-2 size-6" />
-            <Skeleton className="h-4 w-24" />
-          </Button>
-        </CardFooter>
-      </Card>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>
+          <Skeleton className="h-6 w-1/2" />
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Skeleton className="mb-2 h-6 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+      </CardContent>
+      <CardFooter className="flex flex-col gap-y-3">
+        <Button disabled className="w-full">
+          <Phone className="me-2" />
+          <Skeleton className="h-4 w-24" />
+        </Button>
+        <Button disabled variant="whatsapp" className="w-full">
+          <Whatsapp className="me-2 size-6" />
+          <Skeleton className="h-4 w-24" />
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }

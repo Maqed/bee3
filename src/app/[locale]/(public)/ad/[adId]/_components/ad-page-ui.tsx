@@ -29,6 +29,7 @@ import { AdWithUser } from "./ad-page-types";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import WhatsAppButton from "@/components/bee3/contact-info/whatsapp-button";
 import PhoneButton from "@/components/bee3/contact-info/phone-button";
+import SafetyTipsCard from "@/components/bee3/ad-page/safety-matters";
 
 type AdPageUIProps = {
   ad: AdWithUser;
@@ -46,13 +47,15 @@ async function AdPageUI({ ad }: AdPageUIProps) {
           {renderPriceAndTitle(ad, locale)}
           {renderDescription(ad, tAd)}
           {renderUserInformationMobile(ad, tAd, locale)}
+          <SafetyTipsCard className="md:hidden" />
           <Separator />
           <RelatedAds adId={ad.id} relatedCategories={ad.categoryPath} />
         </div>
         {renderContactInfoMobile(ad.user.phoneNumber)}
       </div>
-      <div className="hidden md:col-span-4 md:block">
+      <div className="hidden space-y-3 md:col-span-4 md:block">
         {renderUserInformationDesktop(ad, tAd, locale)}
+        <SafetyTipsCard />
       </div>
     </>
   );
