@@ -31,6 +31,7 @@ function LocaleSwitcher() {
             className="object-contain"
             width={20}
             height={10}
+            unoptimized={true}
           />
           English
         </div>
@@ -42,6 +43,7 @@ function LocaleSwitcher() {
             className="object-contain"
             width={20}
             height={10}
+            unoptimized={true}
           />
           العربية
         </div>
