@@ -52,7 +52,9 @@ async function AdPageUI({ ad }: AdPageUIProps) {
         </div>
         {renderContactInfoMobile(ad.user.phoneNumber)}
       </div>
-      {renderUserInformationDesktop(ad, tAd, locale)}
+      <div className="hidden md:col-span-4 md:block">
+        {renderUserInformationDesktop(ad, tAd, locale)}
+      </div>
     </>
   );
 }
@@ -180,14 +182,12 @@ function renderUserInformationDesktop(
   locale: string,
 ) {
   return (
-    <div className="hidden md:col-span-4 md:block">
-      <Card>
-        <UserInformation ad={ad} tAd={tAd} locale={locale} />
-        <CardFooter className="flex flex-col gap-y-3">
-          <ContactInfo showTitle={true} phoneNumber={ad.user.phoneNumber} />
-        </CardFooter>
-      </Card>
-    </div>
+    <Card>
+      <UserInformation ad={ad} tAd={tAd} locale={locale} />
+      <CardFooter className="flex flex-col gap-y-3">
+        <ContactInfo showTitle={true} phoneNumber={ad.user.phoneNumber} />
+      </CardFooter>
+    </Card>
   );
 }
 function renderContactInfoMobile(phoneNumber: string) {
