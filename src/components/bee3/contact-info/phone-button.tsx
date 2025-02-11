@@ -28,6 +28,7 @@ function PhoneButton({
           copy(phoneNumber).then(() =>
             toast({
               title: tClipboard("copied", { text: phoneNumber }),
+              variant: "info",
             }),
           );
         }

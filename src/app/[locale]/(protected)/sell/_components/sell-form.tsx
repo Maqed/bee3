@@ -100,7 +100,7 @@ function SellForm({
     toast({
       title: tSell("toast.loading.title"),
       description: tSell("toast.loading.description"),
-      variant: "default",
+      variant: "info",
     });
 
     startTransition(async () => {
@@ -126,7 +126,7 @@ function SellForm({
         if (!result.error) {
           toast({
             title: tSell("toast.submit-success"),
-            variant: "default",
+            variant: "success",
           });
           form.reset();
           router.push(`/ad/${result.result.id}`);
