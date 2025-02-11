@@ -11,8 +11,8 @@ export function FavoriteAds() {
 
   if (isFetching) {
     return (
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {[...Array(3)].map(() => (
+      <div className="flex flex-wrap justify-center gap-2 px-3">
+        {[...Array(4)].map(() => (
           <AdCardPlaceholder />
         ))}
       </div>
@@ -32,7 +32,7 @@ export function FavoriteAds() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+    <div className="flex flex-wrap justify-center gap-2 px-3">
       {data.favoriteAds.map((ad) => (
         <AdCard key={ad.id} ad={ad} orientation="vertical" />
       ))}

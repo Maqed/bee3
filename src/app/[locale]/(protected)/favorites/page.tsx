@@ -8,8 +8,8 @@ async function FavoritesPage() {
   return (
     <div>
       <Navbar />
-      <main className="container mt-4 sm:mx-auto md:max-w-5xl">
-        <h1 className="mb-5 flex items-center gap-3 text-3xl font-black">
+      <main className="mx-auto w-full py-8 md:px-8 md:py-12">
+        <h1 className="mb-5 flex items-center justify-center gap-3 text-3xl font-black">
           <Heart className="inline size-8 fill-red-600 text-red-600" />{" "}
           {tFavorites("title")}
         </h1>
