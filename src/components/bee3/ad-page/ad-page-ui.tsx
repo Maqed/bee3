@@ -7,18 +7,19 @@ import { MobileContactInfo } from "./contact-info";
 import SafetyTipsCard from "./safety-matters";
 import RelatedAds from "@/components/bee3/ad-page/related-ads";
 import type { AdWithUser } from "@/types/ad-page-types";
-import { getLocale, getTranslations } from "next-intl/server";
+import { useLocale, useTranslations } from "next-intl";
 
 type AdPageUIProps = {
   ad: AdWithUser;
+  isPreview?: boolean;
 };
 
-export default async function AdPageUI({ ad }: AdPageUIProps) {
-  const locale = await getLocale();
-  const tAd = await getTranslations("/ad/[adId]");
+export default function AdPageUI({ ad, isPreview = false }: AdPageUIProps) {
+  const locale = useLocale();
+  const tAd = useTranslations("/ad/[adId]");
 
   return (
-    <>
+    <div className="mt-10 grid grid-cols-12 gap-4 md:container md:mx-auto">
       <div className="col-span-12 flex flex-col gap-y-5 pb-20 md:col-span-8 md:pb-0">
         <AdImages ad={ad} />
         <div className="flex flex-col gap-y-5 max-sm:mx-1">
@@ -27,7 +28,9 @@ export default async function AdPageUI({ ad }: AdPageUIProps) {
           <UserInformation ad={ad} tAd={tAd} locale={locale} variant="mobile" />
           <SafetyTipsCard className="md:hidden" />
           <Separator />
-          <RelatedAds adId={ad.id} relatedCategories={ad.categoryPath} />
+          {!isPreview && (
+            <RelatedAds adId={ad.id} relatedCategories={ad.categoryPath} />
+          )}
         </div>
         <MobileContactInfo phoneNumber={ad.user.phoneNumber} />
       </div>
@@ -35,6 +38,6 @@ export default async function AdPageUI({ ad }: AdPageUIProps) {
         <UserInformation ad={ad} tAd={tAd} locale={locale} />
         <SafetyTipsCard />
       </div>
-    </>
+    </div>
   );
 }
