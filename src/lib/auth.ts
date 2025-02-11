@@ -113,7 +113,7 @@ export const auth = betterAuth({
           });
         }
 
-        const locale = (request as NextRequest).cookies.get("NEXT_LOCALE")?.value === "ar" ? "ar_AR" : "en_US";
+        const locale = (request as NextRequest).cookies.get("NEXT_LOCALE")?.value ?? "ar";
         const sendMessageURL = `https://graph.facebook.com/v22.0/${env.WA_PHONE_NUMBER_ID}/messages`;
         const payload = {
           messaging_product: "whatsapp",
@@ -121,7 +121,7 @@ export const auth = betterAuth({
           to: phoneNumber,
           type: "template",
           template: {
-            name: env.WA_TEMPLATE_NAME,
+            name: `otp_bee3_${locale}`,
             language: {
               code: locale,
             },
