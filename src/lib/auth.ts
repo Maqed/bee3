@@ -8,6 +8,7 @@ import { AdTiers } from "@prisma/client";
 import { phoneNumber } from "better-auth/plugins";
 import { toPathFormat } from "./utils";
 import { createId } from "@paralleldrive/cuid2";
+import { NextRequest } from "next/server";
 
 export const auth = betterAuth({
   database: prismaAdapter(db, {
@@ -112,6 +113,7 @@ export const auth = betterAuth({
           });
         }
 
+        const locale = (request as NextRequest).cookies.get("NEXT_LOCALE")?.value === "ar" ? "ar_AR" : "en_US";
         const sendMessageURL = `https://graph.facebook.com/v22.0/${env.WA_PHONE_NUMBER_ID}/messages`;
         const payload = {
           messaging_product: "whatsapp",
@@ -121,7 +123,7 @@ export const auth = betterAuth({
           template: {
             name: env.WA_TEMPLATE_NAME,
             language: {
-              code: "en_US",
+              code: locale,
             },
             components: [
               {
