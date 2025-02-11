@@ -55,9 +55,5 @@ export async function generateMetadata({
 }
 
 export default function AdPage({ params }: { params: { adId: string } }) {
-  return (
-    <div className="mt-10 grid grid-cols-12 gap-4 md:container md:mx-auto">
-      <AdPageContent params={params} />
-    </div>
-  );
+  return <AdPageContent params={params} />;
 }
