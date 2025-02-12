@@ -113,7 +113,8 @@ export const auth = betterAuth({
           });
         }
 
-        const locale = (request as NextRequest).cookies.get("NEXT_LOCALE")?.value ?? "ar";
+        const locale =
+          (request as NextRequest).cookies.get("NEXT_LOCALE")?.value ?? "ar";
         const sendMessageURL = `https://graph.facebook.com/v22.0/${env.WA_PHONE_NUMBER_ID}/messages`;
         const payload = {
           messaging_product: "whatsapp",
@@ -154,32 +155,13 @@ export const auth = betterAuth({
           method: "POST",
           headers: {
             Authorization: `Bearer ${env.WA_ACCESS_TOKEN}`,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),
         });
         console.log({ response: await response.json() });
 
         console.log({ payload });
-      },
-      callbackOnVerification: async ({ phoneNumber }, request) => {
-        // TODO: check for a better approach...
-        const session = await getServerAuthSession();
-        if (!session || !session.user.id) {
-          throw new APIError("UNAUTHORIZED");
-        }
-        if (!phoneNumber.startsWith("+20")) {
-          phoneNumber = "+20" + phoneNumber;
-        }
-        await db.user.update({
-          where: {
-            id: session.user.id,
-          },
-          data: {
-            phoneNumber,
-            phoneNumberVerified: true,
-          },
-        });
       },
     }),
   ],
