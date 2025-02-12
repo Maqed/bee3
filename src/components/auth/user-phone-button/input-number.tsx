@@ -48,7 +48,7 @@ function InputNumber({
     startTransition(async () => {
       const { phoneNumber } = values;
       await authClient.phoneNumber.sendOtp({
-        phoneNumber,
+        phoneNumber: "+20" + phoneNumber,
         fetchOptions: {
           onError: (ctx) => {
             form.setError("phoneNumber", {
@@ -85,6 +85,7 @@ function InputNumber({
             <FormItem>
               <FormControl>
                 <PhoneInput
+                  autoFocus
                   value={field.value}
                   disabled={isPending}
                   onValueChange={({ value }) => {
