@@ -57,9 +57,10 @@ function PhoneInputOTP({
     startTransition(async () => {
       const { code, phoneNumber } = values;
       await authClient.phoneNumber.verify({
-        phoneNumber,
+        phoneNumber: "+20" + phoneNumber,
         code,
         disableSession: true,
+        updatePhoneNumber: true,
         fetchOptions: {
           onError: (ctx) => {
             form.setError("code", {
