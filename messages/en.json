@@ -407,7 +407,6 @@
       "description": "Description must be at most 2048 characters long",
       "price": "Price must be a positive number",
       "categoryPath": "Please choose a category",
-      "uploadthing": "An error occured while uploading the image",
       "max-images": "You can only upload 10 images per ad",
       "submit-error": "Error submitting the ad. Please try again.",
       "image-size": "Image size must be smaller than 4MB.",
