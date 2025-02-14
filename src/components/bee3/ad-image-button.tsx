@@ -5,7 +5,7 @@ import { XCircleIcon, ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { useTranslations } from "next-intl";
-import { MAX_AD_IMAGES } from "@/consts/ad";
+import { MAX_AD_IMAGES, MAX_IMAGE_SIZE } from "@/consts/ad";
 import {
   DndContext,
   DragEndEvent,
@@ -120,7 +120,7 @@ export function UploadAdImageButton({
 
   const handleDrop = (acceptedFiles: File[]) => {
     const oversizedFiles = acceptedFiles.filter(
-      (file) => file.size > 4 * 1024 * 1024,
+      (file) => file.size > MAX_IMAGE_SIZE,
     );
 
     if (oversizedFiles.length > 0) {
