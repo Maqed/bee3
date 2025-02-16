@@ -37,7 +37,13 @@ export const env = createEnv({
     // WhatsApp
     WA_WABA_ID: z.string(),
     WA_ACCESS_TOKEN: z.string(),
-    WA_PHONE_NUMBER_ID: z.string()
+    WA_PHONE_NUMBER_ID: z.string(),
+    // Cloudflare
+    CLOUDFLARE_R2_ENDPOINT: z.string(),
+    CLOUDFLARE_R2_AD_IMAGE_BUCKET: z.string(),
+    CLOUDFLARE_R2_TOKEN_VALUE: z.string(),
+    CLOUDFLARE_R2_ACCESS_KEY_ID: z.string(),
+    CLOUDFLARE_R2_SECRET_ACCESS_KEY: z.string()
   },
 
   /**
@@ -70,7 +76,12 @@ export const env = createEnv({
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     WA_WABA_ID: process.env.WA_WABA_ID,
     WA_ACCESS_TOKEN: process.env.WA_ACCESS_TOKEN,
-    WA_PHONE_NUMBER_ID: process.env.WA_PHONE_NUMBER_ID
+    WA_PHONE_NUMBER_ID: process.env.WA_PHONE_NUMBER_ID,
+    CLOUDFLARE_R2_ENDPOINT: process.env.CLOUDFLARE_R2_ENDPOINT,
+    CLOUDFLARE_R2_AD_IMAGE_BUCKET: process.env.CLOUDFLARE_R2_AD_IMAGE_BUCKET,
+    CLOUDFLARE_R2_TOKEN_VALUE: process.env.CLOUDFLARE_R2_TOKEN_VALUE,
+    CLOUDFLARE_R2_ACCESS_KEY_ID: process.env.CLOUDFLARE_R2_ACCESS_KEY_ID,
+    CLOUDFLARE_R2_SECRET_ACCESS_KEY: process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
