@@ -201,6 +201,7 @@ export function UploadAdImageButton({
         {[...Array(MAX_AD_IMAGES - images.length)].map((_, number) => (
           <Dropzone
             key={`dropzone-${number}`}
+            noKeyboard={number != 0}
             disabled={disabled}
             onDrop={handleDrop}
             accept={{
