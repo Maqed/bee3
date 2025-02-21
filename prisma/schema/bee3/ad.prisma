@@ -28,10 +28,10 @@ model Ad {
     category     Category? @relation(fields: [categoryPath], references: [path])
     categoryPath String
 
-    tier        AdTiers  @default(Free)
+    tier        AdTiers @default(Free)
     title       String
-    description String?  @db.Text
-    images      String[]
+    description String? @db.Text
+    images      Image[]
     price       Float
     negotiable  Boolean
 

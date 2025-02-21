@@ -45,8 +45,9 @@ import { authClient } from "@/lib/auth-client";
 import UserPhoneButton from "@/components/auth/user-phone-button/user-phone-button";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { UseFormReturn } from "react-hook-form";
-import type { adSchema } from "@/schema/ad";
+import type { adSchemaClient } from "@/schema/ad";
 import type { z } from "zod";
+import { uploadToR2 } from "@/lib/s3";
 
 type SellFormProps = {
   startTransition: TransitionStartFunction;
@@ -87,7 +88,7 @@ function SellForm({
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
     null,
   );
-  type SellFormType = z.infer<typeof adSchema>;
+  type SellFormType = z.infer<typeof adSchemaClient>;
   const onSubmit = async (data: SellFormType) => {
     if (!session?.user.phoneNumber || !session?.user.phoneNumberVerified) {
       toast({
@@ -106,16 +107,14 @@ function SellForm({
     startTransition(async () => {
       try {
         const formData = new FormData();
+        const images = await uploadToR2(data.images);
         formData.append(
           "json",
           JSON.stringify({
             ...data,
+            images,
           }),
         );
-
-        data.images.forEach((image) => {
-          formData.append("images", image);
-        });
 
         const response = await fetch("/api/bee3/ad", {
           method: "POST",
@@ -136,8 +135,10 @@ function SellForm({
             description: tErrors(`submit.${result.error}.description`),
             variant: "destructive",
           });
+          console.error(result.error);
         }
       } catch (error) {
+        console.error(error);
         toast({
           title: tErrors("submit-error"),
           variant: "destructive",

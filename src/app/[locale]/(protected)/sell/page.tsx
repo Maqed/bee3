@@ -4,7 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { adSchema } from "@/schema/ad";
+import { adSchemaClient } from "@/schema/ad";
 import AdPageUI from "@/components/bee3/ad-page/ad-page-ui";
 import SellForm from "./_components/sell-form";
 import { toPathFormat } from "@/lib/utils";
@@ -15,9 +15,9 @@ function SellPage() {
   const [selectedMainCategory, setSelectedMainCategory] = useState<
     string | null
   >(null);
-  type SellFormType = z.infer<typeof adSchema>;
+  type SellFormType = z.infer<typeof adSchemaClient>;
   const form = useForm<SellFormType>({
-    resolver: zodResolver(adSchema),
+    resolver: zodResolver(adSchemaClient),
     defaultValues: {
       title: "",
       description: "",

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { type Ad } from "@prisma/client";
+import { type Ad } from "@/types/bee3";
 import { Link } from "@/navigation";
 import {
   cn,
@@ -37,7 +37,7 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
           )}
         >
           <Image
-            src={ad.images[0] ?? ""}
+            src={ad.images[0]?.url ?? ""}
             alt={`${ad.title} image`}
             placeholder={
               orientation === "horizontal"

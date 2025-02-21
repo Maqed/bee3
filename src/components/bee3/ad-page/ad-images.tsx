@@ -29,7 +29,7 @@ export function AdImages({ ad }: AdImagesProps) {
                 priority={index === 0 || index === 1}
                 width={1500}
                 height={450}
-                src={imageURL || "/placeholder.svg"}
+                src={imageURL.url || "/placeholder.svg"}
                 placeholder={generateImagePlaceholder(1500, 450)}
                 className="h-auto max-h-[450px] w-full object-contain"
                 alt={ad.title}
@@ -48,7 +48,7 @@ export function AdImages({ ad }: AdImagesProps) {
                 <Image
                   width={100}
                   height={100}
-                  src={imageURL || "/placeholder.svg"}
+                  src={imageURL.url || "/placeholder.svg"}
                   placeholder={generateImagePlaceholder(100, 100)}
                   className="h-auto max-h-[100px] w-full object-contain"
                   alt={ad.title}
@@ -68,7 +68,7 @@ export function AdImages({ ad }: AdImagesProps) {
       width={1500}
       height={450}
       placeholder={generateImagePlaceholder(1500, 450)}
-      src={ad.images[0]! || "/placeholder.svg"}
+      src={ad.images[0]?.url! || "/placeholder.svg"}
       className="h-auto max-h-[450px] w-full object-contain"
       alt={ad.title}
     />

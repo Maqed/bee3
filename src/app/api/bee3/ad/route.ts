@@ -1,13 +1,10 @@
 import { NextResponse } from "next/server";
 import { getServerAuthSession } from "@/lib/auth";
 import { getUserById } from "@/database/users";
-import { adSchema } from "@/schema/ad";
+import { adSchemaServer } from "@/schema/ad";
 import { db } from "@/server/db";
-import { UTApi } from "uploadthing/server";
 import { createId } from "@paralleldrive/cuid2";
 import { cities } from "@/schema/cities";
-
-const utapi = new UTApi();
 
 export async function POST(request: Request) {
   const session = await getServerAuthSession();
@@ -20,12 +17,10 @@ export async function POST(request: Request) {
 
   const formData = await request.formData();
   const jsonData = JSON.parse(formData.get("json") as string);
-  const imageFiles = formData.getAll("images") as File[];
 
-  const req = adSchema.safeParse({ ...jsonData, images: imageFiles });
+  const req = adSchemaServer.safeParse({ ...jsonData });
   if (!req.success)
     return NextResponse.json({ error: req.error }, { status: 500 });
-
   // Check token store and decrement token count
   const tokenStore = await db.adTokenStore.findUnique({
     where: {
@@ -71,12 +66,6 @@ export async function POST(request: Request) {
     },
   });
 
-  // Upload images
-  const uploadedImages = await utapi.uploadFiles(imageFiles);
-  const imageUrls = uploadedImages
-    .map((img) => img.data?.url)
-    .filter((img) => typeof img === "string");
-
   // Create ad
   const ad = await db.ad.create({
     data: {
@@ -89,7 +78,11 @@ export async function POST(request: Request) {
       description: req.data.description,
       price: req.data.price,
       negotiable: req.data.negotiable,
-      images: imageUrls,
+      images: {
+        create: req.data.images.map((image) => ({
+          url: image,
+        })),
+      },
 
       user: {
         connect: { id: user.id },

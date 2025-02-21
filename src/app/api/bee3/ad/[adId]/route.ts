@@ -8,7 +8,7 @@ export async function GET(
   const { params } = context;
 
   try {
-    const ad = await db.ad.findUniqueOrThrow({
+    let ad = await db.ad.findUniqueOrThrow({
       where: { id: params.adId },
       include: {
         user: {
@@ -17,6 +17,11 @@ export async function GET(
             name: true,
             createdAt: true,
             phoneNumber: true,
+          },
+        },
+        images: {
+          select: {
+            url: true,
           },
         },
       },
