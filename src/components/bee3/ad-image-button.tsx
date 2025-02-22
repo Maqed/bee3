@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import Image from "next/image";
 import Dropzone from "react-dropzone";
 import { XCircleIcon, ImageIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, optimizeImages } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { useTranslations } from "next-intl";
 import { MAX_AD_IMAGES, MAX_IMAGE_SIZE } from "@/consts/ad";
@@ -118,7 +118,7 @@ export function UploadAdImageButton({
     }),
   );
 
-  const handleDrop = (acceptedFiles: File[]) => {
+  const handleDrop = async (acceptedFiles: File[]) => {
     const oversizedFiles = acceptedFiles.filter(
       (file) => file.size > MAX_IMAGE_SIZE,
     );
@@ -141,8 +141,16 @@ export function UploadAdImageButton({
       return;
     }
 
-    const newImages = [...images, ...acceptedFiles];
-    onImagesChange(newImages);
+    try {
+      const optimizedFiles = await optimizeImages(acceptedFiles);
+      const newImages = [...images, ...optimizedFiles];
+      onImagesChange(newImages);
+    } catch (error) {
+      toast({
+        title: tErrors("optimization-failed"),
+        variant: "destructive",
+      });
+    }
   };
 
   const removeImage = (indexToRemove: number) => {
