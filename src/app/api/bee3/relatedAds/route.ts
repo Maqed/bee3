@@ -18,6 +18,13 @@ export async function GET(request: NextRequest) {
           id: adId,
         },
       },
+      include: {
+        images: {
+          select: {
+            url: true,
+          },
+        },
+      },
       take: NUMBER_OF_ADS_IN_CAROUSEL,
     });
 
