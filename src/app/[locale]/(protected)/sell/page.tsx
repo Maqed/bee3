@@ -38,9 +38,13 @@ function SellPage() {
           id: "preview",
           title: form.getValues("title"),
           price: form.getValues("price"),
-          images: form
-            .getValues("images")
-            .map((image) => URL.createObjectURL(image)),
+          images: form.getValues("images").map((image, index) => ({
+            adId: "preview",
+            url: URL.createObjectURL(image),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            id: index,
+          })),
           cityId: form.getValues("cityId"),
           description: form.getValues("description")!,
           governorateId: form.getValues("governorateId"),
