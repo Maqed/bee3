@@ -5,6 +5,7 @@ import { governorates } from "@/schema/governorates";
 import { cities } from "@/schema/cities";
 import { CategoryTreeItem } from "@/schema/categories-tree";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
+import Compressor from "compressorjs";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -124,3 +125,39 @@ export const generateImagePlaceholder = (
   h: number,
 ): PlaceholderValue =>
   `data:image/svg+xml;base64,${toBase64(shimmerPlaceholder(w, h))}`;
+
+export const blobToFile = (blob: Blob, fileName: string): File => {
+  return new File([blob], fileName, { type: blob.type });
+};
+
+export const optimizeImage = async (
+  file: File,
+  options: {
+    quality: number;
+    maxHeight: number;
+    maxWidth: number;
+    convertSize?: number;
+  },
+): Promise<File> => {
+  return await new Promise((resolve, reject) => {
+    new Compressor(file, {
+      ...options,
+      success: (result) => {
+        const optimizedFile = blobToFile(result, file.name);
+        resolve(optimizedFile);
+      },
+      error: reject,
+    });
+  });
+};
+
+export async function optimizeImages(images: File[]): Promise<File[]> {
+  const optimizedImages = images.map((image) =>
+    optimizeImage(image, {
+      quality: 0.6,
+      maxHeight: 450,
+      maxWidth: 1500,
+    }),
+  );
+  return Promise.all(optimizedImages);
+}
