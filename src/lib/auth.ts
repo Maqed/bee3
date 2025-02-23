@@ -159,9 +159,6 @@ export const auth = betterAuth({
           },
           body: JSON.stringify(payload),
         });
-        console.log({ response: await response.json() });
-
-        console.log({ payload });
       },
     }),
   ],
