@@ -16,8 +16,8 @@ function AdsCarouselPlaceholder() {
       </div>
       <Carousel opts={{ dragFree: true }} className="w-full max-w-full">
         <CarouselContent>
-          {[...Array(4)].map(() => (
-            <CarouselItem>
+          {[...Array(4)].map((idx) => (
+            <CarouselItem key={`ad-carousel-placeholder-${idx}`}>
               <AdCardPlaceholder orientation="vertical" />
             </CarouselItem>
           ))}
