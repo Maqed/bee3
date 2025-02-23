@@ -12,9 +12,18 @@ export async function GET() {
         id: session.user.id,
       },
       select: {
-        favoriteAds: true,
+        favoriteAds: {
+          include: {
+            images: {
+              select: {
+                url: true,
+              },
+            },
+          },
+        },
       },
     });
+
     if (!user) return NextResponse.json({ error: "must-be-logged-in" });
     const { favoriteAds } = user;
 

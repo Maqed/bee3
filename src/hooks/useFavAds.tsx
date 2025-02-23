@@ -1,6 +1,6 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import { type Ad } from "@prisma/client";
+import { type Ad } from "@/types/bee3";
 
 interface FavoriteAdsResponse {
   favoriteAds: Ad[];
