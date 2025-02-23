@@ -8,7 +8,7 @@ import {
 
 import { MoveRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Ad } from "@prisma/client";
+import { Ad } from "@/types/bee3";
 import AdCard from "@/components/bee3/ad-card";
 
 type Props = {

@@ -1,5 +1,5 @@
 import { absoluteURL } from "@/lib/utils";
-import { Ad } from "@prisma/client";
+import { Ad } from "@/types/bee3";
 import { notFound } from "next/navigation";
 import React from "react";
 import AdCard from "../ad-card";

@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 import SellButton from "@/components/bee3/sell-button";
 import AdCard from "@/components/bee3/ad-card";
 import { getServerAuthSession } from "@/lib/auth";
-import { Ad } from "@prisma/client";
+import { Ad } from "@/types/bee3";
 import { absoluteURL } from "@/lib/utils";
 
 type Props = {
