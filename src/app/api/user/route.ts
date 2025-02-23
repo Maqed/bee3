@@ -16,7 +16,13 @@ export async function GET(request: NextRequest) {
       select: {
         name: true,
         bio: true,
-        ads: true,
+        ads: {
+          include: {
+            images: {
+              select: { url: true },
+            },
+          },
+        },
       },
     });
     console.log({ user });
