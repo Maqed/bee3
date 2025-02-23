@@ -1,7 +1,9 @@
 import { z } from "zod";
 
-
 export const userSettingsSchema = z.object({
-  name: z.string().min(2,{message:"settings.name.invalid"}),
-  bio: z.string().max(2048, {message:"settings.bio.invalid"}).optional(),
+  name: z
+    .string()
+    .min(2, { message: "/user-settings.name.invalid" })
+    .max(20, { message: "/user-settings.name.invalid" }),
+  bio: z.string().max(75, { message: "/user-settings.bio.invalid" }).optional(),
 });

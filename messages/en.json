@@ -234,14 +234,12 @@
       "name": {
         "title": "Name",
         "placeholder": "John Doe",
-        "description": "Your name is shown to the public",
-        "invalid": "Name must be at least 2 characters."
+        "description": "Your name is shown to the public"
       },
       "bio": {
         "title": "Bio",
         "placeholder": "My name is... and I sell ... I'm experienced in ...",
-        "description": "Write about yourself here",
-        "invalid": "Bio must be at most 2048 characters."
+        "description": "Write about yourself here"
       },
       "phoneNumber": {
         "title": "Phone Number",
@@ -422,6 +420,14 @@
           "title": "You must have a phone number",
           "description": "Please type your phone number"
         }
+      }
+    },
+    "/user-settings": {
+      "name": {
+        "invalid": "Name must be at least 2 and at most of 20 characters."
+      },
+      "bio": {
+        "invalid": "Bio must be at most 75 characters."
       }
     },
     "phone-number": {
