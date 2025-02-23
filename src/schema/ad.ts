@@ -2,6 +2,8 @@ import { z } from "zod";
 import { categoriesTree, type CategoryTreeItem } from "./categories-tree";
 import { cities } from "./cities";
 import { governorates } from "./governorates";
+import { MAX_AD_IMAGES, MAX_IMAGE_SIZE } from "@/consts/ad";
+import { env } from "@/env";
 
 const adSchemaMutual = {
   title: z
@@ -28,11 +30,33 @@ const adSchemaMutual = {
 };
 export const adSchemaServer = z.object({
   ...adSchemaMutual,
-  images: z.array(z.string()).min(1, { message: "/sell.images" }),
+  images: z
+    .array(
+      z
+        .string()
+        .refine(
+          (url) => url.startsWith(env.NEXT_PUBLIC_CLOUDFLARE_PUBLIC_BUCKET_URL),
+          {
+            message: "/sell.images-not-from-us",
+          },
+        ),
+    )
+    .min(1, { message: "/sell.images" })
+    .max(MAX_AD_IMAGES, { message: "/sell.max-images" }),
 });
 export const adSchemaClient = z.object({
   ...adSchemaMutual,
-  images: z.array(z.instanceof(File)).min(1, { message: "/sell.images" }),
+  images: z
+    .array(
+      z
+        .instanceof(File)
+        .refine((file) => file.size <= MAX_IMAGE_SIZE, {
+          message: "/sell.image-size",
+        })
+        .refine((file) => file.type.startsWith("image/")),
+    )
+    .min(1, { message: "/sell.images" })
+    .max(MAX_AD_IMAGES, { message: "/sell.max-images" }),
 });
 
 export const favAdSchema = z.object({
