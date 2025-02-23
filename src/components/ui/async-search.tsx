@@ -62,8 +62,8 @@ export function AsyncSearch<T>({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const [areSearchedAdsVisible, setAreSearchedAdsVisible] = useState(false);
-  const searchedAdsRef = useRef<HTMLDivElement>(null);
+  const [isResultVisible, setIsResultVisible] = useState(false);
+  const resultRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -83,21 +83,21 @@ export function AsyncSearch<T>({
     };
 
     if (debouncedSearchTerm === searchTerm) {
-      setAreSearchedAdsVisible(true);
+      setIsResultVisible(true);
       fetchOptions();
     } else {
-      setAreSearchedAdsVisible(false);
+      setIsResultVisible(false);
       setOptions([]);
     }
   }, [fetcher, debouncedSearchTerm, searchTerm]);
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
-        searchedAdsRef.current &&
-        !searchedAdsRef.current.contains(event.target as Node) &&
+        resultRef.current &&
+        !resultRef.current.contains(event.target as Node) &&
         searchInputRef.current !== event.target
       ) {
-        setAreSearchedAdsVisible(false);
+        setIsResultVisible(false);
       }
     }
 
@@ -116,12 +116,12 @@ export function AsyncSearch<T>({
           placeholder={placeholder}
           disabled={disabled}
           value={searchTerm}
-          onFocus={() => setAreSearchedAdsVisible(true)}
+          onFocus={() => setIsResultVisible(true)}
           onValueChange={(value) => {
             if (value.length > 0) {
-              setAreSearchedAdsVisible(true);
+              setIsResultVisible(true);
             } else {
-              setAreSearchedAdsVisible(false);
+              setIsResultVisible(false);
               setOptions([]);
             }
             setSearchTerm(value);
@@ -134,10 +134,10 @@ export function AsyncSearch<T>({
         )}
       </div>
       <CommandList
-        ref={searchedAdsRef}
+        ref={resultRef}
         className={cn(
           "fixed top-28 w-[300px] bg-background shadow-xl md:w-[450px]",
-          areSearchedAdsVisible ? "block" : "hidden",
+          isResultVisible ? "block" : "hidden",
         )}
       >
         {error && (
@@ -158,7 +158,7 @@ export function AsyncSearch<T>({
               value={getOptionValue(option)}
               onSelect={() => {
                 onSearch(option);
-                setAreSearchedAdsVisible(false);
+                setIsResultVisible(false);
               }}
             >
               {renderOption(option)}
