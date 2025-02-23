@@ -4,6 +4,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { env } from "@/env";
 import { v4 as uuidv4 } from "uuid";
 import { NextRequest, NextResponse } from "next/server";
+import { MAX_IMAGE_SIZE } from "@/consts/ad";
 
 const s3 = new S3Client({
   region: "auto",
@@ -26,12 +27,19 @@ export async function POST(req: NextRequest) {
 
     const urls = await Promise.all(
       fileTypes.map(async (fileType) => {
-        if (!fileType.startsWith("image/")) throw Error("file-should-be-image");
+        if (!fileType.startsWith("image/")) {
+          return NextResponse.json(
+            { error: "file-should-be-image" },
+            { status: 400 },
+          );
+        }
+
         const fileKey = `${uuidv4()}.${fileType.split("/")[1]}`;
         const command = new PutObjectCommand({
           Bucket: env.CLOUDFLARE_R2_AD_IMAGE_BUCKET,
           Key: fileKey,
           ContentType: fileType,
+          Metadata: { maxSize: MAX_IMAGE_SIZE.toString() },
         });
 
         const signedUrl = await getSignedUrl(s3, command, { expiresIn: 60 });
