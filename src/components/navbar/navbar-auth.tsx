@@ -24,7 +24,7 @@ function NavbarAuth() {
   if (isPending) return <Skeleton className="h-10 w-10 rounded-full" />;
   return session ? (
     <DropdownMenu>
-      <DropdownMenuTrigger className="outline-none">
+      <DropdownMenuTrigger className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
         <Avatar>{session.user.name[0]}</Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-0">
