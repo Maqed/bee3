@@ -38,7 +38,10 @@ export const env = createEnv({
     CLOUDFLARE_R2_AD_IMAGE_BUCKET: z.string(),
     CLOUDFLARE_R2_TOKEN_VALUE: z.string(),
     CLOUDFLARE_R2_ACCESS_KEY_ID: z.string(),
-    CLOUDFLARE_R2_SECRET_ACCESS_KEY: z.string()
+    CLOUDFLARE_R2_SECRET_ACCESS_KEY: z.string(),
+    // SMTP
+    SMTP_AUTH_USER: z.string(),
+    SMTP_AUTH_PASSWORD: z.string(),  
   },
 
   /**
@@ -74,6 +77,8 @@ export const env = createEnv({
     CLOUDFLARE_R2_TOKEN_VALUE: process.env.CLOUDFLARE_R2_TOKEN_VALUE,
     CLOUDFLARE_R2_ACCESS_KEY_ID: process.env.CLOUDFLARE_R2_ACCESS_KEY_ID,
     CLOUDFLARE_R2_SECRET_ACCESS_KEY: process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY,
+    SMTP_AUTH_USER:process.env. SMTP_AUTH_USER,
+    SMTP_AUTH_PASSWORD:process.env. SMTP_AUTH_PASSWORD,
     NEXT_PUBLIC_CLOUDFLARE_PUBLIC_BUCKET_URL: process.env.NEXT_PUBLIC_CLOUDFLARE_PUBLIC_BUCKET_URL,
   },
   /**
