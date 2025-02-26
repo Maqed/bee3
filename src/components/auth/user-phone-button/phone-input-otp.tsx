@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import { checkPhoneNumberOTP } from "@/schema/twilio";
+import { checkPhoneNumberOTP } from "@/schema/phone-verification";
 import { Button } from "@/components/ui/button";
 import {
   Form,

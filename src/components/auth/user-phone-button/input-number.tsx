@@ -3,7 +3,7 @@ import { useTransition } from "react";
 import type z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { sendPhoneNumberOTP } from "@/schema/twilio";
+import { sendPhoneNumberOTP } from "@/schema/phone-verification";
 import {
   Form,
   FormControl,
