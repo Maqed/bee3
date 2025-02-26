@@ -33,7 +33,6 @@ export const env = createEnv({
     TWILIO_ACCOUNT_SID: z.string(),
     TWILIO_AUTH_TOKEN: z.string(),
     TWILIO_SERVICE_SID: z.string(),
-    RESEND_API_KEY: z.string(),
     // WhatsApp
     WA_WABA_ID: z.string(),
     WA_ACCESS_TOKEN: z.string(),
@@ -74,7 +73,6 @@ export const env = createEnv({
     TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
     TWILIO_SERVICE_SID: process.env.TWILIO_SERVICE_SID,
-    RESEND_API_KEY: process.env.RESEND_API_KEY,
     WA_WABA_ID: process.env.WA_WABA_ID,
     WA_ACCESS_TOKEN: process.env.WA_ACCESS_TOKEN,
     WA_PHONE_NUMBER_ID: process.env.WA_PHONE_NUMBER_ID,
