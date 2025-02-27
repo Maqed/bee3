@@ -109,13 +109,24 @@
           "password": {
             "label": "Password"
           },
-
+          "forgot-password": "Forgot password?",
           "submit": "Login"
         }
       },
       "social": {
         "Facebook": "Continue With Facebook",
         "Google": "Continue With Google"
+      }
+    },
+    "/forgot-password": {
+      "title": "Forgot Password",
+      "description": "Enter your email address to receive a password reset link.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "johndoe@mail.com",
+      "submitButton": "Send Reset Link",
+      "toast": {
+        "success": "Password reset email sent. Please check your inbox.",
+        "error": "Failed sending reset email. Please try again."
       }
     }
   },
