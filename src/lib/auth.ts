@@ -9,7 +9,7 @@ import { phoneNumber } from "better-auth/plugins";
 import { toPathFormat } from "./utils";
 import { createId } from "@paralleldrive/cuid2";
 import { NextRequest } from "next/server";
-import { sendVerificationEmail, transporter } from "./mail";
+import { sendVerificationEmail, sendResetPasswordEmail } from "./mail";
 
 export const auth = betterAuth({
   database: prismaAdapter(db, {
@@ -17,6 +17,16 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    sendResetPassword: async ({ user, url, token }, request) => {
+      const locale =
+        (request as NextRequest).cookies.get("NEXT_LOCALE")?.value ?? "ar";
+      await sendResetPasswordEmail({
+        email: user.email,
+        name: user.name,
+        resetUrl: url,
+        locale,
+      });
+    },
   },
   emailVerification: {
     sendOnSignUp: true,
