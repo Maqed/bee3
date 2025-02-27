@@ -71,6 +71,15 @@
     }
   },
   "auth": {
+    "two-password-input": {
+      "password": {
+        "label": "Password"
+      },
+      "confirmPassword": {
+        "label": "Confirm Password"
+      },
+      "submit": "Reset Password"
+    },
     "card-wrapper": {
       "or": "Or",
       "go-back": "Go back",
@@ -128,6 +137,13 @@
         "success": "Password reset email sent. Please check your inbox.",
         "error": "Failed sending reset email. Please try again."
       }
+    },
+    "/reset-password": {
+      "title": "Reset Password",
+      "description": "Enter your new password to reset your password.",
+      "success": "Password reset successful. You can now log in with your new password.",
+      "token-missing": "Token is missing, Please try checking email again.",
+      "error": "Failed to reset the password. Please try again."
     }
   },
   "dialog": {
@@ -368,11 +384,11 @@
       }
     },
     "auth": {
-      "invalid-email": "Email is required"
+      "invalid-email": "Email is required",
+      "passwords-not-matching": "Passwords aren't matching"
     },
     "register": {
       "name-min-character": "Name should at least contain 2 characters",
-      "passwords-not-matching": "Passwords aren't matching",
       "invalid-input": {
         "title": "Invalid input",
         "description": "Try typing something else"
