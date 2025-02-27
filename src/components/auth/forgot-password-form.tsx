@@ -26,9 +26,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { forgotPasswordSchema } from "@/schema/auth";
 import { authClient } from "@/lib/auth-client";
+import { useTransition } from "react";
+import Spinner from "../ui/spinner";
 
 export default function ForgetPasswordForm() {
   const t = useTranslations("auth./forgot-password");
+  const [isPending, startTransition] = useTransition();
   const locale = useLocale();
   const isRtl = locale === "ar";
 
@@ -41,23 +44,25 @@ export default function ForgetPasswordForm() {
   });
 
   async function onSubmit(values: z.infer<typeof forgotPasswordSchema>) {
-    await authClient.forgetPassword({
-      email: values.email,
-      redirectTo: "/reset-password",
-      fetchOptions: {
-        onSuccess: () => {
-          toast({
-            title: t("toast.success"),
-            variant: "success",
-          });
+    startTransition(async () => {
+      await authClient.forgetPassword({
+        email: values.email,
+        redirectTo: "/reset-password",
+        fetchOptions: {
+          onSuccess: () => {
+            toast({
+              title: t("toast.success"),
+              variant: "success",
+            });
+          },
+          onError: () => {
+            toast({
+              title: t("toast.error"),
+              variant: "destructive",
+            });
+          },
         },
-        onError: () => {
-          toast({
-            title: t("toast.error"),
-            variant: "destructive",
-          });
-        },
-      },
+      });
     });
   }
 
@@ -88,6 +93,7 @@ export default function ForgetPasswordForm() {
                           placeholder={t("emailPlaceholder")}
                           type="email"
                           autoComplete="email"
+                          disabled={isPending}
                           {...field}
                         />
                       </FormControl>
@@ -95,8 +101,12 @@ export default function ForgetPasswordForm() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full">
-                  {t("submitButton")}
+                <Button type="submit" disabled={isPending} className="w-full">
+                  {isPending ? (
+                    <Spinner className="size-5" />
+                  ) : (
+                    t("submitButton")
+                  )}
                 </Button>
               </div>
             </form>
