@@ -113,14 +113,6 @@
           "submit": "Login"
         }
       },
-      "verify-email": {
-        "headerLabel": "Verify Your Email",
-        "backButtonLabel": "Back to login",
-        "success": {
-          "title": "Email has been verified successfully",
-          "description": "You may now login"
-        }
-      },
       "social": {
         "Facebook": "Continue With Facebook",
         "Google": "Continue With Google"
