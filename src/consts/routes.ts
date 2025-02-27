@@ -6,4 +6,9 @@ export const DEFAULT_UNAUTHENTICATED_REDIRECT = "/login";
 export const PROTECTED_ROUTES = ["/favorites", "/sell", "/user-settings"];
 
 // Authentication routes that signed-in users shouldn't access
-export const ONLY_UNAUTHENTICATED_ROUTES = ["/login", "/register"];
+export const ONLY_UNAUTHENTICATED_ROUTES = [
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+];
