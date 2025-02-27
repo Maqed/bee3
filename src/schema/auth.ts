@@ -1,9 +1,13 @@
 import { z } from "zod";
 
+const emailSchema = {
+  email: z.string().email({ message: "auth.invalid-email" }),
+};
+
 export const registerSchema = z
   .object({
     name: z.string().min(2, { message: "register.name-min-character" }),
-    email: z.string().email({ message: "register.invalid-email" }),
+    ...emailSchema,
     password: z
       .string()
       .min(8, { message: "register.passwords-min-characters" }),
@@ -73,6 +77,9 @@ export const registerSchema = z
     }
   });
 export const loginSchema = z.object({
-  email: z.string().email({ message: "login.invalid-email" }),
+  ...emailSchema,
   password: z.string().min(1, { message: "login.password-min-characters" }),
+});
+export const forgotPasswordSchema = z.object({
+  ...emailSchema,
 });
