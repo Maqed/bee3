@@ -380,9 +380,11 @@
         "description": "يرجى تجربة (Google, Facebook) أو تسجيل الدخول باستخدام البريد الإلكتروني"
       }
     },
+    "auth": {
+      "invalid-email": "البريد الإلكتروني مطلوب"
+    },
     "register": {
       "name-min-character": "يجب أن يحتوي الاسم على الأقل على حرفين",
-      "invalid-email": "البريد الإلكتروني غير صالح",
       "passwords-not-matching": "كلمة السر غير مطابقة",
       "invalid-input": {
         "title": "إدخال غير صالح",
@@ -394,7 +396,6 @@
       }
     },
     "login": {
-      "invalid-email": "البريد الإلكتروني مطلوب",
       "password-min-characters": "كلمة المرور مطلوبة.",
       "invalid-input": {
         "title": "إدخال غير صالح",

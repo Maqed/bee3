@@ -364,9 +364,11 @@
         "description": "Please try (Google, Facebook) or sign in with email"
       }
     },
+    "auth": {
+      "invalid-email": "Email is required"
+    },
     "register": {
       "name-min-character": "Name should at least contain 2 characters",
-      "invalid-email": "Email is invalid",
       "passwords-not-matching": "Passwords aren't matching",
       "invalid-input": {
         "title": "Invalid input",
@@ -378,7 +380,6 @@
       }
     },
     "login": {
-      "invalid-email": "Email is required",
       "password-min-characters": "Password is required.",
       "invalid-input": {
         "title": "Invalid input",
