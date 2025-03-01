@@ -171,6 +171,7 @@
   },
   "filter-ads": {
     "title": "Filter Ads",
+    "locationLabel": "Location",
     "minPriceLabel": "Minimum Price",
     "maxPriceLabel": "Maximum Price",
     "sortByLabel": "Sort by",
@@ -184,6 +185,13 @@
       "date": { "asc": "Older", "desc": "Newer" }
     },
     "apply-filters": "Apply filters"
+  },
+  "location-combobox": {
+    "select": "Select a location",
+    "search": "Search location...",
+    "notFound": "No location found",
+    "governorates": "Governorates",
+    "cities": "Cities"
   },
   "categories": {
     "vehicles": {

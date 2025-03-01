@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import LocationCombobox from "../location-combobox";
 
 type Props = {
   onApplyFilter?: () => void;
@@ -23,15 +24,26 @@ function FilterAds({ onApplyFilter }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  // Get initial values from search params
   const priceRange = searchParams.get("price")?.split("-");
   const initialMin = priceRange ? Number(priceRange[0]) : 0;
   const initialMax = priceRange ? Number(priceRange[1]) : 9999999999;
+  const initialGovId = Number(searchParams.get("governorate") || "0");
+  const initialCityId = Number(searchParams.get("city") || "0");
 
+  // State for price filter
   const [minPrice, setMinPrice] = useState<number>(initialMin);
   const [maxPrice, setMaxPrice] = useState<number>(initialMax);
+
+  // State for sorting
   const [sort, setSort] = useState(searchParams.get("sort") ?? "date");
   const [order, setOrder] = useState(searchParams.get("order") ?? "desc");
 
+  // State for location selection
+  const [governorate, setGovernorate] = useState<number>(initialGovId);
+  const [city, setCity] = useState<number>(initialCityId);
+
+  // Update filter states when search params change
   useEffect(() => {
     const priceRange = searchParams.get("price")?.split("-");
     if (priceRange) {
@@ -41,7 +53,18 @@ function FilterAds({ onApplyFilter }: Props) {
       setMinPrice(0);
       setMaxPrice(9999999999);
     }
+
+    const govId = searchParams.get("governorate");
+    const citId = searchParams.get("city");
+
+    if (govId) setGovernorate(Number(govId));
+    if (citId) setCity(Number(citId));
   }, [searchParams]);
+
+  const handleLocationChange = (newGovernorate: number, newCity: number) => {
+    setGovernorate(newGovernorate);
+    setCity(newCity);
+  };
 
   function handleApplyFilter() {
     const queryParams = new URLSearchParams({
@@ -49,11 +72,21 @@ function FilterAds({ onApplyFilter }: Props) {
       order,
       price: `${minPrice}-${maxPrice}`,
     });
+
+    if (governorate > 0) {
+      queryParams.set("governorate", governorate.toString());
+    }
+
+    if (city > 0) {
+      queryParams.set("city", city.toString());
+    }
+
     if (typeof searchParams.get("q") === "string") {
       queryParams.set("q", searchParams.get("q") as string);
     }
 
     router.push(`${pathname}?${queryParams.toString()}`);
+
     if (onApplyFilter) {
       onApplyFilter();
     }
@@ -62,6 +95,7 @@ function FilterAds({ onApplyFilter }: Props) {
   return (
     <div className="flex flex-col gap-3">
       <h1 className="text-xl font-semibold">{t("title")}</h1>
+
       <div className="flex items-center justify-between gap-3">
         <div className="flex flex-col">
           <Label className="mb-2" htmlFor="minPrice">
@@ -92,6 +126,16 @@ function FilterAds({ onApplyFilter }: Props) {
           />
         </div>
       </div>
+      <div className="flex flex-col">
+        <Label className="mb-2" htmlFor="location">
+          {t("locationLabel")}
+        </Label>
+        <LocationCombobox
+          initialGovernorate={governorate}
+          initialCity={city}
+          onLocationChange={handleLocationChange}
+        />
+      </div>
 
       <div className="flex flex-col">
         <Label className="mb-2" htmlFor="sort">
@@ -107,7 +151,6 @@ function FilterAds({ onApplyFilter }: Props) {
           </SelectContent>
         </Select>
       </div>
-
       <div className="flex flex-col">
         <Label className="mb-2" htmlFor="order">
           {t("orderLabel")}

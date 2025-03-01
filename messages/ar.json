@@ -173,6 +173,7 @@
   },
   "filter-ads": {
     "title": "فلتر الاعلانات",
+    "locationLabel": "الموقع",
     "minPriceLabel": "السعر الأدنى",
     "maxPriceLabel": "السعر الأقصى",
     "sortByLabel": "ترتيب حسب",
@@ -186,6 +187,13 @@
       "date": { "asc": "أقدم", "desc": "أحدث" }
     },
     "apply-filters": "فلتر"
+  },
+  "location-combobox": {
+    "select": "اختر موقعًا",
+    "search": "ابحث عن موقع...",
+    "notFound": "لم يتم العثور على موقع",
+    "governorates": "المحافظات",
+    "cities": "المدن"
   },
   "categories": {
     "vehicles": {
