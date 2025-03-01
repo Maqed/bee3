@@ -18,17 +18,8 @@ import { Button } from "@/components/ui/button";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { governorates } from "@/schema/governorates";
-import { cities } from "@/schema/cities";
-
-type LocationType = "governorate" | "city";
-
-type Location = {
-  id: number;
-  type: LocationType;
-  governorate?: number;
-  nameAr: string;
-  nameEn: string;
-};
+import type { Location } from "@/types/locations";
+import { locations } from "@/consts/locations";
 
 type LocationComboboxProps = {
   initialGovernorate: number;
@@ -49,32 +40,6 @@ const LocationCombobox = ({
   const [governorate, setGovernorate] = useState<number>(initialGovernorate);
   const [city, setCity] = useState<number>(initialCity);
   const [open, setOpen] = useState(false);
-  const [locations, setLocations] = useState<Location[]>([]);
-
-  useEffect(() => {
-    const locationsList: Location[] = [
-      {
-        id: 0,
-        type: "governorate",
-        nameAr: "الكل",
-        nameEn: "All",
-      },
-      ...governorates.map((gov) => ({
-        id: gov.id,
-        type: "governorate" as LocationType,
-        nameAr: gov.governorate_name_ar,
-        nameEn: gov.governorate_name_en,
-      })),
-      ...cities.map((city) => ({
-        id: city.id,
-        type: "city" as LocationType,
-        governorate: city.governorate_id,
-        nameAr: city.city_name_ar,
-        nameEn: city.city_name_en,
-      })),
-    ];
-    setLocations(locationsList);
-  }, []);
 
   useEffect(() => {
     setGovernorate(initialGovernorate);
