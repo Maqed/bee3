@@ -4,7 +4,6 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { env } from "@/env";
 import { v4 as uuidv4 } from "uuid";
 import { NextRequest, NextResponse } from "next/server";
-import { MAX_IMAGE_SIZE } from "@/consts/ad";
 
 const s3 = new S3Client({
   region: "auto",
@@ -39,7 +38,6 @@ export async function POST(req: NextRequest) {
           Bucket: env.CLOUDFLARE_R2_AD_IMAGE_BUCKET,
           Key: fileKey,
           ContentType: fileType,
-          Metadata: { maxSize: MAX_IMAGE_SIZE.toString() },
         });
 
         const signedUrl = await getSignedUrl(s3, command, { expiresIn: 60 });
