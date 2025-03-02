@@ -24,6 +24,8 @@ import { locations } from "@/consts/locations";
 type LocationComboboxProps = {
   initialGovernorate: number;
   initialCity: number;
+  showGovernorates?: boolean;
+  showCities?: boolean;
   onLocationChange: (governorate: number, city: number) => void;
   className?: string;
 };
@@ -31,6 +33,8 @@ type LocationComboboxProps = {
 const LocationCombobox = ({
   initialGovernorate,
   initialCity,
+  showGovernorates = true,
+  showCities = true,
   onLocationChange,
 }: LocationComboboxProps) => {
   const locale = useLocale();
@@ -111,60 +115,64 @@ const LocationCombobox = ({
           <CommandInput placeholder={t("search")} />
           <CommandList>
             <CommandEmpty>{t("notFound")}</CommandEmpty>
-            <CommandGroup heading={t("governorates")}>
-              {locations
-                .filter((loc) => loc.type === "governorate")
-                .map((location) => (
-                  <CommandItem
-                    key={`gov-${location.id}`}
-                    value={`governorate-${location.id}-${location.nameAr}-${location.nameEn}`}
-                    onSelect={handleLocationSelect}
-                  >
-                    <Check
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        governorate === location.id && city === 0
-                          ? "opacity-100"
-                          : "opacity-0",
-                      )}
-                    />
-                    {getLocationName(location)}
-                  </CommandItem>
-                ))}
-            </CommandGroup>
-            <CommandGroup heading={t("cities")}>
-              {locations
-                .filter((loc) => loc.type === "city")
-                .map((location) => {
-                  const parentGov = governorates.find(
-                    (gov) => gov.id === location.governorate,
-                  );
-                  const parentName = parentGov
-                    ? locale === "ar"
-                      ? parentGov.governorate_name_ar
-                      : parentGov.governorate_name_en
-                    : "";
-
-                  return (
+            {showGovernorates && (
+              <CommandGroup heading={t("governorates")}>
+                {locations
+                  .filter((loc) => loc.type === "governorate")
+                  .map((location) => (
                     <CommandItem
-                      key={`city-${location.id}`}
-                      value={`city-${location.id}-${location.nameAr}-${location.nameEn}`}
+                      key={`gov-${location.id}`}
+                      value={`governorate-${location.id}-${location.nameAr}-${location.nameEn}`}
                       onSelect={handleLocationSelect}
                     >
                       <Check
                         className={cn(
                           "mr-2 h-4 w-4",
-                          city === location.id ? "opacity-100" : "opacity-0",
+                          governorate === location.id && city === 0
+                            ? "opacity-100"
+                            : "opacity-0",
                         )}
                       />
                       {getLocationName(location)}
-                      <span className="ml-2 text-xs text-muted-foreground">
-                        ({parentName})
-                      </span>
                     </CommandItem>
-                  );
-                })}
-            </CommandGroup>
+                  ))}
+              </CommandGroup>
+            )}
+            {showCities && (
+              <CommandGroup heading={t("cities")}>
+                {locations
+                  .filter((loc) => loc.type === "city")
+                  .map((location) => {
+                    const parentGov = governorates.find(
+                      (gov) => gov.id === location.governorate,
+                    );
+                    const parentName = parentGov
+                      ? locale === "ar"
+                        ? parentGov.governorate_name_ar
+                        : parentGov.governorate_name_en
+                      : "";
+
+                    return (
+                      <CommandItem
+                        key={`city-${location.id}`}
+                        value={`city-${location.id}-${location.nameAr}-${location.nameEn}`}
+                        onSelect={handleLocationSelect}
+                      >
+                        <Check
+                          className={cn(
+                            "mr-2 h-4 w-4",
+                            city === location.id ? "opacity-100" : "opacity-0",
+                          )}
+                        />
+                        {getLocationName(location)}
+                        <span className="ml-2 text-xs text-muted-foreground">
+                          ({parentName})
+                        </span>
+                      </CommandItem>
+                    );
+                  })}
+              </CommandGroup>
+            )}
           </CommandList>
         </Command>
       </PopoverContent>
