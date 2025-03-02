@@ -96,6 +96,17 @@ function FilterAds({ onApplyFilter }: Props) {
     <div className="flex flex-col gap-3">
       <h1 className="text-xl font-semibold">{t("title")}</h1>
 
+      <div className="flex flex-col">
+        <Label className="mb-2" htmlFor="location">
+          {t("locationLabel")}
+        </Label>
+        <LocationCombobox
+          initialGovernorate={governorate}
+          initialCity={city}
+          onLocationChange={handleLocationChange}
+        />
+      </div>
+
       <div className="flex items-center justify-between gap-3">
         <div className="flex flex-col">
           <Label className="mb-2" htmlFor="minPrice">
@@ -125,16 +136,6 @@ function FilterAds({ onApplyFilter }: Props) {
             placeholder={t("maxPriceLabel")}
           />
         </div>
-      </div>
-      <div className="flex flex-col">
-        <Label className="mb-2" htmlFor="location">
-          {t("locationLabel")}
-        </Label>
-        <LocationCombobox
-          initialGovernorate={governorate}
-          initialCity={city}
-          onLocationChange={handleLocationChange}
-        />
       </div>
 
       <div className="flex flex-col">
