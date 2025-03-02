@@ -32,7 +32,6 @@ const LocationCombobox = ({
   initialGovernorate,
   initialCity,
   onLocationChange,
-  className,
 }: LocationComboboxProps) => {
   const locale = useLocale();
   const t = useTranslations("location-combobox");
