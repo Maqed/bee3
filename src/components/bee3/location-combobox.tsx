@@ -77,9 +77,18 @@ const LocationCombobox = ({
       setCity(0);
       onLocationChange(numId, 0);
     } else if (type === "city") {
-      setCity(numId);
-      setGovernorate(0);
-      onLocationChange(0, numId);
+      const selectedCity = locations.find(
+        (loc) => loc.type === "city" && loc.id === numId,
+      );
+
+      if (selectedCity && selectedCity.governorate) {
+        setGovernorate(selectedCity.governorate);
+        setCity(numId);
+        onLocationChange(selectedCity.governorate, numId);
+      } else {
+        setCity(numId);
+        onLocationChange(governorate, numId);
+      }
     }
     setOpen(false);
   };
