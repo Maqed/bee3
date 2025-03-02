@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import {
   Command,
@@ -39,6 +39,8 @@ const LocationCombobox = ({
 }: LocationComboboxProps) => {
   const locale = useLocale();
   const t = useTranslations("location-combobox");
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [triggerWidth, setTriggerWidth] = useState<number>(0);
 
   const [governorate, setGovernorate] = useState<number>(initialGovernorate);
   const [city, setCity] = useState<number>(initialCity);
@@ -48,6 +50,21 @@ const LocationCombobox = ({
     setGovernorate(initialGovernorate);
     setCity(initialCity);
   }, [initialGovernorate, initialCity]);
+
+  useEffect(() => {
+    if (triggerRef.current) {
+      setTriggerWidth(triggerRef.current.offsetWidth);
+    }
+
+    const handleResize = () => {
+      if (triggerRef.current) {
+        setTriggerWidth(triggerRef.current.offsetWidth);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const getLocationName = (location: Location) => {
     return locale === "ar" ? location.nameAr : location.nameEn;
@@ -100,6 +117,7 @@ const LocationCombobox = ({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          ref={triggerRef}
           variant="outline"
           role="combobox"
           aria-expanded={open}
@@ -110,8 +128,12 @@ const LocationCombobox = ({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0" align="start">
-        <Command>
+      <PopoverContent
+        className="p-0"
+        align="start"
+        style={{ width: `${triggerWidth}px` }}
+      >
+        <Command className="w-full">
           <CommandInput placeholder={t("search")} />
           <CommandList>
             <CommandEmpty>{t("notFound")}</CommandEmpty>
