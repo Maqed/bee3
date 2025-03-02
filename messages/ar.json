@@ -341,14 +341,9 @@
       "description": "قدم وصفًا مفصلاً لمنتجك"
     },
     "location": {
-      "no-results": "لا توجد نتائج.",
-      "governorate": {
-        "label": "المحافظة",
-        "placeholder": "اختر محافظتك"
-      },
       "city": {
         "label": "المدينة",
-        "placeholder": "اختر مدينتك"
+        "description": "اختر مدينتك"
       }
     },
     "price": {

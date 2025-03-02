@@ -324,14 +324,9 @@
       "description": "Provide a detailed description of your item"
     },
     "location": {
-      "no-results": "No results.",
-      "governorate": {
-        "label": "Governorate",
-        "placeholder": "Choose your governorate"
-      },
       "city": {
         "label": "City",
-        "placeholder": "Choose your city"
+        "description": "Choose your city"
       }
     },
     "price": {
