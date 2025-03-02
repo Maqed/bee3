@@ -20,6 +20,7 @@ import {
   type UseComboboxReturnValue,
 } from "downshift";
 import { PopoverAnchor } from "@radix-ui/react-popover";
+import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { Popover, PopoverContent } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { UseComboboxGetInputPropsReturnValue } from "downshift";
@@ -304,24 +305,26 @@ export const ComboboxContent = ({
   }, [childItems, onItemsChange]);
 
   return (
-    <PopoverContent
-      {...props}
-      forceMount
-      asChild
-      onOpenAutoFocus={(e) => {
-        e.preventDefault();
-        onOpenAutoFocus?.(e);
-      }}
-      className={cn(
-        "w-[--radix-popper-anchor-width] p-0 [[data-radix-popper-content-wrapper]:has(&)]:h-0",
-        !isOpen && "pointer-events-none",
-        !openedOnce && "hidden",
-      )}
-      {...getMenuProps?.()}
-    >
-      <ScrollArea className="[&>[data-radix-scroll-area-viewport]]:max-h-80 [&>[data-radix-scroll-area-viewport]]:p-1">
-        {children}
-      </ScrollArea>
-    </PopoverContent>
+    <PopoverPrimitive.Portal>
+      <PopoverContent
+        {...props}
+        forceMount
+        asChild
+        onOpenAutoFocus={(e) => {
+          e.preventDefault();
+          onOpenAutoFocus?.(e);
+        }}
+        className={cn(
+          "w-[--radix-popper-anchor-width] p-0 [[data-radix-popper-content-wrapper]:has(&)]:h-0",
+          !isOpen && "pointer-events-none",
+          !openedOnce && "hidden",
+        )}
+        {...getMenuProps?.()}
+      >
+        <ScrollArea className="[&>[data-radix-scroll-area-viewport]]:max-h-80 [&>[data-radix-scroll-area-viewport]]:p-1">
+          {children}
+        </ScrollArea>
+      </PopoverContent>
+    </PopoverPrimitive.Portal>
   );
 };
