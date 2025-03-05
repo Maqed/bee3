@@ -127,7 +127,7 @@ export function AsyncSearch<T>({
         <CommandInput
           ref={searchInputRef}
           onKeyDown={(e) => {
-            if (e.key === "Enter") onSubmit();
+            if (e.key === "Enter" && searchTerm.length) onSubmit();
           }}
           placeholder={placeholder}
           disabled={disabled}
