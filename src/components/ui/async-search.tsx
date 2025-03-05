@@ -90,6 +90,7 @@ export function AsyncSearch<T>({
       setOptions([]);
     }
   }, [fetcher, debouncedSearchTerm, searchTerm]);
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -106,10 +107,25 @@ export function AsyncSearch<T>({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const isActive = document.activeElement === searchInputRef.current;
+      if (!isActive && e.key === "/") {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <Command className="w-[300px] md:w-[450px]" shouldFilter={false}>
       <div className="relative w-full border-b">
         <CommandInput
+          ref={searchInputRef}
           onKeyDown={(e) => {
             if (e.key === "Enter") onSubmit();
           }}
@@ -173,8 +189,8 @@ export function AsyncSearch<T>({
 function DefaultLoadingSkeleton() {
   return (
     <CommandGroup>
-      {[...Array(6)].map((_) => (
-        <CommandItem>
+      {[...Array(6)].map((_, index) => (
+        <CommandItem key={`async-search-default-loading-skeleton-${index}`}>
           <Skeleton className="h-8 w-full" />
         </CommandItem>
       ))}
