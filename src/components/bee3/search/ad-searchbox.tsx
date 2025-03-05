@@ -1,3 +1,4 @@
+"use client";
 import { AsyncSearch } from "@/components/ui/async-search";
 import { getCategoryName } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
