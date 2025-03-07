@@ -123,8 +123,8 @@
         }
       },
       "social": {
-        "Facebook": "Continue With Facebook",
-        "Google": "Continue With Google"
+        "facebook": "Continue With Facebook",
+        "google": "Continue With Google"
       }
     },
     "/forgot-password": {
