@@ -14,8 +14,9 @@ model Category {
     name_en     String  @unique
     name_ar     String  @unique
     description String? @db.Text
-    depth       Int
-    Ads         Ad[]
+
+    depth Int
+    Ads   Ad[]
 }
 
 model Ad {
@@ -27,6 +28,7 @@ model Ad {
     favoritedBy  User[]    @relation("favoriteAds")
     category     Category? @relation(fields: [categoryPath], references: [path])
     categoryPath String
+    options      Json
 
     tier        AdTiers @default(Free)
     title       String

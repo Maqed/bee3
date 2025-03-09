@@ -5,6 +5,8 @@ import { adSchemaServer } from "@/schema/ad";
 import { db } from "@/server/db";
 import { createId } from "@paralleldrive/cuid2";
 import { cities } from "@/schema/cities";
+import { Prisma } from "@prisma/client";
+import { InputJsonValue, JsonValue } from "@prisma/client/runtime/library";
 
 export async function POST(request: Request) {
   const session = await getServerAuthSession();
@@ -31,28 +33,24 @@ export async function POST(request: Request) {
     },
   });
 
+  let updatedCount = tokenStore!.count;
+  let updatedRefreshTime = tokenStore!.nextRefreshTime;
+
   if (
-    tokenStore!.refreshInDays != 0 &&
+    tokenStore!.refreshInDays !== 0 &&
     tokenStore!.nextRefreshTime.getDate() <= Date.now()
   ) {
-    tokenStore!.count = tokenStore!.initialCount;
+    updatedCount = tokenStore!.initialCount;
+    updatedRefreshTime = new Date(Date.now() + tokenStore!.refreshInDays * 24 * 60 * 60 * 1000);
   }
 
-  if (tokenStore?.count === 0)
+  if (updatedCount === 0)
     return NextResponse.json(
       { error: "failed-not-enough-tokens" },
       { status: 500 },
     );
 
-  const getRefreshTime = (days: number) => {
-    const date = new Date(Date.now());
-    date.setDate(date.getDate() + days);
-    return date;
-  };
-
-  tokenStore!.count--;
-  if (tokenStore!.refreshInDays != 0)
-    tokenStore!.nextRefreshTime = getRefreshTime(tokenStore!.refreshInDays);
+  updatedCount--;
 
   await db.adTokenStore.update({
     where: {
@@ -62,7 +60,8 @@ export async function POST(request: Request) {
       },
     },
     data: {
-      ...tokenStore,
+      count: updatedCount,
+      nextRefreshTime: updatedRefreshTime,
     },
   });
 
@@ -78,6 +77,7 @@ export async function POST(request: Request) {
       description: req.data.description,
       price: req.data.price,
       negotiable: req.data.negotiable,
+      options: req.data.categoryOptions ? JSON.parse(req.data.categoryOptions) : {},
       images: {
         create: req.data.images.map((image) => ({
           url: image,

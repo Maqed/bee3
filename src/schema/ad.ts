@@ -5,6 +5,34 @@ import { governorates } from "./governorates";
 import { MAX_AD_IMAGES, MAX_IMAGE_SIZE } from "@/consts/ad";
 import { env } from "@/env";
 
+const validateCategoryOptions = (data: any, ctx: z.RefinementCtx) => {
+  if (!data.categoryOptions)
+    return;
+  let optionsObj: Record<string, any>;
+  try {
+    optionsObj = JSON.parse(data.categoryOptions);
+  } catch (e) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "/sell.categoryOptions-invalid-json",
+      path: ["categoryOptions"],
+    });
+    return;
+  }
+  const category = findCategory(data.categoryId, categoriesTree);
+  if (category && category.options) {
+    for (const key of Object.keys(optionsObj)) {
+      if (!(key in category.options)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "/sell.categoryOptions-invalid-option",
+          path: ["categoryOptions"],
+        });
+      }
+    }
+  }
+};
+
 const adSchemaMutual = {
   title: z
     .string()
@@ -14,8 +42,9 @@ const adSchemaMutual = {
     .string()
     .max(2048, { message: "/sell.description" })
     .optional(),
+  categoryOptions: z.string().optional(),
   price: z.number().min(0, { message: "/sell.price" }),
-  categoryId: z.number().refine((id) => findCategoryById(id, categoriesTree), {
+  categoryId: z.number().refine((id) => categoryExists(id, categoriesTree), {
     message: "/sell.categoryId",
   }),
   negotiable: z.boolean(),
@@ -26,8 +55,9 @@ const adSchemaMutual = {
     }),
   cityId: z.number().refine((id) => cities.some((c) => c.id === id), {
     message: "/sell.cityId",
-  }),
+  })
 };
+
 export const adSchemaServer = z.object({
   ...adSchemaMutual,
   images: z
@@ -43,7 +73,8 @@ export const adSchemaServer = z.object({
     )
     .min(1, { message: "/sell.images" })
     .max(MAX_AD_IMAGES, { message: "/sell.max-images" }),
-});
+}).superRefine(validateCategoryOptions);
+
 export const adSchemaClient = z.object({
   ...adSchemaMutual,
   images: z
@@ -57,7 +88,7 @@ export const adSchemaClient = z.object({
     )
     .min(1, { message: "/sell.images" })
     .max(MAX_AD_IMAGES, { message: "/sell.max-images" }),
-});
+}).superRefine(validateCategoryOptions);
 
 export const favAdSchema = z.object({
   adId: z
@@ -69,10 +100,24 @@ export const favAdSchema = z.object({
   state: z.boolean(),
 });
 
-const findCategoryById = (
+const categoryExists = (
   id: number,
   categories: CategoryTreeItem[],
 ): boolean =>
   categories.some(
-    (c) => c.id === id || (c.categories && findCategoryById(id, c.categories)),
+    (c) => c.id === id || (c.categories && categoryExists(id, c.categories)),
   );
+
+const findCategory = (
+  id: number,
+  categories: CategoryTreeItem[]
+): CategoryTreeItem | null => {
+  for (const cat of categories) {
+    if (cat.id === id) return cat;
+    if (cat.categories) {
+      const found = findCategory(id, cat.categories);
+      if (found) return found;
+    }
+  }
+  return null;
+};
