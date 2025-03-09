@@ -142,7 +142,11 @@ export function UploadAdImageButton({
     }
 
     try {
-      const optimizedFiles = await optimizeImages(acceptedFiles);
+      const optimizedFiles = await optimizeImages(acceptedFiles, {
+        quality: 0.5,
+        maxWidth: 1500,
+        maxHeight: 450,
+      });
       const newImages = [...images, ...optimizedFiles];
       onImagesChange(newImages);
     } catch (error) {

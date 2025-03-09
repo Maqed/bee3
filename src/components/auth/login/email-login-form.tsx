@@ -23,6 +23,7 @@ import { useTranslations } from "next-intl";
 import Spinner from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { Link } from "@/navigation";
 
 function EmailLoginForm() {
   const [isPending, startTransition] = useTransition();
@@ -110,6 +111,9 @@ function EmailLoginForm() {
             </FormItem>
           )}
         />
+        <Link className="text-primary hover:underline" href="/forgot-password">
+          {tLoginEmail("forgot-password")}
+        </Link>
 
         <Button disabled={isPending} className="w-full" type="submit">
           {tLoginEmail("submit")} {isPending && <Spinner className="ms-1" />}

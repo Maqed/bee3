@@ -130,14 +130,16 @@ export const blobToFile = (blob: Blob, fileName: string): File => {
   return new File([blob], fileName, { type: blob.type });
 };
 
+type CompressorOptions = {
+  quality: number;
+  maxHeight: number;
+  maxWidth: number;
+  convertSize?: number;
+};
+
 export const optimizeImage = async (
   file: File,
-  options: {
-    quality: number;
-    maxHeight: number;
-    maxWidth: number;
-    convertSize?: number;
-  },
+  options: CompressorOptions,
 ): Promise<File> => {
   return await new Promise((resolve, reject) => {
     new Compressor(file, {
@@ -151,13 +153,10 @@ export const optimizeImage = async (
   });
 };
 
-export async function optimizeImages(images: File[]): Promise<File[]> {
-  const optimizedImages = images.map((image) =>
-    optimizeImage(image, {
-      quality: 0.6,
-      maxHeight: 450,
-      maxWidth: 1500,
-    }),
-  );
+export async function optimizeImages(
+  images: File[],
+  options: CompressorOptions,
+): Promise<File[]> {
+  const optimizedImages = images.map((image) => optimizeImage(image, options));
   return Promise.all(optimizedImages);
 }

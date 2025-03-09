@@ -44,7 +44,7 @@ async function ExploreCategories() {
                   <DialogContent>
                     <DialogHeader className="h-min">
                       <DialogTitle>
-                        <Link href={`/${categoryNamePathFormat}`}>
+                        <Link tabIndex={-1} href={`/${categoryNamePathFormat}`}>
                           {categoryName}
                         </Link>
                       </DialogTitle>

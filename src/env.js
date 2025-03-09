@@ -29,11 +29,6 @@ export const env = createEnv({
     // Facebook
     FACEBOOK_CLIENT_ID: z.string(),
     FACEBOOK_CLIENT_SECRET: z.string(),
-    // Twilio
-    TWILIO_ACCOUNT_SID: z.string(),
-    TWILIO_AUTH_TOKEN: z.string(),
-    TWILIO_SERVICE_SID: z.string(),
-    RESEND_API_KEY: z.string(),
     // WhatsApp
     WA_WABA_ID: z.string(),
     WA_ACCESS_TOKEN: z.string(),
@@ -43,7 +38,10 @@ export const env = createEnv({
     CLOUDFLARE_R2_AD_IMAGE_BUCKET: z.string(),
     CLOUDFLARE_R2_TOKEN_VALUE: z.string(),
     CLOUDFLARE_R2_ACCESS_KEY_ID: z.string(),
-    CLOUDFLARE_R2_SECRET_ACCESS_KEY: z.string()
+    CLOUDFLARE_R2_SECRET_ACCESS_KEY: z.string(),
+    // Resend
+    RESEND_API_KEY: z.string(),
+    RESEND_FROM_EMAIL: z.string(),
   },
 
   /**
@@ -71,10 +69,6 @@ export const env = createEnv({
     FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
     FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-    TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
-    TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
-    TWILIO_SERVICE_SID: process.env.TWILIO_SERVICE_SID,
-    RESEND_API_KEY: process.env.RESEND_API_KEY,
     WA_WABA_ID: process.env.WA_WABA_ID,
     WA_ACCESS_TOKEN: process.env.WA_ACCESS_TOKEN,
     WA_PHONE_NUMBER_ID: process.env.WA_PHONE_NUMBER_ID,
@@ -83,6 +77,8 @@ export const env = createEnv({
     CLOUDFLARE_R2_TOKEN_VALUE: process.env.CLOUDFLARE_R2_TOKEN_VALUE,
     CLOUDFLARE_R2_ACCESS_KEY_ID: process.env.CLOUDFLARE_R2_ACCESS_KEY_ID,
     CLOUDFLARE_R2_SECRET_ACCESS_KEY: process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL,
     NEXT_PUBLIC_CLOUDFLARE_PUBLIC_BUCKET_URL: process.env.NEXT_PUBLIC_CLOUDFLARE_PUBLIC_BUCKET_URL,
   },
   /**

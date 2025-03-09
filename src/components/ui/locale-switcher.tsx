@@ -26,24 +26,25 @@ function LocaleSwitcher() {
       {locale === "ar" ? (
         <div dir="ltr" className="flex flex-row gap-2">
           <Image
-            src="https://flagsapi.com/US/flat/64.png"
+            src="https://flagsapi.com/US/flat/24.png"
             alt="USA Flag"
             className="object-contain"
-            width={20}
-            height={10}
-            unoptimized={true}
+            width={24}
+            height={24}
           />
           English
         </div>
       ) : (
-        <div dir="rtl" className="flex flex-row gap-2">
+        <div
+          dir="rtl"
+          className="flex flex-row items-center justify-center gap-2"
+        >
           <Image
-            src="https://flagsapi.com/EG/flat/64.png"
+            src="https://flagsapi.com/EG/flat/24.png"
             alt="EG Flag"
             className="object-contain"
-            width={20}
-            height={10}
-            unoptimized={true}
+            width={24}
+            height={24}
           />
           العربية
         </div>

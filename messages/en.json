@@ -71,6 +71,15 @@
     }
   },
   "auth": {
+    "two-password-input": {
+      "password": {
+        "label": "Password"
+      },
+      "confirmPassword": {
+        "label": "Confirm Password"
+      },
+      "submit": "Reset Password"
+    },
     "card-wrapper": {
       "or": "Or",
       "go-back": "Go back",
@@ -109,22 +118,32 @@
           "password": {
             "label": "Password"
           },
-
+          "forgot-password": "Forgot password?",
           "submit": "Login"
         }
       },
-      "verify-email": {
-        "headerLabel": "Verify Your Email",
-        "backButtonLabel": "Back to login",
-        "success": {
-          "title": "Email has been verified successfully",
-          "description": "You may now login"
-        }
-      },
       "social": {
-        "Facebook": "Continue With Facebook",
-        "Google": "Continue With Google"
+        "facebook": "Continue With Facebook",
+        "google": "Continue With Google"
       }
+    },
+    "/forgot-password": {
+      "title": "Forgot Password",
+      "description": "Enter your email address to receive a password reset link.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "johndoe@mail.com",
+      "submitButton": "Send Reset Link",
+      "toast": {
+        "success": "Password reset email sent. Please check your inbox.",
+        "error": "Failed sending reset email. Please try again."
+      }
+    },
+    "/reset-password": {
+      "title": "Reset Password",
+      "description": "Enter your new password to reset your password.",
+      "success": "Password reset successful. You can now log in with your new password.",
+      "token-missing": "Token is missing, Please try checking email again.",
+      "error": "Failed to reset the password. Please try again."
     }
   },
   "dialog": {
@@ -152,6 +171,7 @@
   },
   "filter-ads": {
     "title": "Filter Ads",
+    "locationLabel": "Location",
     "minPriceLabel": "Minimum Price",
     "maxPriceLabel": "Maximum Price",
     "sortByLabel": "Sort by",
@@ -165,6 +185,13 @@
       "date": { "asc": "Older", "desc": "Newer" }
     },
     "apply-filters": "Apply filters"
+  },
+  "location-combobox": {
+    "select": "Select a location",
+    "search": "Search location...",
+    "notFound": "No location found",
+    "governorates": "Governorates",
+    "cities": "Cities"
   },
   "categories": {
     "vehicles": {
@@ -297,14 +324,9 @@
       "description": "Provide a detailed description of your item"
     },
     "location": {
-      "no-results": "No results.",
-      "governorate": {
-        "label": "Governorate",
-        "placeholder": "Choose your governorate"
-      },
       "city": {
         "label": "City",
-        "placeholder": "Choose your city"
+        "description": "Choose your city"
       }
     },
     "price": {
@@ -364,10 +386,12 @@
         "description": "Please try (Google, Facebook) or sign in with email"
       }
     },
+    "auth": {
+      "invalid-email": "Email is required",
+      "passwords-not-matching": "Passwords aren't matching"
+    },
     "register": {
       "name-min-character": "Name should at least contain 2 characters",
-      "invalid-email": "Email is invalid",
-      "passwords-not-matching": "Passwords aren't matching",
       "invalid-input": {
         "title": "Invalid input",
         "description": "Try typing something else"
@@ -378,7 +402,6 @@
       }
     },
     "login": {
-      "invalid-email": "Email is required",
       "password-min-characters": "Password is required.",
       "invalid-input": {
         "title": "Invalid input",
@@ -436,7 +459,7 @@
         "failed-too-many-requests": "You're sending your phone number too many times, Please try again in a minute.",
         "unknown": "An unknown error occurred. Please try again.",
         "invalid-number": "Please enter a valid 10-digit phone number",
-        "PHONE_NUMBER_ALREADY_EXISTS": "This phone number already exists, please try another one!"
+        "PHONE_NUMBER_EXISTS": "This phone number already exists, please try another one!"
       },
       "OTP": {
         "must-be-logged-in": "You must be logged in to verify your phone number",
