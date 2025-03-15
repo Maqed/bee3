@@ -14,7 +14,12 @@ const queryClient = new QueryClient();
 function ClientSideProviders({ children }: Props) {
   const locale = useLocale();
   return (
-    <ThemeProvider attribute="class" defaultTheme="light">
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
       <QueryClientProvider client={queryClient}>
         <DirectionProvider dir={locale === "ar" ? "rtl" : "ltr"}>
           {children}
