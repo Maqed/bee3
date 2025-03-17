@@ -81,23 +81,24 @@ function FavoritesHeart({ adId, className }: Props) {
   };
 
   return (
-    <Heart
-      onClick={handleHeartClick}
-      fill={isFavorited ? "currentColor" : "none"}
-      className={cn(
-        "size-5 cursor-pointer transition-all",
-        isFavorited && !isFavoritesFetching
-          ? "text-red-600 hover:text-red-700"
-          : "text-foreground/70 hover:fill-red-500 hover:text-red-600",
-        (mutation.isPending || isFavoritesFetching) && "animate-pulse",
-        className,
-      )}
-      aria-label={
-        isFavorited
-          ? tFavoritesHeart("aria-label.remove-from-favorites")
-          : tFavoritesHeart("aria-label.add-to-favorites")
-      }
-    />
+    <button onClick={handleHeartClick}>
+      <Heart
+        fill={isFavorited ? "currentColor" : "none"}
+        className={cn(
+          "size-5 cursor-pointer transition-all",
+          isFavorited && !isFavoritesFetching
+            ? "text-red-600 hover:text-red-700"
+            : "text-foreground/70 hover:fill-red-500 hover:text-red-600",
+          (mutation.isPending || isFavoritesFetching) && "animate-pulse",
+          className,
+        )}
+        aria-label={
+          isFavorited
+            ? tFavoritesHeart("aria-label.remove-from-favorites")
+            : tFavoritesHeart("aria-label.add-to-favorites")
+        }
+      />
+    </button>
   );
 }
 
