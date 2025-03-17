@@ -43,7 +43,7 @@ export default async function AdsCarousel({ title, showMoreHref, ads }: Props) {
           </Link>
         </div>
         <Carousel opts={{ dragFree: true }} className="w-full max-w-full">
-          <CarouselContent>
+          <CarouselContent className="p-1">
             {ads.map((ad) => (
               <CarouselItem key={ad.id}>
                 <AdCard ad={ad} />
