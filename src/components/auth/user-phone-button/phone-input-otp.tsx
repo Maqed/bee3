@@ -103,7 +103,12 @@ function PhoneInputOTP({
                 dir="ltr"
               >
                 <FormControl>
-                  <InputOTP autoFocus maxLength={MAX_LENGTH} {...field}>
+                  <InputOTP
+                    onComplete={form.handleSubmit(onSubmit)}
+                    autoFocus
+                    maxLength={MAX_LENGTH}
+                    {...field}
+                  >
                     <InputOTPGroup>
                       <InputOTPSlot index={0} />
                       <InputOTPSlot index={1} />
