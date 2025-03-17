@@ -27,7 +27,7 @@ export default async function AdsCarousel({ title, showMoreHref, ads }: Props) {
           <h2 className="text-lg font-bold md:text-2xl">{title}</h2>
           <Link
             href={showMoreHref}
-            className="group text-sm text-primary hover:underline"
+            className="group text-base font-bold text-primary hover:underline"
             prefetch={false}
           >
             {tCarousel("show-more")}
