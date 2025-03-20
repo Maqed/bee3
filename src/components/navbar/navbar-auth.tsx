@@ -1,12 +1,8 @@
 "use client";
 import { Link } from "@/navigation";
-import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/consts/routes";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { authClient } from "@/lib/auth-client";
-import { Settings, LogOut, User, Heart } from "lucide-react";
+import { Settings, User as UserIcon, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,13 +12,22 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Avatar } from "@/components/ui/avatar";
+import { Session, User } from "better-auth";
+import SignOutMenuItem from "./sign-out-menu-item";
 
-function NavbarAuth() {
+function NavbarAuth({
+  session,
+}: {
+  session: { session: Session; user: User } | null;
+}) {
   const t = useTranslations("Navbar");
-  const { data: session, isPending } = authClient.useSession();
-  const router = useRouter();
-  if (isPending) return <Skeleton className="h-10 w-10 rounded-full" />;
-  return session ? (
+  if (!session)
+    return (
+      <Button size="sm" asChild>
+        <Link href="/login">{t("Login")}</Link>
+      </Button>
+    );
+  return (
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
         <Avatar>{session.user.name[0]}</Avatar>
@@ -35,7 +40,7 @@ function NavbarAuth() {
         <DropdownMenuSeparator />
         <Link href={`/user/${session.user.id}`}>
           <DropdownMenuItem>
-            <User className="me-2 h-4 w-4" />
+            <UserIcon className="me-2 h-4 w-4" />
             {t("Profile")}
           </DropdownMenuItem>
         </Link>
@@ -51,30 +56,9 @@ function NavbarAuth() {
             {t("Settings")}
           </DropdownMenuItem>
         </Link>
-        <DropdownMenuItem
-          className="bg-destructive text-destructive-foreground focus:bg-destructive/70 focus:text-destructive-foreground"
-          onClick={() =>
-            authClient.signOut({
-              fetchOptions: {
-                onSuccess: () => {
-                  router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
-                  router.refresh();
-                },
-              },
-            })
-          }
-        >
-          <LogOut className="me-2 h-4 w-4" />
-          {t("Logout")}
-        </DropdownMenuItem>
+        <SignOutMenuItem title={t("Logout")} />
       </DropdownMenuContent>
     </DropdownMenu>
-  ) : (
-    <>
-      <Button size="sm" asChild>
-        <Link href="/login">{t("Login")}</Link>
-      </Button>
-    </>
   );
 }
 

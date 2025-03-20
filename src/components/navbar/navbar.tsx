@@ -5,8 +5,10 @@ import ModeToggle from "@/components/ui/mode-toggle";
 import SellButton from "../bee3/sell-button";
 import AdSearch from "../bee3/search/ad-searchbox";
 import Logo from "../bee3/logo";
+import { getServerAuthSession } from "@/lib/auth";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const session = await getServerAuthSession();
   return (
     <header className="container sticky top-0 z-50 mb-5 flex flex-col justify-between gap-1 border-b bg-background py-4">
       <div className="flex items-center justify-between">
@@ -19,7 +21,7 @@ export default function Navbar() {
           <LocaleSwitcher />
           <SellButton className="hidden md:flex" />
           <ModeToggle />
-          <NavbarAuth />
+          <NavbarAuth session={session} />
         </nav>
       </div>
       <div className="flex items-center justify-center">
