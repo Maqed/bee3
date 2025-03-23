@@ -40,6 +40,7 @@ import type { adSchemaClient } from "@/schema/ad";
 import type { z } from "zod";
 import { uploadToR2 } from "@/lib/s3";
 import LocationCombobox from "@/components/bee3/location-combobox";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type SellFormProps = {
   startTransition: TransitionStartFunction;
@@ -329,52 +330,49 @@ function SellForm({
 
           <Separator />
 
-          <FormField
-            control={form.control}
-            name="price"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{tSell("price.label")}</FormLabel>
-                <FormControl>
-                  <NumberInput
-                    value={field.value}
-                    prefix={locale === "ar" ? "ج.م " : "EGP "}
-                    placeholder={tSell("price.placeholder")}
-                    thousandSeparator=","
-                    onValueChange={(value) => {
-                      field.onChange(value);
-                    }}
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="flex h-full flex-wrap items-stretch gap-2">
+            <FormField
+              control={form.control}
+              name="price"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormLabel>{tSell("price.label")}</FormLabel>
+                  <FormControl>
+                    <NumberInput
+                      value={field.value}
+                      prefix={locale === "ar" ? "ج.م " : "EGP "}
+                      placeholder={tSell("price.placeholder")}
+                      thousandSeparator=","
+                      onValueChange={(value) => {
+                        field.onChange(value);
+                      }}
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="negotiable"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                <div className="space-y-0.5">
-                  <FormLabel className="text-base">
-                    {tSell("negotiable.label")}
+            <FormField
+              control={form.control}
+              name="negotiable"
+              render={({ field }) => (
+                <FormItem className="mt-8 flex items-center justify-center gap-1 self-center">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormLabel className="text-sm font-normal">
+                    {tSell("negotiable")}
                   </FormLabel>
-                  <FormDescription>
-                    {tSell("negotiable.description")}
-                  </FormDescription>
-                </div>
-                <FormControl>
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    disabled={isPending}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
+                </FormItem>
+              )}
+            />
+          </div>
           <Separator />
           <FormItem className="flex flex-col gap-3">
             <FormLabel className="text-base">
