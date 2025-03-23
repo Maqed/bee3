@@ -334,10 +334,7 @@
       "placeholder": "Enter the price",
       "description": "Set the price for your item"
     },
-    "negotiable": {
-      "label": "Negotiable",
-      "description": "Is the price negotiable?"
-    },
+    "negotiable": "Negotiable",
     "user-phone-button": {
       "label": "Phone Number"
     },

@@ -351,10 +351,7 @@
       "placeholder": "أدخل السعر",
       "description": "حدد سعر منتجك"
     },
-    "negotiable": {
-      "label": "قابل للتفاوض",
-      "description": "هل السعر قابل للتفاوض؟"
-    },
+    "negotiable": "قابل للتفاوض",
     "user-phone-button": {
       "label": "رقم الهاتف"
     },
