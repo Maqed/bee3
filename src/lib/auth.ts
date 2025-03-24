@@ -12,6 +12,7 @@ import { NextRequest } from "next/server";
 import { sendVerificationEmail, sendResetPasswordEmail } from "./mail";
 
 export const auth = betterAuth({
+  appName: "Bee3",
   database: prismaAdapter(db, {
     provider: "postgresql",
   }),
