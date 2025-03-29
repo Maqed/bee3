@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import {
   Command,
@@ -18,13 +18,14 @@ import { Button } from "@/components/ui/button";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { governorates } from "@/schema/governorates";
-import type { Location } from "@/types/locations";
-import { locations } from "@/consts/locations";
+import type { Location, LocationType } from "@/types/locations";
+import { cities } from "@/schema/cities";
 
 type LocationComboboxProps = {
   initialGovernorate: number;
   initialCity: number;
   showGovernorates?: boolean;
+  hasAll?: boolean;
   showCities?: boolean;
   onLocationChange: (governorate: number, city: number) => void;
   className?: string;
@@ -33,6 +34,7 @@ type LocationComboboxProps = {
 const LocationCombobox = ({
   initialGovernorate,
   initialCity,
+  hasAll = true,
   showGovernorates = true,
   showCities = true,
   onLocationChange,
@@ -44,6 +46,37 @@ const LocationCombobox = ({
 
   const [governorate, setGovernorate] = useState<number>(initialGovernorate);
   const [city, setCity] = useState<number>(initialCity);
+  const locations: Location[] = useMemo(() => {
+    let locations = [];
+    if (hasAll)
+      locations.push({
+        id: 0,
+        type: "governorate" as LocationType,
+        nameAr: "الكل",
+        nameEn: "All",
+      });
+    if (showGovernorates)
+      locations = [
+        ...locations,
+        ...governorates.map((gov) => ({
+          id: gov.id,
+          type: "governorate" as LocationType,
+          nameAr: gov.governorate_name_ar,
+          nameEn: gov.governorate_name_en,
+        })),
+      ];
+    if (showCities)
+      locations = [
+        ...locations,
+        ...cities.map((city) => ({
+          id: city.id,
+          type: "city" as LocationType,
+          nameAr: city.city_name_ar,
+          nameEn: city.city_name_en,
+        })),
+      ];
+    return locations;
+  }, [showGovernorates, showCities]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -165,15 +198,6 @@ const LocationCombobox = ({
                 {locations
                   .filter((loc) => loc.type === "city")
                   .map((location) => {
-                    const parentGov = governorates.find(
-                      (gov) => gov.id === location.governorate,
-                    );
-                    const parentName = parentGov
-                      ? locale === "ar"
-                        ? parentGov.governorate_name_ar
-                        : parentGov.governorate_name_en
-                      : "";
-
                     return (
                       <CommandItem
                         key={`city-${location.id}`}
@@ -187,9 +211,6 @@ const LocationCombobox = ({
                           )}
                         />
                         {getLocationName(location)}
-                        <span className="ml-2 text-xs text-muted-foreground">
-                          ({parentName})
-                        </span>
                       </CommandItem>
                     );
                   })}
