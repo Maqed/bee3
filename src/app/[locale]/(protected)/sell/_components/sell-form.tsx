@@ -172,6 +172,7 @@ function SellForm({
                 <Select
                   onValueChange={(value) => {
                     setSelectedMainCategory(value);
+                    setSelectedSubCategory(null);
                     form.setValue("categoryId", 0);
                   }}
                   disabled={isPending}
