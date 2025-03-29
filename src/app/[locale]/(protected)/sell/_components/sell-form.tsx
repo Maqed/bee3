@@ -77,6 +77,7 @@ function SellForm({
   const { toast } = useToast();
   const { data: session, isPending: isSessionPending } =
     authClient.useSession();
+  const [isSelectedALocation, setIsSelectedLocation] = useState(false);
 
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
     null,
@@ -197,7 +198,6 @@ function SellForm({
                 </Select>
                 <FormMessage />
               </FormItem>
-
               {selectedMainCategory && (
                 <FormField
                   control={form.control}
@@ -272,7 +272,6 @@ function SellForm({
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="title"
@@ -290,7 +289,6 @@ function SellForm({
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="description"
@@ -308,35 +306,98 @@ function SellForm({
                   </FormItem>
                 )}
               />
-
               <Separator />
-              <FormField
-                control={form.control}
-                name="cityId"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col gap-1">
-                    <FormLabel>{tSell("location.city.label")}</FormLabel>
-                    <FormControl>
-                      <LocationCombobox
-                        initialCity={form.getValues("cityId")}
-                        initialGovernorate={form.getValues("governorateId")}
-                        onLocationChange={(newGovernorate, newCity) => {
-                          form.setValue("governorateId", newGovernorate);
-                          form.setValue("cityId", newCity);
-                        }}
-                        showGovernorates={false}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {tSell("location.city.description")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
+              {/* LOCATIONS START */}
+              {!isSelectedALocation && (
+                <FormField
+                  control={form.control}
+                  name="cityId"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col gap-1">
+                      <FormLabel>{tSell("location.location.label")}</FormLabel>
+                      <FormControl>
+                        <LocationCombobox
+                          initialCity={form.getValues("cityId")}
+                          initialGovernorate={form.getValues("governorateId")}
+                          onLocationChange={(newGovernorate, newCity) => {
+                            form.setValue("governorateId", newGovernorate);
+                            form.setValue("cityId", newCity);
+                            console.log({ newGovernorate, newCity });
+                            setIsSelectedLocation(true);
+                          }}
+                          hasAll={false}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {tSell("location.location.description")}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+              {isSelectedALocation && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="governorateId"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col gap-1">
+                        <FormLabel>
+                          {tSell("location.governorate.label")}
+                        </FormLabel>
+                        <FormControl>
+                          <LocationCombobox
+                            initialGovernorate={form.getValues("governorateId")}
+                            onLocationChange={(newGovernorate, newCity) => {
+                              form.setValue("governorateId", newGovernorate);
+                              form.setValue("cityId", newCity);
+                              setIsSelectedLocation(true);
+                            }}
+                            hasAll={false}
+                            showAllGovernorates={true}
+                            showAllCities={false}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {tSell("location.governorate.description")}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="cityId"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col gap-1">
+                        <FormLabel>{tSell("location.city.label")}</FormLabel>
+                        <FormControl>
+                          <LocationCombobox
+                            initialCity={form.getValues("cityId")}
+                            initialGovernorate={form.getValues("governorateId")}
+                            onLocationChange={(newGovernorate, newCity) => {
+                              form.setValue("governorateId", newGovernorate);
+                              form.setValue("cityId", newCity);
+                              setIsSelectedLocation(true);
+                            }}
+                            showAllGovernorates={false}
+                            showCitiesOfGovernorate={form.getValues(
+                              "governorateId",
+                            )}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {tSell("location.city.description")}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
+              {/* LOCATIONS END */}
               <Separator />
-
               <div className="flex h-full flex-wrap items-stretch gap-2">
                 <FormField
                   control={form.control}
@@ -402,7 +463,6 @@ function SellForm({
                 </FormControl>
                 <FormMessage />
               </FormItem>
-
               <Button type="submit" disabled={isPending || isSessionPending}>
                 {isPending ? (
                   <>
