@@ -39,6 +39,7 @@ import type { z } from "zod";
 import { uploadToR2 } from "@/lib/s3";
 import LocationCombobox from "@/components/bee3/location-combobox";
 import { Checkbox } from "@/components/ui/checkbox";
+import PrefixLabelledInput from "@/components/ui/prefix-labelled-input";
 
 type SellFormProps = {
   startTransition: TransitionStartFunction;
@@ -336,15 +337,20 @@ function SellForm({
                 <FormItem className="flex-1">
                   <FormLabel>{tSell("price.label")}</FormLabel>
                   <FormControl>
-                    <NumberInput
-                      value={field.value}
+                    <PrefixLabelledInput
                       prefix={locale === "ar" ? "ج.م " : "EGP "}
-                      placeholder={tSell("price.placeholder")}
-                      thousandSeparator=","
-                      onValueChange={(value) => {
-                        field.onChange(value);
-                      }}
-                      disabled={isPending}
+                      input={
+                        <NumberInput
+                          value={field.value}
+                          placeholder={tSell("price.placeholder")}
+                          className="peer ps-11"
+                          thousandSeparator=","
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                          }}
+                          disabled={isPending}
+                        />
+                      }
                     />
                   </FormControl>
                   <FormMessage />
