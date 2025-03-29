@@ -24,9 +24,10 @@ import { cities } from "@/schema/cities";
 type LocationComboboxProps = {
   initialGovernorate: number;
   initialCity: number;
-  showGovernorates?: boolean;
+  showAllGovernorates?: boolean;
   hasAll?: boolean;
-  showCities?: boolean;
+  showAllCities?: boolean;
+  showCitiesOfGovernorate?: number | null;
   onLocationChange: (governorate: number, city: number) => void;
   className?: string;
 };
@@ -35,9 +36,11 @@ const LocationCombobox = ({
   initialGovernorate,
   initialCity,
   hasAll = true,
-  showGovernorates = true,
-  showCities = true,
+  showAllGovernorates = true,
+  showAllCities = true,
+  showCitiesOfGovernorate = null,
   onLocationChange,
+  className,
 }: LocationComboboxProps) => {
   const locale = useLocale();
   const t = useTranslations("location-combobox");
@@ -47,36 +50,57 @@ const LocationCombobox = ({
   const [governorate, setGovernorate] = useState<number>(initialGovernorate);
   const [city, setCity] = useState<number>(initialCity);
   const locations: Location[] = useMemo(() => {
-    let locations = [];
-    if (hasAll)
-      locations.push({
+    const result: Location[] = [];
+
+    if (hasAll) {
+      result.push({
         id: 0,
         type: "governorate" as LocationType,
         nameAr: "الكل",
         nameEn: "All",
       });
-    if (showGovernorates)
-      locations = [
-        ...locations,
-        ...governorates.map((gov) => ({
+    }
+
+    if (showAllGovernorates) {
+      governorates.forEach((gov) => {
+        result.push({
           id: gov.id,
           type: "governorate" as LocationType,
           nameAr: gov.governorate_name_ar,
           nameEn: gov.governorate_name_en,
-        })),
-      ];
-    if (showCities)
-      locations = [
-        ...locations,
-        ...cities.map((city) => ({
+        });
+      });
+    }
+
+    if (showCitiesOfGovernorate) {
+      const filteredCities = cities.filter(
+        (city) => city.governorate_id === showCitiesOfGovernorate,
+      );
+
+      filteredCities.forEach((city) => {
+        result.push({
           id: city.id,
           type: "city" as LocationType,
           nameAr: city.city_name_ar,
           nameEn: city.city_name_en,
-        })),
-      ];
-    return locations;
-  }, [showGovernorates, showCities]);
+          governorate: city.governorate_id,
+        });
+      });
+    } else if (showAllCities) {
+      cities.forEach((city) => {
+        result.push({
+          id: city.id,
+          type: "city" as LocationType,
+          nameAr: city.city_name_ar,
+          nameEn: city.city_name_en,
+          governorate: city.governorate_id,
+        });
+      });
+    }
+
+    return result;
+  }, [showAllGovernorates, showAllCities, showCitiesOfGovernorate, hasAll]);
+
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -154,7 +178,7 @@ const LocationCombobox = ({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="justify-between"
+          className={cn("justify-between", className)}
           id="location"
         >
           {getSelectedLocationName()}
@@ -170,7 +194,7 @@ const LocationCombobox = ({
           <CommandInput placeholder={t("search")} />
           <CommandList>
             <CommandEmpty>{t("notFound")}</CommandEmpty>
-            {showGovernorates && (
+            {showAllGovernorates && (
               <CommandGroup heading={t("governorates")}>
                 {locations
                   .filter((loc) => loc.type === "governorate")
@@ -193,7 +217,7 @@ const LocationCombobox = ({
                   ))}
               </CommandGroup>
             )}
-            {showCities && (
+            {(showAllCities || showCitiesOfGovernorate) && (
               <CommandGroup heading={t("cities")}>
                 {locations
                   .filter((loc) => loc.type === "city")
