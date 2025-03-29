@@ -39,6 +39,7 @@ import type { z } from "zod";
 import { uploadToR2 } from "@/lib/s3";
 import LocationCombobox from "@/components/bee3/location-combobox";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Card, CardTitle, CardContent, CardHeader } from "@/components/ui/card";
 import PrefixLabelledInput from "@/components/ui/prefix-labelled-input";
 
 type SellFormProps = {
@@ -154,259 +155,267 @@ function SellForm({
     }
   };
   return (
-    <main className="container mt-4 sm:mx-auto md:max-w-4xl">
-      <h1 className="mb-4 text-2xl font-bold">{tSell("title")}</h1>
-      <Form {...form}>
-        <form
-          onKeyDown={handleKeyDown}
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8"
-        >
-          <FormItem>
-            <FormLabel>{tSell("category.main.label")}</FormLabel>
-            <Select
-              onValueChange={(value) => {
-                setSelectedMainCategory(value);
-                form.setValue("categoryId", 0);
-              }}
-              disabled={isPending}
+    <main className="container my-4 sm:mx-auto md:max-w-4xl">
+      <Card>
+        <CardHeader>
+          <CardTitle>{tSell("title")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form
+              onKeyDown={handleKeyDown}
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-8"
             >
-              <FormControl>
-                <SelectTrigger autoFocus>
-                  <SelectValue
-                    placeholder={tSell("category.main.placeholder")}
-                  />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                {mainCategories.map((category) => {
-                  const categoryName = getCategoryName(locale, category);
-                  return (
-                    <SelectItem key={categoryName} value={category.name_en}>
-                      {categoryName}
-                    </SelectItem>
-                  );
-                })}
-              </SelectContent>
-            </Select>
-            <FormMessage />
-          </FormItem>
-
-          {selectedMainCategory && (
-            <FormField
-              control={form.control}
-              name="categoryId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{tSell("category.sub.label")}</FormLabel>
-                  <Select
-                    onValueChange={(value) => {
-                      // Did this approach because the value is the ID, not the name. So I get the name of the subCategory by ID
-                      const selected = subCategories.find(
-                        (subCategory) => subCategory.id === Number(value),
+              <FormItem>
+                <FormLabel>{tSell("category.main.label")}</FormLabel>
+                <Select
+                  onValueChange={(value) => {
+                    setSelectedMainCategory(value);
+                    form.setValue("categoryId", 0);
+                  }}
+                  disabled={isPending}
+                >
+                  <FormControl>
+                    <SelectTrigger autoFocus>
+                      <SelectValue
+                        placeholder={tSell("category.main.placeholder")}
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {mainCategories.map((category) => {
+                      const categoryName = getCategoryName(locale, category);
+                      return (
+                        <SelectItem key={categoryName} value={category.name_en}>
+                          {categoryName}
+                        </SelectItem>
                       );
-                      const subCategoryName = selected
-                        ? getCategoryName(locale, selected)
-                        : null;
-                      setSelectedSubCategory(subCategoryName);
-                      field.onChange(Number(value));
-                    }}
-                    disabled={isPending}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          placeholder={tSell("category.sub.placeholder")}
-                        >
-                          {selectedSubCategory}
-                        </SelectValue>
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {subCategories.map((subCategory) => {
-                        const subCategoryName = getCategoryName(
-                          locale,
-                          subCategory,
-                        );
-                        return (
-                          <SelectItem
-                            key={subCategoryName}
-                            value={subCategory.id}
-                          >
-                            {subCategoryName}
-                          </SelectItem>
-                        );
-                      })}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          )}
-          <Separator />
-          <FormField
-            control={form.control}
-            name="images"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{tSell("images.label")}</FormLabel>
-                <FormControl>
-                  <UploadAdImageButton
-                    disabled={isPending}
-                    images={form.getValues("images")}
-                    onImagesChange={onImagesChange}
-                  />
-                </FormControl>
-
-                <FormDescription>{tSell("images.description")}</FormDescription>
+                    })}
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
-            )}
-          />
 
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{tSell("ad-title.label")}</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder={tSell("ad-title.placeholder")}
-                    {...field}
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{tSell("description.label")}</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder={tSell("description.placeholder")}
-                    {...field}
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Separator />
-          <FormField
-            control={form.control}
-            name="cityId"
-            render={({ field }) => (
-              <FormItem className="flex flex-col gap-1">
-                <FormLabel>{tSell("location.city.label")}</FormLabel>
-                <FormControl>
-                  <LocationCombobox
-                    initialCity={form.getValues("cityId")}
-                    initialGovernorate={form.getValues("governorateId")}
-                    onLocationChange={(newGovernorate, newCity) => {
-                      form.setValue("governorateId", newGovernorate);
-                      form.setValue("cityId", newCity);
-                    }}
-                    showGovernorates={false}
-                  />
-                </FormControl>
-                <FormDescription>
-                  {tSell("location.city.description")}
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Separator />
-
-          <div className="flex h-full flex-wrap items-stretch gap-2">
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem className="flex-1">
-                  <FormLabel>{tSell("price.label")}</FormLabel>
-                  <FormControl>
-                    <PrefixLabelledInput
-                      prefix={locale === "ar" ? "ج.م " : "EGP "}
-                      input={
-                        <NumberInput
-                          value={field.value}
-                          placeholder={tSell("price.placeholder")}
-                          className="peer ps-11"
-                          thousandSeparator=","
-                          onValueChange={(value) => {
-                            field.onChange(value);
-                          }}
-                          disabled={isPending}
-                        />
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="negotiable"
-              render={({ field }) => (
-                <FormItem className="mt-8 flex items-center justify-center gap-1 self-center">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormLabel className="text-sm font-normal">
-                    {tSell("negotiable")}
-                  </FormLabel>
-                </FormItem>
-              )}
-            />
-          </div>
-          <Separator />
-          <FormItem className="flex flex-col gap-3">
-            <FormLabel className="text-base">
-              {tSell("user-phone-button.label")}
-            </FormLabel>
-            <FormControl>
-              {isSessionPending ? (
-                <Skeleton className="h-10 w-full" />
-              ) : (
-                <UserPhoneButton
-                  id="phoneNumber"
-                  value={session?.user.phoneNumber?.slice(3)}
+              {selectedMainCategory && (
+                <FormField
+                  control={form.control}
+                  name="categoryId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{tSell("category.sub.label")}</FormLabel>
+                      <Select
+                        onValueChange={(value) => {
+                          // Did this approach because the value is the ID, not the name. So I get the name of the subCategory by ID
+                          const selected = subCategories.find(
+                            (subCategory) => subCategory.id === Number(value),
+                          );
+                          const subCategoryName = selected
+                            ? getCategoryName(locale, selected)
+                            : null;
+                          setSelectedSubCategory(subCategoryName);
+                          field.onChange(Number(value));
+                        }}
+                        disabled={isPending}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue
+                              placeholder={tSell("category.sub.placeholder")}
+                            >
+                              {selectedSubCategory}
+                            </SelectValue>
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {subCategories.map((subCategory) => {
+                            const subCategoryName = getCategoryName(
+                              locale,
+                              subCategory,
+                            );
+                            return (
+                              <SelectItem
+                                key={subCategoryName}
+                                value={subCategory.id}
+                              >
+                                {subCategoryName}
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               )}
-            </FormControl>
-            <FormMessage />
-          </FormItem>
+              <Separator />
+              <FormField
+                control={form.control}
+                name="images"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{tSell("images.label")}</FormLabel>
+                    <FormControl>
+                      <UploadAdImageButton
+                        disabled={isPending}
+                        images={form.getValues("images")}
+                        onImagesChange={onImagesChange}
+                      />
+                    </FormControl>
 
-          <Button type="submit" disabled={isPending || isSessionPending}>
-            {isPending ? (
-              <>
-                <Spinner className="me-1" />
-                {tSell("loading")}
-              </>
-            ) : (
-              tSell("submit")
-            )}
-          </Button>
-        </form>
-      </Form>
+                    <FormDescription>
+                      {tSell("images.description")}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{tSell("ad-title.label")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={tSell("ad-title.placeholder")}
+                        {...field}
+                        disabled={isPending}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{tSell("description.label")}</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder={tSell("description.placeholder")}
+                        {...field}
+                        disabled={isPending}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <Separator />
+              <FormField
+                control={form.control}
+                name="cityId"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col gap-1">
+                    <FormLabel>{tSell("location.city.label")}</FormLabel>
+                    <FormControl>
+                      <LocationCombobox
+                        initialCity={form.getValues("cityId")}
+                        initialGovernorate={form.getValues("governorateId")}
+                        onLocationChange={(newGovernorate, newCity) => {
+                          form.setValue("governorateId", newGovernorate);
+                          form.setValue("cityId", newCity);
+                        }}
+                        showGovernorates={false}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {tSell("location.city.description")}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <Separator />
+
+              <div className="flex h-full flex-wrap items-stretch gap-2">
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>{tSell("price.label")}</FormLabel>
+                      <FormControl>
+                        <PrefixLabelledInput
+                          prefix={locale === "ar" ? "ج.م " : "EGP "}
+                          input={
+                            <NumberInput
+                              value={field.value}
+                              placeholder={tSell("price.placeholder")}
+                              className="peer ps-11"
+                              thousandSeparator=","
+                              onValueChange={(value) => {
+                                field.onChange(value);
+                              }}
+                              disabled={isPending}
+                            />
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="negotiable"
+                  render={({ field }) => (
+                    <FormItem className="mt-8 flex items-center justify-center gap-1 self-center">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormLabel className="text-sm font-normal">
+                        {tSell("negotiable")}
+                      </FormLabel>
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <Separator />
+              <FormItem className="flex flex-col gap-3">
+                <FormLabel className="text-base">
+                  {tSell("user-phone-button.label")}
+                </FormLabel>
+                <FormControl>
+                  {isSessionPending ? (
+                    <Skeleton className="h-10 w-full" />
+                  ) : (
+                    <UserPhoneButton
+                      id="phoneNumber"
+                      value={session?.user.phoneNumber?.slice(3)}
+                    />
+                  )}
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+
+              <Button type="submit" disabled={isPending || isSessionPending}>
+                {isPending ? (
+                  <>
+                    <Spinner className="me-1" />
+                    {tSell("loading")}
+                  </>
+                ) : (
+                  tSell("submit")
+                )}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
     </main>
   );
 }
