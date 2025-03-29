@@ -21,7 +21,7 @@ function SellPage() {
     defaultValues: {
       title: "",
       description: "",
-      price: 0,
+      price: null,
       categoryId: 0,
       images: [],
       governorateId: 0,
