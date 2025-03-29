@@ -123,6 +123,7 @@ function SellForm({
           });
           form.reset();
           router.push(`/ad/${result.result.id}`);
+          router.refresh();
         } else {
           toast({
             title: tErrors(`submit.${result.error}.title`),
