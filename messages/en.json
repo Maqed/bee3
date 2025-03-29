@@ -376,6 +376,7 @@
     }
   },
   "errors": {
+    "Required": "This input is required",
     "social": {
       "account_not_linked": {
         "title": "This account is already signed up.",

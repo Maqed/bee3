@@ -393,6 +393,7 @@
     }
   },
   "errors": {
+    "Required": "هذا المدخل مطلوب",
     "social": {
       "account_not_linked": {
         "title": "هذا الحساب مسجل بالفعل.",
