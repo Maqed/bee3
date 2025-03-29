@@ -323,6 +323,14 @@
       "description": "Provide a detailed description of your item"
     },
     "location": {
+      "location": {
+        "label": "Location",
+        "description": "Choose your location"
+      },
+      "governorate": {
+        "label": "Governorate",
+        "description": "Choose your governorate"
+      },
       "city": {
         "label": "City",
         "description": "Choose your city"

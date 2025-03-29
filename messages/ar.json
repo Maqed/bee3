@@ -340,6 +340,14 @@
       "description": "قدم وصفًا مفصلاً لمنتجك"
     },
     "location": {
+      "location": {
+        "label": "الموقع",
+        "description": "اختر موقعك"
+      },
+      "governorate": {
+        "label": "المحافظة",
+        "description": "اختر محافظتك"
+      },
       "city": {
         "label": "المدينة",
         "description": "اختر مدينتك"
