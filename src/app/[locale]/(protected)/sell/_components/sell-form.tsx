@@ -24,12 +24,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { UploadAdImageButton } from "@/components/bee3/ad-image-button";
 import Spinner from "@/components/ui/spinner";
 import { Separator } from "@/components/ui/separator";
-import { CheckIcon } from "lucide-react";
 import { getCategoryName } from "@/lib/utils";
 import { NumberInput } from "@/components/ui/number-input";
 import { authClient } from "@/lib/auth-client";
