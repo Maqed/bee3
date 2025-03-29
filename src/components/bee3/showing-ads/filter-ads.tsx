@@ -26,14 +26,14 @@ function FilterAds({ onApplyFilter }: Props) {
 
   // Get initial values from search params
   const priceRange = searchParams.get("price")?.split("-");
-  const initialMin = priceRange ? Number(priceRange[0]) : 0;
-  const initialMax = priceRange ? Number(priceRange[1]) : 9999999999;
+  const initialMin = priceRange ? Number(priceRange[0]) : undefined;
+  const initialMax = priceRange ? Number(priceRange[1]) : undefined;
   const initialGovId = Number(searchParams.get("governorate") || "0");
   const initialCityId = Number(searchParams.get("city") || "0");
 
   // State for price filter
-  const [minPrice, setMinPrice] = useState<number>(initialMin);
-  const [maxPrice, setMaxPrice] = useState<number>(initialMax);
+  const [minPrice, setMinPrice] = useState<number | undefined>(initialMin);
+  const [maxPrice, setMaxPrice] = useState<number | undefined>(initialMax);
 
   // State for sorting
   const [sort, setSort] = useState(searchParams.get("sort") ?? "date");
@@ -49,9 +49,6 @@ function FilterAds({ onApplyFilter }: Props) {
     if (priceRange) {
       setMinPrice(Number(priceRange[0]));
       setMaxPrice(Number(priceRange[1]));
-    } else {
-      setMinPrice(0);
-      setMaxPrice(9999999999);
     }
 
     const govId = searchParams.get("governorate");
@@ -70,9 +67,10 @@ function FilterAds({ onApplyFilter }: Props) {
     const queryParams = new URLSearchParams({
       sort,
       order,
-      price: `${minPrice}-${maxPrice}`,
     });
-
+    if (minPrice != undefined || maxPrice != undefined) {
+      queryParams.set("price", `${minPrice ?? 0}-${maxPrice ?? 1000000000}`);
+    }
     if (governorate > 0) {
       queryParams.set("governorate", governorate.toString());
     }
@@ -117,7 +115,7 @@ function FilterAds({ onApplyFilter }: Props) {
             thousandSeparator=","
             value={minPrice}
             onValueChange={(value) => {
-              setMinPrice(value ? value : 0);
+              setMinPrice(value ? value : undefined);
             }}
             placeholder={t("minPriceLabel")}
           />
@@ -131,7 +129,7 @@ function FilterAds({ onApplyFilter }: Props) {
             thousandSeparator=","
             value={maxPrice}
             onValueChange={(value) => {
-              setMaxPrice(value ? value : 0);
+              setMaxPrice(value ? value : undefined);
             }}
             placeholder={t("maxPriceLabel")}
           />
