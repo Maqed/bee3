@@ -22,8 +22,8 @@ import type { Location, LocationType } from "@/types/locations";
 import { cities } from "@/schema/cities";
 
 type LocationComboboxProps = {
-  initialGovernorate: number;
-  initialCity: number;
+  initialGovernorate?: number;
+  initialCity?: number;
   showAllGovernorates?: boolean;
   hasAll?: boolean;
   showAllCities?: boolean;
@@ -33,8 +33,8 @@ type LocationComboboxProps = {
 };
 
 const LocationCombobox = ({
-  initialGovernorate,
-  initialCity,
+  initialGovernorate = 0,
+  initialCity = 0,
   hasAll = true,
   showAllGovernorates = true,
   showAllCities = true,
