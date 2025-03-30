@@ -124,32 +124,30 @@ export function AsyncSearch<T>({
 
   return (
     <Command className="w-[300px] md:w-[450px]" shouldFilter={false}>
-      <div className="relative w-full border-b">
-        <CommandInput
-          ref={searchInputRef}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && searchTerm.length) onSubmit();
-          }}
-          placeholder={placeholder}
-          disabled={disabled}
-          value={searchTerm}
-          onFocus={() => setIsResultVisible(true)}
-          onValueChange={(value) => {
-            if (value.length > 0) {
-              setIsResultVisible(true);
-            } else {
-              setIsResultVisible(false);
-              setOptions([]);
-            }
-            setSearchTerm(value);
-          }}
-        />
-        {loading && (
-          <div className="absolute end-2 top-1/2 flex -translate-y-1/2 transform items-center">
-            <Loader2 className="h-4 w-4 animate-spin" />
-          </div>
-        )}
-      </div>
+      <CommandInput
+        ref={searchInputRef}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && searchTerm.length) onSubmit();
+        }}
+        placeholder={placeholder}
+        disabled={disabled}
+        value={searchTerm}
+        onFocus={() => setIsResultVisible(true)}
+        onValueChange={(value) => {
+          if (value.length > 0) {
+            setIsResultVisible(true);
+          } else {
+            setIsResultVisible(false);
+            setOptions([]);
+          }
+          setSearchTerm(value);
+        }}
+      />
+      {loading && (
+        <div className="absolute end-2 top-1/2 flex -translate-y-1/2 transform items-center">
+          <Loader2 className="h-4 w-4 animate-spin" />
+        </div>
+      )}
       <CommandList
         ref={resultRef}
         className={cn(
