@@ -38,7 +38,7 @@ async function ExploreCategories() {
               <CarouselItem key={categoryName}>
                 <Dialog>
                   <DialogTrigger className="flex flex-col items-center justify-center">
-                    <Avatar className="rounded-md bg-primary/40">{icon}</Avatar>
+                    <Avatar className="rounded-md bg-primary/60">{icon}</Avatar>
                     <p className="text-sm">{categoryName}</p>
                   </DialogTrigger>
                   <DialogContent>
