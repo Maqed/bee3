@@ -7,9 +7,9 @@ export function Logo() {
   return (
     <div
       dir="ltr"
-      className="flex flex-row items-center justify-center gap-1 text-lg font-bold text-primary"
+      className="flex flex-row items-center justify-center gap-2 text-lg font-bold text-primary"
     >
-      <Image src="/bee3-logo.png" alt="logo" width={30} height={25} />{" "}
+      <Image src="/bee3-logo.svg" alt="logo" width={40} height={40} />{" "}
       <span>Bee3</span>
     </div>
   );
