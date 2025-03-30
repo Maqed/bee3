@@ -6,7 +6,6 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Command,
@@ -143,11 +142,6 @@ export function AsyncSearch<T>({
           setSearchTerm(value);
         }}
       />
-      {loading && (
-        <div className="absolute end-2 top-1/2 flex -translate-y-1/2 transform items-center">
-          <Loader2 className="h-4 w-4 animate-spin" />
-        </div>
-      )}
       <CommandList
         ref={resultRef}
         className={cn(
