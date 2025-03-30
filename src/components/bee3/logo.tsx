@@ -1,9 +1,6 @@
-"use client";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 export function Logo() {
-  const t = useTranslations();
   return (
     <div
       dir="ltr"
