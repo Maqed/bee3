@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/command";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Skeleton } from "./skeleton";
+import { Search } from "lucide-react";
 
 export interface AsyncSearchProps<T> {
   /** Async function to fetch options */
@@ -148,7 +149,7 @@ export function AsyncSearch<T>({
       <CommandList
         ref={resultRef}
         className={cn(
-          "fixed top-16 w-[250px] bg-background shadow-xl md:w-[300px] lg:w-[450px]",
+          "fixed top-16 max-h-full w-[250px] bg-background shadow-xl md:w-[300px] lg:w-[450px]",
           isResultVisible ? "block" : "hidden",
         )}
       >
@@ -172,7 +173,9 @@ export function AsyncSearch<T>({
                 onSearch(option);
                 setIsResultVisible(false);
               }}
+              className="h-11 px-2 py-3"
             >
+              <Search className="me-2 size-4 shrink-0 opacity-50" />
               {renderOption(option)}
             </CommandItem>
           ))}
@@ -185,9 +188,9 @@ export function AsyncSearch<T>({
 function DefaultLoadingSkeleton() {
   return (
     <CommandGroup>
-      {[...Array(6)].map((_, index) => (
+      {[...Array(8)].map((_, index) => (
         <CommandItem key={`async-search-default-loading-skeleton-${index}`}>
-          <Skeleton className="h-8 w-full" />
+          <Skeleton className="h-11 w-full px-2 py-3" />
         </CommandItem>
       ))}
     </CommandGroup>
