@@ -11,14 +11,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Avatar } from "@/components/ui/avatar";
 import { Session, User } from "better-auth";
 import SignOutMenuItem from "./sign-out-menu-item";
+import { ReactNode } from "react";
+import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
 
 function NavbarAuth({
   session,
+  dropdownMenuContentProps,
+  trigger,
 }: {
   session: { session: Session; user: User } | null;
+  dropdownMenuContentProps?: DropdownMenuContentProps;
+  trigger: ReactNode;
 }) {
   const t = useTranslations("Navbar");
   if (!session)
@@ -29,10 +34,8 @@ function NavbarAuth({
     );
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-        <Avatar>{session.user.name[0]}</Avatar>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-0">
+      {trigger}
+      <DropdownMenuContent {...dropdownMenuContentProps} className="p-0">
         <DropdownMenuLabel>
           <h5 className="text-lg">{t("Greeting")} 👋</h5>
           <h4 className="text-xl text-primary">{session.user.name}</h4>
