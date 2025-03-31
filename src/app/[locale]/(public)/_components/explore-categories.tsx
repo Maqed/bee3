@@ -1,4 +1,4 @@
-import { categoryIcons } from "@/consts/category-icons";
+import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import { Avatar } from "@/components/ui/avatar";
 import { getLocale, getTranslations } from "next-intl/server";
 import { categoriesTree } from "@/schema/categories-tree";
@@ -32,13 +32,17 @@ async function ExploreCategories() {
         <CarouselContent>
           {categoriesTree.map((category) => {
             const categoryNamePathFormat = toPathFormat(category.name_en);
-            const icon = categoryIcons[categoryNamePathFormat];
+            const Icon = categoryIcons[
+              categoryNamePathFormat
+            ] as CategoryIconType;
             const categoryName = getCategoryName(locale, category);
             return (
               <CarouselItem key={categoryName}>
                 <Dialog>
                   <DialogTrigger className="flex flex-col items-center justify-center">
-                    <Avatar className="rounded-md bg-primary/60">{icon}</Avatar>
+                    <Avatar className="rounded-md bg-primary/60">
+                      <Icon />
+                    </Avatar>
                     <p className="text-sm">{categoryName}</p>
                   </DialogTrigger>
                   <DialogContent>

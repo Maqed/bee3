@@ -1,10 +1,13 @@
-import { Tablet, Refrigerator, CarFront } from "lucide-react";
-import type { ReactNode } from "react";
+import { Tablet, Refrigerator, CarFront, LucideProps } from "lucide-react";
+import type { ForwardRefExoticComponent, RefAttributes } from "react";
 
-type categoryIconsType = Record<string, ReactNode>;
+export type CategoryIconType = ForwardRefExoticComponent<
+  Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+>;
+type CategoryIconsType = Record<string, CategoryIconType>;
 
-export const categoryIcons: categoryIconsType = {
-  "mobiles-and-tablets": <Tablet />,
-  electronics: <Refrigerator />,
-  vehicles: <CarFront />,
+export const categoryIcons: CategoryIconsType = {
+  "mobiles-and-tablets": Tablet,
+  electronics: Refrigerator,
+  vehicles: CarFront,
 };
