@@ -10,6 +10,7 @@ import {
 } from "@/lib/utils";
 import type { AdWithUser } from "@/types/ad-page-types";
 import AdPageUI from "@/components/bee3/ad-page/ad-page-ui";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 async function fetchAdData(adId: string): Promise<AdWithUser | null> {
@@ -22,7 +23,7 @@ export async function generateMetadata({
   params,
 }: {
   params: { locale: string; adId: string };
-}) {
+}): Promise<Metadata> {
   const ad = await fetchAdData(params.adId);
 
   if (!ad) {
@@ -38,9 +39,23 @@ export async function generateMetadata({
 
   const localizedPrice = getLocalizedPrice(params.locale, ad.price);
 
+  const title = `${ad.title} - ${localizedCategory} - ${localizedPrice}`;
+  const description = ad.description;
+  const images = ad.images;
+
   return {
-    title: `${ad.title} - ${localizedCategory} - ${localizedPrice}`,
-    description: ad.description,
+    title,
+    description,
+    openGraph: {
+      title,
+      description: description ?? undefined,
+      images,
+    },
+    twitter: {
+      title,
+      description: description ?? undefined,
+      images,
+    },
   };
 }
 
