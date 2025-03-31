@@ -32,15 +32,15 @@ async function ExploreCategories() {
         <CarouselContent>
           {categoriesTree.map((category) => {
             const categoryNamePathFormat = toPathFormat(category.name_en);
-            const Icon = categoryIcons[categoryNamePathFormat]
-              ?.icon as CategoryIconType;
+            const categoryIconData = categoryIcons[categoryNamePathFormat];
+            const CategoryIcon = categoryIconData?.icon as CategoryIconType;
             const categoryName = getCategoryName(locale, category);
             return (
               <CarouselItem key={categoryName}>
                 <Dialog>
                   <DialogTrigger className="flex flex-col items-center justify-center">
                     <Avatar className="rounded-md bg-primary/60">
-                      <Icon />
+                      <CategoryIcon />
                     </Avatar>
                     <p className="text-sm">{categoryName}</p>
                   </DialogTrigger>
@@ -65,24 +65,35 @@ async function ExploreCategories() {
                       <div className="flex w-full items-center justify-center">
                         <Separator className="my-1 w-1/2" />
                       </div>
-                      {category.categories?.map((subCategory) => {
-                        const subCategoryNamePathFormat = toPathFormat(
-                          subCategory.name_en,
-                        );
-                        const subCategoryName = getCategoryName(
-                          locale,
-                          subCategory,
-                        );
-                        return (
-                          <Link
-                            key={`explore-subcategory-${subCategoryNamePathFormat}`}
-                            href={`/${categoryNamePathFormat}/${subCategoryNamePathFormat}`}
-                            className="text-primary hover:underline"
-                          >
-                            {subCategoryName}
-                          </Link>
-                        );
-                      })}
+                      <div className="flex gap-5">
+                        {category.categories?.map((subCategory) => {
+                          const subCategoryNamePathFormat = toPathFormat(
+                            subCategory.name_en,
+                          );
+                          const SubCategoryIcon = categoryIconData
+                            ?.subCategories[
+                            subCategoryNamePathFormat
+                          ] as CategoryIconType;
+                          const subCategoryName = getCategoryName(
+                            locale,
+                            subCategory,
+                          );
+                          return (
+                            <Link
+                              key={`explore-subcategory-${subCategoryNamePathFormat}`}
+                              href={`/${categoryNamePathFormat}/${subCategoryNamePathFormat}`}
+                              className="group flex flex-col items-center justify-center"
+                            >
+                              <Avatar className="rounded-md bg-primary/60">
+                                <SubCategoryIcon />
+                              </Avatar>
+                              <p className="text-sm text-primary group-hover:underline">
+                                {subCategoryName}
+                              </p>
+                            </Link>
+                          );
+                        })}
+                      </div>
                     </div>
                   </DialogContent>
                 </Dialog>
