@@ -80,6 +80,7 @@ export default async function Navbar() {
                     side: locale == "en" ? "left" : "right",
                     sideOffset: 6,
                   }}
+                  loginButtonProps={{ className: "w-full" }}
                   session={session}
                 />
               </div>
