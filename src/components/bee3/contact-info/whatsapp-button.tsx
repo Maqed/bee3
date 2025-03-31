@@ -20,6 +20,7 @@ function WhatsAppButton({
       href={`https://api.whatsapp.com/send?phone=${phoneNumber.startsWith("+") ? phoneNumber.substring(1) : phoneNumber}`}
       target="_blank"
       className={cn({ "w-full": showTitle })}
+      tabIndex={-1}
     >
       <ContactButton
         variant="whatsapp"
