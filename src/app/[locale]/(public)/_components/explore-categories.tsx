@@ -87,7 +87,7 @@ async function ExploreCategories() {
                               <Avatar className="rounded-md bg-primary/60">
                                 <SubCategoryIcon />
                               </Avatar>
-                              <p className="text-sm text-primary group-hover:underline">
+                              <p className="text-sm text-primary group-hover:underline group-focus:underline">
                                 {subCategoryName}
                               </p>
                             </Link>
