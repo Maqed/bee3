@@ -32,9 +32,8 @@ async function ExploreCategories() {
         <CarouselContent>
           {categoriesTree.map((category) => {
             const categoryNamePathFormat = toPathFormat(category.name_en);
-            const Icon = categoryIcons[
-              categoryNamePathFormat
-            ] as CategoryIconType;
+            const Icon = categoryIcons[categoryNamePathFormat]
+              ?.icon as CategoryIconType;
             const categoryName = getCategoryName(locale, category);
             return (
               <CarouselItem key={categoryName}>
