@@ -174,39 +174,37 @@ function SellForm({
             >
               <FormItem className="space-y-3">
                 <FormLabel>{tSell("category.main.label")}</FormLabel>
-                <FormControl>
-                  <RadioGroup
-                    onValueChange={(value) => {
-                      setSelectedMainCategory(value);
-                      setSelectedSubCategory(null);
-                      form.setValue("categoryId", 0);
-                    }}
-                    className="flex gap-3"
-                  >
-                    {mainCategories.map((category) => {
-                      const categoryName = getCategoryName(locale, category);
-                      const categoryNamePathFormat = toPathFormat(
-                        category.name_en,
-                      );
-                      const Icon = categoryIcons[categoryNamePathFormat]
-                        ?.icon as CategoryIconType;
-                      return (
-                        <FormItem
-                          key={categoryName}
-                          className="flex items-center space-x-3 space-y-0"
-                        >
-                          <FormControl>
-                            <CategoryRadioItem
-                              Icon={Icon}
-                              value={category.name_en}
-                              categoryName={categoryName}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      );
-                    })}
-                  </RadioGroup>
-                </FormControl>
+                <RadioGroup
+                  onValueChange={(value) => {
+                    setSelectedMainCategory(value);
+                    setSelectedSubCategory(null);
+                    form.setValue("categoryId", 0);
+                  }}
+                  className="flex gap-3"
+                >
+                  {mainCategories.map((category) => {
+                    const categoryName = getCategoryName(locale, category);
+                    const categoryNamePathFormat = toPathFormat(
+                      category.name_en,
+                    );
+                    const CategoryIcon = categoryIcons[categoryNamePathFormat]
+                      ?.icon as CategoryIconType;
+                    return (
+                      <FormItem
+                        key={categoryName}
+                        className="flex items-center space-x-3 space-y-0"
+                      >
+                        <FormControl>
+                          <CategoryRadioItem
+                            Icon={CategoryIcon}
+                            value={category.name_en}
+                            categoryName={categoryName}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    );
+                  })}
+                </RadioGroup>
                 <FormMessage />
               </FormItem>
               {selectedMainCategory && (
@@ -216,45 +214,46 @@ function SellForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{tSell("category.sub.label")}</FormLabel>
-                      <Select
-                        onValueChange={(value) => {
-                          // Did this approach because the value is the ID, not the name. So I get the name of the subCategory by ID
-                          const selected = subCategories.find(
-                            (subCategory) => subCategory.id === Number(value),
-                          );
-                          const subCategoryName = selected
-                            ? getCategoryName(locale, selected)
-                            : null;
-                          setSelectedSubCategory(subCategoryName);
-                          field.onChange(Number(value));
-                        }}
-                        disabled={isPending}
-                      >
+                      <Select>
                         <FormControl>
-                          <SelectTrigger>
-                            <SelectValue
-                              placeholder={tSell("category.sub.placeholder")}
-                            >
-                              {selectedSubCategory}
-                            </SelectValue>
-                          </SelectTrigger>
+                          <RadioGroup
+                            onValueChange={(value) => {
+                              field.onChange(Number(value));
+                            }}
+                            disabled={isPending}
+                            className="flex gap-3"
+                          >
+                            {subCategories.map((subCategory) => {
+                              const subCategoryName = getCategoryName(
+                                locale,
+                                subCategory,
+                              );
+                              const categoryNamePathFormat =
+                                toPathFormat(selectedMainCategory);
+                              const subCategoryNamePathFormat = toPathFormat(
+                                subCategory.name_en,
+                              );
+                              const SubCategoryIcon = categoryIcons[
+                                categoryNamePathFormat
+                              ]?.subCategories[
+                                subCategoryNamePathFormat
+                              ] as CategoryIconType;
+                              return (
+                                <FormItem
+                                  key={subCategoryName}
+                                  className="flex items-center space-x-3 space-y-0"
+                                >
+                                  <CategoryRadioItem
+                                    Icon={SubCategoryIcon}
+                                    // @ts-ignore
+                                    value={subCategory.id}
+                                    categoryName={subCategoryName}
+                                  />
+                                </FormItem>
+                              );
+                            })}
+                          </RadioGroup>
                         </FormControl>
-                        <SelectContent>
-                          {subCategories.map((subCategory) => {
-                            const subCategoryName = getCategoryName(
-                              locale,
-                              subCategory,
-                            );
-                            return (
-                              <SelectItem
-                                key={subCategoryName}
-                                value={subCategory.id}
-                              >
-                                {subCategoryName}
-                              </SelectItem>
-                            );
-                          })}
-                        </SelectContent>
                       </Select>
                       <FormMessage />
                     </FormItem>
