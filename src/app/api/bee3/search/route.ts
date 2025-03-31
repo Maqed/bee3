@@ -62,6 +62,15 @@ export async function GET(request: NextRequest) {
         .join(" & ")
     : undefined;
 
+  const queryWhereClause = {
+    categoryPath: paths.length > 0 ? { in: paths } : undefined,
+    title: searchQuery ? { search: searchQuery } : undefined,
+    price: price
+      ? { gte: +price.split("-")[0]!, lte: +price.split("-")[1]! }
+      : undefined,
+    governorate: govId ? { id: +govId } : undefined,
+    city: cityId ? { id: +cityId } : undefined,
+  };
   const adsPromise = db.ad.findMany({
     orderBy: [
       {
@@ -76,15 +85,7 @@ export async function GET(request: NextRequest) {
       { price: sort === "price" ? order : undefined },
       { createdAt: sort === "date" ? order : undefined },
     ],
-    where: {
-      categoryPath: paths.length > 0 ? { in: paths } : undefined,
-      title: searchQuery ? { search: searchQuery } : undefined,
-      price: price
-        ? { gte: +price.split("-")[0]!, lte: +price.split("-")[1]! }
-        : undefined,
-      governorate: govId ? { id: +govId } : undefined,
-      city: cityId ? { id: +cityId } : undefined,
-    },
+    where: queryWhereClause,
     include: {
       images: {
         select: {
@@ -96,7 +97,9 @@ export async function GET(request: NextRequest) {
     take: pageSize,
   });
 
-  const totalAdsPromise = db.ad.count();
+  const totalAdsPromise = db.ad.count({
+    where: queryWhereClause,
+  });
 
   const [ads, totalAds] = await Promise.all([adsPromise, totalAdsPromise]);
   const totalPages = Math.ceil(totalAds / pageSize);
