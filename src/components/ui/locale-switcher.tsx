@@ -4,8 +4,13 @@ import { useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useRouter, usePathname } from "@/navigation";
 import { useSearchParams } from "next/navigation";
+import { ButtonProps } from "@/components/ui/button";
 
-function LocaleSwitcher() {
+function LocaleSwitcher({
+  className,
+  variant = "ghost",
+  ...props
+}: ButtonProps) {
   const router = useRouter();
   const locale = useLocale();
   const pathname = usePathname();
@@ -20,8 +25,10 @@ function LocaleSwitcher() {
   }
   return (
     <Button
-      variant="ghost"
+      variant={variant}
+      className={className}
       onClick={() => onSelectChange(locale === "ar" ? "en" : "ar")}
+      {...props}
     >
       {locale === "ar" ? (
         <div dir="ltr" className="flex flex-row gap-2">
