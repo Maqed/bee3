@@ -300,12 +300,10 @@
 
     "category": {
       "main": {
-        "label": "ماذا تريد أن تبيع؟",
-        "placeholder": "اختر الفئة الرئيسية"
+        "label": "الفئة"
       },
       "sub": {
-        "label": "حدد ما تريد بيعه",
-        "placeholder": "اختر الفئة الفرعية"
+        "label": "الفئة الفرعية"
       },
       "options": {
         "vehicles-category": "العربيات",

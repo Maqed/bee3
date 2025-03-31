@@ -296,12 +296,10 @@
 
     "category": {
       "main": {
-        "label": "What do you want to sell?",
-        "placeholder": "Select main category"
+        "label": "Category"
       },
       "sub": {
-        "label": "Specify what you want to sell",
-        "placeholder": "Select subcategory"
+        "label": "Subcategory"
       }
     },
     "images": {
