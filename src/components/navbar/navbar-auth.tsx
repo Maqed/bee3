@@ -28,7 +28,7 @@ function NavbarAuth({
   const t = useTranslations("Navbar");
   if (!session)
     return (
-      <Button size="sm" asChild>
+      <Button size="lg" asChild>
         <Link href="/login">{t("Login")}</Link>
       </Button>
     );
