@@ -7,7 +7,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
@@ -15,20 +14,23 @@ import { Session, User } from "better-auth";
 import SignOutMenuItem from "./sign-out-menu-item";
 import { ReactNode } from "react";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
+import { ButtonProps } from "@/components/ui/button";
 
 function NavbarAuth({
   session,
   dropdownMenuContentProps,
+  loginButtonProps,
   trigger,
 }: {
   session: { session: Session; user: User } | null;
   dropdownMenuContentProps?: DropdownMenuContentProps;
+  loginButtonProps?: ButtonProps;
   trigger: ReactNode;
 }) {
   const t = useTranslations("Navbar");
   if (!session)
     return (
-      <Button size="lg" asChild>
+      <Button size="lg" {...loginButtonProps} asChild>
         <Link href="/login">{t("Login")}</Link>
       </Button>
     );
