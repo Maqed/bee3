@@ -122,7 +122,10 @@ export function AsyncSearch<T>({
   }, []);
 
   return (
-    <Command className="w-[300px] md:w-[450px]" shouldFilter={false}>
+    <Command
+      className="relative w-[250px] md:w-[300px] lg:w-[450px]"
+      shouldFilter={false}
+    >
       <CommandInput
         ref={searchInputRef}
         onKeyDown={(e) => {
@@ -145,7 +148,7 @@ export function AsyncSearch<T>({
       <CommandList
         ref={resultRef}
         className={cn(
-          "fixed top-28 w-[300px] bg-background shadow-xl md:w-[450px]",
+          "fixed top-16 w-[250px] bg-background shadow-xl md:w-[300px] lg:w-[450px]",
           isResultVisible ? "block" : "hidden",
         )}
       >
