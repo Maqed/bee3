@@ -18,16 +18,6 @@ async function fetchAdData(adId: string): Promise<AdWithUser | null> {
   return ad;
 }
 
-async function AdPageContent({ params }: { params: { adId: string } }) {
-  const ad = await fetchAdData(params.adId);
-
-  if (!ad) {
-    notFound();
-  }
-
-  return <AdPageUI ad={ad} />;
-}
-
 export async function generateMetadata({
   params,
 }: {
@@ -54,6 +44,12 @@ export async function generateMetadata({
   };
 }
 
-export default function AdPage({ params }: { params: { adId: string } }) {
-  return <AdPageContent params={params} />;
+export default async function AdPage({ params }: { params: { adId: string } }) {
+  const ad = await fetchAdData(params.adId);
+
+  if (!ad) {
+    notFound();
+  }
+
+  return <AdPageUI ad={ad} />;
 }
