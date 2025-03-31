@@ -29,7 +29,7 @@ const CategoryRadioItem = React.forwardRef<
             "flex flex-col items-center justify-center gap-2",
           )}
         >
-          <Avatar className="rounded-md bg-background text-foreground drop-shadow-md group-data-[state=checked]:bg-primary/70 group-data-[state=checked]:drop-shadow">
+          <Avatar className="rounded-md bg-accent text-foreground drop-shadow-md group-data-[state=checked]:bg-primary/70 group-data-[state=checked]:drop-shadow">
             <Icon />
           </Avatar>
           {categoryName}
