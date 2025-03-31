@@ -23,6 +23,7 @@ export async function GET(request: NextRequest) {
           select: {
             url: true,
           },
+          take: 1,
         },
       },
       take: NUMBER_OF_ADS_IN_CAROUSEL,

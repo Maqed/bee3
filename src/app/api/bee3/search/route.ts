@@ -91,6 +91,7 @@ export async function GET(request: NextRequest) {
         select: {
           url: true,
         },
+        take: 1,
       },
     },
     skip: (pageNum - 1) * pageSize,

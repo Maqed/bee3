@@ -20,6 +20,7 @@ export async function GET(request: NextRequest) {
           include: {
             images: {
               select: { url: true },
+              take: 1,
             },
           },
         },

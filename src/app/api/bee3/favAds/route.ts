@@ -18,6 +18,7 @@ export async function GET() {
               select: {
                 url: true,
               },
+              take: 1,
             },
           },
         },
