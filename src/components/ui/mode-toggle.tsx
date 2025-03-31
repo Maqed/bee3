@@ -4,21 +4,42 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
-export default function ModeToggle() {
+export default function ModeToggle({
+  showToggleThemeText = false,
+  variant = "ghost",
+  className,
+  ...props
+}: ButtonProps & {
+  showToggleThemeText?: boolean;
+}) {
   const { setTheme, theme } = useTheme();
   const t = useTranslations("Mode Toggle");
   return (
     <Button
-      variant="ghost"
-      size="icon"
+      variant={variant}
+      size={showToggleThemeText ? "default" : "icon"}
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      className={cn(className)}
+      {...props}
     >
-      <Sun className="hidden h-[1.5rem] w-[1.3rem] fill-yellow-500 text-yellow-500 dark:block" />
-      <Moon className="h-5 w-5 fill-foreground dark:hidden" />
-      <span className="sr-only">{t("toggle-theme")}</span>
+      <Sun
+        className={cn(
+          "hidden h-[1.5rem] w-[1.3rem] fill-yellow-500 text-yellow-500 dark:block",
+          { "me-1": showToggleThemeText },
+        )}
+      />
+      <Moon
+        className={cn("h-5 w-5 fill-foreground dark:hidden", {
+          "me-1": showToggleThemeText,
+        })}
+      />
+      <span className={cn({ "sr-only": !showToggleThemeText })}>
+        {t("toggle-theme")}
+      </span>
     </Button>
   );
 }
