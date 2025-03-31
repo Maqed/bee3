@@ -28,7 +28,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { UploadAdImageButton } from "@/components/bee3/ad-image-button";
 import Spinner from "@/components/ui/spinner";
 import { Separator } from "@/components/ui/separator";
-import { getCategoryName } from "@/lib/utils";
+import { getCategoryName, toPathFormat } from "@/lib/utils";
 import { NumberInput } from "@/components/ui/number-input";
 import { authClient } from "@/lib/auth-client";
 import UserPhoneButton from "@/components/auth/user-phone-button/user-phone-button";
@@ -41,6 +41,9 @@ import LocationCombobox from "@/components/bee3/location-combobox";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardTitle, CardContent, CardHeader } from "@/components/ui/card";
 import PrefixLabelledInput from "@/components/ui/prefix-labelled-input";
+import { RadioGroup } from "@/components/ui/radio-group";
+import CategoryRadioItem from "./category-radio-item";
+import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 
 type SellFormProps = {
   startTransition: TransitionStartFunction;
@@ -169,34 +172,41 @@ function SellForm({
               onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-8"
             >
-              <FormItem>
+              <FormItem className="space-y-3">
                 <FormLabel>{tSell("category.main.label")}</FormLabel>
-                <Select
-                  onValueChange={(value) => {
-                    setSelectedMainCategory(value);
-                    setSelectedSubCategory(null);
-                    form.setValue("categoryId", 0);
-                  }}
-                  disabled={isPending}
-                >
-                  <FormControl>
-                    <SelectTrigger autoFocus>
-                      <SelectValue
-                        placeholder={tSell("category.main.placeholder")}
-                      />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={(value) => {
+                      setSelectedMainCategory(value);
+                      setSelectedSubCategory(null);
+                      form.setValue("categoryId", 0);
+                    }}
+                    className="flex gap-3"
+                  >
                     {mainCategories.map((category) => {
                       const categoryName = getCategoryName(locale, category);
+                      const categoryNamePathFormat = toPathFormat(
+                        category.name_en,
+                      );
+                      const Icon = categoryIcons[categoryNamePathFormat]
+                        ?.icon as CategoryIconType;
                       return (
-                        <SelectItem key={categoryName} value={category.name_en}>
-                          {categoryName}
-                        </SelectItem>
+                        <FormItem
+                          key={categoryName}
+                          className="flex items-center space-x-3 space-y-0"
+                        >
+                          <FormControl>
+                            <CategoryRadioItem
+                              Icon={Icon}
+                              value={category.name_en}
+                              categoryName={categoryName}
+                            />
+                          </FormControl>
+                        </FormItem>
                       );
                     })}
-                  </SelectContent>
-                </Select>
+                  </RadioGroup>
+                </FormControl>
                 <FormMessage />
               </FormItem>
               {selectedMainCategory && (
