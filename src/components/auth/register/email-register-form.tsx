@@ -28,6 +28,8 @@ import { absoluteURL } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/ui/spinner";
 import PasswordCheckList from "@/components/ui/password-checklist";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Link } from "@/navigation";
 
 function EmailRegisterForm() {
   const [isPending, startTransition] = useTransition();
@@ -42,13 +44,14 @@ function EmailRegisterForm() {
       email: "",
       password: "",
       confirmPassword: "",
+      acceptTOSAndPrivacyPolicy: false,
     },
   });
 
   function onSubmit(values: z.infer<typeof registerSchema>) {
     startTransition(async () => {
       const { name, email, password } = values;
-      const { data, error } = await authClient.signUp.email(
+      await authClient.signUp.email(
         {
           email,
           password,
@@ -170,6 +173,43 @@ function EmailRegisterForm() {
                 />
               </FormControl>
 
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="acceptTOSAndPrivacyPolicy"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <div className="flex items-center gap-1">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormLabel className="text-sm">
+                  {t.rich("tos-and-privacy", {
+                    tos: (chunks) => (
+                      <Link
+                        href="/legal/terms-of-services"
+                        className="text-primary hover:underline"
+                      >
+                        {chunks}
+                      </Link>
+                    ),
+                    privacyPolicy: (chunks) => (
+                      <Link
+                        href="/legal/privacy-policy"
+                        className="text-primary hover:underline"
+                      >
+                        {chunks}
+                      </Link>
+                    ),
+                  })}
+                </FormLabel>
+              </div>
               <FormMessage />
             </FormItem>
           )}
