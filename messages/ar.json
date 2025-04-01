@@ -98,7 +98,7 @@
           "password": {
             "label": "كلمة المرور"
           },
-
+          "tos-and-privacy": "من خلال التسجيل، فإنك توافق على <tos>شروط الخدمة</tos> و <privacyPolicy>سياسة الخصوصية</privacyPolicy>.",
           "user-created-successfully": {
             "title": "تم إنشاء المستخدم بنجاح!",
             "description": "تحقق من بريدك الإلكتروني لتأكيد حسابك!"
@@ -411,6 +411,7 @@
     },
     "register": {
       "name-min-character": "يجب أن يحتوي الاسم على الأقل على حرفين",
+      "accept-tos-required": "يجب عليك قبول شروط الخدمة وسياسة الخصوصية.",
       "invalid-input": {
         "title": "إدخال غير صالح",
         "description": "حاول كتابة شيء آخر"

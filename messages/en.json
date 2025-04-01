@@ -97,6 +97,7 @@
           "password": {
             "label": "Password"
           },
+          "tos-and-privacy": "By signing up, you agree to our <tos>Terms of Service</tos> and <privacyPolicy>Privacy Policy</privacyPolicy>.",
           "user-created-successfully": {
             "title": "User has been created successfully!",
             "description": "Check your email to verify your account!"
@@ -394,6 +395,7 @@
     },
     "register": {
       "name-min-character": "Name should at least contain 2 characters",
+      "accept-tos-required": "You must accept the Terms of Service and Privacy Policy.",
       "invalid-input": {
         "title": "Invalid input",
         "description": "Try typing something else"
