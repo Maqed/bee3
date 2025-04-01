@@ -9,6 +9,7 @@ import {
   DEFAULT_LOGIN_REDIRECT,
   DEFAULT_UNAUTHENTICATED_REDIRECT,
 } from "@/consts/routes";
+import { Link } from "@/navigation";
 // ui
 import { Mail, User, Lock } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
@@ -28,7 +29,6 @@ import { useRouter } from "next/navigation";
 import Spinner from "@/components/ui/spinner";
 import PasswordCheckList from "@/components/ui/password-checklist";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "@/navigation";
 
 function EmailRegisterForm() {
   const [isPending, startTransition] = useTransition();
