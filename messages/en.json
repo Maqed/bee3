@@ -21,7 +21,6 @@
   "Navbar": {
     "Greeting": "Hello!",
     "Login": "Login",
-    "Register": "Register",
     "Profile": "Profile",
     "Favorites": "Favorites",
     "Settings": "Settings",
