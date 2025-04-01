@@ -84,6 +84,10 @@ export const registerSchema = z
     name: z.string().min(2, { message: "register.name-min-character" }),
     ...emailSchema,
     ...twoPasswordInputSchema,
+
+    acceptTOSAndPrivacyPolicy: z.literal<boolean>(true, {
+      errorMap: () => ({ message: "register.accept-tos-required" }),
+    }),
   })
   .superRefine(passwordsMatch)
   .superRefine(passwordStrength);
