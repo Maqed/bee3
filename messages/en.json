@@ -381,6 +381,12 @@
       "link": "Go back to home page"
     }
   },
+  "/legal": {
+    "title": "Legal Documents",
+    "viewDocument": "View the complete {document} document",
+    "badge": "Legal Document",
+    "footer": "Please review our legal documents carefully. For any questions, contact our legal team."
+  },
   "errors": {
     "Required": "This input is required",
     "social": {
@@ -472,6 +478,9 @@
         "OTP_EXPIRED": "OTP has expired, please try again!",
         "OTP_NOT_FOUND": "OTP not found, please try agian!"
       }
+    },
+    "markdown": {
+      "not-found": "Page wasn't found!"
     }
   }
 }
