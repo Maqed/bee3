@@ -194,6 +194,7 @@ function EmailRegisterForm() {
                       <Link
                         href="/legal/terms-of-service"
                         className="text-primary hover:underline"
+                        target="_blank"
                       >
                         {chunks}
                       </Link>
@@ -202,6 +203,7 @@ function EmailRegisterForm() {
                       <Link
                         href="/legal/privacy-policy"
                         className="text-primary hover:underline"
+                        target="_blank"
                       >
                         {chunks}
                       </Link>
