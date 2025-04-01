@@ -192,7 +192,7 @@ function EmailRegisterForm() {
                   {t.rich("tos-and-privacy", {
                     tos: (chunks) => (
                       <Link
-                        href="/legal/terms-of-services"
+                        href="/legal/terms-of-service"
                         className="text-primary hover:underline"
                       >
                         {chunks}
