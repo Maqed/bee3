@@ -24,7 +24,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useTranslations } from "next-intl";
-import { absoluteURL } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import Spinner from "@/components/ui/spinner";
 import PasswordCheckList from "@/components/ui/password-checklist";
