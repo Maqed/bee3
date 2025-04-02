@@ -38,7 +38,7 @@ export function AdImages({ ad }: AdImagesProps) {
           ))}
         </CarouselContent>
         <ScrollArea className="w-full whitespace-nowrap rounded-md border">
-          <div className="flex w-max gap-x-2 p-1 pb-3">
+          <div className="flex w-max gap-x-2 px-2 py-3">
             {ad.images.map((imageURL, index) => (
               <CarouselDot
                 className="inline hover:outline hover:outline-2 hover:outline-primary"
