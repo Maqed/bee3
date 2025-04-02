@@ -339,16 +339,13 @@
     },
     "location": {
       "location": {
-        "label": "الموقع",
-        "description": "اختر موقعك"
+        "label": "الموقع"
       },
       "governorate": {
-        "label": "المحافظة",
-        "description": "اختر محافظتك"
+        "label": "المحافظة"
       },
       "city": {
-        "label": "المدينة",
-        "description": "اختر مدينتك"
+        "label": "المدينة"
       }
     },
     "price": {

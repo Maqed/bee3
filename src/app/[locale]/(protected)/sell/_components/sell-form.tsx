@@ -333,9 +333,6 @@ function SellForm({
                           hasAll={false}
                         />
                       </FormControl>
-                      <FormDescription>
-                        {tSell("location.location.description")}
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -364,9 +361,6 @@ function SellForm({
                             showAllCities={false}
                           />
                         </FormControl>
-                        <FormDescription>
-                          {tSell("location.governorate.description")}
-                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -392,9 +386,6 @@ function SellForm({
                             )}
                           />
                         </FormControl>
-                        <FormDescription>
-                          {tSell("location.city.description")}
-                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

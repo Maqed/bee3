@@ -323,16 +323,13 @@
     },
     "location": {
       "location": {
-        "label": "Location",
-        "description": "Choose your location"
+        "label": "Location"
       },
       "governorate": {
-        "label": "Governorate",
-        "description": "Choose your governorate"
+        "label": "Governorate"
       },
       "city": {
-        "label": "City",
-        "description": "Choose your city"
+        "label": "City"
       }
     },
     "price": {
