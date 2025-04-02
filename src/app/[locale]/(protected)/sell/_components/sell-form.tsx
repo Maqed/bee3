@@ -103,19 +103,14 @@ function SellForm({
 
     startTransition(async () => {
       try {
-        const formData = new FormData();
         const images = await uploadToR2(data.images);
-        formData.append(
-          "json",
-          JSON.stringify({
-            ...data,
-            images,
-          }),
-        );
 
         const response = await fetch("/api/bee3/ad", {
           method: "POST",
-          body: formData,
+          body: JSON.stringify({
+            ...data,
+            images,
+          }),
         });
 
         const result = await response.json();

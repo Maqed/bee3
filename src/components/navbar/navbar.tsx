@@ -48,7 +48,7 @@ export default async function Navbar() {
             <SheetTrigger className="md:hidden">
               <Menu />
             </SheetTrigger>
-            <SheetContent>
+            <SheetContent className="w-64">
               <VisuallyHidden>
                 <SheetHeader>
                   <SheetTitle>Navbar content</SheetTitle>
