@@ -17,10 +17,7 @@ export async function POST(request: Request) {
   if (!user.phoneNumber || !user.phoneNumberVerified)
     return NextResponse.json({ error: "must-have-phone-number" });
 
-  const formData = await request.formData();
-  const jsonData = JSON.parse(formData.get("json") as string);
-
-  const req = adSchemaServer.safeParse({ ...jsonData });
+  const req = adSchemaServer.safeParse(await request.json());
   if (!req.success)
     return NextResponse.json({ error: req.error }, { status: 500 });
   // Check token store and decrement token count
@@ -41,7 +38,9 @@ export async function POST(request: Request) {
     tokenStore!.nextRefreshTime.getDate() <= Date.now()
   ) {
     updatedCount = tokenStore!.initialCount;
-    updatedRefreshTime = new Date(Date.now() + tokenStore!.refreshInDays * 24 * 60 * 60 * 1000);
+    updatedRefreshTime = new Date(
+      Date.now() + tokenStore!.refreshInDays * 24 * 60 * 60 * 1000,
+    );
   }
 
   if (updatedCount === 0)
@@ -77,7 +76,9 @@ export async function POST(request: Request) {
       description: req.data.description,
       price: req.data.price,
       negotiable: req.data.negotiable,
-      options: req.data.categoryOptions ? JSON.parse(req.data.categoryOptions) : {},
+      options: req.data.categoryOptions
+        ? JSON.parse(req.data.categoryOptions)
+        : {},
       images: {
         create: req.data.images.map((image) => ({
           url: image,
