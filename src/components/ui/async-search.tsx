@@ -83,7 +83,7 @@ export function AsyncSearch<T>({
       }
     };
 
-    if (debouncedSearchTerm === searchTerm) {
+    if (debouncedSearchTerm === searchTerm && searchTerm.length > 0) {
       setIsResultVisible(true);
       fetchOptions();
     } else {
@@ -132,10 +132,13 @@ export function AsyncSearch<T>({
         onKeyDown={(e) => {
           if (e.key === "Enter" && searchTerm.length) onSubmit();
         }}
+        className={cn({ "rounded-b-none": isResultVisible })}
         placeholder={placeholder}
         disabled={disabled}
         value={searchTerm}
-        onFocus={() => setIsResultVisible(true)}
+        onFocus={() => {
+          if (searchTerm.length > 0) setIsResultVisible(true);
+        }}
         onValueChange={(value) => {
           if (value.length > 0) {
             setIsResultVisible(true);
