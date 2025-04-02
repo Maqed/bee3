@@ -427,7 +427,7 @@ function SellForm({
                   control={form.control}
                   name="negotiable"
                   render={({ field }) => (
-                    <FormItem className="mt-8 flex items-center justify-center gap-1 self-center">
+                    <FormItem className="mt-8 flex items-center justify-center gap-1 space-y-0 self-center">
                       <FormControl>
                         <Checkbox
                           checked={field.value}
