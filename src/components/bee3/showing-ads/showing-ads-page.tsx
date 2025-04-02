@@ -26,7 +26,7 @@ async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
 
   return (
     <main className="container">
-      <h1 className="mb-5 text-2xl lg:text-3xl">
+      <h1 className="mb-5 text-2xl font-bold lg:text-3xl">
         {tShowingAdsPage("showing-ads-for", {
           title,
         })}
