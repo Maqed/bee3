@@ -247,7 +247,7 @@
   },
   "/user/[userId]": {
     "advertises": {
-      "title": "Advertises",
+      "title": "Posted Advertisements",
       "you-have-no-ads": "You have no ads",
       "user-has-no-ads": "This user has no ads"
     },
