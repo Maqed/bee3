@@ -41,9 +41,6 @@ function UserPhoneButton({ className, value, ...props }: PhoneInputProps) {
               <X className="size-6" />
             </AlertDialogCancel>
           </AlertDialogTitle>
-          <AlertDialogDescription>
-            {tPhoneNumber(`${dialogState}.description`)}
-          </AlertDialogDescription>
         </AlertDialogHeader>
 
         {dialogState === "InputNumber" ? (

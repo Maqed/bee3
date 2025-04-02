@@ -153,13 +153,11 @@
     "go-back": "Go back",
     "InputNumber": {
       "title": "Enter your phone number to verify your account",
-      "description": "We will send a confirmation code to your number in WhatsApp",
       "placeholder": "Enter your phone number",
       "sendCode": "Send Code"
     },
     "OTP": {
       "title": "Enter your OTP code you recieved in your WhatsApp account.",
-      "description": "We will confirm your account by using it.",
       "otp-description": "",
       "verifyCode": "Verify code"
     }
