@@ -17,18 +17,20 @@ model Category {
 
     depth Int
     Ads   Ad[]
+
+    attributes CategoryAttribute[]
 }
 
 model Ad {
-    id           String    @id
-    userId       String?
-    createdAt    DateTime  @default(now())
-    updatedAt    DateTime  @updatedAt
-    user         User?     @relation(fields: [userId], references: [id])
-    favoritedBy  User[]    @relation("favoriteAds")
-    category     Category? @relation(fields: [categoryPath], references: [path])
-    categoryPath String
-    options      Json
+    id              String           @id
+    userId          String?
+    createdAt       DateTime         @default(now())
+    updatedAt       DateTime         @updatedAt
+    user            User?            @relation(fields: [userId], references: [id])
+    favoritedBy     User[]           @relation("favoriteAds")
+    category        Category?        @relation(fields: [categoryPath], references: [path])
+    categoryPath    String
+    attributeValues AttributeValue[]
 
     tier        AdTiers @default(Free)
     title       String

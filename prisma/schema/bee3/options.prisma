@@ -1,0 +1,30 @@
+model CategoryAttribute {
+    id       String  @id @default(cuid())
+    name     String // e.g., "RAM", "Processor"
+    type     String // e.g., "text", "number", "select", "multiselect"
+    required Boolean @default(false)
+    options  String? // For select types, comma-separated options like "2GB,4GB,8GB,16GB"
+    unit     String? // e.g., "GB", "inches", "MHz"
+
+    // Link to category
+    category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    categoryId Int
+
+    // Values for this attribute across ads
+    values AttributeValue[]
+
+    @@unique([categoryId, name])
+}
+
+model AttributeValue {
+    id    String @id @default(cuid())
+    value String
+
+    attribute   CategoryAttribute @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+    attributeId String
+
+    ad   Ad     @relation(fields: [adId], references: [id], onDelete: Cascade)
+    adId String
+
+    @@unique([adId, attributeId])
+}

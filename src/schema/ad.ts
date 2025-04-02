@@ -1,13 +1,16 @@
 import { z } from "zod";
-import { categoriesTree, type CategoryTreeItem } from "./categories-tree";
+import { categoriesTree, type CategoryTreeItem, type CategoryAttributeDefinition } from "./categories-tree";
 import { cities } from "./cities";
 import { governorates } from "./governorates";
 import { MAX_AD_IMAGES, MAX_IMAGE_SIZE } from "@/consts/ad";
 import { env } from "@/env";
 
+/**
+ * Validates that the categoryOptions JSON contains valid attributes for the selected category
+ */
 const validateCategoryOptions = (data: any, ctx: z.RefinementCtx) => {
-  if (!data.categoryOptions)
-    return;
+  if (!data.categoryOptions) return;
+
   let optionsObj: Record<string, any>;
   try {
     optionsObj = JSON.parse(data.categoryOptions);
@@ -19,18 +22,119 @@ const validateCategoryOptions = (data: any, ctx: z.RefinementCtx) => {
     });
     return;
   }
+
   const category = findCategory(data.categoryId, categoriesTree);
-  if (category && category.options) {
-    for (const key of Object.keys(optionsObj)) {
-      if (!(key in category.options)) {
+  if (!category) return;
+
+  // Get all applicable attributes for this category (including inherited ones if applicable)
+  const attributes = getApplicableAttributes(category);
+
+  // Check that each provided option is a valid attribute for this category
+  for (const key of Object.keys(optionsObj)) {
+    const attribute = attributes.find(attr => attr.name === key);
+    if (!attribute) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `/sell.categoryOptions-invalid-attribute-${key}`,
+        path: ["categoryOptions"],
+      });
+      continue;
+    }
+
+    // Validate the attribute value based on its type
+    validateAttributeValue(key, optionsObj[key], attribute, ctx);
+  }
+
+  // Check for missing required attributes
+  const requiredAttributes = attributes.filter(attr => attr.required);
+  for (const attr of requiredAttributes) {
+    if (!(attr.name in optionsObj)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `/sell.categoryOptions-missing-required-${attr.name}`,
+        path: ["categoryOptions"],
+      });
+    }
+  }
+};
+
+/**
+ * Validates a single attribute value based on its type
+ */
+const validateAttributeValue = (
+  key: string,
+  value: any,
+  attribute: CategoryAttributeDefinition,
+  ctx: z.RefinementCtx
+) => {
+  switch (attribute.type) {
+    case "number":
+      if (typeof value !== 'number') {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "/sell.categoryOptions-invalid-option",
+          message: `/sell.categoryOptions-${key}-must-be-number`,
           path: ["categoryOptions"],
         });
       }
+      break;
+
+    case "select":
+      if (!attribute.options?.includes(value)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `/sell.categoryOptions-${key}-invalid-option`,
+          path: ["categoryOptions"],
+        });
+      }
+      break;
+
+    case "multiselect":
+      if (!Array.isArray(value)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `/sell.categoryOptions-${key}-must-be-array`,
+          path: ["categoryOptions"],
+        });
+      } else if (attribute.options) {
+        // Check that all values are in the options list
+        for (const item of value) {
+          if (!attribute.options.includes(item)) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: `/sell.categoryOptions-${key}-invalid-option-${item}`,
+              path: ["categoryOptions"],
+            });
+          }
+        }
+      }
+      break;
+  }
+};
+
+/**
+ * Gets all applicable attributes for a category, including inherited ones if appropriate
+ */
+const getApplicableAttributes = (
+  category: CategoryTreeItem,
+  ancestorCategories: CategoryTreeItem[] = []
+): CategoryAttributeDefinition[] => {
+  let attributes: CategoryAttributeDefinition[] = [...(category.attributes || [])];
+
+  // Add attributes from ancestors if inheritance is enabled
+  if (category.inheritParentAttributes !== false && ancestorCategories.length > 0) {
+    for (const ancestorCategory of ancestorCategories) {
+      if (ancestorCategory.attributes) {
+        // Add parent attributes, avoiding duplicates by name
+        for (const parentAttr of ancestorCategory.attributes) {
+          if (!attributes.some(a => a.name === parentAttr.name)) {
+            attributes.push(parentAttr);
+          }
+        }
+      }
     }
   }
+
+  return attributes;
 };
 
 const adSchemaMutual = {
@@ -100,6 +204,9 @@ export const favAdSchema = z.object({
   state: z.boolean(),
 });
 
+/**
+ * Checks if a category exists by ID
+ */
 const categoryExists = (
   id: number,
   categories: CategoryTreeItem[],
@@ -108,6 +215,31 @@ const categoryExists = (
     (c) => c.id === id || (c.categories && categoryExists(id, c.categories)),
   );
 
+/**
+ * Checks if a category exists by path
+ */
+const categoryPathExists = (
+  path: string,
+  categories: CategoryTreeItem[],
+  basePath: string = "",
+): boolean => {
+  for (const category of categories) {
+    const categoryPath = basePath
+      ? `${basePath}/${toPathFormat(category.name_en)}`
+      : toPathFormat(category.name_en);
+
+    if (categoryPath === path) return true;
+
+    if (category.categories && categoryPathExists(path, category.categories, categoryPath)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+/**
+ * Finds a category by ID
+ */
 const findCategory = (
   id: number,
   categories: CategoryTreeItem[]
@@ -120,4 +252,15 @@ const findCategory = (
     }
   }
   return null;
+};
+
+/**
+ * Convert a string to a URL-friendly path format
+ */
+const toPathFormat = (str: string): string => {
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[^\u0600-\u06FFa-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 };

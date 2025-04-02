@@ -1,6 +1,42 @@
 import { db } from "@/server/db";
-import { categoriesTree, CategoryTreeItem } from "src/schema/categories-tree";
+import { categoriesTree, CategoryTreeItem, CategoryAttributeDefinition } from "src/schema/categories-tree";
 import { toPathFormat } from "@/lib/utils";
+
+async function getCategoryAttributes(
+  item: CategoryTreeItem,
+  parentPath: string | undefined = undefined
+): Promise<CategoryAttributeDefinition[]> {
+  let attributes: CategoryAttributeDefinition[] = [...(item.attributes || [])];
+
+  if (parentPath && item.inheritParentAttributes !== false) {
+    const parentCategory = await db.category.findUnique({
+      where: { path: parentPath },
+      include: { attributes: true }
+    });
+
+    if (parentCategory) {
+      const parentAttributes = await db.categoryAttribute.findMany({
+        where: { categoryId: parentCategory.id }
+      });
+
+      const parentAttributeDefs: CategoryAttributeDefinition[] = parentAttributes.map(attr => ({
+        name: attr.name,
+        type: attr.type as "text" | "number" | "select" | "multiselect",
+        required: attr.required,
+        options: attr.options ? attr.options.split(',') : undefined,
+        unit: attr.unit || undefined
+      }));
+
+      for (const parentAttr of parentAttributeDefs) {
+        if (!attributes.some(a => a.name === parentAttr.name)) {
+          attributes.push(parentAttr);
+        }
+      }
+    }
+  }
+
+  return attributes;
+}
 
 async function populateItemTree(
   items: CategoryTreeItem[],
@@ -13,9 +49,10 @@ async function populateItemTree(
     const path = parentPath
       ? `${parentPath}/${toPathFormat(item.name_en)}`
       : toPathFormat(item.name_en);
-    console.log(path);
+    console.log(`Creating category: ${path}`);
 
-    await db.category.upsert({
+    // Create or update the category
+    const category = await db.category.upsert({
       where: { id: item.id },
       update: {
         id: item.id,
@@ -40,7 +77,45 @@ async function populateItemTree(
           : undefined,
       },
     });
-    if (item.categories) populateItemTree(item.categories, depth + 1, path);
+
+    // Get attributes including inherited ones
+    const attributes = await getCategoryAttributes(item, parentPath);
+
+    // Create attributes for this category
+    if (attributes && attributes.length > 0) {
+      for (const attr of attributes) {
+        console.log(`Adding attribute: ${attr}`);
+        await db.categoryAttribute.upsert({
+          where: {
+            categoryId_name: {
+              categoryId: category.id,
+              name: attr.name
+            }
+          },
+          update: {
+            type: attr.type,
+            required: attr.required || false,
+            options: attr.options ? attr.options.join(',') : null,
+            unit: attr.unit || null,
+          },
+          create: {
+            name: attr.name,
+            type: attr.type,
+            required: attr.required || false,
+            options: attr.options ? attr.options.join(',') : null,
+            unit: attr.unit || null,
+            category: {
+              connect: { id: category.id }
+            }
+          }
+        });
+      }
+    }
+
+    // Recursively process child categories
+    if (item.categories) {
+      await populateItemTree(item.categories, depth + 1, path);
+    }
   }
 }
 
