@@ -6,6 +6,7 @@ import { getURLSearchParamsFromPageParams } from "@/lib/utils";
 import ShowingAds from "./showing-ads";
 import { Suspense } from "react";
 import AdCardPlaceholder from "@/components/placeholders/ad-card-placeholder";
+import { getTranslations } from "next-intl/server";
 
 type Props = {
   categoryPath?: string[];
@@ -14,17 +15,22 @@ type Props = {
 
 async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
   let params = getURLSearchParamsFromPageParams(searchParams);
+  const tShowingAdsPage = await getTranslations("showing-ads-page");
   if (categoryPath) params.set("category", categoryPath.join("/"));
 
   let title = categoryPath
-    ? getServerSideFullCategory(categoryPath.join("/"))
+    ? await getServerSideFullCategory(categoryPath.join("/"))
     : params.get("q")
       ? params.get("q")
       : "";
 
   return (
     <main className="container">
-      <h1 className="mb-5 text-2xl lg:text-3xl">{title}</h1>
+      <h1 className="mb-5 text-2xl lg:text-3xl">
+        {tShowingAdsPage("showing-ads-for", {
+          title,
+        })}
+      </h1>
       <div className="grid grid-cols-12 gap-3">
         {/* Filter */}
         <div className="lg:col-span-3">

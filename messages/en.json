@@ -219,6 +219,9 @@
       }
     }
   },
+  "showing-ads-page": {
+    "showing-ads-for": "Showing ads for {title}"
+  },
   "not-found": {
     "title": "Oops, Page not found!",
     "paragraph": "The page you're looking for doesn't seem to exist.",
