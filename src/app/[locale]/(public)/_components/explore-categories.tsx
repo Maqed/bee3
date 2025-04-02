@@ -51,9 +51,6 @@ async function ExploreCategories() {
                           {categoryName}
                         </Link>
                       </DialogTitle>
-                      <DialogDescription>
-                        {tNavigation("choose-category")}
-                      </DialogDescription>
                     </DialogHeader>
                     <div className="flex flex-col items-start justify-start">
                       <Link
