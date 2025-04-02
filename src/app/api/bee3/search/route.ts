@@ -20,6 +20,10 @@ import {
  * order ----> order of the ads, by default it's descending
  * governorate ----> add governorate filter to query (id)
  * city ----> add city filter to query (id)
+ * attrs ----> filter by attributes in format: attributeName=value or attributeName=minValue-maxValue
+ *  For multiple attributes, use multiple attrs parameters or comma-separated values
+ *  Example: attrs=ram=8GB&attrs=processor=Intel
+ *  Example for range: attrs=screen_size=5-7
  */
 export async function GET(request: NextRequest) {
   const categoryPath = request.nextUrl.searchParams.get("category");
@@ -43,12 +47,15 @@ export async function GET(request: NextRequest) {
   const sort = request.nextUrl.searchParams.get("sort"); // price, date
   let order =
     Prisma.SortOrder[
-      request.nextUrl.searchParams.get("order") as keyof typeof Prisma.SortOrder
+    request.nextUrl.searchParams.get("order") as keyof typeof Prisma.SortOrder
     ]; // asc, desc
   if (!order) order = Prisma.SortOrder.desc;
 
   const govId = request.nextUrl.searchParams.get("governorate");
   const cityId = request.nextUrl.searchParams.get("city");
+
+  const attributeFilters = parseAttributeFilters(request);
+  const attributeConditions = buildAttributeConditions(attributeFilters);
 
   const paths = categoryPath
     ? [categoryPath].concat(getSubCategoryPaths(categoryPath))
@@ -56,10 +63,10 @@ export async function GET(request: NextRequest) {
 
   const searchQuery = search
     ? search
-        .trim()
-        .split(" ")
-        .map((word) => `${word}:*`)
-        .join(" & ")
+      .trim()
+      .split(" ")
+      .map((word) => `${word}:*`)
+      .join(" & ")
     : undefined;
 
   const queryWhereClause = {
@@ -70,16 +77,17 @@ export async function GET(request: NextRequest) {
       : undefined,
     governorate: govId ? { id: +govId } : undefined,
     city: cityId ? { id: +cityId } : undefined,
+    AND: attributeConditions.length > 0 ? attributeConditions : undefined,
   };
   const adsPromise = db.ad.findMany({
     orderBy: [
       {
         _relevance: searchQuery
           ? {
-              fields: ["title"],
-              search: searchQuery,
-              sort: "asc",
-            }
+            fields: ["title"],
+            search: searchQuery,
+            sort: "asc",
+          }
           : undefined,
       },
       { price: sort === "price" ? order : undefined },
@@ -107,6 +115,93 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json({ ads, totalAds, totalPages });
 }
+
+/**
+ * Parse attribute filters from the request URL
+ * Supports both single value and range queries
+ */
+function parseAttributeFilters(request: NextRequest): { name: string; value: string }[] {
+  const attributeFilters: { name: string; value: string }[] = [];
+
+  // Get all attribute parameters (can be multiple)
+  const attrParams = request.nextUrl.searchParams.getAll("attrs");
+
+  for (const attrParam of attrParams) {
+    // Handle comma-separated attribute filters
+    const attrFilters = attrParam.split(",");
+
+    for (const filter of attrFilters) {
+      const [name, value] = filter.split("=");
+      if (name && value) {
+        attributeFilters.push({ name: name.trim(), value: value.trim() });
+      }
+    }
+  }
+
+  return attributeFilters;
+}
+
+/**
+ * Build Prisma conditions for attribute filtering
+ * Handles both exact matches and range queries
+ */
+function buildAttributeConditions(attributeFilters: { name: string; value: string }[]): any[] {
+  const conditions: any[] = [];
+
+  for (const filter of attributeFilters) {
+    // Check if it's a range query (has a hyphen and both sides are numeric)
+    const isRange = filter.value.includes("-");
+
+    if (isRange) {
+      const [minValue, maxValue] = filter.value.split("-");
+
+      // Check if both values are numeric
+      if (!isNaN(Number(minValue)) && !isNaN(Number(maxValue))) {
+        // Numeric range query
+        conditions.push({
+          attributeValues: {
+            some: {
+              attribute: {
+                name: filter.name,
+              },
+              AND: [
+                { value: { gte: minValue } },
+                { value: { lte: maxValue } }
+              ]
+            }
+          }
+        });
+      } else {
+        // Handle as exact match if not numeric range
+        conditions.push({
+          attributeValues: {
+            some: {
+              attribute: {
+                name: filter.name,
+              },
+              value: filter.value,
+            }
+          }
+        });
+      }
+    } else {
+      // Exact match query
+      conditions.push({
+        attributeValues: {
+          some: {
+            attribute: {
+              name: filter.name,
+            },
+            value: filter.value,
+          }
+        }
+      });
+    }
+  }
+
+  return conditions;
+}
+
 
 // Returns a string array of all sub categories in the given path recursively.
 function getSubCategoryPaths(rootPath: string): string[] {

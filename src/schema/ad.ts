@@ -27,12 +27,13 @@ const validateCategoryOptions = (data: any, ctx: z.RefinementCtx) => {
   if (!category) return;
 
   // Get all applicable attributes for this category (including inherited ones if applicable)
-  const attributes = getApplicableAttributes(category);
+  const attributes = getApplicableAttributes(category, findAncestorCategories(data.categoryId, categoriesTree));
 
   // Check that each provided option is a valid attribute for this category
   for (const key of Object.keys(optionsObj)) {
     const attribute = attributes.find(attr => attr.name === key);
     if (!attribute) {
+      console.log(`${key} not found in ${JSON.stringify(attributes)}`);
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: `/sell.categoryOptions-invalid-attribute-${key}`,
@@ -109,6 +110,32 @@ const validateAttributeValue = (
       }
       break;
   }
+};
+
+/**
+ * Find all ancestor categories for a given category ID
+ */
+const findAncestorCategories = (
+  categoryId: number,
+  tree: CategoryTreeItem[] = categoriesTree,
+  ancestors: CategoryTreeItem[] = []
+): CategoryTreeItem[] => {
+  for (const category of tree) {
+    if (category.id === categoryId) {
+      return ancestors;
+    }
+
+    if (category.categories) {
+      // Create a new array with the current category added to ancestors
+      const newAncestors = [...ancestors, category];
+      const result = findAncestorCategories(categoryId, category.categories, newAncestors);
+      if (result.length > 0) {
+        return result;
+      }
+    }
+  }
+
+  return [];
 };
 
 /**
