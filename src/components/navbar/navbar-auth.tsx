@@ -15,6 +15,7 @@ import SignOutMenuItem from "./sign-out-menu-item";
 import { ReactNode } from "react";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
 import { ButtonProps } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 function NavbarAuth({
   session,
@@ -37,7 +38,10 @@ function NavbarAuth({
   return (
     <DropdownMenu>
       {trigger}
-      <DropdownMenuContent {...dropdownMenuContentProps} className="p-0">
+      <DropdownMenuContent
+        {...dropdownMenuContentProps}
+        className={cn("p-0", dropdownMenuContentProps?.className)}
+      >
         <DropdownMenuLabel>
           <h5 className="text-lg">{t("Greeting")} 👋</h5>
           <h4 className="text-xl text-primary">{session.user.name}</h4>
