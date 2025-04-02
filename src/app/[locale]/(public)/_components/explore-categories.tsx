@@ -44,7 +44,7 @@ async function ExploreCategories() {
                     </Avatar>
                     <p className="text-sm">{categoryName}</p>
                   </DialogTrigger>
-                  <DialogContent>
+                  <DialogContent className="pb-0">
                     <DialogHeader className="h-min">
                       <DialogTitle>
                         <Link tabIndex={-1} href={`/${categoryNamePathFormat}`}>
@@ -62,7 +62,7 @@ async function ExploreCategories() {
                       <div className="flex w-full items-center justify-center">
                         <Separator className="my-1 w-1/2" />
                       </div>
-                      <div className="flex gap-5">
+                      <div className="flex h-full w-full items-center gap-4 py-4">
                         {category.categories?.map((subCategory) => {
                           const subCategoryNamePathFormat = toPathFormat(
                             subCategory.name_en,
