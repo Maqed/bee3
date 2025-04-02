@@ -154,13 +154,11 @@
     "go-back": "الرجوع",
     "InputNumber": {
       "title": "أدخل رقم هاتفك للتحقق من حسابك",
-      "description": "سنرسل رمز تأكيد إلى رقمك على واتس اب",
       "placeholder": "أدخل رقم هاتفك",
       "sendCode": "إرسال الرمز"
     },
     "OTP": {
       "title": "أدخل رمز OTP الذي استلمته على رقمك في واتس اب.",
-      "description": "سنؤكد حسابك باستخدامه.",
       "otp-description": "اكتب الرمز من اليسار الى اليمين",
       "verifyCode": "تأكيد الرمز"
     }
@@ -220,6 +218,9 @@
       }
     }
   },
+  "showing-ads-page": {
+    "showing-ads-for": "اعلانات {title}"
+  },
   "not-found": {
     "title": "عفوًا، لم يتم العثور على الصفحة!",
     "paragraph": "الصفحة الذي تبحث عنه لا تبدو أنها موجودة.",
@@ -228,7 +229,6 @@
 
   "/": {
     "navigation": {
-      "choose-category": "اختر الفئة التي تريدها",
       "show-all": "عرض الكل"
     }
   },
@@ -338,16 +338,13 @@
     },
     "location": {
       "location": {
-        "label": "الموقع",
-        "description": "اختر موقعك"
+        "label": "الموقع"
       },
       "governorate": {
-        "label": "المحافظة",
-        "description": "اختر محافظتك"
+        "label": "المحافظة"
       },
       "city": {
-        "label": "المدينة",
-        "description": "اختر مدينتك"
+        "label": "المدينة"
       }
     },
     "price": {
@@ -380,7 +377,7 @@
       "member-since": "عضو منذ:",
       "phone-number": "اظهر رقم الهاتف",
       "chat": "دردشة",
-      "whatsapp": "واتساب"
+      "WhatsApp": "واتساب"
     },
     "safety-tips": {
       "title": "سلامتك تهمنا!",

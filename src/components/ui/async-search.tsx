@@ -83,7 +83,7 @@ export function AsyncSearch<T>({
       }
     };
 
-    if (debouncedSearchTerm === searchTerm) {
+    if (debouncedSearchTerm === searchTerm && searchTerm.length > 0) {
       setIsResultVisible(true);
       fetchOptions();
     } else {
@@ -124,7 +124,7 @@ export function AsyncSearch<T>({
 
   return (
     <Command
-      className="relative w-[250px] md:w-[300px] lg:w-[450px]"
+      className="relative w-[225px] sm:w-[250px] md:w-[300px] lg:w-[450px]"
       shouldFilter={false}
     >
       <CommandInput
@@ -132,10 +132,13 @@ export function AsyncSearch<T>({
         onKeyDown={(e) => {
           if (e.key === "Enter" && searchTerm.length) onSubmit();
         }}
+        className={cn({ "rounded-b-none": isResultVisible })}
         placeholder={placeholder}
         disabled={disabled}
         value={searchTerm}
-        onFocus={() => setIsResultVisible(true)}
+        onFocus={() => {
+          if (searchTerm.length > 0) setIsResultVisible(true);
+        }}
         onValueChange={(value) => {
           if (value.length > 0) {
             setIsResultVisible(true);
@@ -149,7 +152,7 @@ export function AsyncSearch<T>({
       <CommandList
         ref={resultRef}
         className={cn(
-          "fixed top-16 max-h-full w-[250px] bg-background shadow-xl md:w-[300px] lg:w-[450px]",
+          "fixed top-16 max-h-full w-[225px] bg-background shadow-xl sm:w-[250px] md:w-[300px] lg:w-[450px]",
           isResultVisible ? "block" : "hidden",
         )}
       >

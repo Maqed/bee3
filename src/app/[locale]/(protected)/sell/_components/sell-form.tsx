@@ -333,9 +333,6 @@ function SellForm({
                           hasAll={false}
                         />
                       </FormControl>
-                      <FormDescription>
-                        {tSell("location.location.description")}
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -364,9 +361,6 @@ function SellForm({
                             showAllCities={false}
                           />
                         </FormControl>
-                        <FormDescription>
-                          {tSell("location.governorate.description")}
-                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -392,9 +386,6 @@ function SellForm({
                             )}
                           />
                         </FormControl>
-                        <FormDescription>
-                          {tSell("location.city.description")}
-                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -436,7 +427,7 @@ function SellForm({
                   control={form.control}
                   name="negotiable"
                   render={({ field }) => (
-                    <FormItem className="mt-8 flex items-center justify-center gap-1 self-center">
+                    <FormItem className="mt-8 flex items-center justify-center gap-1 space-y-0 self-center">
                       <FormControl>
                         <Checkbox
                           checked={field.value}

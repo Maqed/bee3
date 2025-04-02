@@ -153,13 +153,11 @@
     "go-back": "Go back",
     "InputNumber": {
       "title": "Enter your phone number to verify your account",
-      "description": "We will send a confirmation code to your number in whatsapp",
       "placeholder": "Enter your phone number",
       "sendCode": "Send Code"
     },
     "OTP": {
-      "title": "Enter your OTP code you recieved in your Whatsapp account.",
-      "description": "We will confirm your account by using it.",
+      "title": "Enter your OTP code you recieved in your WhatsApp account.",
       "otp-description": "",
       "verifyCode": "Verify code"
     }
@@ -219,6 +217,9 @@
       }
     }
   },
+  "showing-ads-page": {
+    "showing-ads-for": "Showing ads for {title}"
+  },
   "not-found": {
     "title": "Oops, Page not found!",
     "paragraph": "The page you're looking for doesn't seem to exist.",
@@ -226,7 +227,6 @@
   },
   "/": {
     "navigation": {
-      "choose-category": "Choose the category you want.",
       "show-all": "Show all"
     }
   },
@@ -244,7 +244,7 @@
   },
   "/user/[userId]": {
     "advertises": {
-      "title": "Advertises",
+      "title": "Posted Advertisements",
       "you-have-no-ads": "You have no ads",
       "user-has-no-ads": "This user has no ads"
     },
@@ -322,16 +322,13 @@
     },
     "location": {
       "location": {
-        "label": "Location",
-        "description": "Choose your location"
+        "label": "Location"
       },
       "governorate": {
-        "label": "Governorate",
-        "description": "Choose your governorate"
+        "label": "Governorate"
       },
       "city": {
-        "label": "City",
-        "description": "Choose your city"
+        "label": "City"
       }
     },
     "price": {
@@ -364,7 +361,7 @@
       "member-since": "Member since:",
       "phone-number": "Show Phone Number",
       "chat": "Chat",
-      "whatsapp": "Whatsapp"
+      "WhatsApp": "WhatsApp"
     },
     "safety-tips": {
       "title": "Your safety matters to us!",

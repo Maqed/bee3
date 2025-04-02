@@ -25,7 +25,7 @@ function WhatsAppButton({
       <ContactButton
         variant="whatsapp"
         Icon={Whatsapp}
-        title={tUser("whatsapp")}
+        title={tUser("WhatsApp")}
         showTitle={showTitle}
         className={className}
       />

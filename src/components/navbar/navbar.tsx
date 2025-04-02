@@ -41,6 +41,10 @@ export default async function Navbar() {
                   <Avatar>{session?.user.name[0]}</Avatar>
                 </DropdownMenuTrigger>
               }
+              dropdownMenuContentProps={{
+                align: "end",
+                className: "w-64",
+              }}
               session={session}
             />
           </div>
@@ -48,7 +52,7 @@ export default async function Navbar() {
             <SheetTrigger className="md:hidden">
               <Menu />
             </SheetTrigger>
-            <SheetContent className="w-64">
+            <SheetContent className="w-52 sm:w-64">
               <VisuallyHidden>
                 <SheetHeader>
                   <SheetTitle>Navbar content</SheetTitle>
