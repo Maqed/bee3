@@ -132,7 +132,11 @@ export function AsyncSearch<T>({
         onKeyDown={(e) => {
           if (e.key === "Enter" && searchTerm.length) onSubmit();
         }}
-        className={cn({ "rounded-b-none": isResultVisible })}
+        className={cn(
+          "flex items-center rounded-xl border border-b-0 bg-accent px-3 text-accent-foreground",
+          { "rounded-b-none": isResultVisible },
+        )}
+        inputClassName="flex h-11 w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
         placeholder={placeholder}
         disabled={disabled}
         value={searchTerm}
