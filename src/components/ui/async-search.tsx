@@ -124,7 +124,7 @@ export function AsyncSearch<T>({
 
   return (
     <Command
-      className="relative w-[225px] sm:w-[250px] md:w-[300px] lg:w-[450px]"
+      className="relative w-[180px] sm:w-[250px] md:w-[300px] lg:w-[450px]"
       shouldFilter={false}
     >
       <CommandInput
@@ -156,7 +156,7 @@ export function AsyncSearch<T>({
       <CommandList
         ref={resultRef}
         className={cn(
-          "fixed top-16 max-h-full w-[225px] bg-background shadow-xl sm:w-[250px] md:w-[300px] lg:w-[450px]",
+          "fixed top-16 max-h-full w-[180px] bg-background shadow-xl sm:w-[250px] md:w-[300px] lg:w-[450px]",
           isResultVisible ? "block" : "hidden",
         )}
       >
