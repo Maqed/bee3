@@ -81,8 +81,9 @@ export default async function Navbar() {
                   }
                   dropdownMenuContentProps={{
                     align: "start",
-                    side: locale == "en" ? "left" : "right",
+                    side: "top",
                     sideOffset: 6,
+                    className: "w-44",
                   }}
                   loginButtonProps={{ className: "w-full" }}
                   session={session}
