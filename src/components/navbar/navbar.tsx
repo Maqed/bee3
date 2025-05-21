@@ -18,11 +18,9 @@ import { Avatar } from "@/components/ui/avatar";
 import { ChevronsUpDown, Menu } from "lucide-react";
 import { DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { getLocale } from "next-intl/server";
 
 export default async function Navbar() {
   const session = await getServerAuthSession();
-  const locale = await getLocale();
   return (
     <header className="container sticky top-0 z-50 mb-5 flex flex-col justify-between gap-1 border-b bg-background py-4">
       <div className="flex items-center justify-between">
