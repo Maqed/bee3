@@ -3,14 +3,14 @@ import AdsCategoriesCarousels from "./_components/ads-categories-carousels";
 import ExploreCategories from "./_components/explore-categories";
 import SellButton from "@/components/bee3/sell-button";
 import AdsCarouselPlaceholder from "@/components/placeholders/ads-carousel-placeholder";
+import { categoriesTree } from "@/schema/categories-tree";
 
 export default async function HomePage() {
   return (
     <main className="flex flex-col gap-y-5">
       <ExploreCategories />
-      {/* TODO: Change the Array length to the actual number of carousel in prod  */}
       <Suspense
-        fallback={[...Array(2)].map(() => (
+        fallback={[...Array(categoriesTree.length)].map(() => (
           <AdsCarouselPlaceholder />
         ))}
       >
