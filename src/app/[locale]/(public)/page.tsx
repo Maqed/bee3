@@ -5,7 +5,7 @@ import SellButton from "@/components/bee3/sell-button";
 import AdsCarouselPlaceholder from "@/components/placeholders/ads-carousel-placeholder";
 import { categoriesTree } from "@/schema/categories-tree";
 
-export default async function HomePage() {
+export default function HomePage() {
   return (
     <main className="flex flex-col gap-y-5">
       <ExploreCategories />
