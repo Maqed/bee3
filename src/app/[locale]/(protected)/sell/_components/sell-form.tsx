@@ -41,8 +41,8 @@ import LocationCombobox from "@/components/bee3/location-combobox";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardTitle, CardContent, CardHeader } from "@/components/ui/card";
 import PrefixLabelledInput from "@/components/ui/prefix-labelled-input";
-import { RadioGroup } from "@/components/ui/radio-group";
-import CategoryRadioItem from "./category-radio-item";
+import { Listbox } from "@/components/ui/listbox";
+import CategoryListboxItem from "./category-list-box-item";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 
 type SellFormProps = {
@@ -169,13 +169,14 @@ function SellForm({
             >
               <FormItem className="space-y-3">
                 <FormLabel>{tSell("category.main.label")}</FormLabel>
-                <RadioGroup
+                <Listbox
                   onValueChange={(value) => {
                     setSelectedMainCategory(value);
                     setSelectedSubCategory(null);
                     form.setValue("categoryId", 0);
                   }}
                   className="flex gap-3"
+                  orientation="mixed"
                 >
                   {mainCategories.map((category) => {
                     const categoryName = getCategoryName(locale, category);
@@ -190,7 +191,7 @@ function SellForm({
                         className="flex items-center space-x-3 space-y-0"
                       >
                         <FormControl>
-                          <CategoryRadioItem
+                          <CategoryListboxItem
                             Icon={CategoryIcon}
                             value={category.name_en}
                             categoryName={categoryName}
@@ -199,7 +200,7 @@ function SellForm({
                       </FormItem>
                     );
                   })}
-                </RadioGroup>
+                </Listbox>
                 <FormMessage />
               </FormItem>
               {selectedMainCategory && (
@@ -211,12 +212,13 @@ function SellForm({
                       <FormLabel>{tSell("category.sub.label")}</FormLabel>
                       <Select>
                         <FormControl>
-                          <RadioGroup
+                          <Listbox
                             onValueChange={(value) => {
                               field.onChange(Number(value));
                             }}
                             disabled={isPending}
                             className="flex gap-3"
+                            orientation="mixed"
                           >
                             {subCategories.map((subCategory) => {
                               const subCategoryName = getCategoryName(
@@ -238,7 +240,7 @@ function SellForm({
                                   key={subCategoryName}
                                   className="flex items-center space-x-3 space-y-0"
                                 >
-                                  <CategoryRadioItem
+                                  <CategoryListboxItem
                                     Icon={SubCategoryIcon}
                                     // @ts-ignore
                                     value={subCategory.id}
@@ -247,7 +249,7 @@ function SellForm({
                                 </FormItem>
                               );
                             })}
-                          </RadioGroup>
+                          </Listbox>
                         </FormControl>
                       </Select>
                       <FormMessage />
