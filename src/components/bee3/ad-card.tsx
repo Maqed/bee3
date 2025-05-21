@@ -10,7 +10,8 @@ import {
 } from "@/lib/utils";
 import { getLocalizedLocation } from "@/lib/utils";
 import FavoritesHeart from "./favorites-heart";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { Badge } from "../ui/badge";
 
 type Props = {
   ad: Ad;
@@ -19,6 +20,7 @@ type Props = {
 
 function AdCard({ ad, orientation = "vertical" }: Props) {
   const locale = useLocale();
+  const tAd = useTranslations("/ad/[adId]");
 
   return (
     <Link title={ad.title} href={`/ad/${ad.id}`}>
@@ -62,11 +64,14 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
             <CardTitle className="relative flex w-full items-center justify-between">
               <span
                 className={cn(
-                  "w-full text-lg font-semibold text-primary",
-                  orientation === "horizontal" && "md:ext-3xl",
+                  "flex w-full items-center gap-1 text-lg font-semibold text-primary",
+                  orientation === "horizontal" && "md:text-3xl",
                 )}
               >
                 {getLocalizedPrice(locale, ad.price)}
+                {ad.negotiable && (
+                  <Badge variant="secondary">{tAd("negotiable")}</Badge>
+                )}
               </span>
               <FavoritesHeart
                 className={cn(

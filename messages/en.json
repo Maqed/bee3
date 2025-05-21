@@ -355,6 +355,7 @@
       "ad-not-found": "Ad not found"
     },
     "description": "Description",
+    "negotiable": "Negotiable",
     "related-ads": "Related Ads",
     "user": {
       "posted-by": "Posted By",

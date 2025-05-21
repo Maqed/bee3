@@ -371,6 +371,7 @@
       "ad-not-found": "لم يتم العثور على الإعلان"
     },
     "description": "الوصف",
+    "negotiable": "قابل للتفاوض",
     "related-ads": "اعلانات مشابهة",
     "user": {
       "posted-by": "نشر بواسطة",
