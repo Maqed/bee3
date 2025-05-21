@@ -1,6 +1,5 @@
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import { Avatar } from "@/components/ui/avatar";
-import { getLocale, getTranslations } from "next-intl/server";
 import { categoriesTree } from "@/schema/categories-tree";
 
 import {
@@ -13,7 +12,6 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -21,10 +19,11 @@ import {
 import { Link } from "@/navigation";
 import { getCategoryName, toPathFormat } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
+import { useLocale, useTranslations } from "next-intl";
 
-async function ExploreCategories() {
-  const tNavigation = await getTranslations("/.navigation");
-  const locale = await getLocale();
+function ExploreCategories() {
+  const tNavigation = useTranslations("/.navigation");
+  const locale = useLocale();
 
   return (
     <section className="container">
