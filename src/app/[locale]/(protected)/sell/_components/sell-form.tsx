@@ -16,13 +16,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { UploadAdImageButton } from "@/components/bee3/ad-image-button";
@@ -210,48 +203,46 @@ function SellForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{tSell("category.sub.label")}</FormLabel>
-                      <Select>
-                        <FormControl>
-                          <Listbox
-                            onValueChange={(value) => {
-                              field.onChange(Number(value));
-                            }}
-                            disabled={isPending}
-                            className="flex gap-3"
-                            orientation="mixed"
-                          >
-                            {subCategories.map((subCategory) => {
-                              const subCategoryName = getCategoryName(
-                                locale,
-                                subCategory,
-                              );
-                              const categoryNamePathFormat =
-                                toPathFormat(selectedMainCategory);
-                              const subCategoryNamePathFormat = toPathFormat(
-                                subCategory.name_en,
-                              );
-                              const SubCategoryIcon = categoryIcons[
-                                categoryNamePathFormat
-                              ]?.subCategories[
-                                subCategoryNamePathFormat
-                              ] as CategoryIconType;
-                              return (
-                                <FormItem
-                                  key={subCategoryName}
-                                  className="flex items-center space-x-3 space-y-0"
-                                >
-                                  <CategoryListboxItem
-                                    Icon={SubCategoryIcon}
-                                    // @ts-ignore
-                                    value={subCategory.id}
-                                    categoryName={subCategoryName}
-                                  />
-                                </FormItem>
-                              );
-                            })}
-                          </Listbox>
-                        </FormControl>
-                      </Select>
+                      <FormControl>
+                        <Listbox
+                          onValueChange={(value) => {
+                            field.onChange(Number(value));
+                          }}
+                          disabled={isPending}
+                          className="flex gap-3"
+                          orientation="mixed"
+                        >
+                          {subCategories.map((subCategory) => {
+                            const subCategoryName = getCategoryName(
+                              locale,
+                              subCategory,
+                            );
+                            const categoryNamePathFormat =
+                              toPathFormat(selectedMainCategory);
+                            const subCategoryNamePathFormat = toPathFormat(
+                              subCategory.name_en,
+                            );
+                            const SubCategoryIcon = categoryIcons[
+                              categoryNamePathFormat
+                            ]?.subCategories[
+                              subCategoryNamePathFormat
+                            ] as CategoryIconType;
+                            return (
+                              <FormItem
+                                key={subCategoryName}
+                                className="flex items-center space-x-3 space-y-0"
+                              >
+                                <CategoryListboxItem
+                                  Icon={SubCategoryIcon}
+                                  // @ts-ignore
+                                  value={subCategory.id}
+                                  categoryName={subCategoryName}
+                                />
+                              </FormItem>
+                            );
+                          })}
+                        </Listbox>
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
