@@ -188,6 +188,9 @@ export const auth = betterAuth({
       },
     }),
   ],
+  advanced: {
+    cookiePrefix: "bee3",
+  },
 });
 
 export const getServerAuthSession = async () =>

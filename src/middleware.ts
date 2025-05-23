@@ -7,6 +7,7 @@ import {
   PROTECTED_ROUTES,
   DEFAULT_LOGIN_REDIRECT,
 } from "./consts/routes";
+import { getSessionCookie } from "better-auth/cookies";
 
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -17,7 +18,9 @@ const intlMiddleware = createMiddleware({
 });
 
 export default async function middleware(req: NextRequest) {
-  const session = req.cookies.has("better-auth.session_token");
+  const sessionCookie = getSessionCookie(req, {
+    cookiePrefix: "bee3",
+  });
 
   // Remove locale and clean pathname
   const localeMatch = req.nextUrl.pathname.match(/^\/(ar|en)(\/|$)/);
@@ -30,14 +33,14 @@ export default async function middleware(req: NextRequest) {
     pathnameWithoutLocale.startsWith(route),
   );
 
-  if (isProtectedRoute && !session) {
+  if (isProtectedRoute && !sessionCookie) {
     return NextResponse.redirect(
       new URL(DEFAULT_UNAUTHENTICATED_REDIRECT, req.url),
     );
   }
 
   if (
-    session &&
+    sessionCookie &&
     ONLY_UNAUTHENTICATED_ROUTES.some((route) =>
       pathnameWithoutLocale.startsWith(route),
     )
