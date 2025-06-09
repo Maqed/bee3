@@ -172,7 +172,7 @@ export function AsyncSearch<T>({
           debouncedSearchTerm.length > 0 &&
           options.length === 0 &&
           (notFound || <CommandEmpty>{noResultsMessage}</CommandEmpty>)}
-        <CommandGroup>
+        <CommandGroup className="p-0">
           {options.map((option) => (
             <CommandItem
               key={getOptionValue(option)}
@@ -181,7 +181,7 @@ export function AsyncSearch<T>({
                 onSearch(option);
                 setIsResultVisible(false);
               }}
-              className="group h-11 px-2 py-3 data-[selected='true']:bg-primary"
+              className="group h-11 rounded-none px-2 py-3 data-[selected='true']:bg-primary"
             >
               <Search className="me-2 size-4 shrink-0 opacity-50 group-data-[selected='true']:text-primary-foreground" />
               {renderOption(option)}
