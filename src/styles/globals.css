@@ -3,13 +3,13 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 98%;
     --foreground: 20 14.3% 4.1%;
     --muted: 60 4.8% 95.9%;
     --muted-foreground: 25 5.3% 44.7%;
     --popover: 0 0% 100%;
     --popover-foreground: 20 14.3% 4.1%;
-    --card: 0 0% 100%;
+    --card: 0 0% 97.5%;
     --card-foreground: 20 14.3% 4.1%;
     --border: 20 5.9% 90%;
     --input: 20 5.9% 90%;
@@ -32,9 +32,9 @@
     --info-foreground: 0 0% 100%;
   }
   .dark {
-    --background: 45.4 11% 5%;
+    --background: 0 4% 5%;
     --foreground: 45.4 5% 90%;
-    --card: 45.4 11% 5%;
+    --card: 0 0% 5%;
     --card-foreground: 45.4 5% 90%;
     --popover: 45.4 11% 5%;
     --popover-foreground: 45.4 5% 90%;
