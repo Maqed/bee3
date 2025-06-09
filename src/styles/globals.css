@@ -3,13 +3,13 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --background: 0 0% 98%;
+    --background: 0 0% 99%;
     --foreground: 20 14.3% 4.1%;
     --muted: 60 4.8% 95.9%;
     --muted-foreground: 25 5.3% 44.7%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 20 14.3% 4.1%;
-    --card: 0 0% 97.5%;
+    --popover: 0 0% 99%;
+    --popover-foreground: 0 0% 32%;
+    --card: 0 0% 98.5%;
     --card-foreground: 20 14.3% 4.1%;
     --border: 20 5.9% 90%;
     --input: 20 5.9% 90%;
@@ -17,8 +17,8 @@
     --primary-foreground: 26 83.3% 14.1%;
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
-    --accent: 60 4.8% 95.9%;
-    --accent-foreground: 24 9.8% 10%;
+    --accent: 0 0% 95%;
+    --accent-foreground: 0, 0%, 13%;
     --ring: 20 14.3% 4.1%;
     --radius: 0.5rem;
     /* Feedback colors */
@@ -44,8 +44,8 @@
     --secondary-foreground: 0 0% 100%;
     --muted: 7.399999999999999 11% 15%;
     --muted-foreground: 45.4 5% 60%;
-    --accent: 7.399999999999999 11% 15%;
-    --accent-foreground: 45.4 5% 90%;
+    --accent: 0 0% 14%;
+    --accent-foreground: 0 0% 90%;
     --border: 45.4 20% 18%;
     --input: 45.4 20% 18%;
     --ring: 45.4 93.4% 47.5%;
