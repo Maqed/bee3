@@ -11,7 +11,6 @@ export async function fetchCategoryCarousel(categoryPath: string) {
     ),
     {
       method: "GET",
-      cache: "no-store",
     },
   );
 

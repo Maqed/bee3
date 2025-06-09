@@ -12,7 +12,6 @@ async function ShowingAds({ params }: { params: URLSearchParams }) {
     absoluteURL(`/api/bee3/search?${params.toString()}`),
     {
       method: "GET",
-      cache: "no-store",
     },
   );
 
