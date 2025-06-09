@@ -156,8 +156,9 @@ export function AsyncSearch<T>({
       <CommandList
         ref={resultRef}
         className={cn(
-          "fixed top-16 max-h-full w-[180px] bg-background shadow-xl sm:w-[250px] md:w-[300px] lg:w-[450px]",
+          "fixed top-16 max-h-full w-[180px] bg-accent shadow-xl sm:w-[250px] md:w-[300px] lg:w-[450px]",
           isResultVisible ? "block" : "hidden",
+          { "rounded-b-xl": isResultVisible },
         )}
       >
         {error && (
@@ -180,9 +181,9 @@ export function AsyncSearch<T>({
                 onSearch(option);
                 setIsResultVisible(false);
               }}
-              className="h-11 px-2 py-3"
+              className="group h-11 px-2 py-3 data-[selected='true']:bg-primary"
             >
-              <Search className="me-2 size-4 shrink-0 opacity-50" />
+              <Search className="me-2 size-4 shrink-0 opacity-50 group-data-[selected='true']:text-primary-foreground" />
               {renderOption(option)}
             </CommandItem>
           ))}

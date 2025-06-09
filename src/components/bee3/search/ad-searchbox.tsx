@@ -48,10 +48,10 @@ const AdSearch = () => {
       renderOption={(suggestion) => {
         const { title, category } = suggestion;
         return (
-          <div className="flex gap-1">
+          <div className="flex gap-1 group-data-[selected='true']:text-primary-foreground">
             {title}
             {category && (
-              <span className="text-foreground/80">
+              <span className="text-foreground/80 group-data-[selected='true']:text-primary-foreground/80">
                 {t("in")} {getCategoryName(locale, category)}
               </span>
             )}
