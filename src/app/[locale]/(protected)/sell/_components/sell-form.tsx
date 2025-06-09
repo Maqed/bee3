@@ -163,6 +163,7 @@ function SellForm({
               <FormItem className="space-y-3">
                 <FormLabel>{tSell("category.main.label")}</FormLabel>
                 <Listbox
+                  value={selectedMainCategory || undefined}
                   onValueChange={(value) => {
                     setSelectedMainCategory(value);
                     setSelectedSubCategory(null);
@@ -205,7 +206,9 @@ function SellForm({
                       <FormLabel>{tSell("category.sub.label")}</FormLabel>
                       <FormControl>
                         <Listbox
+                          value={selectedSubCategory || undefined}
                           onValueChange={(value) => {
+                            setSelectedSubCategory(value);
                             field.onChange(Number(value));
                           }}
                           disabled={isPending}
@@ -234,8 +237,7 @@ function SellForm({
                               >
                                 <CategoryListboxItem
                                   Icon={SubCategoryIcon}
-                                  // @ts-ignore
-                                  value={subCategory.id}
+                                  value={subCategory.id.toString()}
                                   categoryName={subCategoryName}
                                 />
                               </FormItem>
