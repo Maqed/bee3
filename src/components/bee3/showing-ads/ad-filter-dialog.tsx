@@ -13,7 +13,11 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-function AdFilterDialog() {
+type Props = {
+  categoryPath?: string[];
+};
+
+function AdFilterDialog({ categoryPath }: Props) {
   const t = useTranslations("");
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -32,8 +36,9 @@ function AdFilterDialog() {
           ascendingly
         </DialogDescription>
       </VisuallyHidden>
-      <DialogContent className="h-full w-full">
+      <DialogContent className="h-full w-full flex-1 overflow-y-auto">
         <FilterAds
+          categoryPath={categoryPath}
           onApplyFilter={() => {
             setIsOpen(false);
           }}

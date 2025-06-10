@@ -13,16 +13,24 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import LocationCombobox from "../location-combobox";
+import OptionsFilter from "./options-filter";
+import { getCategoryAndSubCategory } from "@/lib/utils";
 
 type Props = {
   onApplyFilter?: () => void;
+  categoryPath?: string[];
 };
 
-function FilterAds({ onApplyFilter }: Props) {
+function FilterAds({ onApplyFilter, categoryPath }: Props) {
   const t = useTranslations("filter-ads");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  // Get category information if categoryPath is provided
+  const categoryInfo = categoryPath
+    ? getCategoryAndSubCategory(categoryPath)
+    : null;
 
   // Get initial values from search params
   const priceRange = searchParams.get("price")?.split("-");
@@ -43,6 +51,11 @@ function FilterAds({ onApplyFilter }: Props) {
   const [governorate, setGovernorate] = useState<number>(initialGovId);
   const [city, setCity] = useState<number>(initialCityId);
 
+  // State for category attributes filters
+  const [attributeFilters, setAttributeFilters] = useState<
+    Record<string, string>
+  >({});
+
   // Update filter states when search params change
   useEffect(() => {
     const priceRange = searchParams.get("price")?.split("-");
@@ -56,6 +69,20 @@ function FilterAds({ onApplyFilter }: Props) {
 
     if (govId) setGovernorate(Number(govId));
     if (citId) setCity(Number(citId));
+
+    // Parse attribute filters from URL
+    const attrFilters: Record<string, string> = {};
+    const attrParams = searchParams.getAll("attrs");
+    for (const attrParam of attrParams) {
+      const attrFilters_part = attrParam.split(",");
+      for (const filter of attrFilters_part) {
+        const [name, value] = filter.split("=");
+        if (name && value) {
+          attrFilters[name.trim()] = value.trim();
+        }
+      }
+    }
+    setAttributeFilters(attrFilters);
   }, [searchParams]);
 
   const handleLocationChange = (newGovernorate: number, newCity: number) => {
@@ -63,20 +90,34 @@ function FilterAds({ onApplyFilter }: Props) {
     setCity(newCity);
   };
 
+  const handleAttributeFiltersChange = (filters: Record<string, string>) => {
+    setAttributeFilters(filters);
+  };
+
   function handleApplyFilter() {
     const queryParams = new URLSearchParams({
       sort,
       order,
     });
+
     if (minPrice != undefined || maxPrice != undefined) {
       queryParams.set("price", `${minPrice ?? 0}-${maxPrice ?? 1000000000}`);
     }
+
     if (governorate > 0) {
       queryParams.set("governorate", governorate.toString());
     }
 
     if (city > 0) {
       queryParams.set("city", city.toString());
+    }
+
+    const attrFilterArray = Object.entries(attributeFilters)
+      .filter(([, value]) => value && value.trim() !== "")
+      .map(([name, value]) => `${name}=${value}`);
+
+    if (attrFilterArray.length > 0) {
+      queryParams.set("attrs", attrFilterArray.join(","));
     }
 
     if (typeof searchParams.get("q") === "string") {
@@ -135,6 +176,15 @@ function FilterAds({ onApplyFilter }: Props) {
           />
         </div>
       </div>
+
+      {/* Category-specific attribute filters */}
+      {categoryInfo && (
+        <OptionsFilter
+          categoryInfo={categoryInfo}
+          attributeFilters={attributeFilters}
+          onAttributeFiltersChange={handleAttributeFiltersChange}
+        />
+      )}
 
       <div className="flex flex-col">
         <Label className="mb-2" htmlFor="sort">

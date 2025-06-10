@@ -223,6 +223,10 @@
       "select-placeholder": "Select {attribute}",
       "number-placeholder": "Enter {attribute}",
       "text-placeholder": "Enter {attribute}",
+      "min": "Min",
+      "max": "Max",
+      "to": "to",
+      "all": "All",
       "placeholders": {
         "horse_power": "e.g. 150",
         "engine_type": "Select engine type",

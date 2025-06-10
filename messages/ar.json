@@ -224,6 +224,10 @@
       "select-placeholder": "اختر {attribute}",
       "number-placeholder": "أدخل {attribute}",
       "text-placeholder": "أدخل {attribute}",
+      "min": "أدنى",
+      "max": "أقصى",
+      "to": "إلى",
+      "all": "الكل",
       "placeholders": {
         "horse_power": "مثال: 150",
         "engine_type": "اختر نوع المحرك",

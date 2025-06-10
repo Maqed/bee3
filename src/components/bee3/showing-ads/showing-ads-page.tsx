@@ -35,11 +35,11 @@ async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
         {/* Filter */}
         <div className="lg:col-span-3">
           {/* Mobile */}
-          <AdFilterDialog />
+          <AdFilterDialog categoryPath={categoryPath} />
           {/* Desktop */}
           <Card className="hidden lg:block">
             <CardContent className="p-4">
-              <FilterAds />
+              <FilterAds categoryPath={categoryPath} />
             </CardContent>
           </Card>
         </div>
