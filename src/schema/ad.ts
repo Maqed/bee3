@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { categoriesTree, type CategoryTreeItem, type CategoryAttributeDefinition } from "./categories-tree";
+import {
+  categoriesTree,
+  type CategoryTreeItem,
+  type CategoryAttributeDefinition,
+} from "./categories-tree";
 import { cities } from "./cities";
 import { governorates } from "./governorates";
 import { MAX_AD_IMAGES, MAX_IMAGE_SIZE } from "@/consts/ad";
@@ -27,11 +31,14 @@ const validateCategoryOptions = (data: any, ctx: z.RefinementCtx) => {
   if (!category) return;
 
   // Get all applicable attributes for this category (including inherited ones if applicable)
-  const attributes = getApplicableAttributes(category, findAncestorCategories(data.categoryId, categoriesTree));
+  const attributes = getApplicableAttributes(
+    category,
+    findAncestorCategories(data.categoryId, categoriesTree),
+  );
 
   // Check that each provided option is a valid attribute for this category
   for (const key of Object.keys(optionsObj)) {
-    const attribute = attributes.find(attr => attr.name === key);
+    const attribute = attributes.find((attr) => attr.name === key);
     if (!attribute) {
       console.log(`${key} not found in ${JSON.stringify(attributes)}`);
       ctx.addIssue({
@@ -47,7 +54,7 @@ const validateCategoryOptions = (data: any, ctx: z.RefinementCtx) => {
   }
 
   // Check for missing required attributes
-  const requiredAttributes = attributes.filter(attr => attr.required);
+  const requiredAttributes = attributes.filter((attr) => attr.required);
   for (const attr of requiredAttributes) {
     if (!(attr.name in optionsObj)) {
       ctx.addIssue({
@@ -66,11 +73,11 @@ const validateAttributeValue = (
   key: string,
   value: any,
   attribute: CategoryAttributeDefinition,
-  ctx: z.RefinementCtx
+  ctx: z.RefinementCtx,
 ) => {
   switch (attribute.type) {
     case "number":
-      if (typeof value !== 'number') {
+      if (typeof value !== "number") {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: `/sell.categoryOptions-${key}-must-be-number`,
@@ -118,7 +125,7 @@ const validateAttributeValue = (
 const findAncestorCategories = (
   categoryId: number,
   tree: CategoryTreeItem[] = categoriesTree,
-  ancestors: CategoryTreeItem[] = []
+  ancestors: CategoryTreeItem[] = [],
 ): CategoryTreeItem[] => {
   for (const category of tree) {
     if (category.id === categoryId) {
@@ -128,7 +135,11 @@ const findAncestorCategories = (
     if (category.categories) {
       // Create a new array with the current category added to ancestors
       const newAncestors = [...ancestors, category];
-      const result = findAncestorCategories(categoryId, category.categories, newAncestors);
+      const result = findAncestorCategories(
+        categoryId,
+        category.categories,
+        newAncestors,
+      );
       if (result.length > 0) {
         return result;
       }
@@ -143,17 +154,22 @@ const findAncestorCategories = (
  */
 const getApplicableAttributes = (
   category: CategoryTreeItem,
-  ancestorCategories: CategoryTreeItem[] = []
+  ancestorCategories: CategoryTreeItem[] = [],
 ): CategoryAttributeDefinition[] => {
-  let attributes: CategoryAttributeDefinition[] = [...(category.attributes || [])];
+  let attributes: CategoryAttributeDefinition[] = [
+    ...(category.attributes || []),
+  ];
 
   // Add attributes from ancestors if inheritance is enabled
-  if (category.inheritParentAttributes !== false && ancestorCategories.length > 0) {
+  if (
+    category.inheritParentAttributes !== false &&
+    ancestorCategories.length > 0
+  ) {
     for (const ancestorCategory of ancestorCategories) {
       if (ancestorCategory.attributes) {
         // Add parent attributes, avoiding duplicates by name
         for (const parentAttr of ancestorCategory.attributes) {
-          if (!attributes.some(a => a.name === parentAttr.name)) {
+          if (!attributes.some((a) => a.name === parentAttr.name)) {
             attributes.push(parentAttr);
           }
         }
@@ -186,40 +202,45 @@ const adSchemaMutual = {
     }),
   cityId: z.number().refine((id) => cities.some((c) => c.id === id), {
     message: "/sell.cityId",
-  })
+  }),
 };
 
-export const adSchemaServer = z.object({
-  ...adSchemaMutual,
-  images: z
-    .array(
-      z
-        .string()
-        .refine(
-          (url) => url.startsWith(env.NEXT_PUBLIC_CLOUDFLARE_PUBLIC_BUCKET_URL),
-          {
-            message: "/sell.images-not-from-us",
-          },
-        ),
-    )
-    .min(1, { message: "/sell.images" })
-    .max(MAX_AD_IMAGES, { message: "/sell.max-images" }),
-}).superRefine(validateCategoryOptions);
+export const adSchemaServer = z
+  .object({
+    ...adSchemaMutual,
+    images: z
+      .array(
+        z
+          .string()
+          .refine(
+            (url) =>
+              url.startsWith(env.NEXT_PUBLIC_CLOUDFLARE_PUBLIC_BUCKET_URL),
+            {
+              message: "/sell.images-not-from-us",
+            },
+          ),
+      )
+      .min(1, { message: "/sell.images" })
+      .max(MAX_AD_IMAGES, { message: "/sell.max-images" }),
+  })
+  .superRefine(validateCategoryOptions);
 
-export const adSchemaClient = z.object({
-  ...adSchemaMutual,
-  images: z
-    .array(
-      z
-        .instanceof(File)
-        .refine((file) => file.size <= MAX_IMAGE_SIZE, {
-          message: "/sell.image-size",
-        })
-        .refine((file) => file.type.startsWith("image/")),
-    )
-    .min(1, { message: "/sell.images" })
-    .max(MAX_AD_IMAGES, { message: "/sell.max-images" }),
-}).superRefine(validateCategoryOptions);
+export const adSchemaClient = z
+  .object({
+    ...adSchemaMutual,
+    images: z
+      .array(
+        z
+          .instanceof(File)
+          .refine((file) => file.size <= MAX_IMAGE_SIZE, {
+            message: "/sell.image-size",
+          })
+          .refine((file) => file.type.startsWith("image/")),
+      )
+      .min(1, { message: "/sell.images" })
+      .max(MAX_AD_IMAGES, { message: "/sell.max-images" }),
+  })
+  .superRefine(validateCategoryOptions);
 
 export const favAdSchema = z.object({
   adId: z
@@ -234,10 +255,7 @@ export const favAdSchema = z.object({
 /**
  * Checks if a category exists by ID
  */
-const categoryExists = (
-  id: number,
-  categories: CategoryTreeItem[],
-): boolean =>
+const categoryExists = (id: number, categories: CategoryTreeItem[]): boolean =>
   categories.some(
     (c) => c.id === id || (c.categories && categoryExists(id, c.categories)),
   );
@@ -257,7 +275,10 @@ const categoryPathExists = (
 
     if (categoryPath === path) return true;
 
-    if (category.categories && categoryPathExists(path, category.categories, categoryPath)) {
+    if (
+      category.categories &&
+      categoryPathExists(path, category.categories, categoryPath)
+    ) {
       return true;
     }
   }
@@ -269,7 +290,7 @@ const categoryPathExists = (
  */
 const findCategory = (
   id: number,
-  categories: CategoryTreeItem[]
+  categories: CategoryTreeItem[],
 ): CategoryTreeItem | null => {
   for (const cat of categories) {
     if (cat.id === id) return cat;
@@ -291,3 +312,6 @@ const toPathFormat = (str: string): string => {
     .replace(/[^\u0600-\u06FFa-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 };
+
+// Export helper functions for use in components
+export { findCategory, getApplicableAttributes, findAncestorCategories };

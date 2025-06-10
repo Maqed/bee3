@@ -1,0 +1,176 @@
+import type { UseFormReturn } from "react-hook-form";
+import { categoriesTree } from "@/schema/categories-tree";
+import { Input } from "@/components/ui/input";
+import { NumberInput } from "@/components/ui/number-input";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { FormControl, FormItem, FormLabel } from "@/components/ui/form";
+import {
+  findCategory,
+  getApplicableAttributes,
+  findAncestorCategories,
+} from "@/schema/ad";
+
+interface CategoryOptionsSectionProps {
+  form: UseFormReturn<any>;
+  categoryId: number;
+  isPending: boolean;
+  tSell: any;
+}
+
+function CategoryOptionsSection({
+  form,
+  categoryId,
+  isPending,
+  tSell,
+}: CategoryOptionsSectionProps) {
+  // Get the category and its attributes
+  const category = findCategory(categoryId, categoriesTree);
+  if (!category) return null;
+
+  const ancestorCategories = findAncestorCategories(categoryId, categoriesTree);
+  const attributes = getApplicableAttributes(category, ancestorCategories);
+
+  if (attributes.length === 0) return null;
+
+  // Parse current category options
+  const currentOptions = (() => {
+    try {
+      return form.watch("categoryOptions")
+        ? JSON.parse(form.watch("categoryOptions"))
+        : {};
+    } catch {
+      return {};
+    }
+  })();
+
+  const updateCategoryOptions = (attributeName: string, value: any) => {
+    const newOptions = { ...currentOptions, [attributeName]: value };
+    form.setValue("categoryOptions", JSON.stringify(newOptions));
+  };
+
+  return (
+    <div className="space-y-4">
+      <FormLabel className="text-base">
+        {tSell("category.options.label")}
+      </FormLabel>
+      {attributes.map((attribute) => (
+        <FormItem key={attribute.name}>
+          <FormLabel>
+            {tSell(`category.options.attributes.${attribute.name}`) ||
+              attribute.name
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, (l) => l.toUpperCase())}
+            {attribute.required && " *"}
+            {attribute.unit && ` (${attribute.unit})`}
+          </FormLabel>
+          <FormControl>
+            {attribute.type === "select" ? (
+              <Select
+                value={currentOptions[attribute.name] || ""}
+                onValueChange={(value) =>
+                  updateCategoryOptions(attribute.name, value)
+                }
+                disabled={isPending}
+              >
+                <SelectTrigger>
+                  <SelectValue
+                    placeholder={
+                      tSell(
+                        `category.options.placeholders.${attribute.name}`,
+                      ) ||
+                      tSell("category.options.select-placeholder").replace(
+                        "{attribute}",
+                        tSell(
+                          `category.options.attributes.${attribute.name}`,
+                        ) || attribute.name.replace(/_/g, " "),
+                      )
+                    }
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  {attribute.options?.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {tSell(`category.options.values.${option}`) || option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : attribute.type === "number" ? (
+              <NumberInput
+                value={currentOptions[attribute.name]}
+                placeholder={
+                  tSell(`category.options.placeholders.${attribute.name}`) ||
+                  tSell("category.options.number-placeholder").replace(
+                    "{attribute}",
+                    tSell(`category.options.attributes.${attribute.name}`) ||
+                      attribute.name.replace(/_/g, " "),
+                  )
+                }
+                onValueChange={(value) =>
+                  updateCategoryOptions(attribute.name, value)
+                }
+                decimalScale={2}
+                fixedDecimalScale={false}
+                min={0}
+                disabled={isPending}
+              />
+            ) : attribute.type === "multiselect" ? (
+              <div className="space-y-2">
+                {attribute.options?.map((option) => (
+                  <div key={option} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`${attribute.name}-${option}`}
+                      checked={(currentOptions[attribute.name] || []).includes(
+                        option,
+                      )}
+                      onCheckedChange={(checked) => {
+                        const currentValues =
+                          currentOptions[attribute.name] || [];
+                        const newValues = checked
+                          ? [...currentValues, option]
+                          : currentValues.filter((v: string) => v !== option);
+                        updateCategoryOptions(attribute.name, newValues);
+                      }}
+                      disabled={isPending}
+                    />
+                    <label
+                      htmlFor={`${attribute.name}-${option}`}
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      {tSell(`category.options.values.${option}`) || option}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <Input
+                value={currentOptions[attribute.name] || ""}
+                placeholder={
+                  tSell(`category.options.placeholders.${attribute.name}`) ||
+                  tSell("category.options.text-placeholder").replace(
+                    "{attribute}",
+                    tSell(`category.options.attributes.${attribute.name}`) ||
+                      attribute.name.replace(/_/g, " "),
+                  )
+                }
+                onChange={(e) =>
+                  updateCategoryOptions(attribute.name, e.target.value)
+                }
+                disabled={isPending}
+              />
+            )}
+          </FormControl>
+        </FormItem>
+      ))}
+    </div>
+  );
+}
+
+export default CategoryOptionsSection;

@@ -27,6 +27,7 @@ function SellPage() {
       governorateId: 0,
       cityId: 0,
       negotiable: false,
+      categoryOptions: "",
     },
   });
 

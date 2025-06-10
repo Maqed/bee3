@@ -37,26 +37,14 @@ import PrefixLabelledInput from "@/components/ui/prefix-labelled-input";
 import { Listbox } from "@/components/ui/listbox";
 import CategoryListboxItem from "./category-list-box-item";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
+import CategoryOptionsSection from "./category-options-section";
 
 type SellFormProps = {
   startTransition: TransitionStartFunction;
   isPending: boolean;
   selectedMainCategory: string | null;
   setSelectedMainCategory: Dispatch<SetStateAction<string | null>>;
-  form: UseFormReturn<
-    {
-      title: string;
-      price: number;
-      categoryId: number;
-      images: File[];
-      negotiable: boolean;
-      governorateId: number;
-      cityId: number;
-      description?: string | undefined;
-    },
-    any,
-    undefined
-  >;
+  form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
 };
 
 function SellForm({
@@ -168,6 +156,7 @@ function SellForm({
                     setSelectedMainCategory(value);
                     setSelectedSubCategory(null);
                     form.setValue("categoryId", 0);
+                    form.setValue("categoryOptions", "");
                   }}
                   className="flex gap-3"
                   orientation="mixed"
@@ -210,6 +199,7 @@ function SellForm({
                           onValueChange={(value) => {
                             setSelectedSubCategory(value);
                             field.onChange(Number(value));
+                            form.setValue("categoryOptions", "");
                           }}
                           disabled={isPending}
                           className="flex gap-3"
@@ -250,6 +240,7 @@ function SellForm({
                   )}
                 />
               )}
+              {/* Category Options Section */}
               <Separator />
               <FormField
                 control={form.control}
@@ -307,6 +298,14 @@ function SellForm({
                 )}
               />
               <Separator />
+              {selectedSubCategory && form.watch("categoryId") > 0 && (
+                <CategoryOptionsSection
+                  form={form}
+                  categoryId={form.watch("categoryId")}
+                  isPending={isPending}
+                  tSell={tSell}
+                />
+              )}
               {/* LOCATIONS START */}
               {!isSelectedALocation && (
                 <FormField
