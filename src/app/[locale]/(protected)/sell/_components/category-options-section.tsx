@@ -16,6 +16,7 @@ import {
   getApplicableAttributes,
   findAncestorCategories,
 } from "@/schema/ad";
+import { useTranslations } from "next-intl";
 
 interface CategoryOptionsSectionProps {
   form: UseFormReturn<any>;
@@ -30,6 +31,8 @@ function CategoryOptionsSection({
   isPending,
   tSell,
 }: CategoryOptionsSectionProps) {
+  const tCategory = useTranslations("category");
+
   // Get the category and its attributes
   const category = findCategory(categoryId, categoriesTree);
   if (!category) return null;
@@ -57,13 +60,11 @@ function CategoryOptionsSection({
 
   return (
     <div className="space-y-4">
-      <FormLabel className="text-base">
-        {tSell("category.options.label")}
-      </FormLabel>
+      <FormLabel className="text-base">{tCategory("options.label")}</FormLabel>
       {attributes.map((attribute) => (
         <FormItem key={attribute.name}>
           <FormLabel>
-            {tSell(`category.options.attributes.${attribute.name}`) ||
+            {tCategory(`options.attributes.${attribute.name}`) ||
               attribute.name
                 .replace(/_/g, " ")
                 .replace(/\b\w/g, (l) => l.toUpperCase())}
@@ -82,14 +83,11 @@ function CategoryOptionsSection({
                 <SelectTrigger>
                   <SelectValue
                     placeholder={
-                      tSell(
-                        `category.options.placeholders.${attribute.name}`,
-                      ) ||
-                      tSell("category.options.select-placeholder").replace(
+                      tCategory(`options.placeholders.${attribute.name}`) ||
+                      tCategory("options.select-placeholder").replace(
                         "{attribute}",
-                        tSell(
-                          `category.options.attributes.${attribute.name}`,
-                        ) || attribute.name.replace(/_/g, " "),
+                        tCategory(`options.attributes.${attribute.name}`) ||
+                          attribute.name.replace(/_/g, " "),
                       )
                     }
                   />
@@ -97,7 +95,7 @@ function CategoryOptionsSection({
                 <SelectContent>
                   {attribute.options?.map((option) => (
                     <SelectItem key={option} value={option}>
-                      {tSell(`category.options.values.${option}`) || option}
+                      {tCategory(`options.values.${option}`) || option}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -106,10 +104,10 @@ function CategoryOptionsSection({
               <NumberInput
                 value={currentOptions[attribute.name]}
                 placeholder={
-                  tSell(`category.options.placeholders.${attribute.name}`) ||
-                  tSell("category.options.number-placeholder").replace(
+                  tCategory(`options.placeholders.${attribute.name}`) ||
+                  tCategory("options.number-placeholder").replace(
                     "{attribute}",
-                    tSell(`category.options.attributes.${attribute.name}`) ||
+                    tCategory(`options.attributes.${attribute.name}`) ||
                       attribute.name.replace(/_/g, " "),
                   )
                 }
@@ -144,7 +142,7 @@ function CategoryOptionsSection({
                       htmlFor={`${attribute.name}-${option}`}
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
-                      {tSell(`category.options.values.${option}`) || option}
+                      {tCategory(`options.values.${option}`) || option}
                     </label>
                   </div>
                 ))}
@@ -153,10 +151,10 @@ function CategoryOptionsSection({
               <Input
                 value={currentOptions[attribute.name] || ""}
                 placeholder={
-                  tSell(`category.options.placeholders.${attribute.name}`) ||
-                  tSell("category.options.text-placeholder").replace(
+                  tCategory(`options.placeholders.${attribute.name}`) ||
+                  tCategory("options.text-placeholder").replace(
                     "{attribute}",
-                    tSell(`category.options.attributes.${attribute.name}`) ||
+                    tCategory(`options.attributes.${attribute.name}`) ||
                       attribute.name.replace(/_/g, " "),
                   )
                 }
