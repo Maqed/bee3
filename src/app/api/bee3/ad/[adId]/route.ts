@@ -24,6 +24,18 @@ export async function GET(
             url: true,
           },
         },
+        attributeValues: {
+          include: {
+            attribute: {
+              select: {
+                id: true,
+                name: true,
+                type: true,
+                unit: true,
+              },
+            },
+          },
+        },
       },
     });
 

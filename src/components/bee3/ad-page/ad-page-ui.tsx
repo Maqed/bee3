@@ -2,6 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import { AdImages } from "./ad-images";
 import { PriceAndTitle } from "./price-and-title";
 import { AdDescription } from "./ad-description";
+import { AdAttributes } from "./ad-attributes";
 import { UserInformation } from "./user-information";
 import { MobileContactInfo } from "./contact-info";
 import SafetyTipsCard from "./safety-matters";
@@ -25,6 +26,7 @@ export default function AdPageUI({ ad, isPreview = false }: AdPageUIProps) {
         <div className="flex flex-col gap-y-5 max-sm:mx-1">
           <PriceAndTitle ad={ad} locale={locale} />
           <AdDescription ad={ad} tAd={tAd} />
+          <AdAttributes ad={ad} />
           <UserInformation ad={ad} tAd={tAd} locale={locale} variant="mobile" />
           <SafetyTipsCard className="md:hidden" />
           <Separator />
