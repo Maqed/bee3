@@ -306,6 +306,7 @@ function SellForm({
                   tSell={tSell}
                 />
               )}
+              <Separator />
               {/* LOCATIONS START */}
               {!isSelectedALocation && (
                 <FormField
