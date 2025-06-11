@@ -7,6 +7,7 @@ type DescriptionProps = {
 };
 
 export function AdDescription({ ad, tAd }: DescriptionProps) {
+  if (!ad.description) return null;
   return (
     <Card>
       <CardHeader>
