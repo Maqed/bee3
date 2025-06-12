@@ -31,8 +31,10 @@ function FavoritesHeart({ adId, className }: Props) {
         (favAd) => favAd.id === adId,
       );
       setIsFavorited(isAdFavorited);
+    } else if (!session) {
+      setIsFavorited(false);
     }
-  }, [favoriteAdsData, adId]);
+  }, [favoriteAdsData, adId, session]);
 
   const mutation = useMutation({
     mutationFn: async () => {
