@@ -1,7 +1,8 @@
 import React from "react";
 import { getServerSideFullCategory } from "@/lib/server-side";
 import AdsCarousel from "@/components/bee3/ads-carousel";
-import { absoluteURL } from "@/lib/utils";
+import { absoluteURL, toPathFormat } from "@/lib/utils";
+import { categoriesTree } from "@/schema/categories-tree";
 import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
 
 export async function fetchCategoryCarousel(categoryPath: string) {
@@ -19,22 +20,28 @@ export async function fetchCategoryCarousel(categoryPath: string) {
 }
 
 async function AdsCategoriesCarousels() {
-  const vehiclesAds = await fetchCategoryCarousel("vehicles");
-  const mobilesAndTabletsAds = await fetchCategoryCarousel(
-    "mobiles-and-tablets",
+  const categoriesData = await Promise.all(
+    categoriesTree.map(async (category) => {
+      const categoryPathName = toPathFormat(category.name_en);
+      const categoryURL = `/${categoryPathName}`;
+      const categoryAds = await fetchCategoryCarousel(categoryPathName);
+      return {
+        categoryAds,
+        categoryURL,
+        title: await getServerSideFullCategory(categoryPathName),
+      };
+    }),
   );
+
   return (
     <>
-      <AdsCarousel
-        ads={vehiclesAds}
-        title={await getServerSideFullCategory("vehicles")}
-        showMoreHref="/vehicles"
-      />
-      <AdsCarousel
-        ads={mobilesAndTabletsAds}
-        title={await getServerSideFullCategory("mobiles-and-tablets")}
-        showMoreHref="/mobiles-and-tablets"
-      />
+      {categoriesData.map(({ categoryAds, categoryURL, title }) => (
+        <AdsCarousel
+          ads={categoryAds}
+          title={title}
+          showMoreHref={categoryURL}
+        />
+      ))}
     </>
   );
 }
