@@ -67,6 +67,7 @@ export function AsyncSearch<T>({
   const [wasManuallyDismissed, setWasManuallyDismissed] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const blurTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -126,7 +127,13 @@ export function AsyncSearch<T>({
     };
 
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      // Clean up blur timeout on unmount
+      if (blurTimeoutRef.current) {
+        clearTimeout(blurTimeoutRef.current);
+      }
+    };
   }, []);
 
   return (
@@ -148,10 +155,22 @@ export function AsyncSearch<T>({
         disabled={disabled}
         value={searchTerm}
         onFocus={() => {
+          // Cancel any pending blur timeout
+          if (blurTimeoutRef.current) {
+            clearTimeout(blurTimeoutRef.current);
+            blurTimeoutRef.current = null;
+          }
           if (searchTerm.length > 0) {
             setIsResultVisible(true);
             setWasManuallyDismissed(false);
           }
+        }}
+        onBlur={() => {
+          // Delay hiding to allow click events on options to fire first
+          blurTimeoutRef.current = setTimeout(() => {
+            setIsResultVisible(false);
+            setWasManuallyDismissed(true);
+          }, 10);
         }}
         onValueChange={(value) => {
           setSearchTerm(value);
@@ -165,6 +184,14 @@ export function AsyncSearch<T>({
           isResultVisible ? "block" : "hidden",
           { "rounded-b-xl": isResultVisible },
         )}
+        onMouseDown={(e) => {
+          // Prevent blur when clicking on the dropdown
+          e.preventDefault();
+        }}
+        onMouseUp={() => {
+          // Re-focus the input after mouse interaction
+          searchInputRef.current?.focus();
+        }}
       >
         {error && (
           <div className="p-4 text-center text-destructive">{error}</div>
@@ -183,6 +210,11 @@ export function AsyncSearch<T>({
               key={getOptionValue(option)}
               value={getOptionValue(option)}
               onSelect={() => {
+                // Cancel blur timeout to prevent interference
+                if (blurTimeoutRef.current) {
+                  clearTimeout(blurTimeoutRef.current);
+                  blurTimeoutRef.current = null;
+                }
                 onSearch(option);
                 setIsResultVisible(false);
                 setWasManuallyDismissed(true);
