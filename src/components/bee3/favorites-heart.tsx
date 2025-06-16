@@ -3,11 +3,12 @@ import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
 import { useRouter } from "@/navigation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useFavoriteAds } from "@/hooks/useFavAds";
 import { useEffect, useState } from "react";
 import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/consts/routes";
+import { getQueryClient } from "@/providers/get-query-client";
 
 type Props = {
   adId: string;
@@ -18,7 +19,7 @@ function FavoritesHeart({ adId, className }: Props) {
   const { data: session, isPending: isSessionPending } =
     authClient.useSession();
   const router = useRouter();
-  const queryClient = useQueryClient();
+  const queryClient = getQueryClient();
   const tFavoritesHeart = useTranslations("favorites-heart");
   const { data: favoriteAdsData, isFetching: isFavoritesFetching } =
     useFavoriteAds();
