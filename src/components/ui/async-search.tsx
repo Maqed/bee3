@@ -64,6 +64,7 @@ export function AsyncSearch<T>({
   const [error, setError] = useState<string | null>(null);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const [isResultVisible, setIsResultVisible] = useState(false);
+  const [wasManuallyDismissed, setWasManuallyDismissed] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -83,14 +84,19 @@ export function AsyncSearch<T>({
       }
     };
 
-    if (debouncedSearchTerm === searchTerm && searchTerm.length > 0) {
+    if (
+      debouncedSearchTerm === searchTerm &&
+      searchTerm.length > 0 &&
+      !wasManuallyDismissed
+    ) {
       setIsResultVisible(true);
       fetchOptions();
-    } else {
+    } else if (searchTerm.length === 0) {
       setIsResultVisible(false);
       setOptions([]);
+      setWasManuallyDismissed(false);
     }
-  }, [fetcher, debouncedSearchTerm, searchTerm]);
+  }, [fetcher, debouncedSearchTerm, searchTerm, wasManuallyDismissed]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -100,6 +106,7 @@ export function AsyncSearch<T>({
         searchInputRef.current !== event.target
       ) {
         setIsResultVisible(false);
+        setWasManuallyDismissed(true);
       }
     }
 
@@ -141,16 +148,14 @@ export function AsyncSearch<T>({
         disabled={disabled}
         value={searchTerm}
         onFocus={() => {
-          if (searchTerm.length > 0) setIsResultVisible(true);
+          if (searchTerm.length > 0) {
+            setIsResultVisible(true);
+            setWasManuallyDismissed(false);
+          }
         }}
         onValueChange={(value) => {
-          if (value.length > 0) {
-            setIsResultVisible(true);
-          } else {
-            setIsResultVisible(false);
-            setOptions([]);
-          }
           setSearchTerm(value);
+          setWasManuallyDismissed(false);
         }}
       />
       <CommandList
@@ -180,6 +185,7 @@ export function AsyncSearch<T>({
               onSelect={() => {
                 onSearch(option);
                 setIsResultVisible(false);
+                setWasManuallyDismissed(true);
               }}
               className="group h-11 rounded-none px-2 py-3 data-[selected='true']:bg-primary"
             >
