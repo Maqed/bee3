@@ -46,8 +46,10 @@ function EmailBoilerplate({
 
   return (
     <Html lang={locale} dir={dir}>
-      <Head />
-      <Tailwind config={emailTailwindConfig as any}>{children}</Tailwind>
+      <Tailwind config={emailTailwindConfig as any}>
+        <Head />
+        {children}
+      </Tailwind>
     </Html>
   );
 }
