@@ -204,716 +204,714 @@
     "cities": "Cities"
   },
   "categories": {
-    "categories": {
-      "vehicles": {
-        "name": "Vehicles",
-        "categories": {
-          "cars_for_sale": {
-            "name": "Cars for Sale"
-          },
-          "cars_for_rent": {
-            "name": "Cars for Rent"
-          },
-          "tyres_batteries_oils_accessories": {
-            "name": "Tyres, Batteries, Oils & Accessories"
-          },
-          "car_spare_parts": {
-            "name": "Car Spare Parts"
-          },
-          "motorcycles_accessories": {
-            "name": "Motorcycles & Accessories"
-          },
-          "boats_watercraft": {
-            "name": "Boats & Watercraft"
-          },
-          "heavy_trucks_buses_other_vehicles": {
-            "name": "Heavy Trucks, Buses & Other Vehicles"
-          }
-        }
-      },
-      "properties": {
-        "name": "Properties",
-        "categories": {
-          "apartments_for_sale": {
-            "name": "Apartments for Sale"
-          },
-          "apartments_for_rent": {
-            "name": "Apartments for Rent"
-          },
-          "villas_for_sale": {
-            "name": "Villas for Sale"
-          },
-          "villas_for_rent": {
-            "name": "Villas for Rent"
-          },
-          "vacation_homes_for_sale": {
-            "name": "Vacation Homes for Sale"
-          },
-          "vacation_homes_for_rent": {
-            "name": "Vacation Homes for Rent"
-          },
-          "commercial_for_sale": {
-            "name": "Commercial for Sale"
-          },
-          "commercial_for_rent": {
-            "name": "Commercial for Rent"
-          },
-          "buildings_lands": {
-            "name": "Buildings & Lands"
-          }
-        }
-      },
-      "mobiles_tablets": {
-        "name": "Mobiles & Tablets",
-        "categories": {
-          "mobile_phones": {
-            "name": "Mobile Phones"
-          },
-          "tablets": {
-            "name": "Tablets"
-          },
-          "mobile_tablet_accessories": {
-            "name": "Mobile & Tablet Accessories"
-          },
-          "mobile_numbers": {
-            "name": "Mobile Numbers"
-          }
-        }
-      },
-      "jobs": {
-        "name": "Jobs",
-        "categories": {
-          "accounting_finance_banking": {
-            "name": "Accounting, Finance & Banking"
-          },
-          "engineering": {
-            "name": "Engineering"
-          },
-          "designers": {
-            "name": "Designers"
-          },
-          "customer_service_call_center": {
-            "name": "Customer Service & Call Center"
-          },
-          "workers_technicians": {
-            "name": "Workers & Technicians"
-          },
-          "management_consulting": {
-            "name": "Management & Consulting"
-          },
-          "drivers_delivery": {
-            "name": "Drivers & Delivery"
-          },
-          "education": {
-            "name": "Education"
-          },
-          "hr": {
-            "name": "HR"
-          },
-          "tourism_travel_hospitality": {
-            "name": "Tourism, Travel & Hospitality"
-          },
-          "it_telecom": {
-            "name": "IT & Telecom"
-          },
-          "marketing_pr": {
-            "name": "Marketing & PR"
-          },
-          "medical_healthcare_nursing": {
-            "name": "Medical, Healthcare & Nursing"
-          },
-          "sales": {
-            "name": "Sales"
-          },
-          "secretarial": {
-            "name": "Secretarial"
-          },
-          "guards_security": {
-            "name": "Guards & Security"
-          },
-          "legal_lawyers": {
-            "name": "Legal & Lawyers"
-          },
-          "other_jobs": {
-            "name": "Other Jobs"
-          }
-        }
-      },
-      "electronics_home_appliances": {
-        "name": "Electronics & Home Appliances",
-        "categories": {
-          "tv_audio_video": {
-            "name": "TV, Audio & Video"
-          },
-          "computers_accessories": {
-            "name": "Computers & Accessories"
-          },
-          "video_games_consoles": {
-            "name": "Video Games & Consoles"
-          },
-          "cameras_imaging": {
-            "name": "Cameras & Imaging"
-          },
-          "home_appliances": {
-            "name": "Home Appliances"
-          }
-        }
-      },
-      "home_garden": {
-        "name": "Home & Garden",
-        "categories": {
-          "furniture": {
-            "name": "Furniture"
-          },
-          "office_furniture": {
-            "name": "Office Furniture"
-          },
-          "home_decoration_accessories": {
-            "name": "Home Decoration & Accessories"
-          },
-          "bathroom_kitchen": {
-            "name": "Bathroom & Kitchen"
-          },
-          "fabric_bedding_curtains": {
-            "name": "Fabric, Bedding & Curtains"
-          },
-          "garden_outdoor": {
-            "name": "Garden & Outdoor"
-          },
-          "kitchenware": {
-            "name": "Kitchenware"
-          },
-          "lighting": {
-            "name": "Lighting"
-          }
-        }
-      },
-      "fashion_beauty": {
-        "name": "Fashion & Beauty",
-        "categories": {
-          "womens_clothing": {
-            "name": "Women's Clothing"
-          },
-          "mens_clothing": {
-            "name": "Men's Clothing"
-          },
-          "womens_cosmetics": {
-            "name": "Women's Cosmetics"
-          },
-          "womens_accessories_personal_care": {
-            "name": "Women's Accessories & Personal Care"
-          },
-          "mens_accessories_personal_care": {
-            "name": "Men's Accessories & Personal Care"
-          }
-        }
-      },
-      "pets_animals": {
-        "name": "Pets & Animals",
-        "categories": {
-          "dogs": {
-            "name": "Dogs"
-          },
-          "cats": {
-            "name": "Cats"
-          },
-          "birds_pigeons": {
-            "name": "Birds & Pigeons"
-          },
-          "other_pets_animals": {
-            "name": "Other Pets & Animals"
-          },
-          "pet_accessories_care_products": {
-            "name": "Pet Accessories & Care Products"
-          }
-        }
-      },
-      "kids_babies": {
-        "name": "Kids & Babies",
-        "categories": {
-          "baby_mom_healthcare": {
-            "name": "Baby & Mom Healthcare"
-          },
-          "baby_clothing": {
-            "name": "Baby Clothing"
-          },
-          "baby_feeding_tools": {
-            "name": "Baby Feeding Tools"
-          },
-          "cribs_strollers_carriers": {
-            "name": "Cribs, Strollers & Carriers"
-          },
-          "toys": {
-            "name": "Toys"
-          },
-          "other_baby_items": {
-            "name": "Other Baby Items"
-          }
-        }
-      },
-      "hobbies_books_sports": {
-        "name": "Hobbies, Books & Sports",
-        "categories": {
-          "antiques_collectibles": {
-            "name": "Antiques & Collectibles"
-          },
-          "bicycles": {
-            "name": "Bicycles"
-          },
-          "books": {
-            "name": "Books"
-          },
-          "board_card_games": {
-            "name": "Board & Card Games"
-          },
-          "movies_music": {
-            "name": "Movies & Music"
-          },
-          "musical_instruments": {
-            "name": "Musical Instruments"
-          },
-          "sports_equipment": {
-            "name": "Sports Equipment"
-          },
-          "study_tools": {
-            "name": "Study Tools"
-          },
-          "tickets_vouchers": {
-            "name": "Tickets & Vouchers"
-          },
-          "luggage": {
-            "name": "Luggage"
-          },
-          "other_items": {
-            "name": "Other Items"
-          }
-        }
-      },
-      "business_industrial": {
-        "name": "Business & Industrial",
-        "categories": {
-          "agriculture": {
-            "name": "Agriculture"
-          },
-          "construction": {
-            "name": "Construction"
-          },
-          "industrial_equipment": {
-            "name": "Industrial Equipment"
-          },
-          "medical_equipment": {
-            "name": "Medical Equipment"
-          },
-          "office_furniture_equipment": {
-            "name": "Office Furniture & Equipment"
-          },
-          "restaurants_equipment": {
-            "name": "Restaurants Equipment"
-          },
-          "whole_business_for_sale": {
-            "name": "Whole Business for Sale"
-          },
-          "other_business_industrial_agriculture": {
-            "name": "Other Business & Industrial"
-          }
-        }
-      },
-      "services": {
-        "name": "Services",
-        "categories": {
-          "business_services": {
-            "name": "Business Services"
-          },
-          "car_services": {
-            "name": "Car Services"
-          },
-          "event_services": {
-            "name": "Event Services"
-          },
-          "health_beauty_services": {
-            "name": "Health & Beauty Services"
-          },
-          "home_maintenance": {
-            "name": "Home Maintenance"
-          },
-          "medical_services": {
-            "name": "Medical Services"
-          },
-          "movers": {
-            "name": "Movers"
-          },
-          "pet_services": {
-            "name": "Pet Services"
-          },
-          "education_services": {
-            "name": "Education Services"
-          },
-          "other_services": {
-            "name": "Other Services"
-          }
+    "vehicles": {
+      "name": "Vehicles",
+      "categories": {
+        "cars_for_sale": {
+          "name": "Cars for Sale"
+        },
+        "cars_for_rent": {
+          "name": "Cars for Rent"
+        },
+        "tyres_batteries_oils_accessories": {
+          "name": "Tyres, Batteries, Oils & Accessories"
+        },
+        "car_spare_parts": {
+          "name": "Car Spare Parts"
+        },
+        "motorcycles_accessories": {
+          "name": "Motorcycles & Accessories"
+        },
+        "boats_watercraft": {
+          "name": "Boats & Watercraft"
+        },
+        "heavy_trucks_buses_other_vehicles": {
+          "name": "Heavy Trucks, Buses & Other Vehicles"
         }
       }
     },
-    "category": {
-      "options": {
-        "label": "Category Options",
-        "select-placeholder": "Select {attribute}",
-        "number-placeholder": "Enter {attribute}",
-        "text-placeholder": "Enter {attribute}",
-        "min": "Min",
-        "max": "Max",
-        "to": "to",
-        "all": "All",
-        "placeholders": {
-          "brand": "Enter Brand",
-          "model": "Enter Model",
-          "year": "Enter Year",
-          "horse_power": "Enter Horse Power",
-          "engine_capacity": "Enter Engine Capacity",
-          "seats": "Enter Seats",
-          "color": "Enter Color",
-          "installation_location": "Enter Installation Location",
-          "fuel_consumption": "Enter Fuel Consumption",
-          "area": "Enter Area",
-          "bedrooms": "Enter Bedrooms",
-          "bathrooms": "Enter Bathrooms",
-          "floor": "Enter Floor",
-          "screen_size": "Enter Screen Size",
-          "salary": "Enter Salary",
-          "experience": "Enter Experience"
+    "properties": {
+      "name": "Properties",
+      "categories": {
+        "apartments_for_sale": {
+          "name": "Apartments for Sale"
         },
-        "attributes": {
-          "brand": "Brand",
-          "model": "Model",
-          "year": "Year",
-          "condition": "Condition",
-          "horse_power": "Horse Power",
-          "engine_type": "Engine Type",
-          "fuel_type": "Fuel Type",
-          "transmission": "Transmission",
-          "engine_capacity": "Engine Capacity",
-          "seats": "Seats",
-          "color": "Color",
-          "installation_location": "Installation Location",
-          "fuel_consumption": "Fuel Consumption",
-          "category": "Category",
-          "compatible_with": "Compatible With",
-          "area": "Area",
-          "bedrooms": "Bedrooms",
-          "bathrooms": "Bathrooms",
-          "floor": "Floor",
-          "furnished": "Furnished",
-          "processor": "Processor",
-          "gpu": "GPU",
-          "ram": "RAM",
-          "storage": "Storage",
-          "screen_size": "Screen Size",
-          "employment_type": "Employment Type",
-          "salary": "Salary",
-          "experience": "Experience",
-          "education_level": "Education Level",
-          "breed": "Breed",
-          "age_group": "Age Group"
+        "apartments_for_rent": {
+          "name": "Apartments for Rent"
         },
-        "values": {
-          "new": "New",
-          "used": "Used",
-          "yes": "Yes",
-          "no": "No",
-          "full_time": "Full Time",
-          "part_time": "Part Time",
-          "contract": "Contract",
-          "high_school": "High School",
-          "bachelors": "Bachelors",
-          "masters": "Masters",
-          "phd": "PhD",
-          "petrol_benzine": "Petrol",
-          "diesel": "Diesel",
-          "hybrid": "Hybrid",
-          "electric": "Electric",
-          "manual": "Manual",
-          "automatic": "Automatic",
-          "1GB": "1GB",
-          "2GB": "2GB",
-          "3GB": "3GB",
-          "4GB": "4GB",
-          "6GB": "6GB",
-          "8GB": "8GB",
-          "12GB": "12GB",
-          "16GB": "16GB",
-          "32GB": "32GB",
-          "64GB": "64GB",
-          "128GB": "128GB",
-          "256GB": "256GB",
-          "512GB": "512GB",
-          "1TB": "1TB",
-          "inch": "inch",
-          "HP": "HP"
+        "villas_for_sale": {
+          "name": "Villas for Sale"
+        },
+        "villas_for_rent": {
+          "name": "Villas for Rent"
+        },
+        "vacation_homes_for_sale": {
+          "name": "Vacation Homes for Sale"
+        },
+        "vacation_homes_for_rent": {
+          "name": "Vacation Homes for Rent"
+        },
+        "commercial_for_sale": {
+          "name": "Commercial for Sale"
+        },
+        "commercial_for_rent": {
+          "name": "Commercial for Rent"
+        },
+        "buildings_lands": {
+          "name": "Buildings & Lands"
         }
       }
     },
-    "showing-ads-page": {
-      "showing-ads-for": "Showing ads for {title}"
+    "mobiles_tablets": {
+      "name": "Mobiles & Tablets",
+      "categories": {
+        "mobile_phones": {
+          "name": "Mobile Phones"
+        },
+        "tablets": {
+          "name": "Tablets"
+        },
+        "mobile_tablet_accessories": {
+          "name": "Mobile & Tablet Accessories"
+        },
+        "mobile_numbers": {
+          "name": "Mobile Numbers"
+        }
+      }
+    },
+    "jobs": {
+      "name": "Jobs",
+      "categories": {
+        "accounting_finance_banking": {
+          "name": "Accounting, Finance & Banking"
+        },
+        "engineering": {
+          "name": "Engineering"
+        },
+        "designers": {
+          "name": "Designers"
+        },
+        "customer_service_call_center": {
+          "name": "Customer Service & Call Center"
+        },
+        "workers_technicians": {
+          "name": "Workers & Technicians"
+        },
+        "management_consulting": {
+          "name": "Management & Consulting"
+        },
+        "drivers_delivery": {
+          "name": "Drivers & Delivery"
+        },
+        "education": {
+          "name": "Education"
+        },
+        "hr": {
+          "name": "HR"
+        },
+        "tourism_travel_hospitality": {
+          "name": "Tourism, Travel & Hospitality"
+        },
+        "it_telecom": {
+          "name": "IT & Telecom"
+        },
+        "marketing_pr": {
+          "name": "Marketing & PR"
+        },
+        "medical_healthcare_nursing": {
+          "name": "Medical, Healthcare & Nursing"
+        },
+        "sales": {
+          "name": "Sales"
+        },
+        "secretarial": {
+          "name": "Secretarial"
+        },
+        "guards_security": {
+          "name": "Guards & Security"
+        },
+        "legal_lawyers": {
+          "name": "Legal & Lawyers"
+        },
+        "other_jobs": {
+          "name": "Other Jobs"
+        }
+      }
+    },
+    "electronics_home_appliances": {
+      "name": "Electronics & Home Appliances",
+      "categories": {
+        "tv_audio_video": {
+          "name": "TV, Audio & Video"
+        },
+        "computers_accessories": {
+          "name": "Computers & Accessories"
+        },
+        "video_games_consoles": {
+          "name": "Video Games & Consoles"
+        },
+        "cameras_imaging": {
+          "name": "Cameras & Imaging"
+        },
+        "home_appliances": {
+          "name": "Home Appliances"
+        }
+      }
+    },
+    "home_garden": {
+      "name": "Home & Garden",
+      "categories": {
+        "furniture": {
+          "name": "Furniture"
+        },
+        "office_furniture": {
+          "name": "Office Furniture"
+        },
+        "home_decoration_accessories": {
+          "name": "Home Decoration & Accessories"
+        },
+        "bathroom_kitchen": {
+          "name": "Bathroom & Kitchen"
+        },
+        "fabric_bedding_curtains": {
+          "name": "Fabric, Bedding & Curtains"
+        },
+        "garden_outdoor": {
+          "name": "Garden & Outdoor"
+        },
+        "kitchenware": {
+          "name": "Kitchenware"
+        },
+        "lighting": {
+          "name": "Lighting"
+        }
+      }
+    },
+    "fashion_beauty": {
+      "name": "Fashion & Beauty",
+      "categories": {
+        "womens_clothing": {
+          "name": "Women's Clothing"
+        },
+        "mens_clothing": {
+          "name": "Men's Clothing"
+        },
+        "womens_cosmetics": {
+          "name": "Women's Cosmetics"
+        },
+        "womens_accessories_personal_care": {
+          "name": "Women's Accessories & Personal Care"
+        },
+        "mens_accessories_personal_care": {
+          "name": "Men's Accessories & Personal Care"
+        }
+      }
+    },
+    "pets_animals": {
+      "name": "Pets & Animals",
+      "categories": {
+        "dogs": {
+          "name": "Dogs"
+        },
+        "cats": {
+          "name": "Cats"
+        },
+        "birds_pigeons": {
+          "name": "Birds & Pigeons"
+        },
+        "other_pets_animals": {
+          "name": "Other Pets & Animals"
+        },
+        "pet_accessories_care_products": {
+          "name": "Pet Accessories & Care Products"
+        }
+      }
+    },
+    "kids_babies": {
+      "name": "Kids & Babies",
+      "categories": {
+        "baby_mom_healthcare": {
+          "name": "Baby & Mom Healthcare"
+        },
+        "baby_clothing": {
+          "name": "Baby Clothing"
+        },
+        "baby_feeding_tools": {
+          "name": "Baby Feeding Tools"
+        },
+        "cribs_strollers_carriers": {
+          "name": "Cribs, Strollers & Carriers"
+        },
+        "toys": {
+          "name": "Toys"
+        },
+        "other_baby_items": {
+          "name": "Other Baby Items"
+        }
+      }
+    },
+    "hobbies_books_sports": {
+      "name": "Hobbies, Books & Sports",
+      "categories": {
+        "antiques_collectibles": {
+          "name": "Antiques & Collectibles"
+        },
+        "bicycles": {
+          "name": "Bicycles"
+        },
+        "books": {
+          "name": "Books"
+        },
+        "board_card_games": {
+          "name": "Board & Card Games"
+        },
+        "movies_music": {
+          "name": "Movies & Music"
+        },
+        "musical_instruments": {
+          "name": "Musical Instruments"
+        },
+        "sports_equipment": {
+          "name": "Sports Equipment"
+        },
+        "study_tools": {
+          "name": "Study Tools"
+        },
+        "tickets_vouchers": {
+          "name": "Tickets & Vouchers"
+        },
+        "luggage": {
+          "name": "Luggage"
+        },
+        "other_items": {
+          "name": "Other Items"
+        }
+      }
+    },
+    "business_industrial": {
+      "name": "Business & Industrial",
+      "categories": {
+        "agriculture": {
+          "name": "Agriculture"
+        },
+        "construction": {
+          "name": "Construction"
+        },
+        "industrial_equipment": {
+          "name": "Industrial Equipment"
+        },
+        "medical_equipment": {
+          "name": "Medical Equipment"
+        },
+        "office_furniture_equipment": {
+          "name": "Office Furniture & Equipment"
+        },
+        "restaurants_equipment": {
+          "name": "Restaurants Equipment"
+        },
+        "whole_business_for_sale": {
+          "name": "Whole Business for Sale"
+        },
+        "other_business_industrial_agriculture": {
+          "name": "Other Business & Industrial"
+        }
+      }
+    },
+    "services": {
+      "name": "Services",
+      "categories": {
+        "business_services": {
+          "name": "Business Services"
+        },
+        "car_services": {
+          "name": "Car Services"
+        },
+        "event_services": {
+          "name": "Event Services"
+        },
+        "health_beauty_services": {
+          "name": "Health & Beauty Services"
+        },
+        "home_maintenance": {
+          "name": "Home Maintenance"
+        },
+        "medical_services": {
+          "name": "Medical Services"
+        },
+        "movers": {
+          "name": "Movers"
+        },
+        "pet_services": {
+          "name": "Pet Services"
+        },
+        "education_services": {
+          "name": "Education Services"
+        },
+        "other_services": {
+          "name": "Other Services"
+        }
+      }
+    }
+  },
+  "category": {
+    "options": {
+      "label": "Category Options",
+      "select-placeholder": "Select {attribute}",
+      "number-placeholder": "Enter {attribute}",
+      "text-placeholder": "Enter {attribute}",
+      "min": "Min",
+      "max": "Max",
+      "to": "to",
+      "all": "All",
+      "placeholders": {
+        "brand": "Enter Brand",
+        "model": "Enter Model",
+        "year": "Enter Year",
+        "horse_power": "Enter Horse Power",
+        "engine_capacity": "Enter Engine Capacity",
+        "seats": "Enter Seats",
+        "color": "Enter Color",
+        "installation_location": "Enter Installation Location",
+        "fuel_consumption": "Enter Fuel Consumption",
+        "area": "Enter Area",
+        "bedrooms": "Enter Bedrooms",
+        "bathrooms": "Enter Bathrooms",
+        "floor": "Enter Floor",
+        "screen_size": "Enter Screen Size",
+        "salary": "Enter Salary",
+        "experience": "Enter Experience"
+      },
+      "attributes": {
+        "brand": "Brand",
+        "model": "Model",
+        "year": "Year",
+        "condition": "Condition",
+        "horse_power": "Horse Power",
+        "engine_type": "Engine Type",
+        "fuel_type": "Fuel Type",
+        "transmission": "Transmission",
+        "engine_capacity": "Engine Capacity",
+        "seats": "Seats",
+        "color": "Color",
+        "installation_location": "Installation Location",
+        "fuel_consumption": "Fuel Consumption",
+        "category": "Category",
+        "compatible_with": "Compatible With",
+        "area": "Area",
+        "bedrooms": "Bedrooms",
+        "bathrooms": "Bathrooms",
+        "floor": "Floor",
+        "furnished": "Furnished",
+        "processor": "Processor",
+        "gpu": "GPU",
+        "ram": "RAM",
+        "storage": "Storage",
+        "screen_size": "Screen Size",
+        "employment_type": "Employment Type",
+        "salary": "Salary",
+        "experience": "Experience",
+        "education_level": "Education Level",
+        "breed": "Breed",
+        "age_group": "Age Group"
+      },
+      "values": {
+        "new": "New",
+        "used": "Used",
+        "yes": "Yes",
+        "no": "No",
+        "full_time": "Full Time",
+        "part_time": "Part Time",
+        "contract": "Contract",
+        "high_school": "High School",
+        "bachelors": "Bachelors",
+        "masters": "Masters",
+        "phd": "PhD",
+        "petrol_benzine": "Petrol",
+        "diesel": "Diesel",
+        "hybrid": "Hybrid",
+        "electric": "Electric",
+        "manual": "Manual",
+        "automatic": "Automatic",
+        "1GB": "1GB",
+        "2GB": "2GB",
+        "3GB": "3GB",
+        "4GB": "4GB",
+        "6GB": "6GB",
+        "8GB": "8GB",
+        "12GB": "12GB",
+        "16GB": "16GB",
+        "32GB": "32GB",
+        "64GB": "64GB",
+        "128GB": "128GB",
+        "256GB": "256GB",
+        "512GB": "512GB",
+        "1TB": "1TB",
+        "inch": "inch",
+        "HP": "HP"
+      }
+    }
+  },
+  "showing-ads-page": {
+    "showing-ads-for": "Showing ads for {title}"
+  },
+  "not-found": {
+    "title": "Oops, Page not found!",
+    "paragraph": "The page you're looking for doesn't seem to exist.",
+    "link": "Go back to home page"
+  },
+  "/": {
+    "navigation": {
+      "show-all": "Show all"
+    }
+  },
+  "/favorites": {
+    "title": "Favorite Ads",
+    "no-favorites": {
+      "message": "No favorite ads found",
+      "hint": "Click the heart icon to add ads to your favorites"
+    }
+  },
+  "/[categoryPath]": {
+    "metadata": {
+      "description": "Buy {category} with bee3"
+    }
+  },
+  "/user/[userId]": {
+    "advertises": {
+      "title": "Posted Advertisements",
+      "you-have-no-ads": "You have no ads",
+      "user-has-no-ads": "This user has no ads"
     },
     "not-found": {
-      "title": "Oops, Page not found!",
+      "title": "Oops, User not found!",
       "paragraph": "The page you're looking for doesn't seem to exist.",
       "link": "Go back to home page"
-    },
-    "/": {
-      "navigation": {
-        "show-all": "Show all"
-      }
-    },
-    "/favorites": {
-      "title": "Favorite Ads",
-      "no-favorites": {
-        "message": "No favorite ads found",
-        "hint": "Click the heart icon to add ads to your favorites"
-      }
-    },
-    "/[categoryPath]": {
-      "metadata": {
-        "description": "Buy {category} with bee3"
-      }
-    },
-    "/user/[userId]": {
-      "advertises": {
-        "title": "Posted Advertisements",
-        "you-have-no-ads": "You have no ads",
-        "user-has-no-ads": "This user has no ads"
+    }
+  },
+  "/user-settings": {
+    "settings": {
+      "title": "User Settings",
+      "name": {
+        "title": "Name",
+        "placeholder": "John Doe",
+        "description": "Your name is shown to the public"
       },
-      "not-found": {
-        "title": "Oops, User not found!",
-        "paragraph": "The page you're looking for doesn't seem to exist.",
-        "link": "Go back to home page"
+      "bio": {
+        "title": "Bio",
+        "placeholder": "My name is... and I sell ... I'm experienced in ...",
+        "description": "Write about yourself here"
+      },
+      "phoneNumber": {
+        "title": "Phone Number",
+        "placeholder": "Enter your phone number"
+      },
+      "button-submit": "Update Profile"
+    },
+    "delete": {
+      "title": "Delete Account",
+      "paragraph": "Once you delete your account, there is no going back. Please be certain.",
+      "dialog": {
+        "title": "Are you absolutely sure?",
+        "paragraph": "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
+        "close": "Close",
+        "confirm-delete-name-input": "Type your name",
+        "confirm-delete-message-input": "Confirm by typing this message"
+      }
+    },
+    "toast": {
+      "deleted": "User has been deleted successfully!",
+      "updated": "User has been updated successfully!",
+      "must-be-logged-in": "You must be logged in!",
+      "please-wait": "Please wait a minute between each user update!"
+    }
+  },
+  "/sell": {
+    "title": "Sell Your Item",
+    "category": {
+      "main": {
+        "label": "Category"
+      },
+      "sub": {
+        "label": "Subcategory"
+      }
+    },
+    "images": {
+      "label": "Images",
+      "description": "Upload images of your item",
+      "drop-images": "Drop Images Here",
+      "or": "Or",
+      "browse-images": "Browse Images",
+      "placeholder": "Image"
+    },
+    "ad-title": {
+      "label": "Title",
+      "placeholder": "Enter the title of your ad",
+      "description": "A short, descriptive title for your item"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Describe your item in detail",
+      "description": "Provide a detailed description of your item"
+    },
+    "location": {
+      "location": {
+        "label": "Location"
+      },
+      "governorate": {
+        "label": "Governorate"
+      },
+      "city": {
+        "label": "City"
+      }
+    },
+    "price": {
+      "label": "Price",
+      "placeholder": "Enter the price",
+      "description": "Set the price for your item"
+    },
+    "negotiable": "Negotiable",
+    "user-phone-button": {
+      "label": "Phone Number"
+    },
+    "toast": {
+      "loading": {
+        "title": "Ad is being processed by our servers",
+        "description": "This is how it's going to look like"
+      },
+      "submit-success": "Ad submitted successfully!"
+    },
+    "submit": "Sell Now!",
+    "loading": "Posting ad..."
+  },
+  "/ad/[adId]": {
+    "metadata": {
+      "ad-not-found": "Ad not found"
+    },
+    "description": "Description",
+    "negotiable": "Negotiable",
+    "related-ads": "Related Ads",
+    "user": {
+      "posted-by": "Posted By",
+      "member-since": "Member since:",
+      "phone-number": "Show Phone Number",
+      "chat": "Chat",
+      "WhatsApp": "WhatsApp"
+    },
+    "safety-tips": {
+      "title": "Your safety matters to us!",
+      "tips": {
+        "public-place": "Only meet in public / crowded places for example metro stations and malls.",
+        "bring-companion": "Never go alone to meet a buyer / seller, always take someone with you.",
+        "inspect-product": "Check and inspect the product properly before purchasing it.",
+        "no-advance-payment": "Never pay anything in advance or transfer money before inspecting the product."
+      }
+    },
+    "not-found": {
+      "title": "Oops, Ad not found!",
+      "paragraph": "The ad you're looking for doesn't seem to exist.",
+      "link": "Go back to home page"
+    }
+  },
+  "/legal": {
+    "title": "Legal Documents",
+    "viewDocument": "View the complete {document} document",
+    "badge": "Legal Document",
+    "footer": "Please review our legal documents carefully. For any questions, contact our legal team."
+  },
+  "errors": {
+    "Required": "This input is required",
+    "social": {
+      "account_not_linked": {
+        "title": "This account is already signed up.",
+        "description": "Please try (Google, Facebook) or sign in with email"
+      }
+    },
+    "auth": {
+      "invalid-email": "Email is required",
+      "passwords-not-matching": "Passwords aren't matching"
+    },
+    "register": {
+      "name-min-character": "Name should at least contain 2 characters",
+      "accept-tos-required": "You must accept the Terms of Service and Privacy Policy.",
+      "invalid-input": {
+        "title": "Invalid input",
+        "description": "Try typing something else"
+      },
+      "USER_ALREADY_EXISTS": {
+        "title": "This email already exists",
+        "description": "Try another one or change password"
+      }
+    },
+    "login": {
+      "password-min-characters": "Password is required.",
+      "invalid-input": {
+        "title": "Invalid input",
+        "description": "Try typing something else"
+      },
+      "INVALID_EMAIL_OR_PASSWORD": {
+        "title": "Wrong email or password",
+        "description": "Try another email or password"
+      }
+    },
+    "verify-email": {
+      "missing-token": "Missing token!",
+      "token-doesn't-exist": "Token does not exist!",
+      "token-expired": "Token has expired!",
+      "email-doesn't-exist": "Email does not exist"
+    },
+    "/sell": {
+      "categoryId": "Please choose a sub category",
+      "title": {
+        "min": "Title must be at least 1 character long",
+        "max": "Title must be at most 250 character long"
+      },
+      "images": "Ad should at least contain 1 image of the item",
+      "description": "Description must be at most 2048 characters long",
+      "price": "Price must be a positive number",
+      "categoryPath": "Please choose a category",
+      "max-images": "You can only upload 10 images per ad",
+      "submit-error": "Error submitting the ad. Please try again.",
+      "image-size": "Image size must be smaller than 2MB.",
+      "image-size-description": "Please upload a smaller image.",
+      "governorateId": "Please choose a governorate",
+      "cityId": "Please choose a city",
+      "submit": {
+        "failed-not-enough-tokens": {
+          "title": "You don't have enough tokens.",
+          "description": "Please buy more tokens to continue selling."
+        },
+        "must-have-phone-number": {
+          "title": "You must have a phone number",
+          "description": "Please type your phone number"
+        }
       }
     },
     "/user-settings": {
-      "settings": {
-        "title": "User Settings",
-        "name": {
-          "title": "Name",
-          "placeholder": "John Doe",
-          "description": "Your name is shown to the public"
-        },
-        "bio": {
-          "title": "Bio",
-          "placeholder": "My name is... and I sell ... I'm experienced in ...",
-          "description": "Write about yourself here"
-        },
-        "phoneNumber": {
-          "title": "Phone Number",
-          "placeholder": "Enter your phone number"
-        },
-        "button-submit": "Update Profile"
+      "name": {
+        "invalid": "Name must be at least 2 and at most of 20 characters."
       },
-      "delete": {
-        "title": "Delete Account",
-        "paragraph": "Once you delete your account, there is no going back. Please be certain.",
-        "dialog": {
-          "title": "Are you absolutely sure?",
-          "paragraph": "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
-          "close": "Close",
-          "confirm-delete-name-input": "Type your name",
-          "confirm-delete-message-input": "Confirm by typing this message"
-        }
-      },
-      "toast": {
-        "deleted": "User has been deleted successfully!",
-        "updated": "User has been updated successfully!",
-        "must-be-logged-in": "You must be logged in!",
-        "please-wait": "Please wait a minute between each user update!"
+      "bio": {
+        "invalid": "Bio must be at most 75 characters."
       }
     },
-    "/sell": {
-      "title": "Sell Your Item",
-      "category": {
-        "main": {
-          "label": "Category"
-        },
-        "sub": {
-          "label": "Subcategory"
-        }
+    "phone-number": {
+      "input-phone-number": {
+        "must-be-logged-in": "You must be logged in to verify your phone number",
+        "failed-too-many-requests": "You're sending your phone number too many times, Please try again in a minute.",
+        "unknown": "An unknown error occurred. Please try again.",
+        "invalid-number": "Please enter a valid 10-digit phone number",
+        "PHONE_NUMBER_EXISTS": "This phone number already exists, please try another one!"
       },
-      "images": {
-        "label": "Images",
-        "description": "Upload images of your item",
-        "drop-images": "Drop Images Here",
-        "or": "Or",
-        "browse-images": "Browse Images",
-        "placeholder": "Image"
-      },
-      "ad-title": {
-        "label": "Title",
-        "placeholder": "Enter the title of your ad",
-        "description": "A short, descriptive title for your item"
-      },
-      "description": {
-        "label": "Description",
-        "placeholder": "Describe your item in detail",
-        "description": "Provide a detailed description of your item"
-      },
-      "location": {
-        "location": {
-          "label": "Location"
-        },
-        "governorate": {
-          "label": "Governorate"
-        },
-        "city": {
-          "label": "City"
-        }
-      },
-      "price": {
-        "label": "Price",
-        "placeholder": "Enter the price",
-        "description": "Set the price for your item"
-      },
-      "negotiable": "Negotiable",
-      "user-phone-button": {
-        "label": "Phone Number"
-      },
-      "toast": {
-        "loading": {
-          "title": "Ad is being processed by our servers",
-          "description": "This is how it's going to look like"
-        },
-        "submit-success": "Ad submitted successfully!"
-      },
-      "submit": "Sell Now!",
-      "loading": "Posting ad..."
-    },
-    "/ad/[adId]": {
-      "metadata": {
-        "ad-not-found": "Ad not found"
-      },
-      "description": "Description",
-      "negotiable": "Negotiable",
-      "related-ads": "Related Ads",
-      "user": {
-        "posted-by": "Posted By",
-        "member-since": "Member since:",
-        "phone-number": "Show Phone Number",
-        "chat": "Chat",
-        "WhatsApp": "WhatsApp"
-      },
-      "safety-tips": {
-        "title": "Your safety matters to us!",
-        "tips": {
-          "public-place": "Only meet in public / crowded places for example metro stations and malls.",
-          "bring-companion": "Never go alone to meet a buyer / seller, always take someone with you.",
-          "inspect-product": "Check and inspect the product properly before purchasing it.",
-          "no-advance-payment": "Never pay anything in advance or transfer money before inspecting the product."
-        }
-      },
-      "not-found": {
-        "title": "Oops, Ad not found!",
-        "paragraph": "The ad you're looking for doesn't seem to exist.",
-        "link": "Go back to home page"
+      "OTP": {
+        "must-be-logged-in": "You must be logged in to verify your phone number",
+        "code": "Please enter a valid 6-digit OTP",
+        "INVALID_OTP": "Your OTP is invalid, please try again!",
+        "OTP_EXPIRED": "OTP has expired, please try again!",
+        "OTP_NOT_FOUND": "OTP not found, please try agian!"
       }
     },
-    "/legal": {
-      "title": "Legal Documents",
-      "viewDocument": "View the complete {document} document",
-      "badge": "Legal Document",
-      "footer": "Please review our legal documents carefully. For any questions, contact our legal team."
-    },
-    "errors": {
-      "Required": "This input is required",
-      "social": {
-        "account_not_linked": {
-          "title": "This account is already signed up.",
-          "description": "Please try (Google, Facebook) or sign in with email"
-        }
-      },
-      "auth": {
-        "invalid-email": "Email is required",
-        "passwords-not-matching": "Passwords aren't matching"
-      },
-      "register": {
-        "name-min-character": "Name should at least contain 2 characters",
-        "accept-tos-required": "You must accept the Terms of Service and Privacy Policy.",
-        "invalid-input": {
-          "title": "Invalid input",
-          "description": "Try typing something else"
-        },
-        "USER_ALREADY_EXISTS": {
-          "title": "This email already exists",
-          "description": "Try another one or change password"
-        }
-      },
-      "login": {
-        "password-min-characters": "Password is required.",
-        "invalid-input": {
-          "title": "Invalid input",
-          "description": "Try typing something else"
-        },
-        "INVALID_EMAIL_OR_PASSWORD": {
-          "title": "Wrong email or password",
-          "description": "Try another email or password"
-        }
-      },
-      "verify-email": {
-        "missing-token": "Missing token!",
-        "token-doesn't-exist": "Token does not exist!",
-        "token-expired": "Token has expired!",
-        "email-doesn't-exist": "Email does not exist"
-      },
-      "/sell": {
-        "categoryId": "Please choose a sub category",
-        "title": {
-          "min": "Title must be at least 1 character long",
-          "max": "Title must be at most 250 character long"
-        },
-        "images": "Ad should at least contain 1 image of the item",
-        "description": "Description must be at most 2048 characters long",
-        "price": "Price must be a positive number",
-        "categoryPath": "Please choose a category",
-        "max-images": "You can only upload 10 images per ad",
-        "submit-error": "Error submitting the ad. Please try again.",
-        "image-size": "Image size must be smaller than 2MB.",
-        "image-size-description": "Please upload a smaller image.",
-        "governorateId": "Please choose a governorate",
-        "cityId": "Please choose a city",
-        "submit": {
-          "failed-not-enough-tokens": {
-            "title": "You don't have enough tokens.",
-            "description": "Please buy more tokens to continue selling."
-          },
-          "must-have-phone-number": {
-            "title": "You must have a phone number",
-            "description": "Please type your phone number"
-          }
-        }
-      },
-      "/user-settings": {
-        "name": {
-          "invalid": "Name must be at least 2 and at most of 20 characters."
-        },
-        "bio": {
-          "invalid": "Bio must be at most 75 characters."
-        }
-      },
-      "phone-number": {
-        "input-phone-number": {
-          "must-be-logged-in": "You must be logged in to verify your phone number",
-          "failed-too-many-requests": "You're sending your phone number too many times, Please try again in a minute.",
-          "unknown": "An unknown error occurred. Please try again.",
-          "invalid-number": "Please enter a valid 10-digit phone number",
-          "PHONE_NUMBER_EXISTS": "This phone number already exists, please try another one!"
-        },
-        "OTP": {
-          "must-be-logged-in": "You must be logged in to verify your phone number",
-          "code": "Please enter a valid 6-digit OTP",
-          "INVALID_OTP": "Your OTP is invalid, please try again!",
-          "OTP_EXPIRED": "OTP has expired, please try again!",
-          "OTP_NOT_FOUND": "OTP not found, please try agian!"
-        }
-      },
-      "markdown": {
-        "not-found": "Page wasn't found!"
-      }
+    "markdown": {
+      "not-found": "Page wasn't found!"
     }
   }
 }
