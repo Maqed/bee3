@@ -21,7 +21,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { UploadAdImageButton } from "@/components/bee3/ad-image-button";
 import Spinner from "@/components/ui/spinner";
 import { Separator } from "@/components/ui/separator";
-import { getCategoryName, toPathFormat } from "@/lib/utils";
+import { toPathFormat } from "@/lib/utils";
 import { NumberInput } from "@/components/ui/number-input";
 import { authClient } from "@/lib/auth-client";
 import UserPhoneButton from "@/components/auth/user-phone-button/user-phone-button";
@@ -38,6 +38,10 @@ import { Listbox } from "@/components/ui/listbox";
 import CategoryListboxItem from "./category-list-box-item";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import CategoryOptionsSection from "./category-options-section";
+import {
+  getClientSideFullCategory,
+  getClientSideSubCategory,
+} from "@/lib/client-side";
 
 type SellFormProps = {
   startTransition: TransitionStartFunction;
@@ -122,9 +126,8 @@ function SellForm({
   };
   const mainCategories = categoriesTree;
   const subCategories = selectedMainCategory
-    ? mainCategories.find(
-      (category) => category.name === selectedMainCategory,
-    )?.categories || []
+    ? mainCategories.find((category) => category.name === selectedMainCategory)
+        ?.categories || []
     : [];
 
   const onImagesChange = (newImages: File[]) => {
@@ -158,13 +161,13 @@ function SellForm({
                     form.setValue("categoryId", 0);
                     form.setValue("categoryOptions", "");
                   }}
-                  className="flex gap-3"
+                  className="flex flex-wrap gap-3"
                   orientation="mixed"
                 >
                   {mainCategories.map((category) => {
-                    const categoryName = getCategoryName(locale, category);
-                    const categoryNamePathFormat = toPathFormat(
-                      category.name,
+                    const categoryNamePathFormat = toPathFormat(category.name);
+                    const categoryName = getClientSideFullCategory(
+                      categoryNamePathFormat,
                     );
                     const CategoryIcon = categoryIcons[categoryNamePathFormat]
                       ?.icon as CategoryIconType;
@@ -202,18 +205,18 @@ function SellForm({
                             form.setValue("categoryOptions", "");
                           }}
                           disabled={isPending}
-                          className="flex gap-3"
+                          className="flex flex-wrap gap-3"
                           orientation="mixed"
                         >
                           {subCategories.map((subCategory) => {
-                            const subCategoryName = getCategoryName(
-                              locale,
-                              subCategory,
-                            );
                             const categoryNamePathFormat =
                               toPathFormat(selectedMainCategory);
                             const subCategoryNamePathFormat = toPathFormat(
                               subCategory.name,
+                            );
+                            const subCategoryName = getClientSideSubCategory(
+                              categoryNamePathFormat,
+                              subCategoryNamePathFormat,
                             );
                             const SubCategoryIcon = categoryIcons[
                               categoryNamePathFormat

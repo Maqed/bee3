@@ -92,12 +92,6 @@ export function getCity(cityId: number) {
 export function toPathFormat(input: string): string {
   return input;
 }
-export function getCategoryName(
-  locale: string,
-  category: Pick<CategoryTreeItem, "name">,
-) {
-  return locale === "ar" ? category.name : category.name;
-}
 const shimmerPlaceholder = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>

@@ -1,7 +1,7 @@
 "use client";
 import { AsyncSearch } from "@/components/ui/async-search";
-import { getCategoryName } from "@/lib/utils";
-import { useLocale, useTranslations } from "next-intl";
+import { getClientSideFullCategory } from "@/lib/client-side";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
@@ -27,14 +27,11 @@ type fetchedDataType = {
   title: string;
   category?: {
     categoryPath: string;
-    name_en: string;
-    name_ar: string;
   };
 };
 
 const AdSearch = () => {
   const t = useTranslations("ad-searchbox");
-  const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState(searchParams.get("q") ?? "");
@@ -52,7 +49,7 @@ const AdSearch = () => {
             {title}
             {category && (
               <span className="text-foreground/80 group-data-[selected='true']:text-primary-foreground/80">
-                {t("in")} {getCategoryName(locale, category)}
+                {t("in")} {getClientSideFullCategory(category.categoryPath)}
               </span>
             )}
           </div>
