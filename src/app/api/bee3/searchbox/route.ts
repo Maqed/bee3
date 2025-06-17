@@ -1,43 +1,61 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/server/db";
 
-/**
- * q ----> search query
- */
 export async function GET(request: NextRequest) {
   const search = request.nextUrl.searchParams.get("q");
   if (!search)
     return NextResponse.json({ error: "invalid-query" }, { status: 400 });
 
-  const searchQuery = search
-    .trim()
-    .split(" ")
-    .map((word) => `${word}:*`)
-    .join(" & ");
+  const similarityThreshold = 0.25;
+  const searchTerm = search.trim();
+  const searchWords = searchTerm.split(/\s+/).filter(word => word.length > 0);
 
-  const ads = await db.ad.findMany({
-    orderBy: [
-      {
-        _relevance: {
-          fields: ["title"],
-          search: searchQuery,
-          sort: "asc",
-        },
-      },
-    ],
-    where: {
-      title: { search: searchQuery },
-    },
-    include: {
-      category: {
-        select: {
-          name_ar: true,
-          name_en: true,
-        },
-      },
-    },
-    take: 8,
-  });
+  if (searchWords.length === 0) {
+    return NextResponse.json({
+      categorizedHits: [],
+      uncategorizedHits: [],
+    });
+  }
+
+  const wordConditions = searchWords
+    .map((_, index) => `word_similarity($${index + 1}, "Ad".title) > ${similarityThreshold}`)
+    .join(' OR ');
+
+  const likeConditions = searchWords
+    .map((_, index) => `"Ad".title ILIKE $${searchWords.length + index + 1}`)
+    .join(' OR ');
+
+  const params = [
+    ...searchWords,                           // For word_similarity
+    ...searchWords.map(word => `%${word}%`),  // For ILIKE
+  ];
+
+  const ads = await db.$queryRawUnsafe(`
+    SELECT 
+      "Ad".id,
+      "Ad".title,
+      "Ad"."categoryPath",
+      -- 2. USE MAX WORD_SIMILARITY FOR SCORING
+      GREATEST(${searchWords
+      .map((_, i) => `word_similarity($${i + 1}, "Ad".title)`)
+      .join(', ')}) AS similarity_score,
+      "Category"."name_ar",
+      "Category"."name_en"
+    FROM "Ad"
+    LEFT JOIN "Category" ON "Ad"."categoryPath" = "Category".path
+    WHERE (${wordConditions}) OR (${likeConditions})
+    ORDER BY similarity_score DESC
+    LIMIT 8
+  `,
+    ...params
+  ) as Array<{
+    id: number;
+    title: string;
+    categoryPath: string | null;
+    similarity_score: number;
+    name_ar: string | null;
+    name_en: string | null;
+  }>;
 
   const categorizedHits: {
     title: string;
@@ -50,12 +68,11 @@ export async function GET(request: NextRequest) {
   const uncategorizedHits: string[] = [];
   const usedCategories = new Set<string>();
 
-  const isQueryStrong =
-    ads.length > 0 &&
-    search.trim().length / ads[0]!.title.trim().split(" ")[0]!.length >= 0.8;
+  const isQueryStrong = ads.length > 0 && ads[0]!.similarity_score >= 0.5;
 
   for (const ad of ads) {
-    const { categoryPath, category } = ad;
+    const { categoryPath, name_ar, name_en } = ad;
+
     if (!categoryPath || !isQueryStrong) {
       uncategorizedHits.push(ad.title);
       continue;
@@ -66,8 +83,8 @@ export async function GET(request: NextRequest) {
         title: ad.title,
         category: {
           categoryPath,
-          name_en: category?.name_en!,
-          name_ar: category?.name_ar!,
+          name_en: name_en!,
+          name_ar: name_ar!,
         },
       });
       usedCategories.add(categoryPath);

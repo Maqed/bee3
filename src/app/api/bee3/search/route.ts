@@ -16,7 +16,7 @@ import {
  * pageSize ----> number of ads to be fetched
  * q ----> search query
  * price ----> price range of the ads, written in this format (min-max) ex: (20-40000)
- * sort ----> sorting by what? only accepts (price, date)
+ * sort ----> sorting by what? only accepts (price, date, relevance)
  * order ----> order of the ads, by default it's descending
  * governorate ----> add governorate filter to query (id)
  * city ----> add city filter to query (id)
@@ -27,7 +27,6 @@ import {
  */
 export async function GET(request: NextRequest) {
   const categoryPath = request.nextUrl.searchParams.get("category");
-
   const search = request.nextUrl.searchParams.get("q");
   if (!categoryPath && !search)
     return NextResponse.json({ error: "invalid-query" }, { status: 400 });
@@ -41,14 +40,14 @@ export async function GET(request: NextRequest) {
     MAX_PAGE_SIZE,
   );
 
-  let price = request.nextUrl.searchParams.get("price"); // 20-40000
+  let price = request.nextUrl.searchParams.get("price");
   if (price && price.split("-").length !== 2) price = null;
 
-  const sort = request.nextUrl.searchParams.get("sort"); // price, date
+  const sort = request.nextUrl.searchParams.get("sort");
   let order =
     Prisma.SortOrder[
     request.nextUrl.searchParams.get("order") as keyof typeof Prisma.SortOrder
-    ]; // asc, desc
+    ];
   if (!order) order = Prisma.SortOrder.desc;
 
   const govId = request.nextUrl.searchParams.get("governorate");
@@ -61,17 +60,28 @@ export async function GET(request: NextRequest) {
     ? [categoryPath].concat(getSubCategoryPaths(categoryPath))
     : [];
 
-  const searchQuery = search
-    ? search
-      .trim()
-      .split(" ")
-      .map((word) => `${word}:*`)
-      .join(" & ")
-    : undefined;
+  if (search) {
+    const similarityThreshold = 0.25;
+    const fuzzySearchResults = await performFuzzySearch({
+      searchTerm: search.trim(),
+      categoryPaths: paths,
+      price,
+      govId,
+      cityId,
+      attributeConditions,
+      sort,
+      order,
+      pageNum,
+      pageSize,
+      similarityThreshold,
+    });
 
+    return NextResponse.json(fuzzySearchResults);
+  }
+
+  // Fallback for category-only queries (no search term)
   const queryWhereClause = {
     categoryPath: paths.length > 0 ? { in: paths } : undefined,
-    title: searchQuery ? { search: searchQuery } : undefined,
     price: price
       ? { gte: +price.split("-")[0]!, lte: +price.split("-")[1]! }
       : undefined,
@@ -79,17 +89,9 @@ export async function GET(request: NextRequest) {
     city: cityId ? { id: +cityId } : undefined,
     AND: attributeConditions.length > 0 ? attributeConditions : undefined,
   };
+
   const adsPromise = db.ad.findMany({
     orderBy: [
-      {
-        _relevance: searchQuery
-          ? {
-            fields: ["title"],
-            search: searchQuery,
-            sort: "asc",
-          }
-          : undefined,
-      },
       { price: sort === "price" ? order : undefined },
       { createdAt: sort === "date" ? order : undefined },
     ],
@@ -114,6 +116,192 @@ export async function GET(request: NextRequest) {
   const totalPages = Math.ceil(totalAds / pageSize);
 
   return NextResponse.json({ ads, totalAds, totalPages });
+}
+
+/**
+ * Improved fuzzy search using PostgreSQL word_similarity
+ */
+async function performFuzzySearch({
+  searchTerm,
+  categoryPaths,
+  price,
+  govId,
+  cityId,
+  attributeConditions,
+  sort,
+  order,
+  pageNum,
+  pageSize,
+  similarityThreshold,
+}: {
+  searchTerm: string;
+  categoryPaths: string[];
+  price: string | null;
+  govId: string | null;
+  cityId: string | null;
+  attributeConditions: any[];
+  sort: string | null;
+  order: Prisma.SortOrder;
+  pageNum: number;
+  pageSize: number;
+  similarityThreshold: number;
+}) {
+  // Split search term into words
+  const searchWords = searchTerm.split(/\s+/).filter(word => word.length > 0);
+  if (searchWords.length === 0) {
+    return { ads: [], totalAds: 0, totalPages: 0 };
+  }
+
+  // Build base conditions and parameters
+  const baseConditions: string[] = [];
+  let queryParams: any[] = [...searchWords];  // Words for similarity comparison
+  let paramIndex = searchWords.length + 1;    // Start index after search words
+
+  // Add word similarity conditions for each search word
+  const wordSimilarityConditions = searchWords
+    .map((_, i) => `word_similarity($${i + 1}, "Ad".title) > $${paramIndex}`)
+    .join(' OR ');
+
+  baseConditions.push(`(${wordSimilarityConditions})`);
+  queryParams.push(similarityThreshold);
+  paramIndex++;
+
+  // Add category filter
+  if (categoryPaths.length > 0) {
+    const placeholders = categoryPaths.map(() => `$${paramIndex++}`).join(', ');
+    baseConditions.push(`"categoryPath" IN (${placeholders})`);
+    queryParams.push(...categoryPaths);
+  }
+
+  // Add price filter
+  if (price) {
+    const [minPrice, maxPrice] = price.split("-");
+    baseConditions.push(`price >= $${paramIndex} AND price <= $${paramIndex + 1}`);
+    queryParams.push(+minPrice!, +maxPrice!);
+    paramIndex += 2;
+  }
+
+  // Add governorate filter
+  if (govId) {
+    baseConditions.push(`"governorateId" = $${paramIndex}`);
+    queryParams.push(+govId);
+    paramIndex++;
+  }
+
+  // Add city filter
+  if (cityId) {
+    baseConditions.push(`"cityId" = $${paramIndex}`);
+    queryParams.push(+cityId);
+    paramIndex++;
+  }
+
+  // Build ORDER BY clause
+  let orderByClause = '';
+  if (sort === 'relevance' || !sort) {
+    // Use the maximum word similarity score for ordering
+    const similarityScores = searchWords
+      .map((_, i) => `word_similarity($${i + 1}, "Ad".title)`)
+      .join(', ');
+
+    orderByClause = `ORDER BY GREATEST(${similarityScores}) ${order === 'asc' ? 'ASC' : 'DESC'}`;
+  } else if (sort === 'price') {
+    orderByClause = `ORDER BY price ${order}`;
+  } else if (sort === 'date') {
+    orderByClause = `ORDER BY "createdAt" ${order}`;
+  }
+
+  // Handle attribute filters
+  for (const condition of attributeConditions) {
+    const attrName = condition.attributeValues.some.attribute.name;
+
+    if (condition.attributeValues.some.AND) {
+      // Range query
+      const gteValue = condition.attributeValues.some.AND[0].value.gte;
+      const lteValue = condition.attributeValues.some.AND[1].value.lte;
+
+      baseConditions.push(`
+        EXISTS (
+          SELECT 1 FROM "AttributeValue" av
+          JOIN "Attribute" a ON av."attributeId" = a.id
+          WHERE av."adId" = "Ad".id 
+          AND a.name = $${paramIndex}
+          AND av.value::numeric >= $${paramIndex + 1}
+          AND av.value::numeric <= $${paramIndex + 2}
+        )
+      `);
+      queryParams.push(attrName, gteValue, lteValue);
+      paramIndex += 3;
+    } else {
+      // Exact match
+      const exactValue = condition.attributeValues.some.value;
+
+      baseConditions.push(`
+        EXISTS (
+          SELECT 1 FROM "AttributeValue" av
+          JOIN "Attribute" a ON av."attributeId" = a.id
+          WHERE av."adId" = "Ad".id 
+          AND a.name = $${paramIndex}
+          AND av.value = $${paramIndex + 1}
+        )
+      `);
+      queryParams.push(attrName, exactValue);
+      paramIndex += 2;
+    }
+  }
+
+  const whereClause = baseConditions.length > 0 ? `WHERE ${baseConditions.join(' AND ')}` : '';
+
+  // Main query with word similarity scoring
+  const mainQuery = `
+    SELECT 
+      "Ad".*,
+      GREATEST(${searchWords
+      .map((_, i) => `word_similarity($${i + 1}, "Ad".title)`)
+      .join(', ')}) AS similarity_score,
+      (
+        SELECT json_agg(json_build_object('url', url))
+        FROM "Image" 
+        WHERE "adId" = "Ad".id 
+        LIMIT 1
+      ) as images
+    FROM "Ad"
+    ${whereClause}
+    ${orderByClause}
+    LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
+  `;
+
+  // Count query
+  const countQuery = `
+    SELECT COUNT(*) as total
+    FROM "Ad"
+    ${whereClause}
+  `;
+
+  // Add pagination parameters
+  const paginationParams = [pageSize, (pageNum - 1) * pageSize];
+  const mainQueryParams = [...queryParams, ...paginationParams];
+  const countQueryParams = queryParams;  // No pagination for count
+
+  try {
+    const [adsResult, countResult] = await Promise.all([
+      db.$queryRawUnsafe(mainQuery, ...mainQueryParams),
+      db.$queryRawUnsafe(countQuery, ...countQueryParams)
+    ]);
+
+    const ads = (adsResult as any[]).map(ad => ({
+      ...ad,
+      images: ad.images || [],
+      similarity_score: ad.similarity_score
+    }));
+
+    const totalAds = Number((countResult as any[])[0].total);
+    const totalPages = Math.ceil(totalAds / pageSize);
+
+    return { ads, totalAds, totalPages };
+  } catch (error) {
+    console.error('Fuzzy search error:', error);
+    throw new Error('Failed to perform fuzzy search');
+  }
 }
 
 /**
@@ -201,7 +389,6 @@ function buildAttributeConditions(attributeFilters: { name: string; value: strin
 
   return conditions;
 }
-
 
 // Returns a string array of all sub categories in the given path recursively.
 function getSubCategoryPaths(rootPath: string): string[] {
