@@ -123,8 +123,8 @@ function SellForm({
   const mainCategories = categoriesTree;
   const subCategories = selectedMainCategory
     ? mainCategories.find(
-        (category) => category.name_en === selectedMainCategory,
-      )?.categories || []
+      (category) => category.name === selectedMainCategory,
+    )?.categories || []
     : [];
 
   const onImagesChange = (newImages: File[]) => {
@@ -164,7 +164,7 @@ function SellForm({
                   {mainCategories.map((category) => {
                     const categoryName = getCategoryName(locale, category);
                     const categoryNamePathFormat = toPathFormat(
-                      category.name_en,
+                      category.name,
                     );
                     const CategoryIcon = categoryIcons[categoryNamePathFormat]
                       ?.icon as CategoryIconType;
@@ -176,7 +176,7 @@ function SellForm({
                         <FormControl>
                           <CategoryListboxItem
                             Icon={CategoryIcon}
-                            value={category.name_en}
+                            value={category.name}
                             categoryName={categoryName}
                           />
                         </FormControl>
@@ -213,7 +213,7 @@ function SellForm({
                             const categoryNamePathFormat =
                               toPathFormat(selectedMainCategory);
                             const subCategoryNamePathFormat = toPathFormat(
-                              subCategory.name_en,
+                              subCategory.name,
                             );
                             const SubCategoryIcon = categoryIcons[
                               categoryNamePathFormat

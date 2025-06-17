@@ -11,8 +11,6 @@ model Category {
     parentCategoryId String?
     productCategory  Category[] @relation("CategoryToCategory")
 
-    name_en     String  @unique
-    name_ar     String  @unique
     description String? @db.Text
 
     depth Int

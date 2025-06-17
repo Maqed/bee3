@@ -30,7 +30,7 @@ function ExploreCategories() {
       <Carousel opts={{ dragFree: true }} className="w-full whitespace-nowrap">
         <CarouselContent>
           {categoriesTree.map((category) => {
-            const categoryNamePathFormat = toPathFormat(category.name_en);
+            const categoryNamePathFormat = toPathFormat(category.name);
             const categoryIconData = categoryIcons[categoryNamePathFormat];
             const CategoryIcon = categoryIconData?.icon as CategoryIconType;
             const categoryName = getCategoryName(locale, category);
@@ -64,7 +64,7 @@ function ExploreCategories() {
                       <div className="flex h-full w-full items-center gap-4 py-4">
                         {category.categories?.map((subCategory) => {
                           const subCategoryNamePathFormat = toPathFormat(
-                            subCategory.name_en,
+                            subCategory.name,
                           );
                           const SubCategoryIcon = categoryIconData
                             ?.subCategories[

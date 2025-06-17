@@ -270,8 +270,8 @@ const categoryPathExists = (
 ): boolean => {
   for (const category of categories) {
     const categoryPath = basePath
-      ? `${basePath}/${toPathFormat(category.name_en)}`
-      : toPathFormat(category.name_en);
+      ? `${basePath}/${toPathFormat(category.name)}`
+      : toPathFormat(category.name);
 
     if (categoryPath === path) return true;
 

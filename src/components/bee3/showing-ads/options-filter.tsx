@@ -37,7 +37,7 @@ function OptionsFilter({
   const findCategoryFromPath = (categoryInfo: CategoryInfo) => {
     // First find the main category
     const mainCategory = categoriesTree.find(
-      (cat) => toPathFormat(cat.name_en) === categoryInfo.category,
+      (cat) => toPathFormat(cat.name) === categoryInfo.category,
     );
 
     if (!mainCategory) return null;
@@ -45,7 +45,7 @@ function OptionsFilter({
     // If there's a subcategory, find it
     if (categoryInfo.subCategory && mainCategory.categories) {
       const subCategory = mainCategory.categories.find(
-        (subCat) => toPathFormat(subCat.name_en) === categoryInfo.subCategory,
+        (subCat) => toPathFormat(subCat.name) === categoryInfo.subCategory,
       );
       return subCategory || mainCategory;
     }
@@ -108,7 +108,7 @@ function OptionsFilter({
                     tCategory("options.select-placeholder").replace(
                       "{attribute}",
                       tCategory(`options.attributes.${attribute.name}`) ||
-                        attribute.name.replace(/_/g, " "),
+                      attribute.name.replace(/_/g, " "),
                     )
                   }
                 />
@@ -197,7 +197,7 @@ function OptionsFilter({
                 tCategory("options.text-placeholder").replace(
                   "{attribute}",
                   tCategory(`options.attributes.${attribute.name}`) ||
-                    attribute.name.replace(/_/g, " "),
+                  attribute.name.replace(/_/g, " "),
                 )
               }
               onChange={(e) =>

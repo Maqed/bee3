@@ -90,17 +90,13 @@ export function getCity(cityId: number) {
   return cities.find((city) => city.id === cityId);
 }
 export function toPathFormat(input: string): string {
-  return input
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9\u0600-\u06FF\s]/g, "") // \u0600-\u06FF\ for arabic characters
-    .replace(/\s+/g, "-");
+  return input;
 }
 export function getCategoryName(
   locale: string,
-  category: Pick<CategoryTreeItem, "name_en" | "name_ar">,
+  category: Pick<CategoryTreeItem, "name">,
 ) {
-  return locale === "ar" ? category.name_ar : category.name_en;
+  return locale === "ar" ? category.name : category.name;
 }
 const shimmerPlaceholder = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

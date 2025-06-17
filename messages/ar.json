@@ -22,7 +22,6 @@
     "Settings": "الاعدادات",
     "Logout": "تسجيل الخروج"
   },
-
   "search": {
     "in": "في",
     "placeholder": "ابحث عن ما تريد",
@@ -59,7 +58,6 @@
       "strong": "كلمة مرور قوية"
     }
   },
-
   "ads-carousel": {
     "show-more": "عرض المزيد"
   },
@@ -82,7 +80,9 @@
     "card-wrapper": {
       "or": "أو",
       "go-back": "العودة",
-      "email": { "title": "تابع باستخدام البريد الإلكتروني" },
+      "email": {
+        "title": "تابع باستخدام البريد الإلكتروني"
+      },
       "register": {
         "headerLabel": "إنشاء حساب",
         "backButtonLabel": "هل لديك حساب بالفعل؟",
@@ -103,7 +103,9 @@
             "title": "تم إنشاء المستخدم بنجاح!",
             "description": "تحقق من بريدك الإلكتروني لتأكيد حسابك!"
           },
-          "confirmPassword": { "label": "تأكيد كلمة المرور" },
+          "confirmPassword": {
+            "label": "تأكيد كلمة المرور"
+          },
           "submit": "تسجيل"
         }
       },
@@ -179,8 +181,14 @@
       "price": "السعر"
     },
     "orderOptions": {
-      "price": { "asc": "أرخص", "desc": "أغلى" },
-      "date": { "asc": "أقدم", "desc": "أحدث" }
+      "price": {
+        "asc": "أرخص",
+        "desc": "أغلى"
+      },
+      "date": {
+        "asc": "أقدم",
+        "desc": "أحدث"
+      }
     },
     "apply-filters": "فلتر"
   },
@@ -193,27 +201,350 @@
   },
   "categories": {
     "vehicles": {
-      "name": "العربيات",
+      "name": "المركبات",
       "categories": {
-        "electric-cars": {
-          "name": "العربيات الكهربائية"
+        "cars_for_sale": {
+          "name": "سيارات للبيع"
         },
-        "gas-cars": {
-          "name": "العربيات التي تعمل بالبنزين"
+        "cars_for_rent": {
+          "name": "سيارات للإيجار"
+        },
+        "tyres_batteries_oils_accessories": {
+          "name": "إطارات وبطاريات وزيوت وملحقات"
+        },
+        "car_spare_parts": {
+          "name": "قطع غيار السيارات"
+        },
+        "motorcycles_accessories": {
+          "name": "إكسسوارات الدراجات النارية"
+        },
+        "boats_watercraft": {
+          "name": "قوارب ومراكب مائية"
+        },
+        "heavy_trucks_buses_other_vehicles": {
+          "name": "شاحنات ثقيلة وحافلات ومركبات أخرى"
         }
       }
     },
-    "mobiles-and-tablets": {
-      "name": "الموبايل والتابلت",
+    "properties": {
+      "name": "العقارات",
       "categories": {
-        "mobile-phones": {
-          "name": "الموبايل"
+        "apartments_for_sale": {
+          "name": "شقق للبيع"
+        },
+        "apartments_for_rent": {
+          "name": "شقق للإيجار"
+        },
+        "villas_for_sale": {
+          "name": "فيلات للبيع"
+        },
+        "villas_for_rent": {
+          "name": "فيلات للإيجار"
+        },
+        "vacation_homes_for_sale": {
+          "name": "منازل العطلات للبيع"
+        },
+        "vacation_homes_for_rent": {
+          "name": "منازل العطلات للإيجار"
+        },
+        "commercial_for_sale": {
+          "name": "عقارات تجارية للبيع"
+        },
+        "commercial_for_rent": {
+          "name": "عقارات تجارية للإيجار"
+        },
+        "buildings_lands": {
+          "name": "مبانٍ وأراضي"
+        }
+      }
+    },
+    "mobiles_tablets": {
+      "name": "الجوالات والأجهزة اللوحية",
+      "categories": {
+        "mobile_phones": {
+          "name": "هواتف محمولة"
         },
         "tablets": {
-          "name": "التابلت"
+          "name": "أجهزة لوحية"
         },
-        "accessories": {
-          "name": "اكسسوارات الموبايل والتابلت"
+        "mobile_tablet_accessories": {
+          "name": "ملحقات الجوال والأجهزة اللوحية"
+        },
+        "mobile_numbers": {
+          "name": "أرقام جوال"
+        }
+      }
+    },
+    "jobs": {
+      "name": "الوظائف",
+      "categories": {
+        "accounting_finance_banking": {
+          "name": "المحاسبة والمالية والبنوك"
+        },
+        "engineering": {
+          "name": "الهندسة"
+        },
+        "designers": {
+          "name": "المصممون"
+        },
+        "customer_service_call_center": {
+          "name": "خدمة العملاء ومركز الاتصال"
+        },
+        "workers_technicians": {
+          "name": "العمال والفنيون"
+        },
+        "management_consulting": {
+          "name": "الإدارة والاستشارات"
+        },
+        "drivers_delivery": {
+          "name": "السائقون والتوصيل"
+        },
+        "education": {
+          "name": "التعليم"
+        },
+        "hr": {
+          "name": "الموارد البشرية"
+        },
+        "tourism_travel_hospitality": {
+          "name": "السياحة والسفر والضيافة"
+        },
+        "it_telecom": {
+          "name": "تقنية المعلومات والاتصالات"
+        },
+        "marketing_pr": {
+          "name": "التسويق والعلاقات العامة"
+        },
+        "medical_healthcare_nursing": {
+          "name": "الطب والرعاية الصحية والتمريض"
+        },
+        "sales": {
+          "name": "المبيعات"
+        },
+        "secretarial": {
+          "name": "السكرتارية"
+        },
+        "guards_security": {
+          "name": "الحراسة والأمن"
+        },
+        "legal_lawyers": {
+          "name": "القانون والمحاماة"
+        },
+        "other_jobs": {
+          "name": "وظائف أخرى"
+        }
+      }
+    },
+    "electronics_home_appliances": {
+      "name": "إلكترونيات وأجهزة منزلية",
+      "categories": {
+        "tv_audio_video": {
+          "name": "التلفاز والصوت والفيديو"
+        },
+        "computers_accessories": {
+          "name": "الحواسيب والملحقات"
+        },
+        "video_games_consoles": {
+          "name": "ألعاب الفيديو وأجهزة التحكم"
+        },
+        "cameras_imaging": {
+          "name": "الكاميرات والتصوير"
+        },
+        "home_appliances": {
+          "name": "الأجهزة المنزلية"
+        }
+      }
+    },
+    "home_garden": {
+      "name": "المنزل والحديقة",
+      "categories": {
+        "furniture": {
+          "name": "الأثاث"
+        },
+        "office_furniture": {
+          "name": "أثاث المكاتب"
+        },
+        "home_decoration_accessories": {
+          "name": "ديكور المنزل والملحقات"
+        },
+        "bathroom_kitchen": {
+          "name": "الحمام والمطبخ"
+        },
+        "fabric_bedding_curtains": {
+          "name": "الأقمشة والفراش والستائر"
+        },
+        "garden_outdoor": {
+          "name": "الحديقة والمنطقة الخارجية"
+        },
+        "kitchenware": {
+          "name": "أدوات المطبخ"
+        },
+        "lighting": {
+          "name": "الإضاءة"
+        }
+      }
+    },
+    "fashion_beauty": {
+      "name": "الموضة والجمال",
+      "categories": {
+        "womens_clothing": {
+          "name": "ملابس نسائية"
+        },
+        "mens_clothing": {
+          "name": "ملابس رجالية"
+        },
+        "womens_cosmetics": {
+          "name": "مستحضرات تجميل نسائية"
+        },
+        "womens_accessories_personal_care": {
+          "name": "ملحقات شخصية واعتناء للنساء"
+        },
+        "mens_accessories_personal_care": {
+          "name": "ملحقات شخصية واعتناء للرجال"
+        }
+      }
+    },
+    "pets_animals": {
+      "name": "الحيوانات الأليفة",
+      "categories": {
+        "dogs": {
+          "name": "كلاب"
+        },
+        "cats": {
+          "name": "قطط"
+        },
+        "birds_pigeons": {
+          "name": "الطيور والحمام"
+        },
+        "other_pets_animals": {
+          "name": "حيوانات أليفة أخرى"
+        },
+        "pet_accessories_care_products": {
+          "name": "مستلزمات العناية بالحيوانات الأليفة"
+        }
+      }
+    },
+    "kids_babies": {
+      "name": "الأطفال والرضع",
+      "categories": {
+        "baby_mom_healthcare": {
+          "name": "رعاية الأم والطفل"
+        },
+        "baby_clothing": {
+          "name": "ملابس الأطفال"
+        },
+        "baby_feeding_tools": {
+          "name": "أدوات تغذية الطفل"
+        },
+        "cribs_strollers_carriers": {
+          "name": "أسرة وعربات وحمالات"
+        },
+        "toys": {
+          "name": "ألعاب"
+        },
+        "other_baby_items": {
+          "name": "مستلزمات الأطفال الأخرى"
+        }
+      }
+    },
+    "hobbies_books_sports": {
+      "name": "الهوايات والكتب والرياضة",
+      "categories": {
+        "antiques_collectibles": {
+          "name": "التحف والمقتنيات"
+        },
+        "bicycles": {
+          "name": "الدراجات"
+        },
+        "books": {
+          "name": "الكتب"
+        },
+        "board_card_games": {
+          "name": "ألعاب الطاولة والبطاقات"
+        },
+        "movies_music": {
+          "name": "الأفلام والموسيقى"
+        },
+        "musical_instruments": {
+          "name": "الآلات الموسيقية"
+        },
+        "sports_equipment": {
+          "name": "معدات الرياضة"
+        },
+        "study_tools": {
+          "name": "أدوات الدراسة"
+        },
+        "tickets_vouchers": {
+          "name": "التذاكر والقسائم"
+        },
+        "luggage": {
+          "name": "الأمتعة"
+        },
+        "other_items": {
+          "name": "عناصر أخرى"
+        }
+      }
+    },
+    "business_industrial": {
+      "name": "الأعمال والصناعة",
+      "categories": {
+        "agriculture": {
+          "name": "الزراعة"
+        },
+        "construction": {
+          "name": "الإنشاءات"
+        },
+        "industrial_equipment": {
+          "name": "المعدات الصناعية"
+        },
+        "medical_equipment": {
+          "name": "المعدات الطبية"
+        },
+        "office_furniture_equipment": {
+          "name": "أثاث ومعدات المكاتب"
+        },
+        "restaurants_equipment": {
+          "name": "معدات المطاعم"
+        },
+        "whole_business_for_sale": {
+          "name": "أعمال كاملة للبيع"
+        },
+        "other_business_industrial_agriculture": {
+          "name": "أعمال وصناعات أخرى"
+        }
+      }
+    },
+    "services": {
+      "name": "الخدمات",
+      "categories": {
+        "business_services": {
+          "name": "الخدمات التجارية"
+        },
+        "car_services": {
+          "name": "خدمات السيارات"
+        },
+        "event_services": {
+          "name": "خدمات الفعاليات"
+        },
+        "health_beauty_services": {
+          "name": "خدمات الصحة والجمال"
+        },
+        "home_maintenance": {
+          "name": "صيانة المنزل"
+        },
+        "medical_services": {
+          "name": "الخدمات الطبية"
+        },
+        "movers": {
+          "name": "شركات النقل"
+        },
+        "pet_services": {
+          "name": "خدمات الحيوانات الأليفة"
+        },
+        "education_services": {
+          "name": "الخدمات التعليمية"
+        },
+        "other_services": {
+          "name": "خدمات أخرى"
         }
       }
     }
@@ -229,80 +560,90 @@
       "to": "إلى",
       "all": "الكل",
       "placeholders": {
-        "horse_power": "مثال: 150",
-        "engine_type": "اختر نوع المحرك",
-        "seats": "مثال: 5",
-        "charger_type": "اختر نوع الشاحن",
-        "battery_capacity": "مثال: 75",
-        "range": "مثال: 400",
-        "autopilot_version": "اختر إصدار القيادة الذاتية",
-        "fuel_tank_capacity": "مثال: 60",
-        "fuel_economy": "مثال: 15",
-        "processor": "مثال: Snapdragon 8 Gen 2",
-        "gpu": "مثال: Adreno 740",
-        "ram": "اختر حجم الذاكرة",
-        "storage": "اختر مساحة التخزين",
-        "screen_size": "مثال: 6.7",
-        "camera_mp": "مثال: 108",
-        "battery": "مثال: 5000",
-        "stylus_support": "اختر دعم القلم",
-        "compatible_with": "مثال: iPhone 15، Samsung Galaxy S24",
-        "type": "اختر نوع الاكسسوار"
+        "brand": "أدخل الماركة",
+        "model": "أدخل الموديل",
+        "year": "أدخل السنة",
+        "horse_power": "أدخل قوة الحصان",
+        "engine_capacity": "أدخل سعة المحرك",
+        "seats": "أدخل عدد المقاعد",
+        "color": "أدخل اللون",
+        "installation_location": "أدخل موقع التركيب",
+        "fuel_consumption": "أدخل استهلاك الوقود",
+        "area": "أدخل المساحة",
+        "bedrooms": "أدخل عدد غرف النوم",
+        "bathrooms": "أدخل عدد الحمامات",
+        "floor": "أدخل الطابق",
+        "screen_size": "أدخل حجم الشاشة",
+        "salary": "أدخل الراتب",
+        "experience": "أدخل عدد سنوات الخبرة"
       },
       "attributes": {
+        "brand": "الماركة",
+        "model": "الموديل",
+        "year": "السنة",
+        "condition": "الحالة",
         "horse_power": "قوة الحصان",
         "engine_type": "نوع المحرك",
+        "fuel_type": "نوع الوقود",
+        "transmission": "ناقل الحركة",
+        "engine_capacity": "سعة المحرك",
         "seats": "عدد المقاعد",
-        "charger_type": "نوع الشاحن",
-        "battery_capacity": "سعة البطارية",
-        "range": "المدى",
-        "autopilot_version": "إصدار القيادة الذاتية",
-        "fuel_tank_capacity": "سعة خزان الوقود",
-        "fuel_economy": "اقتصاد الوقود",
-        "processor": "المعالج",
-        "gpu": "وحدة معالجة الرسومات",
-        "ram": "ذاكرة الوصول العشوائي",
-        "storage": "مساحة التخزين",
-        "screen_size": "حجم الشاشة",
-        "camera_mp": "كاميرا",
-        "battery": "البطارية",
-        "stylus_support": "دعم القلم",
+        "color": "اللون",
+        "installation_location": "موقع التركيب",
+        "fuel_consumption": "استهلاك الوقود",
+        "category": "الفئة",
         "compatible_with": "متوافق مع",
-        "type": "النوع"
+        "area": "المساحة",
+        "bedrooms": "غرف النوم",
+        "bathrooms": "الحمامات",
+        "floor": "الطابق",
+        "furnished": "مفروش",
+        "processor": "المعالج",
+        "gpu": "وحدة معالجة الرسوميات",
+        "ram": "الذاكرة العشوائية",
+        "storage": "التخزين",
+        "screen_size": "حجم الشاشة",
+        "employment_type": "نوع العمل",
+        "salary": "الراتب",
+        "experience": "الخبرة",
+        "education_level": "المستوى التعليمي",
+        "breed": "النوع",
+        "age_group": "الفئة العمرية"
       },
       "values": {
-        "Gasoline": "بنزين",
-        "Diesel": "ديزل",
-        "Hybrid": "هجين",
-        "Electric": "كهربائي",
-        "Type 1": "النوع 1",
-        "Type 2": "النوع 2",
-        "CCS": "CCS",
-        "CHAdeMO": "CHAdeMO",
-        "Basic": "أساسي",
-        "Enhanced": "محسن",
-        "Full Self-Driving": "القيادة الذاتية الكاملة",
-        "1GB": "1 جيجابايت",
-        "2GB": "2 جيجابايت",
-        "3GB": "3 جيجابايت",
-        "4GB": "4 جيجابايت",
-        "6GB": "6 جيجابايت",
-        "8GB": "8 جيجابايت",
-        "12GB": "12 جيجابايت",
-        "16GB": "16 جيجابايت",
-        "32GB": "32 جيجابايت",
-        "64GB": "64 جيجابايت",
-        "128GB": "128 جيجابايت",
-        "256GB": "256 جيجابايت",
-        "512GB": "512 جيجابايت",
-        "1TB": "1 تيرابايت",
-        "Yes": "نعم",
-        "No": "لا",
-        "Case": "حافظة",
-        "Screen Protector": "واقي الشاشة",
-        "Charger": "شاحن",
-        "Cable": "كابل",
-        "Other": "أخرى"
+        "new": "جديد",
+        "used": "مستعمل",
+        "yes": "نعم",
+        "no": "لا",
+        "full_time": "دوام كامل",
+        "part_time": "دوام جزئي",
+        "contract": "عقد",
+        "high_school": "ثانوية عامة",
+        "bachelors": "بكالوريوس",
+        "masters": "ماجستير",
+        "phd": "دكتوراه",
+        "petrol_benzine": "بنزين",
+        "diesel": "ديزل",
+        "hybrid": "هايبرد",
+        "electric": "كهربائي",
+        "manual": "يدوي",
+        "automatic": "أوتوماتيكي",
+        "1GB": "1GB",
+        "2GB": "2GB",
+        "3GB": "3GB",
+        "4GB": "4GB",
+        "6GB": "6GB",
+        "8GB": "8GB",
+        "12GB": "12GB",
+        "16GB": "16GB",
+        "32GB": "32GB",
+        "64GB": "64GB",
+        "128GB": "128GB",
+        "256GB": "256GB",
+        "512GB": "512GB",
+        "1TB": "1TB",
+        "inch": "بوصة",
+        "HP": "قوة الحصان"
       }
     }
   },
@@ -314,7 +655,6 @@
     "paragraph": "الصفحة الذي تبحث عنه لا تبدو أنها موجودة.",
     "link": "العودة إلى الصفحة الرئيسية"
   },
-
   "/": {
     "navigation": {
       "show-all": "عرض الكل"
@@ -357,7 +697,6 @@
         "placeholder": "اسمي.. وابيع.. وانا خبير في ...",
         "description": "تكلم عن نفسك هنا"
       },
-
       "phoneNumber": {
         "title": "رقم الهاتف",
         "placeholder": "ادخل رقم الهاتف"
@@ -384,7 +723,6 @@
   },
   "/sell": {
     "title": "بيع منتجك",
-
     "category": {
       "main": {
         "label": "الفئة"

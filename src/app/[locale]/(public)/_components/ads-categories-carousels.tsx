@@ -22,7 +22,7 @@ export async function fetchCategoryCarousel(categoryPath: string) {
 async function AdsCategoriesCarousels() {
   const categoriesData = await Promise.all(
     categoriesTree.map(async (category) => {
-      const categoryPathName = toPathFormat(category.name_en);
+      const categoryPathName = toPathFormat(category.name);
       const categoryURL = `/${categoryPathName}`;
       const categoryAds = await fetchCategoryCarousel(categoryPathName);
       return {

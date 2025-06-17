@@ -76,8 +76,6 @@ CREATE TABLE "Category" (
     "id" INTEGER NOT NULL,
     "path" TEXT NOT NULL,
     "parentCategoryId" TEXT,
-    "name_en" TEXT NOT NULL,
-    "name_ar" TEXT NOT NULL,
     "description" TEXT,
     "depth" INTEGER NOT NULL,
 
@@ -191,12 +189,6 @@ CREATE UNIQUE INDEX "session_token_key" ON "session"("token");
 CREATE UNIQUE INDEX "Category_path_key" ON "Category"("path");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Category_name_en_key" ON "Category"("name_en");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Category_name_ar_key" ON "Category"("name_ar");
-
--- CreateIndex
 CREATE UNIQUE INDEX "AdTokenStore_userId_tokenType_key" ON "AdTokenStore"("userId", "tokenType");
 
 -- CreateIndex
@@ -255,9 +247,3 @@ ALTER TABLE "_favoriteAds" ADD CONSTRAINT "_favoriteAds_A_fkey" FOREIGN KEY ("A"
 
 -- AddForeignKey
 ALTER TABLE "_favoriteAds" ADD CONSTRAINT "_favoriteAds_B_fkey" FOREIGN KEY ("B") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- Turn on trigram support
-CREATE EXTENSION IF NOT EXISTS pg_trgm;
-
--- Create GIN index for Ad title using trigram
-CREATE INDEX ON "Ad" USING GIN (title gin_trgm_ops);

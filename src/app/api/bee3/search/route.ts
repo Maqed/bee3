@@ -397,7 +397,7 @@ function getSubCategoryPaths(rootPath: string): string[] {
   const tree = getTreeFromPath(rootPath);
   if (tree) {
     for (const subTree of tree) {
-      const subPath = `${rootPath}/${toPathFormat(subTree.name_en)}`;
+      const subPath = `${rootPath}/${toPathFormat(subTree.name)}`;
       subPaths.push(subPath);
       subPaths.push(...getSubCategoryPaths(subPath));
     }
@@ -412,7 +412,7 @@ function getTreeFromPath(path: string): CategoryTreeItem[] {
   const segments = path.split("/");
   let tree = categoriesTree;
   for (const segment of segments) {
-    tree = tree.find((c) => toPathFormat(c.name_en) == segment)!
+    tree = tree.find((c) => toPathFormat(c.name) == segment)!
       .categories as CategoryTreeItem[];
   }
   return tree;

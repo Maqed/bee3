@@ -47,8 +47,8 @@ async function populateItemTree(
 
   for (const item of items) {
     const path = parentPath
-      ? `${parentPath}/${toPathFormat(item.name_en)}`
-      : toPathFormat(item.name_en);
+      ? `${parentPath}/${toPathFormat(item.name)}`
+      : toPathFormat(item.name);
     console.log(`Creating category: ${path}`);
 
     // Create or update the category
@@ -57,8 +57,6 @@ async function populateItemTree(
       update: {
         id: item.id,
         path: path,
-        name_en: item.name_en,
-        name_ar: item.name_ar,
         description: item.description,
         depth: depth,
         parentCategory: parentPath
@@ -68,8 +66,6 @@ async function populateItemTree(
       create: {
         id: item.id,
         path: path,
-        name_en: item.name_en,
-        name_ar: item.name_ar,
         description: item.description,
         depth: depth,
         parentCategory: parentPath

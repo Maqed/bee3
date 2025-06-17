@@ -39,8 +39,7 @@ export async function GET(request: NextRequest) {
       GREATEST(${searchWords
       .map((_, i) => `word_similarity($${i + 1}, "Ad".title)`)
       .join(', ')}) AS similarity_score,
-      "Category"."name_ar",
-      "Category"."name_en"
+      "Category"."name",
     FROM "Ad"
     LEFT JOIN "Category" ON "Ad"."categoryPath" = "Category".path
     WHERE (${wordConditions}) OR (${likeConditions})
@@ -53,16 +52,14 @@ export async function GET(request: NextRequest) {
     title: string;
     categoryPath: string | null;
     similarity_score: number;
-    name_ar: string | null;
-    name_en: string | null;
+    name: string | null;
   }>;
 
   const categorizedHits: {
     title: string;
     category: {
       categoryPath: string;
-      name_ar: string;
-      name_en: string;
+      name: string;
     };
   }[] = [];
   const uncategorizedHits: string[] = [];
@@ -71,7 +68,7 @@ export async function GET(request: NextRequest) {
   const isQueryStrong = ads.length > 0 && ads[0]!.similarity_score >= 0.5;
 
   for (const ad of ads) {
-    const { categoryPath, name_ar, name_en } = ad;
+    const { categoryPath, name } = ad;
 
     if (!categoryPath || !isQueryStrong) {
       uncategorizedHits.push(ad.title);
@@ -83,8 +80,7 @@ export async function GET(request: NextRequest) {
         title: ad.title,
         category: {
           categoryPath,
-          name_en: name_en!,
-          name_ar: name_ar!,
+          name: name!,
         },
       });
       usedCategories.add(categoryPath);
