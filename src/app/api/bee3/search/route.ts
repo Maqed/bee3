@@ -222,7 +222,7 @@ async function performFuzzySearch({
       baseConditions.push(`
         EXISTS (
           SELECT 1 FROM "AttributeValue" av
-          JOIN "Attribute" a ON av."attributeId" = a.id
+          JOIN "CategoryAttribute" a ON av."attributeId" = a.id
           WHERE av."adId" = "Ad".id 
           AND a.name = $${paramIndex}
           AND av.value::numeric >= $${paramIndex + 1}
@@ -238,7 +238,7 @@ async function performFuzzySearch({
       baseConditions.push(`
         EXISTS (
           SELECT 1 FROM "AttributeValue" av
-          JOIN "Attribute" a ON av."attributeId" = a.id
+          JOIN "CategoryAttribute" a ON av."attributeId" = a.id
           WHERE av."adId" = "Ad".id 
           AND a.name = $${paramIndex}
           AND av.value = $${paramIndex + 1}
