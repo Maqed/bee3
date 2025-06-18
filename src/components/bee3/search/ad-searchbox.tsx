@@ -1,13 +1,14 @@
 "use client";
 import { AsyncSearch } from "@/components/ui/async-search";
 import { useCategoryTranslations } from "@/lib/client-side";
+import { absoluteURL } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 async function fetchData(query?: string) {
   if (!query) return [];
-  const response = await fetch(`/api/bee3/searchbox?q=${query}`, {
+  const response = await fetch(absoluteURL(`/api/bee3/searchbox?q=${query}`), {
     method: "GET",
   });
 
