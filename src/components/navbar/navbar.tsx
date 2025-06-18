@@ -31,9 +31,9 @@ export default function Navbar() {
         <nav className="min-w-1/2 flex items-center gap-x-2">
           <AdSearch />
           <div className="hidden md:flex md:items-center md:gap-x-2">
+            <ModeToggle />
             <LocaleSwitcher />
             <SellButton className="hidden md:flex" />
-            <ModeToggle />
             <NavbarAuth
               trigger={
                 <DropdownMenuTrigger className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
@@ -43,6 +43,9 @@ export default function Navbar() {
               dropdownMenuContentProps={{
                 align: "end",
                 className: "w-64",
+              }}
+              loginButtonProps={{
+                className: "font-bold text-base",
               }}
               session={session}
             />
@@ -59,8 +62,8 @@ export default function Navbar() {
               </VisuallyHidden>
               <div className="flex h-full flex-col items-start justify-end gap-3">
                 <ModeToggle showToggleThemeText={true} className="w-full" />
-                <SellButton className="w-full" />
                 <LocaleSwitcher className="w-full" />
+                <SellButton className="w-full" />
                 <NavbarAuth
                   trigger={
                     <DropdownMenuTrigger asChild>
@@ -84,7 +87,7 @@ export default function Navbar() {
                     sideOffset: 6,
                     className: "w-44",
                   }}
-                  loginButtonProps={{ className: "w-full" }}
+                  loginButtonProps={{ className: "w-full font-bold text-base" }}
                   session={session}
                 />
               </div>
