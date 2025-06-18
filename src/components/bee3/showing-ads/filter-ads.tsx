@@ -186,35 +186,39 @@ function FilterAds({ onApplyFilter, categoryPath }: Props) {
         />
       )}
 
-      <div className="flex flex-col">
-        <Label className="mb-2" htmlFor="sort">
-          {t("sortByLabel")}
-        </Label>
-        <Select value={sort} onValueChange={setSort}>
-          <SelectTrigger>
-            <SelectValue placeholder={t("sortByLabel")} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="date">{t("sortOptions.date")}</SelectItem>
-            <SelectItem value="price">{t("sortOptions.price")}</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="flex flex-col">
-        <Label className="mb-2" htmlFor="order">
-          {t("orderLabel")}
-        </Label>
-        <Select value={order} onValueChange={setOrder}>
-          <SelectTrigger>
-            <SelectValue placeholder={t("orderLabel")} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="asc">{t(`orderOptions.${sort}.asc`)}</SelectItem>
-            <SelectItem value="desc">
-              {t(`orderOptions.${sort}.desc`)}
-            </SelectItem>
-          </SelectContent>
-        </Select>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="flex flex-col">
+          <Label className="mb-2" htmlFor="sort">
+            {t("sortByLabel")}
+          </Label>
+          <Select value={sort} onValueChange={setSort}>
+            <SelectTrigger>
+              <SelectValue placeholder={t("sortByLabel")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="date">{t("sortOptions.date")}</SelectItem>
+              <SelectItem value="price">{t("sortOptions.price")}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex flex-col">
+          <Label className="mb-2" htmlFor="order">
+            {t("orderLabel")}
+          </Label>
+          <Select value={order} onValueChange={setOrder}>
+            <SelectTrigger>
+              <SelectValue placeholder={t("orderLabel")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="asc">
+                {t(`orderOptions.${sort}.asc`)}
+              </SelectItem>
+              <SelectItem value="desc">
+                {t(`orderOptions.${sort}.desc`)}
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <Button onClick={handleApplyFilter}>{t("apply-filters")}</Button>
