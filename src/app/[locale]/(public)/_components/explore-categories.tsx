@@ -48,7 +48,7 @@ function ExploreCategories() {
                     </Avatar>
                     <p className="text-sm">{categoryName}</p>
                   </DialogTrigger>
-                  <DialogContent className="pb-0">
+                  <DialogContent className="max-w-2xl pb-0">
                     <DialogHeader className="h-min">
                       <DialogTitle>
                         <Link tabIndex={-1} href={`/${categoryNamePathFormat}`}>
@@ -56,9 +56,9 @@ function ExploreCategories() {
                         </Link>
                       </DialogTitle>
                     </DialogHeader>
-                    <div className="flex flex-col items-start justify-start">
+                    <div className="flex flex-col items-start justify-start max-sm:max-h-96 max-sm:overflow-auto">
                       <Link
-                        className="text-primary hover:underline"
+                        className="w-full text-primary hover:underline max-sm:text-center"
                         href={`/${categoryNamePathFormat}`}
                       >
                         {tNavigation("show-all")}
@@ -66,7 +66,7 @@ function ExploreCategories() {
                       <div className="flex w-full items-center justify-center">
                         <Separator className="my-1 w-1/2" />
                       </div>
-                      <div className="flex h-full w-full items-center gap-4 py-4">
+                      <div className="grid h-full w-full grid-cols-3 gap-4 py-4">
                         {category.categories?.map(async (subCategory) => {
                           const subCategoryNamePathFormat = toPathFormat(
                             subCategory.name,
@@ -89,7 +89,7 @@ function ExploreCategories() {
                               <Avatar className="rounded-md bg-primary/60">
                                 <SubCategoryIcon />
                               </Avatar>
-                              <p className="text-sm text-primary group-hover:underline group-focus:underline">
+                              <p className="text-center text-sm group-hover:underline group-focus:underline">
                                 {subCategoryName}
                               </p>
                             </Link>
