@@ -59,7 +59,8 @@ export function getCategoryAndSubCategory(categoryPath: string[] | string) {
   return { category, subCategory };
 }
 export function absoluteURL(url: string) {
-  return `${env.NEXT_PUBLIC_APP_URL}/${url}`;
+  if (!url.startsWith("/")) url = "/" + url;
+  return `${env.NEXT_PUBLIC_APP_URL}${url}`;
 }
 export function getLocalizedLocation(locale: string, cityId: number) {
   const city = getCity(cityId);
