@@ -16,6 +16,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import AdCardPlaceholder from "./ad-card-placeholder";
 
 export function AdImagesPlaceholder() {
   return (
@@ -140,7 +141,7 @@ export function RelatedAdsPlaceholder() {
             <CarouselItem key={`ad-card-placeholder-${index}`}>
               <Card>
                 <CardContent className="p-4">
-                  <Skeleton className="h-40 w-full" />
+                  <AdCardPlaceholder />
                 </CardContent>
               </Card>
             </CarouselItem>
