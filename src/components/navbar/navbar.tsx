@@ -1,3 +1,4 @@
+"use client";
 import { Link } from "@/navigation";
 import NavbarAuth from "./navbar-auth";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
@@ -5,7 +6,6 @@ import ModeToggle from "@/components/ui/mode-toggle";
 import SellButton from "../bee3/sell-button";
 import AdSearch from "../bee3/search/ad-searchbox";
 import Logo from "../bee3/logo";
-import { getServerAuthSession } from "@/lib/auth";
 import {
   Sheet,
   SheetContent,
@@ -18,9 +18,10 @@ import { Avatar } from "@/components/ui/avatar";
 import { ChevronsUpDown, Menu } from "lucide-react";
 import { DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
+import { authClient } from "@/lib/auth-client";
 
-export default async function Navbar() {
-  const session = await getServerAuthSession();
+export default function Navbar() {
+  const { data: session } = authClient.useSession();
   return (
     <header className="container sticky top-0 z-50 mb-5 flex flex-col justify-between gap-1 border-b bg-background py-4">
       <div className="flex items-center justify-between">
