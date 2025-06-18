@@ -608,7 +608,10 @@
         "experience": "الخبرة",
         "education_level": "المستوى التعليمي",
         "breed": "النوع",
-        "age_group": "الفئة العمرية"
+        "age_group": "الفئة العمرية",
+        "warranty": "الضمان",
+        "type": "النوع",
+        "size": "المقاس"
       },
       "values": {
         "new": "جديد",
@@ -643,7 +646,32 @@
         "512GB": "512GB",
         "1TB": "1TB",
         "inch": "بوصة",
-        "HP": "قوة الحصان"
+        "HP": "قوة الحصان",
+        "gasoline": "بنزين",
+        "tyre": "إطار",
+        "battery": "بطارية",
+        "oil": "زيت",
+        "accessory": "إكسسوار",
+        "case": "حافظة",
+        "screen_protector": "واقي الشاشة",
+        "charger": "شاحن",
+        "cable": "كابل",
+        "other": "أخرى",
+        "XS": "XS",
+        "S": "S",
+        "M": "M",
+        "L": "L",
+        "XL": "XL",
+        "XXL": "XXL",
+        "Special Sizes": "مقاسات خاصة",
+        "dog": "كلب",
+        "cat": "قطة",
+        "bird": "طائر",
+        "newborn": "مولود جديد",
+        "infant": "رضيع",
+        "toddler": "طفل صغير",
+        "preschooler": "طفل ما قبل المدرسة",
+        "school_age": "سن المدرسة"
       }
     }
   },

@@ -612,7 +612,10 @@
         "experience": "Experience",
         "education_level": "Education Level",
         "breed": "Breed",
-        "age_group": "Age Group"
+        "age_group": "Age Group",
+        "warranty": "Warranty",
+        "type": "Type",
+        "size": "Size"
       },
       "values": {
         "new": "New",
@@ -647,7 +650,32 @@
         "512GB": "512GB",
         "1TB": "1TB",
         "inch": "inch",
-        "HP": "HP"
+        "HP": "HP",
+        "gasoline": "Gasoline",
+        "tyre": "Tyre",
+        "battery": "Battery",
+        "oil": "Oil",
+        "accessory": "Accessory",
+        "case": "Case",
+        "screen_protector": "Screen Protector",
+        "charger": "Charger",
+        "cable": "Cable",
+        "other": "Other",
+        "XS": "XS",
+        "S": "S",
+        "M": "M",
+        "L": "L",
+        "XL": "XL",
+        "XXL": "XXL",
+        "Special Sizes": "Special Sizes",
+        "dog": "Dog",
+        "cat": "Cat",
+        "bird": "Bird",
+        "newborn": "Newborn",
+        "infant": "Infant",
+        "toddler": "Toddler",
+        "preschooler": "Preschooler",
+        "school_age": "School Age"
       }
     }
   },
