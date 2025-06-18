@@ -72,7 +72,8 @@ function FavoritesHeart({ adId, className }: Props) {
   const handleHeartClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!session && !isSessionPending) return;
+
+    if (isSessionPending) return;
 
     if (!session) {
       router.push(DEFAULT_UNAUTHENTICATED_REDIRECT);
