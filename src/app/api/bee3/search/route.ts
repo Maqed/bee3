@@ -28,8 +28,6 @@ import {
 export async function GET(request: NextRequest) {
   const categoryPath = request.nextUrl.searchParams.get("category");
   const search = request.nextUrl.searchParams.get("q");
-  if (!categoryPath && !search)
-    return NextResponse.json({ error: "invalid-query" }, { status: 400 });
 
   const pageNum = +(request.nextUrl.searchParams.get("page") ?? 1);
   const pageSize = Math.min(
