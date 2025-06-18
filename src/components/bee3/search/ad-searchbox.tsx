@@ -1,6 +1,6 @@
 "use client";
 import { AsyncSearch } from "@/components/ui/async-search";
-import { getClientSideFullCategory } from "@/lib/client-side";
+import { useCategoryTranslations } from "@/lib/client-side";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -33,6 +33,7 @@ type fetchedDataType = {
 const AdSearch = () => {
   const t = useTranslations("ad-searchbox");
   const router = useRouter();
+  const { getClientSideFullCategory } = useCategoryTranslations();
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState(searchParams.get("q") ?? "");
 

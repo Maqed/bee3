@@ -1,3 +1,4 @@
+"use client";
 import type React from "react";
 import type { Dispatch, SetStateAction, TransitionStartFunction } from "react";
 import { useState } from "react";
@@ -38,10 +39,7 @@ import { Listbox } from "@/components/ui/listbox";
 import CategoryListboxItem from "./category-list-box-item";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import CategoryOptionsSection from "./category-options-section";
-import {
-  getClientSideFullCategory,
-  getClientSideSubCategory,
-} from "@/lib/client-side";
+import { useCategoryTranslations } from "@/lib/client-side";
 
 type SellFormProps = {
   startTransition: TransitionStartFunction;
@@ -61,6 +59,8 @@ function SellForm({
   const tSell = useTranslations("/sell");
   const tErrors = useTranslations("errors./sell");
   const locale = useLocale();
+  const { getClientSideFullCategory, getClientSideSubCategory } =
+    useCategoryTranslations();
   const router = useRouter();
   const { toast } = useToast();
   const { data: session, isPending: isSessionPending } =
