@@ -1,4 +1,4 @@
-import { getServerSideFullCategory } from "@/lib/server-side";
+import { useCategoryTranslations } from "@/lib/client-side";
 import FilterAds from "./filter-ads";
 import AdFilterDialog from "./ad-filter-dialog";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,20 +6,20 @@ import { getURLSearchParamsFromPageParams } from "@/lib/utils";
 import ShowingAds from "./showing-ads";
 import { Suspense } from "react";
 import AdCardPlaceholder from "@/components/placeholders/ad-card-placeholder";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 type Props = {
   categoryPath?: string[];
   searchParams: Record<string, string | undefined>;
 };
 
-async function ShowingAdsPage({ categoryPath, searchParams }: Props) {
+function ShowingAdsPage({ categoryPath, searchParams }: Props) {
   let params = getURLSearchParamsFromPageParams(searchParams);
-  const tShowingAdsPage = await getTranslations("showing-ads-page");
+  const tShowingAdsPage = useTranslations("showing-ads-page");
   if (categoryPath) params.set("category", categoryPath.join("/"));
-
+  const { getClientSideFullCategory } = useCategoryTranslations();
   let title = categoryPath
-    ? await getServerSideFullCategory(categoryPath.join("/"))
+    ? getClientSideFullCategory(categoryPath.join("/"))
     : params.get("q")
       ? params.get("q")
       : "";
