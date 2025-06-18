@@ -7,22 +7,49 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 async function fetchData(query?: string) {
-  if (!query) return [];
-  const response = await fetch(absoluteURL(`/api/bee3/searchbox?q=${query}`), {
-    method: "GET",
-  });
+  if (!query || query.length < 2) return [];
+  const limitedQuery = query.trim().slice(0, 50);
+
+  const response = await fetch(
+    absoluteURL(`/api/bee3/searchbox?q=${encodeURIComponent(limitedQuery)}`),
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+  );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch ads");
+    console.warn(`Search request failed: ${response.status}`);
+    return [];
   }
 
   const data = await response.json();
-  let { categorizedHits, uncategorizedHits } = data;
-  uncategorizedHits = uncategorizedHits.map((hit: string) => ({
-    title: hit,
-  }));
 
-  return [...categorizedHits, { title: query }, ...uncategorizedHits];
+  // Handle API errors gracefully
+  if (data.error) {
+    console.warn("Search API error:", data.error);
+    return [];
+  }
+
+  let { categorizedHits = [], uncategorizedHits = [] } = data;
+
+  // Ensure uncategorizedHits is an array and transform it
+  if (Array.isArray(uncategorizedHits)) {
+    uncategorizedHits = uncategorizedHits.map((hit: string) => ({
+      title: hit,
+    }));
+  } else {
+    uncategorizedHits = [];
+  }
+
+  // Ensure categorizedHits is an array
+  if (!Array.isArray(categorizedHits)) {
+    categorizedHits = [];
+  }
+
+  return [...categorizedHits, { title: limitedQuery }, ...uncategorizedHits];
 }
 type fetchedDataType = {
   title: string;

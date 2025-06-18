@@ -6,90 +6,153 @@ export async function GET(request: NextRequest) {
   if (!search)
     return NextResponse.json({ error: "invalid-query" }, { status: 400 });
 
-  const similarityThreshold = 0.25;
   const searchTerm = search.trim();
-  const searchWords = searchTerm.split(/\s+/).filter((word) => word.length > 0);
-
-  if (searchWords.length === 0) {
+  if (searchTerm.length === 0) {
     return NextResponse.json({
       categorizedHits: [],
       uncategorizedHits: [],
     });
   }
 
-  const wordConditions = searchWords
-    .map(
-      (_, index) =>
-        `word_similarity($${index + 1}, "Ad".title) > ${similarityThreshold}`,
-    )
-    .join(" OR ");
+  // Limit search term length to prevent complex queries
+  const limitedSearchTerm = searchTerm.slice(0, 50);
 
-  const likeConditions = searchWords
-    .map((_, index) => `"Ad".title ILIKE $${searchWords.length + index + 1}`)
-    .join(" OR ");
-
-  const params = [
-    ...searchWords, // For word_similarity
-    ...searchWords.map((word) => `%${word}%`), // For ILIKE
-  ];
-
-  const ads = (await db.$queryRawUnsafe(
-    `
-    SELECT 
-      "Ad".id,
-      "Ad".title,
-      "Ad"."categoryPath",
-      -- 2. USE MAX WORD_SIMILARITY FOR SCORING
-      GREATEST(${searchWords
-        .map((_, i) => `word_similarity($${i + 1}, "Ad".title)`)
-        .join(", ")}) AS similarity_score
-    FROM "Ad"
-    WHERE (${wordConditions}) OR (${likeConditions})
-    ORDER BY similarity_score DESC
-    LIMIT 8
-  `,
-    ...params,
-  )) as Array<{
-    id: number;
-    title: string;
-    categoryPath: string | null;
-    similarity_score: number;
-  }>;
-
-  const categorizedHits: {
-    title: string;
-    category: {
-      categoryPath: string;
-    };
-  }[] = [];
-  const uncategorizedHits: string[] = [];
-  const usedCategories = new Set<string>();
-
-  const isQueryStrong = ads.length > 0 && ads[0]!.similarity_score >= 0.5;
-
-  for (const ad of ads) {
-    const { categoryPath } = ad;
-
-    if (!categoryPath || !isQueryStrong) {
-      uncategorizedHits.push(ad.title);
-      continue;
-    }
-
-    if (!usedCategories.has(categoryPath)) {
-      categorizedHits.push({
-        title: ad.title,
-        category: {
-          categoryPath,
+  try {
+    // Use a much simpler and faster query approach
+    // First try exact/prefix matches (fastest)
+    const exactMatches = await db.ad.findMany({
+      where: {
+        title: {
+          contains: limitedSearchTerm,
+          mode: "insensitive",
         },
-      });
-      usedCategories.add(categoryPath);
-    } else {
-      uncategorizedHits.push(ad.title);
-    }
-  }
+      },
+      select: {
+        id: true,
+        title: true,
+        categoryPath: true,
+      },
+      take: 6,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
-  return NextResponse.json({
-    categorizedHits,
-    uncategorizedHits,
-  });
+    // If we have enough exact matches, use those
+    if (exactMatches.length >= 4) {
+      const categorizedHits: {
+        title: string;
+        category: {
+          categoryPath: string;
+        };
+      }[] = [];
+      const uncategorizedHits: string[] = [];
+      const usedCategories = new Set<string>();
+
+      for (const ad of exactMatches) {
+        const { categoryPath } = ad;
+
+        if (!categoryPath) {
+          uncategorizedHits.push(ad.title);
+          continue;
+        }
+
+        if (!usedCategories.has(categoryPath)) {
+          categorizedHits.push({
+            title: ad.title,
+            category: {
+              categoryPath,
+            },
+          });
+          usedCategories.add(categoryPath);
+        } else {
+          uncategorizedHits.push(ad.title);
+        }
+      }
+
+      return NextResponse.json({
+        categorizedHits,
+        uncategorizedHits,
+      });
+    }
+
+    // Fallback to word similarity only if needed, with simpler query
+    const searchWords = limitedSearchTerm
+      .split(/\s+/)
+      .filter((word) => word.length > 0)
+      .slice(0, 3);
+
+    if (searchWords.length === 0) {
+      return NextResponse.json({
+        categorizedHits: [],
+        uncategorizedHits: [],
+      });
+    }
+
+    // Much simpler similarity query - just use the first word for similarity
+    const primaryWord = searchWords[0];
+    const similarityThreshold = 0.3;
+
+    const ads = (await db.$queryRaw`
+      SELECT 
+        "Ad".id,
+        "Ad".title,
+        "Ad"."categoryPath",
+        word_similarity(${primaryWord}, "Ad".title) AS similarity_score
+      FROM "Ad"
+      WHERE word_similarity(${primaryWord}, "Ad".title) > ${similarityThreshold}
+         OR "Ad".title ILIKE ${`%${primaryWord}%`}
+      ORDER BY similarity_score DESC
+      LIMIT 8
+    `) as Array<{
+      id: number;
+      title: string;
+      categoryPath: string | null;
+      similarity_score: number;
+    }>;
+
+    const categorizedHits: {
+      title: string;
+      category: {
+        categoryPath: string;
+      };
+    }[] = [];
+    const uncategorizedHits: string[] = [];
+    const usedCategories = new Set<string>();
+
+    const isQueryStrong = ads.length > 0 && ads[0]!.similarity_score >= 0.5;
+
+    for (const ad of ads) {
+      const { categoryPath } = ad;
+
+      if (!categoryPath || !isQueryStrong) {
+        uncategorizedHits.push(ad.title);
+        continue;
+      }
+
+      if (!usedCategories.has(categoryPath)) {
+        categorizedHits.push({
+          title: ad.title,
+          category: {
+            categoryPath,
+          },
+        });
+        usedCategories.add(categoryPath);
+      } else {
+        uncategorizedHits.push(ad.title);
+      }
+    }
+
+    return NextResponse.json({
+      categorizedHits,
+      uncategorizedHits,
+    });
+  } catch (error) {
+    console.error("Search error:", error);
+    // Return empty results instead of error to prevent abort
+    return NextResponse.json({
+      categorizedHits: [],
+      uncategorizedHits: [],
+    });
+  }
 }

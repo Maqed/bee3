@@ -62,40 +62,65 @@ export function AsyncSearch<T>({
   const [options, setOptions] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const [isResultVisible, setIsResultVisible] = useState(false);
   const [wasManuallyDismissed, setWasManuallyDismissed] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const blurTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastRequestRef = useRef<string | null>(null);
+  const isRequestInFlightRef = useRef(false);
 
   useEffect(() => {
     const fetchOptions = async () => {
+      if (isRequestInFlightRef.current) {
+        return;
+      }
+
+      if (lastRequestRef.current === debouncedSearchTerm) {
+        return;
+      }
+
+      lastRequestRef.current = debouncedSearchTerm;
+      isRequestInFlightRef.current = true;
+
       try {
         setLoading(true);
         setError(null);
         const data = await fetcher(debouncedSearchTerm);
-        setOptions(data);
+
+        if (lastRequestRef.current === debouncedSearchTerm) {
+          setOptions(data);
+        }
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Failed to fetch options",
-        );
+        if (lastRequestRef.current === debouncedSearchTerm) {
+          setError(
+            err instanceof Error ? err.message : "Failed to fetch options",
+          );
+        }
       } finally {
-        setLoading(false);
+        isRequestInFlightRef.current = false;
+        if (lastRequestRef.current === debouncedSearchTerm) {
+          setLoading(false);
+        }
       }
     };
 
     if (
       debouncedSearchTerm === searchTerm &&
-      searchTerm.length > 0 &&
+      searchTerm.length > 1 &&
       !wasManuallyDismissed
     ) {
       setIsResultVisible(true);
       fetchOptions();
     } else if (searchTerm.length === 0) {
+      lastRequestRef.current = null;
+      isRequestInFlightRef.current = false;
       setIsResultVisible(false);
       setOptions([]);
       setWasManuallyDismissed(false);
+      setLoading(false);
+      setError(null);
     }
   }, [fetcher, debouncedSearchTerm, searchTerm, wasManuallyDismissed]);
 
@@ -129,7 +154,6 @@ export function AsyncSearch<T>({
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      // Clean up blur timeout on unmount
       if (blurTimeoutRef.current) {
         clearTimeout(blurTimeoutRef.current);
       }
@@ -155,7 +179,6 @@ export function AsyncSearch<T>({
         disabled={disabled}
         value={searchTerm}
         onFocus={() => {
-          // Cancel any pending blur timeout
           if (blurTimeoutRef.current) {
             clearTimeout(blurTimeoutRef.current);
             blurTimeoutRef.current = null;
@@ -166,7 +189,6 @@ export function AsyncSearch<T>({
           }
         }}
         onBlur={() => {
-          // Delay hiding to allow click events on options to fire first
           blurTimeoutRef.current = setTimeout(() => {
             setIsResultVisible(false);
             setWasManuallyDismissed(true);
@@ -185,11 +207,9 @@ export function AsyncSearch<T>({
           { "rounded-b-xl": isResultVisible },
         )}
         onMouseDown={(e) => {
-          // Prevent blur when clicking on the dropdown
           e.preventDefault();
         }}
         onMouseUp={() => {
-          // Re-focus the input after mouse interaction
           searchInputRef.current?.focus();
         }}
       >
@@ -210,7 +230,6 @@ export function AsyncSearch<T>({
               key={getOptionValue(option)}
               value={getOptionValue(option)}
               onSelect={() => {
-                // Cancel blur timeout to prevent interference
                 if (blurTimeoutRef.current) {
                   clearTimeout(blurTimeoutRef.current);
                   blurTimeoutRef.current = null;
