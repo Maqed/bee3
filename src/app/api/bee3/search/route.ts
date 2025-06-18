@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
   const sort = request.nextUrl.searchParams.get("sort");
   let order =
     Prisma.SortOrder[
-    request.nextUrl.searchParams.get("order") as keyof typeof Prisma.SortOrder
+      request.nextUrl.searchParams.get("order") as keyof typeof Prisma.SortOrder
     ];
   if (!order) order = Prisma.SortOrder.desc;
 
@@ -147,20 +147,20 @@ async function performFuzzySearch({
   similarityThreshold: number;
 }) {
   // Split search term into words
-  const searchWords = searchTerm.split(/\s+/).filter(word => word.length > 0);
+  const searchWords = searchTerm.split(/\s+/).filter((word) => word.length > 0);
   if (searchWords.length === 0) {
     return { ads: [], totalAds: 0, totalPages: 0 };
   }
 
   // Build base conditions and parameters
   const baseConditions: string[] = [];
-  let queryParams: any[] = [...searchWords];  // Words for similarity comparison
-  let paramIndex = searchWords.length + 1;    // Start index after search words
+  let queryParams: any[] = [...searchWords]; // Words for similarity comparison
+  let paramIndex = searchWords.length + 1; // Start index after search words
 
   // Add word similarity conditions for each search word
   const wordSimilarityConditions = searchWords
     .map((_, i) => `word_similarity($${i + 1}, "Ad".title) > $${paramIndex}`)
-    .join(' OR ');
+    .join(" OR ");
 
   baseConditions.push(`(${wordSimilarityConditions})`);
   queryParams.push(similarityThreshold);
@@ -168,7 +168,7 @@ async function performFuzzySearch({
 
   // Add category filter
   if (categoryPaths.length > 0) {
-    const placeholders = categoryPaths.map(() => `$${paramIndex++}`).join(', ');
+    const placeholders = categoryPaths.map(() => `$${paramIndex++}`).join(", ");
     baseConditions.push(`"categoryPath" IN (${placeholders})`);
     queryParams.push(...categoryPaths);
   }
@@ -176,7 +176,9 @@ async function performFuzzySearch({
   // Add price filter
   if (price) {
     const [minPrice, maxPrice] = price.split("-");
-    baseConditions.push(`price >= $${paramIndex} AND price <= $${paramIndex + 1}`);
+    baseConditions.push(
+      `price >= $${paramIndex} AND price <= $${paramIndex + 1}`,
+    );
     queryParams.push(+minPrice!, +maxPrice!);
     paramIndex += 2;
   }
@@ -196,17 +198,17 @@ async function performFuzzySearch({
   }
 
   // Build ORDER BY clause
-  let orderByClause = '';
-  if (sort === 'relevance' || !sort) {
+  let orderByClause = "";
+  if (sort === "relevance" || !sort) {
     // Use the maximum word similarity score for ordering
     const similarityScores = searchWords
       .map((_, i) => `word_similarity($${i + 1}, "Ad".title)`)
-      .join(', ');
+      .join(", ");
 
-    orderByClause = `ORDER BY GREATEST(${similarityScores}) ${order === 'asc' ? 'ASC' : 'DESC'}`;
-  } else if (sort === 'price') {
+    orderByClause = `ORDER BY GREATEST(${similarityScores}) ${order === "asc" ? "ASC" : "DESC"}`;
+  } else if (sort === "price") {
     orderByClause = `ORDER BY price ${order}`;
-  } else if (sort === 'date') {
+  } else if (sort === "date") {
     orderByClause = `ORDER BY "createdAt" ${order}`;
   }
 
@@ -249,15 +251,16 @@ async function performFuzzySearch({
     }
   }
 
-  const whereClause = baseConditions.length > 0 ? `WHERE ${baseConditions.join(' AND ')}` : '';
+  const whereClause =
+    baseConditions.length > 0 ? `WHERE ${baseConditions.join(" AND ")}` : "";
 
   // Main query with word similarity scoring
   const mainQuery = `
     SELECT 
       "Ad".*,
       GREATEST(${searchWords
-      .map((_, i) => `word_similarity($${i + 1}, "Ad".title)`)
-      .join(', ')}) AS similarity_score,
+        .map((_, i) => `word_similarity($${i + 1}, "Ad".title)`)
+        .join(", ")}) AS similarity_score,
       (
         SELECT json_agg(json_build_object('url', url))
         FROM "Image" 
@@ -280,18 +283,18 @@ async function performFuzzySearch({
   // Add pagination parameters
   const paginationParams = [pageSize, (pageNum - 1) * pageSize];
   const mainQueryParams = [...queryParams, ...paginationParams];
-  const countQueryParams = queryParams;  // No pagination for count
+  const countQueryParams = queryParams; // No pagination for count
 
   try {
     const [adsResult, countResult] = await Promise.all([
       db.$queryRawUnsafe(mainQuery, ...mainQueryParams),
-      db.$queryRawUnsafe(countQuery, ...countQueryParams)
+      db.$queryRawUnsafe(countQuery, ...countQueryParams),
     ]);
 
-    const ads = (adsResult as any[]).map(ad => ({
+    const ads = (adsResult as any[]).map((ad) => ({
       ...ad,
       images: ad.images || [],
-      similarity_score: ad.similarity_score
+      similarity_score: ad.similarity_score,
     }));
 
     const totalAds = Number((countResult as any[])[0].total);
@@ -299,8 +302,8 @@ async function performFuzzySearch({
 
     return { ads, totalAds, totalPages };
   } catch (error) {
-    console.error('Fuzzy search error:', error);
-    throw new Error('Failed to perform fuzzy search');
+    console.error("Fuzzy search error:", error);
+    throw new Error("Failed to perform fuzzy search");
   }
 }
 
@@ -308,7 +311,9 @@ async function performFuzzySearch({
  * Parse attribute filters from the request URL
  * Supports both single value and range queries
  */
-function parseAttributeFilters(request: NextRequest): { name: string; value: string }[] {
+function parseAttributeFilters(
+  request: NextRequest,
+): { name: string; value: string }[] {
   const attributeFilters: { name: string; value: string }[] = [];
 
   // Get all attribute parameters (can be multiple)
@@ -333,7 +338,9 @@ function parseAttributeFilters(request: NextRequest): { name: string; value: str
  * Build Prisma conditions for attribute filtering
  * Handles both exact matches and range queries
  */
-function buildAttributeConditions(attributeFilters: { name: string; value: string }[]): any[] {
+function buildAttributeConditions(
+  attributeFilters: { name: string; value: string }[],
+): any[] {
   const conditions: any[] = [];
 
   for (const filter of attributeFilters) {
@@ -352,12 +359,9 @@ function buildAttributeConditions(attributeFilters: { name: string; value: strin
               attribute: {
                 name: filter.name,
               },
-              AND: [
-                { value: { gte: minValue } },
-                { value: { lte: maxValue } }
-              ]
-            }
-          }
+              AND: [{ value: { gte: minValue } }, { value: { lte: maxValue } }],
+            },
+          },
         });
       } else {
         // Handle as exact match if not numeric range
@@ -368,8 +372,8 @@ function buildAttributeConditions(attributeFilters: { name: string; value: strin
                 name: filter.name,
               },
               value: filter.value,
-            }
-          }
+            },
+          },
         });
       }
     } else {
@@ -381,8 +385,8 @@ function buildAttributeConditions(attributeFilters: { name: string; value: strin
               name: filter.name,
             },
             value: filter.value,
-          }
-        }
+          },
+        },
       });
     }
   }
