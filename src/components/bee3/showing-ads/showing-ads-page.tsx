@@ -4,8 +4,6 @@ import AdFilterDialog from "./ad-filter-dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { getURLSearchParamsFromPageParams } from "@/lib/utils";
 import ShowingAds from "./showing-ads";
-import { Suspense } from "react";
-import AdCardPlaceholder from "@/components/placeholders/ad-card-placeholder";
 import { useTranslations } from "next-intl";
 
 type Props = {
@@ -45,13 +43,7 @@ function ShowingAdsPage({ categoryPath, searchParams }: Props) {
         </div>
         {/* Ads */}
         <div className="col-span-12 flex flex-col gap-3 lg:col-span-9">
-          <Suspense
-            fallback={[...Array(12)].map(() => (
-              <AdCardPlaceholder orientation="horizontal" />
-            ))}
-          >
-            <ShowingAds params={params} />
-          </Suspense>
+          <ShowingAds params={params} />
         </div>
       </div>
     </main>
