@@ -47,6 +47,10 @@ type SellFormProps = {
   selectedMainCategory: string | null;
   setSelectedMainCategory: Dispatch<SetStateAction<string | null>>;
   form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
+  setIsSubmissionSuccessful: Dispatch<SetStateAction<boolean>>;
+  setSubmittedFormData: Dispatch<
+    SetStateAction<z.infer<typeof adSchemaClient> | null>
+  >;
 };
 
 function SellForm({
@@ -55,6 +59,8 @@ function SellForm({
   form,
   selectedMainCategory,
   setSelectedMainCategory,
+  setIsSubmissionSuccessful,
+  setSubmittedFormData,
 }: SellFormProps) {
   const tSell = useTranslations("/sell");
   const tErrors = useTranslations("errors./sell");
@@ -100,6 +106,9 @@ function SellForm({
 
         const result = await response.json();
         if (!result.error) {
+          // Store the submitted data before resetting
+          setSubmittedFormData(data);
+          setIsSubmissionSuccessful(true);
           toast({
             title: tSell("toast.submit-success"),
             variant: "success",

@@ -15,6 +15,10 @@ function SellPage() {
   const [selectedMainCategory, setSelectedMainCategory] = useState<
     string | null
   >(null);
+  const [isSubmissionSuccessful, setIsSubmissionSuccessful] = useState(false);
+  const [submittedFormData, setSubmittedFormData] = useState<z.infer<
+    typeof adSchemaClient
+  > | null>(null);
   type SellFormType = z.infer<typeof adSchemaClient>;
   const form = useForm<SellFormType>({
     resolver: zodResolver(adSchemaClient),
@@ -31,7 +35,7 @@ function SellPage() {
     },
   });
 
-  if (isPending)
+  if (isPending && !isSubmissionSuccessful)
     return (
       <AdPageUI
         isPreview={true}
@@ -65,6 +69,42 @@ function SellPage() {
         }}
       />
     );
+
+  if (isPending && isSubmissionSuccessful && submittedFormData)
+    return (
+      <AdPageUI
+        isPreview={true}
+        ad={{
+          id: "preview",
+          title: submittedFormData.title,
+          price: submittedFormData.price,
+          images: submittedFormData.images.map((image, index) => ({
+            adId: "preview",
+            url: URL.createObjectURL(image),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            id: index,
+          })),
+          cityId: submittedFormData.cityId,
+          description: submittedFormData.description!,
+          governorateId: submittedFormData.governorateId,
+          negotiable: submittedFormData.negotiable,
+          categoryPath: toPathFormat(selectedMainCategory ?? ""),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          adAnalyticsId: "preview",
+          tier: "Free",
+          userId: session?.user.id!,
+          user: {
+            id: session?.user.id!,
+            name: session?.user.name!,
+            phoneNumber: session?.user.phoneNumber!,
+            createdAt: session?.user.createdAt!,
+          },
+        }}
+      />
+    );
+
   return (
     <SellForm
       isPending={isPending}
@@ -72,6 +112,8 @@ function SellPage() {
       form={form}
       selectedMainCategory={selectedMainCategory}
       setSelectedMainCategory={setSelectedMainCategory}
+      setIsSubmissionSuccessful={setIsSubmissionSuccessful}
+      setSubmittedFormData={setSubmittedFormData}
     />
   );
 }
