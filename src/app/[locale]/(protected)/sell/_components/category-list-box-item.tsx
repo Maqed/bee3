@@ -29,7 +29,7 @@ const CategoryListboxItem = React.forwardRef<
         )}
       >
         <Avatar className="rounded-md bg-accent text-foreground drop-shadow-md group-aria-selected:bg-primary/70 group-aria-selected:drop-shadow">
-          <Icon />
+          <Icon className="size-[18px]" />
         </Avatar>
         {categoryName}
       </FormLabel>

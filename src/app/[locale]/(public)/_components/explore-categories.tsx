@@ -44,7 +44,7 @@ function ExploreCategories() {
                 <Dialog>
                   <DialogTrigger className="flex flex-col items-center justify-center">
                     <Avatar className="rounded-md bg-primary/60">
-                      <CategoryIcon />
+                      <CategoryIcon className="size-[18px]" />
                     </Avatar>
                     <p className="text-sm">{categoryName}</p>
                   </DialogTrigger>
@@ -87,7 +87,7 @@ function ExploreCategories() {
                               className="group flex flex-col items-center justify-center"
                             >
                               <Avatar className="rounded-md bg-primary/60">
-                                <SubCategoryIcon />
+                                <SubCategoryIcon className="size-[18px]" />
                               </Avatar>
                               <p className="text-center text-sm group-hover:underline group-focus:underline">
                                 {subCategoryName}
