@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import AdsCategoriesCarousels from "./_components/ads-categories-carousels";
-import ExploreCategories from "./_components/explore-categories";
+import ExploreCategories from "@/components/bee3/explore-categories";
 import SellButton from "@/components/bee3/sell-button";
 import AdsCarouselPlaceholder from "@/components/placeholders/ads-carousel-placeholder";
 import { categoriesTree } from "@/schema/categories-tree";
