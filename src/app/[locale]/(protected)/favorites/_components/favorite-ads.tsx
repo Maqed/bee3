@@ -7,9 +7,9 @@ import AdCardPlaceholder from "@/components/placeholders/ad-card-placeholder";
 
 export function FavoriteAds() {
   const t = useTranslations("/favorites");
-  const { data, isFetching, error } = useFavoriteAds();
+  const { data, isFetching, isLoading, isPending, error } = useFavoriteAds();
 
-  if (isFetching) {
+  if (isFetching || isLoading || isPending) {
     return (
       <div className="flex flex-wrap justify-center gap-2 px-3">
         {[...Array(4)].map(() => (
