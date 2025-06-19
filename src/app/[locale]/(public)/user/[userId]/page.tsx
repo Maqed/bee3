@@ -1,6 +1,8 @@
 import { Avatar } from "@/components/ui/avatar";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import CopyToClipboardButton from "@/components/ui/copy-to-clipboard";
+import { Share } from "lucide-react";
 
 import SellButton from "@/components/bee3/sell-button";
 import AdCard from "@/components/bee3/ad-card";
@@ -34,9 +36,16 @@ export default async function UserPage({ params: { userId } }: Props) {
             <Avatar className="h-24 w-24 text-3xl font-bold md:h-32 md:w-32 md:text-5xl">
               {user.name?.charAt(0)}
             </Avatar>
-            <div className="text-center md:text-left">
+            <div className="flex flex-row items-center gap-2 text-center md:text-left">
               <h2 className="text-2xl font-bold md:text-3xl">{user.name}</h2>
             </div>
+            <CopyToClipboardButton
+              toBeCopiedText={absoluteURL(`/user/${userId}`)}
+              variant="outline"
+              copyText={t("share-user.copy")}
+              copiedText={t("share-user.copied")}
+              icon="share"
+            />
           </div>
           <div className="space-y-2 text-center md:text-left">
             <p>{user.bio}</p>
