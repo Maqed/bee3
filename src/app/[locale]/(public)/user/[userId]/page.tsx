@@ -30,8 +30,8 @@ export default async function UserPage({ params: { userId } }: Props) {
 
   return (
     <main className="mx-auto w-full py-8 md:px-8 md:py-12">
-      <div className="grid gap-8 lg:grid-cols-6">
-        <div className="flex flex-col items-center gap-6 xl:col-span-2">
+      <div className="grid gap-8 lg:grid-cols-12">
+        <div className="flex flex-col items-center gap-6 lg:col-span-3 xl:col-span-2">
           <div className="flex flex-col items-center gap-4">
             <Avatar className="h-24 w-24 text-3xl font-bold md:h-32 md:w-32 md:text-5xl">
               {user.name?.charAt(0)}
@@ -52,7 +52,7 @@ export default async function UserPage({ params: { userId } }: Props) {
           </div>
         </div>
         {/* Advertises */}
-        <div className="lg:col-span-5 xl:col-span-4">
+        <div className="lg:col-span-9 xl:col-span-10">
           <h3 className="mb-4 text-center text-xl font-bold md:text-2xl">
             {t("advertises.title")}
           </h3>
