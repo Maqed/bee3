@@ -16,9 +16,10 @@ import { Badge } from "../ui/badge";
 type Props = {
   ad: Ad;
   orientation?: "horizontal" | "vertical";
+  cardClassName?: string;
 };
 
-function AdCard({ ad, orientation = "vertical" }: Props) {
+function AdCard({ ad, orientation = "vertical", cardClassName }: Props) {
   const locale = useLocale();
   const tAd = useTranslations("/ad/[adId]");
 
@@ -29,6 +30,7 @@ function AdCard({ ad, orientation = "vertical" }: Props) {
           orientation === "vertical"
             ? "w-[225px] md:w-[275px] lg:w-[300px]"
             : "w-full",
+          cardClassName,
         )}
       >
         <CardContent
