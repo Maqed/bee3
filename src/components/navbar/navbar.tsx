@@ -21,7 +21,7 @@ import { Button } from "../ui/button";
 import { authClient } from "@/lib/auth-client";
 
 export default function Navbar() {
-  const { data: session } = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
   return (
     <header className="container sticky top-0 z-50 mb-5 flex flex-col justify-between gap-1 border-b bg-background py-4">
       <div className="flex items-center justify-between">
@@ -40,6 +40,7 @@ export default function Navbar() {
                   <Avatar>{session?.user.name[0]}</Avatar>
                 </DropdownMenuTrigger>
               }
+              isPending={isPending}
               dropdownMenuContentProps={{
                 align: "end",
                 className: "w-64",
@@ -81,6 +82,7 @@ export default function Navbar() {
                       </Button>
                     </DropdownMenuTrigger>
                   }
+                  isPending={isPending}
                   dropdownMenuContentProps={{
                     align: "start",
                     side: "top",

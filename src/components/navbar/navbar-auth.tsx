@@ -16,19 +16,23 @@ import { ReactNode } from "react";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
 import { ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "../ui/skeleton";
 
 function NavbarAuth({
   session,
+  isPending,
   dropdownMenuContentProps,
   loginButtonProps,
   trigger,
 }: {
   session: { session: Session; user: User } | null;
+  isPending: boolean;
   dropdownMenuContentProps?: DropdownMenuContentProps;
   loginButtonProps?: ButtonProps;
   trigger: ReactNode;
 }) {
   const t = useTranslations("Navbar");
+  if (isPending) return <Skeleton className="h-11 w-24" />;
   if (!session)
     return (
       <Button size="lg" {...loginButtonProps} asChild>
