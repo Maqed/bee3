@@ -238,7 +238,7 @@ export function AsyncSearch<T>({
                 setIsResultVisible(false);
                 setWasManuallyDismissed(true);
               }}
-              className="group h-11 rounded-none px-2 py-3 data-[selected='true']:bg-primary"
+              className="group min-h-11 rounded-none px-2 py-3 data-[selected='true']:bg-primary"
             >
               <Search className="me-2 size-4 shrink-0 opacity-50 group-data-[selected='true']:text-primary-foreground" />
               {renderOption(option)}
