@@ -2,7 +2,6 @@ import { Avatar } from "@/components/ui/avatar";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import CopyToClipboardButton from "@/components/ui/copy-to-clipboard";
-import { Share } from "lucide-react";
 
 import SellButton from "@/components/bee3/sell-button";
 import AdCard from "@/components/bee3/ad-card";
