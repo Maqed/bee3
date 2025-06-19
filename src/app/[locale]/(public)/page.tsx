@@ -10,8 +10,8 @@ export default function HomePage() {
     <main className="flex flex-col gap-y-5">
       <ExploreCategories />
       <Suspense
-        fallback={[...Array(categoriesTree.length)].map(() => (
-          <AdsCarouselPlaceholder />
+        fallback={[...Array(categoriesTree.length)].map((index) => (
+          <AdsCarouselPlaceholder key={`ads-carousel-placeholder-${index}`} />
         ))}
       >
         <AdsCategoriesCarousels />
