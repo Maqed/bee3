@@ -40,6 +40,11 @@ import CategoryListboxItem from "./category-list-box-item";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import CategoryOptionsSection from "./category-options-section";
 import { useCategoryTranslations } from "@/lib/client-side";
+import { Scoped, useStepper } from "./stepper-config";
+import Step1Category from "./step-1-category";
+import Step2Subcategory from "./step-2-subcategory";
+import Step3Information from "./step-3-information";
+import StepperIndicator from "./stepper-indicator";
 
 type SellFormProps = {
   startTransition: TransitionStartFunction;
@@ -147,6 +152,20 @@ function SellForm({
       event.preventDefault();
     }
   };
+
+  const handleCategoryChange = (category: string | null) => {
+    setSelectedMainCategory(category);
+    setSelectedSubCategory(null);
+    form.setValue("categoryId", 0);
+    form.setValue("categoryOptions", "");
+  };
+
+  const handleSubCategoryChange = (subCategory: string | null) => {
+    setSelectedSubCategory(subCategory);
+    form.setValue("categoryId", subCategory ? Number(subCategory) : 0);
+    form.setValue("categoryOptions", "");
+  };
+
   return (
     <main className="container my-4 sm:mx-auto md:max-w-4xl">
       <Card>
@@ -155,332 +174,125 @@ function SellForm({
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form
-              onKeyDown={handleKeyDown}
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8"
-            >
-              <FormItem className="space-y-3">
-                <FormLabel>{tSell("category.main.label")}</FormLabel>
-                <Listbox
-                  value={selectedMainCategory || undefined}
-                  onValueChange={(value) => {
-                    setSelectedMainCategory(value);
-                    setSelectedSubCategory(null);
-                    form.setValue("categoryId", 0);
-                    form.setValue("categoryOptions", "");
-                  }}
-                  className="flex flex-wrap gap-3"
-                  orientation="mixed"
-                >
-                  {mainCategories.map((category) => {
-                    const categoryNamePathFormat = toPathFormat(category.name);
-                    const categoryName = getClientSideFullCategory(
-                      categoryNamePathFormat,
-                    );
-                    const CategoryIcon = categoryIcons[categoryNamePathFormat]
-                      ?.icon as CategoryIconType;
-                    return (
-                      <FormItem
-                        key={categoryName}
-                        className="flex items-center space-x-3 space-y-0"
-                      >
-                        <FormControl>
-                          <CategoryListboxItem
-                            Icon={CategoryIcon}
-                            value={category.name}
-                            categoryName={categoryName}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    );
-                  })}
-                </Listbox>
-                <FormMessage />
-              </FormItem>
-              {selectedMainCategory && (
-                <FormField
-                  control={form.control}
-                  name="categoryId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{tSell("category.sub.label")}</FormLabel>
-                      <FormControl>
-                        <Listbox
-                          value={selectedSubCategory || undefined}
-                          onValueChange={(value) => {
-                            setSelectedSubCategory(value);
-                            field.onChange(Number(value));
-                            form.setValue("categoryOptions", "");
-                          }}
-                          disabled={isPending}
-                          className="flex flex-wrap gap-3"
-                          orientation="mixed"
-                        >
-                          {subCategories.map((subCategory) => {
-                            const categoryNamePathFormat =
-                              toPathFormat(selectedMainCategory);
-                            const subCategoryNamePathFormat = toPathFormat(
-                              subCategory.name,
-                            );
-                            const subCategoryName = getClientSideSubCategory(
-                              categoryNamePathFormat,
-                              subCategoryNamePathFormat,
-                            );
-                            const SubCategoryIcon = categoryIcons[
-                              categoryNamePathFormat
-                            ]?.subCategories[
-                              subCategoryNamePathFormat
-                            ] as CategoryIconType;
-                            return (
-                              <FormItem
-                                key={subCategoryName}
-                                className="flex items-center space-x-3 space-y-0"
-                              >
-                                <CategoryListboxItem
-                                  Icon={SubCategoryIcon}
-                                  value={subCategory.id.toString()}
-                                  categoryName={subCategoryName}
-                                />
-                              </FormItem>
-                            );
-                          })}
-                        </Listbox>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-              {/* Category Options Section */}
-              <Separator />
-              <FormField
-                control={form.control}
-                name="images"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{tSell("images.label")}</FormLabel>
-                    <FormControl>
-                      <UploadAdImageButton
-                        disabled={isPending}
-                        images={form.getValues("images")}
-                        onImagesChange={onImagesChange}
-                      />
-                    </FormControl>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <Scoped>
+                <StepperIndicator />
 
-                    <FormDescription>
-                      {tSell("images.description")}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{tSell("ad-title.label")}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={tSell("ad-title.placeholder")}
-                        {...field}
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{tSell("description.label")}</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder={tSell("description.placeholder")}
-                        {...field}
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Separator />
-              {selectedSubCategory && form.watch("categoryId") > 0 && (
-                <CategoryOptionsSection
-                  form={form}
-                  categoryId={form.watch("categoryId")}
+                <StepContent
+                  selectedMainCategory={selectedMainCategory}
+                  selectedSubCategory={selectedSubCategory}
+                  onCategoryChange={handleCategoryChange}
+                  onSubCategoryChange={handleSubCategoryChange}
                   isPending={isPending}
+                  form={form}
                   tSell={tSell}
                 />
-              )}
-              <Separator />
-              {/* LOCATIONS START */}
-              {!isSelectedALocation && (
-                <FormField
-                  control={form.control}
-                  name="cityId"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col gap-1">
-                      <FormLabel>{tSell("location.location.label")}</FormLabel>
-                      <FormControl>
-                        <LocationCombobox
-                          initialCity={form.getValues("cityId")}
-                          initialGovernorate={form.getValues("governorateId")}
-                          onLocationChange={(newGovernorate, newCity) => {
-                            form.setValue("governorateId", newGovernorate);
-                            form.setValue("cityId", newCity);
-                            console.log({ newGovernorate, newCity });
-                            setIsSelectedLocation(true);
-                          }}
-                          hasAll={false}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-              {isSelectedALocation && (
-                <>
-                  <FormField
-                    control={form.control}
-                    name="governorateId"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col gap-1">
-                        <FormLabel>
-                          {tSell("location.governorate.label")}
-                        </FormLabel>
-                        <FormControl>
-                          <LocationCombobox
-                            initialGovernorate={form.getValues("governorateId")}
-                            onLocationChange={(newGovernorate, newCity) => {
-                              form.setValue("governorateId", newGovernorate);
-                              form.setValue("cityId", newCity);
-                              setIsSelectedLocation(true);
-                            }}
-                            hasAll={false}
-                            showAllGovernorates={true}
-                            showAllCities={false}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="cityId"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col gap-1">
-                        <FormLabel>{tSell("location.city.label")}</FormLabel>
-                        <FormControl>
-                          <LocationCombobox
-                            initialCity={form.getValues("cityId")}
-                            initialGovernorate={form.getValues("governorateId")}
-                            onLocationChange={(newGovernorate, newCity) => {
-                              form.setValue("governorateId", newGovernorate);
-                              form.setValue("cityId", newCity);
-                              setIsSelectedLocation(true);
-                            }}
-                            showAllGovernorates={false}
-                            showCitiesOfGovernorate={form.getValues(
-                              "governorateId",
-                            )}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </>
-              )}
-              {/* LOCATIONS END */}
-              <Separator />
-              <div className="flex h-full flex-wrap items-stretch gap-2">
-                <FormField
-                  control={form.control}
-                  name="price"
-                  render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel>{tSell("price.label")}</FormLabel>
-                      <FormControl>
-                        <PrefixLabelledInput
-                          prefix={locale === "ar" ? "ج.م " : "EGP "}
-                          input={
-                            <NumberInput
-                              value={field.value}
-                              placeholder={tSell("price.placeholder")}
-                              className="peer ps-11"
-                              thousandSeparator=","
-                              onValueChange={(value) => {
-                                field.onChange(value);
-                              }}
-                              disabled={isPending}
-                            />
-                          }
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
 
-                <FormField
-                  control={form.control}
-                  name="negotiable"
-                  render={({ field }) => (
-                    <FormItem className="mt-8 flex items-center justify-center gap-1 space-y-0 self-center">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          disabled={isPending}
-                        />
-                      </FormControl>
-                      <FormLabel className="text-sm font-normal">
-                        {tSell("negotiable")}
-                      </FormLabel>
-                    </FormItem>
-                  )}
+                <StepperActions
+                  selectedMainCategory={selectedMainCategory}
+                  selectedSubCategory={selectedSubCategory}
                 />
-              </div>
-              <Separator />
-              <FormItem className="flex flex-col gap-3">
-                <FormLabel className="text-base">
-                  {tSell("user-phone-button.label")}
-                </FormLabel>
-                <FormControl>
-                  {isSessionPending ? (
-                    <Skeleton className="h-10 w-full" />
-                  ) : (
-                    <UserPhoneButton
-                      id="phoneNumber"
-                      value={session?.user.phoneNumber?.slice(3)}
-                    />
-                  )}
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-              <Button type="submit" disabled={isPending || isSessionPending}>
-                {isPending ? (
-                  <>
-                    <Spinner className="me-1" />
-                    {tSell("loading")}
-                  </>
-                ) : (
-                  tSell("submit")
-                )}
-              </Button>
+              </Scoped>
             </form>
           </Form>
         </CardContent>
       </Card>
     </main>
+  );
+}
+
+function StepContent({
+  selectedMainCategory,
+  selectedSubCategory,
+  onCategoryChange,
+  onSubCategoryChange,
+  isPending,
+  form,
+  tSell,
+}: {
+  selectedMainCategory: string | null;
+  selectedSubCategory: string | null;
+  onCategoryChange: (category: string | null) => void;
+  onSubCategoryChange: (subCategory: string | null) => void;
+  isPending: boolean;
+  form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
+  tSell: any;
+}) {
+  const { current } = useStepper();
+
+  switch (current.id) {
+    case "category":
+      return (
+        <Step1Category
+          selectedMainCategory={selectedMainCategory}
+          onCategoryChange={onCategoryChange}
+        />
+      );
+    case "subcategory":
+      return (
+        <Step2Subcategory
+          selectedMainCategory={selectedMainCategory}
+          selectedSubCategory={selectedSubCategory}
+          onSubCategoryChange={onSubCategoryChange}
+          isPending={isPending}
+        />
+      );
+    case "information":
+      return (
+        <Step3Information
+          form={form}
+          selectedMainCategory={selectedMainCategory}
+          selectedSubCategory={selectedSubCategory}
+          isPending={isPending}
+          tSell={tSell}
+        />
+      );
+    default:
+      return null;
+  }
+}
+
+function StepperActions({
+  selectedMainCategory,
+  selectedSubCategory,
+}: {
+  selectedMainCategory: string | null;
+  selectedSubCategory: string | null;
+}) {
+  const { next, prev, isFirst, isLast } = useStepper();
+  const { isPending: isSessionPending } = authClient.useSession();
+  const tSell = useTranslations("/sell");
+
+  const canProceedToNext = () => {
+    if (isLast) return false;
+
+    // For step 1: need a main category selected
+    if (isFirst && !selectedMainCategory) return false;
+
+    // For step 2: need a subcategory selected
+    if (!isFirst && !selectedSubCategory) return false;
+
+    return true;
+  };
+
+  return (
+    <div className="flex justify-between">
+      <Button type="button" variant="outline" onClick={prev} disabled={isFirst}>
+        {tSell("stepper.previous")}
+      </Button>
+
+      <div className="flex gap-2">
+        {!isLast ? (
+          <Button type="button" onClick={next} disabled={!canProceedToNext()}>
+            {tSell("stepper.next")}
+          </Button>
+        ) : (
+          <Button type="submit" disabled={isSessionPending}>
+            {tSell("submit")}
+          </Button>
+        )}
+      </div>
+    </div>
   );
 }
 

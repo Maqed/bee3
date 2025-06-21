@@ -16,22 +16,23 @@ const CategoryListboxItem = React.forwardRef<
     <ListboxItem
       ref={ref}
       className={cn(
-        "group text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+        "group items-center justify-center p-3 text-primary ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}
     >
       <FormLabel
         className={cn(
-          "text-sm font-medium",
+          "text-xs font-medium sm:text-sm",
           "group text-foreground transition-colors group-aria-selected:text-primary",
           "flex flex-col items-center justify-center gap-2",
+          "min-w-[80px] sm:min-w-[100px]",
         )}
       >
-        <Avatar className="rounded-md bg-accent text-foreground drop-shadow-md group-aria-selected:bg-primary/70 group-aria-selected:drop-shadow">
-          <Icon className="size-[18px]" />
+        <Avatar className="h-8 w-8 rounded-md bg-accent text-foreground drop-shadow-md group-aria-selected:bg-primary/70 group-aria-selected:drop-shadow sm:h-10 sm:w-10">
+          <Icon className="size-[14px] sm:size-[18px]" />
         </Avatar>
-        {categoryName}
+        <span className="text-center leading-tight">{categoryName}</span>
       </FormLabel>
     </ListboxItem>
   );

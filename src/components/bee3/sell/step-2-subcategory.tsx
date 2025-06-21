@@ -1,0 +1,92 @@
+import type React from "react";
+import { useTranslations } from "next-intl";
+import { categoriesTree } from "@/schema/categories-tree";
+import {
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+import { toPathFormat } from "@/lib/utils";
+import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
+import { useCategoryTranslations } from "@/lib/client-side";
+import { cn } from "@/lib/utils";
+import { Listbox } from "@/components/ui/listbox";
+import CategoryListboxItem from "./category-list-box-item";
+
+interface Step2SubcategoryProps {
+  selectedMainCategory: string | null;
+  selectedSubCategory: string | null;
+  onSubCategoryChange: (subCategory: string | null) => void;
+  isPending: boolean;
+}
+
+function Step2Subcategory({
+  selectedMainCategory,
+  selectedSubCategory,
+  onSubCategoryChange,
+  isPending,
+}: Step2SubcategoryProps) {
+  const tSell = useTranslations("/sell");
+  const { getClientSideSubCategory } = useCategoryTranslations();
+
+  const subCategories = selectedMainCategory
+    ? categoriesTree.find((category) => category.name === selectedMainCategory)
+        ?.categories || []
+    : [];
+
+  if (!selectedMainCategory) {
+    return null;
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="space-y-2 text-center">
+        <h2 className="text-xl font-bold sm:text-2xl">
+          {tSell("step2.title")}
+        </h2>
+        <p className="text-sm text-muted-foreground sm:text-base">
+          {tSell("step2.description")}
+        </p>
+      </div>
+
+      <FormItem className="space-y-3">
+        <FormLabel className="text-base sm:text-lg">
+          {tSell("category.sub.label")}
+        </FormLabel>
+        <FormControl>
+          <Listbox
+            value={selectedSubCategory || ""}
+            onValueChange={(value) => onSubCategoryChange(value || null)}
+            disabled={isPending}
+            orientation="mixed"
+            className="grid grid-cols-2 gap-4 py-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+          >
+            {subCategories.map((subCategory) => {
+              const categoryNamePathFormat = toPathFormat(selectedMainCategory);
+              const subCategoryNamePathFormat = toPathFormat(subCategory.name);
+              const subCategoryName = getClientSideSubCategory(
+                categoryNamePathFormat,
+                subCategoryNamePathFormat,
+              );
+              const SubCategoryIcon = categoryIcons[categoryNamePathFormat]
+                ?.subCategories[subCategoryNamePathFormat] as CategoryIconType;
+
+              return (
+                <CategoryListboxItem
+                  key={subCategoryName}
+                  value={subCategory.id.toString()}
+                  Icon={SubCategoryIcon}
+                  categoryName={subCategoryName}
+                />
+              );
+            })}
+          </Listbox>
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    </div>
+  );
+}
+
+export default Step2Subcategory;
