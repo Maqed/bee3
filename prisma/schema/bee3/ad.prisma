@@ -24,7 +24,7 @@ model Ad {
     userId          String?
     createdAt       DateTime         @default(now())
     updatedAt       DateTime         @updatedAt
-    user            User?            @relation(fields: [userId], references: [id])
+    user            User?            @relation(fields: [userId], references: [id], onDelete: Cascade)
     favoritedBy     User[]           @relation("favoriteAds")
     category        Category?        @relation(fields: [categoryPath], references: [path])
     categoryPath    String
