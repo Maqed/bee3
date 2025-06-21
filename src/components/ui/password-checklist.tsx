@@ -17,15 +17,6 @@ export default function PasswordCheckList({
         regex: /.{8,}/,
         text: t("messages.min-password-characters"),
       },
-      { regex: /[0-9]/, text: t("messages.number") },
-      {
-        regex: /^(?=.*[a-z])(?=.*[A-Z]).+$/,
-        text: t("messages.capital-and-lowercase"),
-      },
-      {
-        regex: /[!@#$%^&*(),.?":{}|<>]/,
-        text: t("messages.special-char"),
-      },
     ];
 
     return requirements.map((req) => ({
@@ -42,16 +33,11 @@ export default function PasswordCheckList({
 
   const getStrengthColor = (score: number) => {
     if (score === 0) return "bg-border";
-    if (score <= 1) return "bg-red-500";
-    if (score <= 2) return "bg-orange-500";
-    if (score === 3) return "bg-amber-500";
     return "bg-emerald-500";
   };
 
   const getStrengthText = (score: number) => {
     if (score === 0) return t("strength-text.enter");
-    if (score <= 2) return t("strength-text.weak");
-    if (score === 3) return t("strength-text.medium");
     return t("strength-text.strong");
   };
 
@@ -63,12 +49,12 @@ export default function PasswordCheckList({
         role="progressbar"
         aria-valuenow={strengthScore}
         aria-valuemin={0}
-        aria-valuemax={4}
+        aria-valuemax={1}
         aria-label={t("aria-label")}
       >
         <div
           className={`h-full ${getStrengthColor(strengthScore)} transition-all duration-500 ease-out`}
-          style={{ width: `${(strengthScore / 4) * 100}%` }}
+          style={{ width: `${(strengthScore / 1) * 100}%` }}
         ></div>
       </div>
 

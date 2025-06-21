@@ -50,15 +50,10 @@
       "not-met": " - Requirement not met"
     },
     "messages": {
-      "min-password-characters": "Password should at least contain 8 characters",
-      "number": "Password should contain at least 1 number",
-      "capital-and-lowercase": "Password should contain 1 capital and 1 small letter at least",
-      "special-char": "Password should at least contain 1 special character"
+      "min-password-characters": "Password should at least contain 8 characters"
     },
     "strength-text": {
       "enter": "Enter a password",
-      "weak": "Weak password",
-      "medium": "Medium password",
       "strong": "Strong password"
     }
   },
