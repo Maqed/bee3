@@ -68,7 +68,7 @@ function Step3Information({
           <FormControl>
             <UploadAdImageButton
               disabled={isPending}
-              images={form.getValues("images")}
+              images={form.watch("images")}
               onImagesChange={onImagesChange}
             />
           </FormControl>
