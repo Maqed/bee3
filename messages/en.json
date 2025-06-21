@@ -741,7 +741,7 @@
     },
     "delete": {
       "title": "Delete Account",
-      "paragraph": "Once you delete your account, there is no going back. Please be certain.",
+      "paragraph": "To request account deletion, please contact us on our <facebook>Facebook page</facebook>. We'll process your request within 24-48 hours.",
       "dialog": {
         "title": "Are you absolutely sure?",
         "paragraph": "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",

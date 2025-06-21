@@ -3,6 +3,7 @@ import { useTransition } from "react";
 import EditAccountSection from "./edit-section";
 
 import React from "react";
+import DeleteAccountSection from "./delete-section";
 
 function UserSettingsForm() {
   const [isPending, startTransition] = useTransition();
@@ -12,6 +13,7 @@ function UserSettingsForm() {
         isPending={isPending}
         startTransition={startTransition}
       />
+      <DeleteAccountSection />
     </main>
   );
 }
