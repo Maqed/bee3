@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { adSchemaClient } from "@/schema/ad";
 import AdPageUI from "@/components/bee3/ad-page/ad-page-ui";
-import SellForm from "./_components/sell-form";
+import SellForm from "@/components/bee3/sell/sell-form";
 import { toPathFormat } from "@/lib/utils";
 
 function SellPage() {
