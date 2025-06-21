@@ -7,7 +7,7 @@ import {
 } from "@/consts/routes";
 import { useTranslations } from "next-intl";
 import { authClient } from "@/lib/auth-client";
-const providers: ["google", "facebook"] = ["google", "facebook"];
+const providers: ["google"] = ["google"];
 type Provider = (typeof providers)[number];
 
 function Social() {

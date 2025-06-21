@@ -124,7 +124,6 @@
         }
       },
       "social": {
-        "facebook": "Continue With Facebook",
         "google": "Continue With Google"
       }
     },
@@ -850,7 +849,7 @@
     "social": {
       "account_not_linked": {
         "title": "This account is already signed up.",
-        "description": "Please try (Google, Facebook) or sign in with email"
+        "description": "Please try (Google) or sign in with email"
       }
     },
     "auth": {

@@ -15,9 +15,6 @@ export const env = createEnv({
     // Google
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
-    // Facebook
-    FACEBOOK_CLIENT_ID: z.string(),
-    FACEBOOK_CLIENT_SECRET: z.string(),
     // WhatsApp
     WA_WABA_ID: z.string(),
     WA_ACCESS_TOKEN: z.string(),
@@ -53,8 +50,6 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-    FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
-    FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     WA_WABA_ID: process.env.WA_WABA_ID,
     WA_ACCESS_TOKEN: process.env.WA_ACCESS_TOKEN,
