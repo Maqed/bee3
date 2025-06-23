@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { useStepper, utils } from "./stepper-config";
 
 function StepperIndicator() {
-  const { current, all } = useStepper();
+  const { current, all, goTo } = useStepper();
   const tSell = useTranslations("/sell");
 
   const stepLabels = [
@@ -26,22 +26,31 @@ function StepperIndicator() {
             <div key={step.id} className="flex items-center justify-center">
               {/* Step Circle */}
               <div className="flex flex-col items-center justify-center">
-                <div
+                <button
                   className={cn(
-                    "flex h-10 w-10 items-center justify-center rounded-full border-2 transition-colors",
+                    "flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 transition-colors",
                     isCompleted
-                      ? "border-primary bg-primary text-primary-foreground"
+                      ? "border-primary bg-primary text-primary-foreground hover:opacity-80"
                       : isActive
                         ? "border-primary text-primary"
-                        : "border-muted-foreground text-muted-foreground",
+                        : "cursor-default border-muted-foreground text-muted-foreground",
                   )}
+                  onClick={() => {
+                    if (isCompleted) {
+                      goTo(step.id);
+                    }
+                  }}
+                  role={isCompleted ? "button" : undefined}
+                  tabIndex={isCompleted ? 0 : -1}
+                  aria-disabled={!isCompleted}
+                  title={isCompleted ? tSell("stepper.goToStep") : undefined}
                 >
                   {isCompleted ? (
                     <Check className="h-5 w-5" />
                   ) : (
                     <span className="text-sm font-medium">{index + 1}</span>
                   )}
-                </div>
+                </button>
                 {/* Step Label */}
                 <div className="mt-2">
                   <p
