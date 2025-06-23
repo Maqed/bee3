@@ -10,7 +10,6 @@ import {
 import { toPathFormat } from "@/lib/utils";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import { useCategoryTranslations } from "@/lib/client-side";
-import { cn } from "@/lib/utils";
 import { Listbox } from "@/components/ui/listbox";
 import CategoryListboxItem from "./category-list-box-item";
 

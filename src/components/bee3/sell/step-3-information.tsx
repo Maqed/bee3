@@ -27,7 +27,6 @@ import type { adSchemaClient } from "@/schema/ad";
 
 interface Step3InformationProps {
   form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
-  selectedMainCategory: string | null;
   selectedSubCategory: string | null;
   isPending: boolean;
   tSell: any;
@@ -35,7 +34,6 @@ interface Step3InformationProps {
 
 function Step3Information({
   form,
-  selectedMainCategory,
   selectedSubCategory,
   isPending,
   tSell,

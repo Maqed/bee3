@@ -199,7 +199,6 @@ function StepContent({
       return (
         <Step3Information
           form={form}
-          selectedMainCategory={selectedMainCategory}
           selectedSubCategory={selectedSubCategory}
           isPending={isPending}
           tSell={tSell}
