@@ -882,6 +882,12 @@
       "title": "Oops, Ad not found!",
       "paragraph": "The ad you're looking for doesn't seem to exist.",
       "link": "Go back to home page"
+    },
+    "share": {
+      "button": "Share Ad",
+      "copied": "Ad link copied!",
+      "copy": "Copy link",
+      "share": "Share"
     }
   },
   "/legal": {
