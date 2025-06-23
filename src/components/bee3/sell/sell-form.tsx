@@ -174,7 +174,7 @@ function SellForm({
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <div className="space-y-8">
               <Scoped>
                 <StepperIndicator />
 
@@ -191,9 +191,11 @@ function SellForm({
                 <StepperActions
                   selectedMainCategory={selectedMainCategory}
                   selectedSubCategory={selectedSubCategory}
+                  form={form}
+                  onSubmit={onSubmit}
                 />
               </Scoped>
-            </form>
+            </div>
           </Form>
         </CardContent>
       </Card>
@@ -255,9 +257,13 @@ function StepContent({
 function StepperActions({
   selectedMainCategory,
   selectedSubCategory,
+  form,
+  onSubmit,
 }: {
   selectedMainCategory: string | null;
   selectedSubCategory: string | null;
+  form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
+  onSubmit: (data: any) => Promise<void>;
 }) {
   const { next, prev, isFirst, isLast } = useStepper();
   const { isPending: isSessionPending } = authClient.useSession();
@@ -287,7 +293,11 @@ function StepperActions({
             {tSell("stepper.next")}
           </Button>
         ) : (
-          <Button type="submit" disabled={isSessionPending}>
+          <Button
+            type="button"
+            onClick={form.handleSubmit(onSubmit)}
+            disabled={isSessionPending}
+          >
             {tSell("submit")}
           </Button>
         )}

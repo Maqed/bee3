@@ -7,6 +7,7 @@ import {
   FormControl,
   FormMessage,
   FormDescription,
+  FormField,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -63,44 +64,62 @@ function Step3Information({
 
       <div className="space-y-8" onKeyDown={handleKeyDown}>
         {/* Images Section */}
-        <FormItem>
-          <FormLabel>{tSell("images.label")}</FormLabel>
-          <FormControl>
-            <UploadAdImageButton
-              disabled={isPending}
-              images={form.watch("images")}
-              onImagesChange={onImagesChange}
-            />
-          </FormControl>
-          <FormDescription>{tSell("images.description")}</FormDescription>
-          <FormMessage />
-        </FormItem>
+        <FormField
+          control={form.control}
+          name="images"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{tSell("images.label")}</FormLabel>
+              <FormControl>
+                <UploadAdImageButton
+                  disabled={isPending}
+                  images={form.watch("images")}
+                  onImagesChange={onImagesChange}
+                />
+              </FormControl>
+              <FormDescription>{tSell("images.description")}</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         {/* Title Section */}
-        <FormItem>
-          <FormLabel>{tSell("ad-title.label")}</FormLabel>
-          <FormControl>
-            <Input
-              placeholder={tSell("ad-title.placeholder")}
-              {...form.register("title")}
-              disabled={isPending}
-            />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{tSell("ad-title.label")}</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder={tSell("ad-title.placeholder")}
+                  {...field}
+                  disabled={isPending}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         {/* Description Section */}
-        <FormItem>
-          <FormLabel>{tSell("description.label")}</FormLabel>
-          <FormControl>
-            <Textarea
-              placeholder={tSell("description.placeholder")}
-              {...form.register("description")}
-              disabled={isPending}
-            />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{tSell("description.label")}</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder={tSell("description.placeholder")}
+                  {...field}
+                  disabled={isPending}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <Separator />
 
@@ -118,103 +137,134 @@ function Step3Information({
         )}
 
         {!isSelectedALocation && (
-          <FormItem className="flex flex-col gap-1">
-            <FormLabel>{tSell("location.location.label")}</FormLabel>
-            <FormControl>
-              <LocationCombobox
-                initialCity={form.getValues("cityId")}
-                initialGovernorate={form.getValues("governorateId")}
-                onLocationChange={(newGovernorate, newCity) => {
-                  form.setValue("governorateId", newGovernorate);
-                  form.setValue("cityId", newCity);
-                  setIsSelectedLocation(true);
-                }}
-                hasAll={false}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
+          <FormField
+            control={form.control}
+            name="cityId"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel>{tSell("location.location.label")}</FormLabel>
+                <FormControl>
+                  <LocationCombobox
+                    initialCity={form.getValues("cityId")}
+                    initialGovernorate={form.getValues("governorateId")}
+                    onLocationChange={(newGovernorate, newCity) => {
+                      form.setValue("governorateId", newGovernorate);
+                      form.setValue("cityId", newCity);
+                      setIsSelectedLocation(true);
+                    }}
+                    hasAll={false}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         )}
 
         {isSelectedALocation && (
           <>
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel>{tSell("location.governorate.label")}</FormLabel>
-              <FormControl>
-                <LocationCombobox
-                  initialGovernorate={form.getValues("governorateId")}
-                  onLocationChange={(newGovernorate, newCity) => {
-                    form.setValue("governorateId", newGovernorate);
-                    form.setValue("cityId", newCity);
-                    setIsSelectedLocation(true);
-                  }}
-                  hasAll={false}
-                  showAllGovernorates={true}
-                  showAllCities={false}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+            <FormField
+              control={form.control}
+              name="governorateId"
+              render={({ field }) => (
+                <FormItem className="flex flex-col gap-1">
+                  <FormLabel>{tSell("location.governorate.label")}</FormLabel>
+                  <FormControl>
+                    <LocationCombobox
+                      initialGovernorate={form.getValues("governorateId")}
+                      onLocationChange={(newGovernorate, newCity) => {
+                        form.setValue("governorateId", newGovernorate);
+                        form.setValue("cityId", newCity);
+                        setIsSelectedLocation(true);
+                      }}
+                      hasAll={false}
+                      showAllGovernorates={true}
+                      showAllCities={false}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel>{tSell("location.city.label")}</FormLabel>
-              <FormControl>
-                <LocationCombobox
-                  initialCity={form.getValues("cityId")}
-                  initialGovernorate={form.getValues("governorateId")}
-                  onLocationChange={(newGovernorate, newCity) => {
-                    form.setValue("governorateId", newGovernorate);
-                    form.setValue("cityId", newCity);
-                    setIsSelectedLocation(true);
-                  }}
-                  showAllGovernorates={false}
-                  showCitiesOfGovernorate={form.getValues("governorateId")}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+            <FormField
+              control={form.control}
+              name="cityId"
+              render={({ field }) => (
+                <FormItem className="flex flex-col gap-1">
+                  <FormLabel>{tSell("location.city.label")}</FormLabel>
+                  <FormControl>
+                    <LocationCombobox
+                      initialCity={form.getValues("cityId")}
+                      initialGovernorate={form.getValues("governorateId")}
+                      onLocationChange={(newGovernorate, newCity) => {
+                        form.setValue("governorateId", newGovernorate);
+                        form.setValue("cityId", newCity);
+                        setIsSelectedLocation(true);
+                      }}
+                      showAllGovernorates={false}
+                      showCitiesOfGovernorate={form.getValues("governorateId")}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </>
         )}
 
         <Separator />
 
         <div className="flex h-full flex-wrap items-stretch gap-2">
-          <FormItem className="flex-1">
-            <FormLabel>{tSell("price.label")}</FormLabel>
-            <FormControl>
-              <PrefixLabelledInput
-                prefix={locale === "ar" ? "ج.م " : "EGP "}
-                input={
-                  <NumberInput
-                    value={form.watch("price")}
-                    placeholder={tSell("price.placeholder")}
-                    className="peer ps-11"
-                    thousandSeparator=","
-                    onValueChange={(value) => {
-                      form.setValue("price", value ?? 0);
-                    }}
+          <FormField
+            control={form.control}
+            name="price"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormLabel>{tSell("price.label")}</FormLabel>
+                <FormControl>
+                  <PrefixLabelledInput
+                    prefix={locale === "ar" ? "ج.م " : "EGP "}
+                    input={
+                      <NumberInput
+                        value={form.watch("price")}
+                        placeholder={tSell("price.placeholder")}
+                        className="peer ps-11"
+                        thousandSeparator=","
+                        onValueChange={(value) => {
+                          form.setValue("price", value ?? 0);
+                        }}
+                        disabled={isPending}
+                      />
+                    }
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="negotiable"
+            render={({ field }) => (
+              <FormItem className="mt-8 flex items-center justify-center gap-1 space-y-0 self-center">
+                <FormControl>
+                  <Checkbox
+                    checked={form.watch("negotiable")}
+                    onCheckedChange={(checked) =>
+                      form.setValue("negotiable", Boolean(checked))
+                    }
                     disabled={isPending}
                   />
-                }
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-
-          <FormItem className="mt-8 flex items-center justify-center gap-1 space-y-0 self-center">
-            <FormControl>
-              <Checkbox
-                checked={form.watch("negotiable")}
-                onCheckedChange={(checked) =>
-                  form.setValue("negotiable", Boolean(checked))
-                }
-                disabled={isPending}
-              />
-            </FormControl>
-            <FormLabel className="text-sm font-normal">
-              {tSell("negotiable")}
-            </FormLabel>
-          </FormItem>
+                </FormControl>
+                <FormLabel className="text-sm font-normal">
+                  {tSell("negotiable")}
+                </FormLabel>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <Separator />
