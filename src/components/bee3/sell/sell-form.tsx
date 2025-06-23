@@ -3,43 +3,17 @@ import type React from "react";
 import type { Dispatch, SetStateAction, TransitionStartFunction } from "react";
 import { useState } from "react";
 
-import { useTranslations, useLocale } from "next-intl";
-import { categoriesTree } from "@/schema/categories-tree";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { UploadAdImageButton } from "@/components/bee3/ad-image-button";
-import Spinner from "@/components/ui/spinner";
-import { Separator } from "@/components/ui/separator";
-import { toPathFormat } from "@/lib/utils";
-import { NumberInput } from "@/components/ui/number-input";
 import { authClient } from "@/lib/auth-client";
-import UserPhoneButton from "@/components/auth/user-phone-button/user-phone-button";
-import { Skeleton } from "@/components/ui/skeleton";
 import type { UseFormReturn } from "react-hook-form";
 import type { adSchemaClient } from "@/schema/ad";
 import type { z } from "zod";
 import { uploadToR2 } from "@/lib/s3";
-import LocationCombobox from "@/components/bee3/location-combobox";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardTitle, CardContent, CardHeader } from "@/components/ui/card";
-import PrefixLabelledInput from "@/components/ui/prefix-labelled-input";
-import { Listbox } from "@/components/ui/listbox";
-import CategoryListboxItem from "./category-list-box-item";
-import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
-import CategoryOptionsSection from "./category-options-section";
-import { useCategoryTranslations } from "@/lib/client-side";
 import { Scoped, useStepper } from "./stepper-config";
 import Step1Category from "./step-1-category";
 import Step2Subcategory from "./step-2-subcategory";
@@ -69,14 +43,10 @@ function SellForm({
 }: SellFormProps) {
   const tSell = useTranslations("/sell");
   const tErrors = useTranslations("errors./sell");
-  const locale = useLocale();
-  const { getClientSideFullCategory, getClientSideSubCategory } =
-    useCategoryTranslations();
   const router = useRouter();
   const { toast } = useToast();
   const { data: session, isPending: isSessionPending } =
     authClient.useSession();
-  const [isSelectedALocation, setIsSelectedLocation] = useState(false);
 
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
     null,
@@ -137,20 +107,6 @@ function SellForm({
         });
       }
     });
-  };
-  const mainCategories = categoriesTree;
-  const subCategories = selectedMainCategory
-    ? mainCategories.find((category) => category.name === selectedMainCategory)
-        ?.categories || []
-    : [];
-
-  const onImagesChange = (newImages: File[]) => {
-    form.setValue("images", newImages); // Update form state with new images
-  };
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter" && event.target === event.currentTarget) {
-      event.preventDefault();
-    }
   };
 
   const handleCategoryChange = (category: string | null) => {
