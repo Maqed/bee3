@@ -201,25 +201,25 @@
     "vehicles": {
       "name": "Vehicles",
       "categories": {
-        "cars_for_sale": {
+        "cars-for-sale": {
           "name": "Cars for Sale"
         },
-        "cars_for_rent": {
+        "cars-for-rent": {
           "name": "Cars for Rent"
         },
-        "tyres_batteries_oils_accessories": {
+        "tyres-batteries-oils-accessories": {
           "name": "Tyres, Batteries, Oils & Accessories"
         },
-        "car_spare_parts": {
+        "car-spare-parts": {
           "name": "Car Spare Parts"
         },
-        "motorcycles_accessories": {
+        "motorcycles-accessories": {
           "name": "Motorcycles & Accessories"
         },
-        "boats_watercraft": {
+        "boats-watercraft": {
           "name": "Boats & Watercraft"
         },
-        "heavy_trucks_buses_other_vehicles": {
+        "heavy-trucks-buses-other-vehicles": {
           "name": "Heavy Trucks, Buses & Other Vehicles"
         }
       }
@@ -227,48 +227,48 @@
     "properties": {
       "name": "Properties",
       "categories": {
-        "apartments_for_sale": {
+        "apartments-for-sale": {
           "name": "Apartments for Sale"
         },
-        "apartments_for_rent": {
+        "apartments-for-rent": {
           "name": "Apartments for Rent"
         },
-        "villas_for_sale": {
+        "villas-for-sale": {
           "name": "Villas for Sale"
         },
-        "villas_for_rent": {
+        "villas-for-rent": {
           "name": "Villas for Rent"
         },
-        "vacation_homes_for_sale": {
+        "vacation-homes-for-sale": {
           "name": "Vacation Homes for Sale"
         },
-        "vacation_homes_for_rent": {
+        "vacation-homes-for-rent": {
           "name": "Vacation Homes for Rent"
         },
-        "commercial_for_sale": {
+        "commercial-for-sale": {
           "name": "Commercial for Sale"
         },
-        "commercial_for_rent": {
+        "commercial-for-rent": {
           "name": "Commercial for Rent"
         },
-        "buildings_lands": {
+        "buildings-lands": {
           "name": "Buildings & Lands"
         }
       }
     },
-    "mobiles_tablets": {
+    "mobiles-tablets": {
       "name": "Mobiles & Tablets",
       "categories": {
-        "mobile_phones": {
+        "mobile-phones": {
           "name": "Mobile Phones"
         },
         "tablets": {
           "name": "Tablets"
         },
-        "mobile_tablet_accessories": {
+        "mobile-tablet-accessories": {
           "name": "Mobile & Tablet Accessories"
         },
-        "mobile_numbers": {
+        "mobile-numbers": {
           "name": "Mobile Numbers"
         }
       }
@@ -276,7 +276,7 @@
     "jobs": {
       "name": "Jobs",
       "categories": {
-        "accounting_finance_banking": {
+        "accounting-finance-banking": {
           "name": "Accounting, Finance & Banking"
         },
         "engineering": {
@@ -285,16 +285,16 @@
         "designers": {
           "name": "Designers"
         },
-        "customer_service_call_center": {
+        "customer-service-call-center": {
           "name": "Customer Service & Call Center"
         },
-        "workers_technicians": {
+        "workers-technicians": {
           "name": "Workers & Technicians"
         },
-        "management_consulting": {
+        "management-consulting": {
           "name": "Management & Consulting"
         },
-        "drivers_delivery": {
+        "drivers-delivery": {
           "name": "Drivers & Delivery"
         },
         "education": {
@@ -303,16 +303,16 @@
         "hr": {
           "name": "HR"
         },
-        "tourism_travel_hospitality": {
+        "tourism-travel-hospitality": {
           "name": "Tourism, Travel & Hospitality"
         },
-        "it_telecom": {
+        "it-telecom": {
           "name": "IT & Telecom"
         },
-        "marketing_pr": {
+        "marketing-pr": {
           "name": "Marketing & PR"
         },
-        "medical_healthcare_nursing": {
+        "medical-healthcare-nursing": {
           "name": "Medical, Healthcare & Nursing"
         },
         "sales": {
@@ -321,56 +321,56 @@
         "secretarial": {
           "name": "Secretarial"
         },
-        "guards_security": {
+        "guards-security": {
           "name": "Guards & Security"
         },
-        "legal_lawyers": {
+        "legal-lawyers": {
           "name": "Legal & Lawyers"
         },
-        "other_jobs": {
+        "other-jobs": {
           "name": "Other Jobs"
         }
       }
     },
-    "electronics_home_appliances": {
+    "electronics-home-appliances": {
       "name": "Electronics & Home Appliances",
       "categories": {
-        "tv_audio_video": {
+        "tv-audio-video": {
           "name": "TV, Audio & Video"
         },
-        "computers_accessories": {
+        "computers-accessories": {
           "name": "Computers & Accessories"
         },
-        "video_games_consoles": {
+        "video-games-consoles": {
           "name": "Video Games & Consoles"
         },
-        "cameras_imaging": {
+        "cameras-imaging": {
           "name": "Cameras & Imaging"
         },
-        "home_appliances": {
+        "home-appliances": {
           "name": "Home Appliances"
         }
       }
     },
-    "home_garden": {
+    "home-garden": {
       "name": "Home & Garden",
       "categories": {
         "furniture": {
           "name": "Furniture"
         },
-        "office_furniture": {
+        "office-furniture": {
           "name": "Office Furniture"
         },
-        "home_decoration_accessories": {
+        "home-decoration-accessories": {
           "name": "Home Decoration & Accessories"
         },
-        "bathroom_kitchen": {
+        "bathroom-kitchen": {
           "name": "Bathroom & Kitchen"
         },
-        "fabric_bedding_curtains": {
+        "fabric-bedding-curtains": {
           "name": "Fabric, Bedding & Curtains"
         },
-        "garden_outdoor": {
+        "garden-outdoor": {
           "name": "Garden & Outdoor"
         },
         "kitchenware": {
@@ -381,27 +381,27 @@
         }
       }
     },
-    "fashion_beauty": {
+    "fashion-beauty": {
       "name": "Fashion & Beauty",
       "categories": {
-        "womens_clothing": {
+        "womens-clothing": {
           "name": "Women's Clothing"
         },
-        "mens_clothing": {
+        "mens-clothing": {
           "name": "Men's Clothing"
         },
-        "womens_cosmetics": {
+        "womens-cosmetics": {
           "name": "Women's Cosmetics"
         },
-        "womens_accessories_personal_care": {
+        "womens-accessories-personal-care": {
           "name": "Women's Accessories & Personal Care"
         },
-        "mens_accessories_personal_care": {
+        "mens-accessories-personal-care": {
           "name": "Men's Accessories & Personal Care"
         }
       }
     },
-    "pets_animals": {
+    "pets-animals": {
       "name": "Pets & Animals",
       "categories": {
         "dogs": {
@@ -410,44 +410,44 @@
         "cats": {
           "name": "Cats"
         },
-        "birds_pigeons": {
+        "birds-pigeons": {
           "name": "Birds & Pigeons"
         },
-        "other_pets_animals": {
+        "other-pets-animals": {
           "name": "Other Pets & Animals"
         },
-        "pet_accessories_care_products": {
+        "pet-accessories-care-products": {
           "name": "Pet Accessories & Care Products"
         }
       }
     },
-    "kids_babies": {
+    "kids-babies": {
       "name": "Kids & Babies",
       "categories": {
-        "baby_mom_healthcare": {
+        "baby-mom-healthcare": {
           "name": "Baby & Mom Healthcare"
         },
-        "baby_clothing": {
+        "baby-clothing": {
           "name": "Baby Clothing"
         },
-        "baby_feeding_tools": {
+        "baby-feeding-tools": {
           "name": "Baby Feeding Tools"
         },
-        "cribs_strollers_carriers": {
+        "cribs-strollers-carriers": {
           "name": "Cribs, Strollers & Carriers"
         },
         "toys": {
           "name": "Toys"
         },
-        "other_baby_items": {
+        "other-baby-items": {
           "name": "Other Baby Items"
         }
       }
     },
-    "hobbies_books_sports": {
+    "hobbies-books-sports": {
       "name": "Hobbies, Books & Sports",
       "categories": {
-        "antiques_collectibles": {
+        "antiques-collectibles": {
           "name": "Antiques & Collectibles"
         },
         "bicycles": {
@@ -456,33 +456,33 @@
         "books": {
           "name": "Books"
         },
-        "board_card_games": {
+        "board-card-games": {
           "name": "Board & Card Games"
         },
-        "movies_music": {
+        "movies-music": {
           "name": "Movies & Music"
         },
-        "musical_instruments": {
+        "musical-instruments": {
           "name": "Musical Instruments"
         },
-        "sports_equipment": {
+        "sports-equipment": {
           "name": "Sports Equipment"
         },
-        "study_tools": {
+        "study-tools": {
           "name": "Study Tools"
         },
-        "tickets_vouchers": {
+        "tickets-vouchers": {
           "name": "Tickets & Vouchers"
         },
         "luggage": {
           "name": "Luggage"
         },
-        "other_items": {
+        "other-items": {
           "name": "Other Items"
         }
       }
     },
-    "business_industrial": {
+    "business-industrial": {
       "name": "Business & Industrial",
       "categories": {
         "agriculture": {
@@ -491,22 +491,22 @@
         "construction": {
           "name": "Construction"
         },
-        "industrial_equipment": {
+        "industrial-equipment": {
           "name": "Industrial Equipment"
         },
-        "medical_equipment": {
+        "medical-equipment": {
           "name": "Medical Equipment"
         },
-        "office_furniture_equipment": {
+        "office-furniture-equipment": {
           "name": "Office Furniture & Equipment"
         },
-        "restaurants_equipment": {
+        "restaurants-equipment": {
           "name": "Restaurants Equipment"
         },
-        "whole_business_for_sale": {
+        "whole-business-for-sale": {
           "name": "Whole Business for Sale"
         },
-        "other_business_industrial_agriculture": {
+        "other-business-industrial-agriculture": {
           "name": "Other Business & Industrial"
         }
       }
@@ -514,34 +514,34 @@
     "services": {
       "name": "Services",
       "categories": {
-        "business_services": {
+        "business-services": {
           "name": "Business Services"
         },
-        "car_services": {
+        "car-services": {
           "name": "Car Services"
         },
-        "event_services": {
+        "event-services": {
           "name": "Event Services"
         },
-        "health_beauty_services": {
+        "health-beauty-services": {
           "name": "Health & Beauty Services"
         },
-        "home_maintenance": {
+        "home-maintenance": {
           "name": "Home Maintenance"
         },
-        "medical_services": {
+        "medical-services": {
           "name": "Medical Services"
         },
         "movers": {
           "name": "Movers"
         },
-        "pet_services": {
+        "pet-services": {
           "name": "Pet Services"
         },
-        "education_services": {
+        "education-services": {
           "name": "Education Services"
         },
-        "other_services": {
+        "other-services": {
           "name": "Other Services"
         }
       }
@@ -558,39 +558,57 @@
       "to": "to",
       "all": "All",
       "placeholders": {
-        "brand": "Enter Brand",
-        "model": "Enter Model",
-        "year": "Enter Year",
-        "horse_power": "Enter Horse Power",
-        "engine_capacity": "Enter Engine Capacity",
-        "seats": "Enter Seats",
-        "color": "Enter Color",
-        "installation_location": "Enter Installation Location",
-        "fuel_consumption": "Enter Fuel Consumption",
-        "area": "Enter Area",
-        "bedrooms": "Enter Bedrooms",
-        "bathrooms": "Enter Bathrooms",
-        "floor": "Enter Floor",
-        "screen_size": "Enter Screen Size",
-        "salary": "Enter Salary",
-        "experience": "Enter Experience"
+        "brand": "e.g., Toyota",
+        "model": "e.g., Camry",
+        "year": "e.g., 2023",
+        "condition": "e.g., New",
+        "horse-power": "e.g., 150 HP",
+        "engine-type": "e.g., V6",
+        "fuel-type": "e.g., Gasoline",
+        "transmission": "e.g., Automatic",
+        "engine-capacity": "e.g., 2.0L",
+        "seats": "e.g., 5",
+        "color": "e.g., Black",
+        "installation-location": "e.g., Living Room",
+        "fuel-consumption": "e.g., 25 MPG",
+        "category": "e.g., Electronics",
+        "compatible-with": "e.g., iOS 15+",
+        "area": "e.g., 120 sqm",
+        "bedrooms": "e.g., 3",
+        "bathrooms": "e.g., 2",
+        "floor": "e.g., 2nd Floor",
+        "furnished": "e.g., Furnished",
+        "processor": "e.g., Intel i7",
+        "gpu": "e.g., RTX 4080",
+        "ram": "e.g., 16GB",
+        "storage": "e.g., 512GB",
+        "screen-size": "e.g., 15.6\"",
+        "employment-type": "e.g., Full-time",
+        "salary": "e.g., $50,000",
+        "experience": "e.g., 2-5 years",
+        "education-level": "e.g., Bachelor's",
+        "breed": "e.g., Golden Retriever",
+        "age-group": "e.g., Adult",
+        "warranty": "e.g., 1 Year",
+        "type": "e.g., Sedan",
+        "size": "e.g., Medium"
       },
       "attributes": {
         "brand": "Brand",
         "model": "Model",
         "year": "Year",
         "condition": "Condition",
-        "horse_power": "Horse Power",
-        "engine_type": "Engine Type",
-        "fuel_type": "Fuel Type",
+        "horse-power": "Horse Power",
+        "engine-type": "Engine Type",
+        "fuel-type": "Fuel Type",
         "transmission": "Transmission",
-        "engine_capacity": "Engine Capacity",
+        "engine-capacity": "Engine Capacity",
         "seats": "Seats",
         "color": "Color",
-        "installation_location": "Installation Location",
-        "fuel_consumption": "Fuel Consumption",
+        "installation-location": "Installation Location",
+        "fuel-consumption": "Fuel Consumption",
         "category": "Category",
-        "compatible_with": "Compatible With",
+        "compatible-with": "Compatible With",
         "area": "Area",
         "bedrooms": "Bedrooms",
         "bathrooms": "Bathrooms",
@@ -600,13 +618,13 @@
         "gpu": "GPU",
         "ram": "RAM",
         "storage": "Storage",
-        "screen_size": "Screen Size",
-        "employment_type": "Employment Type",
+        "screen-size": "Screen Size",
+        "employment-type": "Employment Type",
         "salary": "Salary",
         "experience": "Experience",
-        "education_level": "Education Level",
+        "education-level": "Education Level",
         "breed": "Breed",
-        "age_group": "Age Group",
+        "age-group": "Age Group",
         "warranty": "Warranty",
         "type": "Type",
         "size": "Size"
@@ -616,14 +634,14 @@
         "used": "Used",
         "yes": "Yes",
         "no": "No",
-        "full_time": "Full Time",
-        "part_time": "Part Time",
+        "full-time": "Full Time",
+        "part-time": "Part Time",
         "contract": "Contract",
-        "high_school": "High School",
+        "high-school": "High School",
         "bachelors": "Bachelors",
         "masters": "Masters",
         "phd": "PhD",
-        "petrol_benzine": "Petrol",
+        "petrol-benzine": "Petrol",
         "diesel": "Diesel",
         "hybrid": "Hybrid",
         "electric": "Electric",
@@ -643,7 +661,7 @@
         "256GB": "256GB",
         "512GB": "512GB",
         "1TB": "1TB",
-        "inch": "inch",
+        "inch": "\"",
         "HP": "HP",
         "gasoline": "Gasoline",
         "tyre": "Tyre",
@@ -651,7 +669,7 @@
         "oil": "Oil",
         "accessory": "Accessory",
         "case": "Case",
-        "screen_protector": "Screen Protector",
+        "screen-protector": "Screen Protector",
         "charger": "Charger",
         "cable": "Cable",
         "other": "Other",
@@ -661,7 +679,7 @@
         "L": "L",
         "XL": "XL",
         "XXL": "XXL",
-        "Special Sizes": "Special Sizes",
+        "special-sizes": "Special Sizes",
         "dog": "Dog",
         "cat": "Cat",
         "bird": "Bird",
@@ -669,7 +687,7 @@
         "infant": "Infant",
         "toddler": "Toddler",
         "preschooler": "Preschooler",
-        "school_age": "School Age"
+        "school-age": "School Age"
       }
     }
   },
