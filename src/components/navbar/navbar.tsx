@@ -23,7 +23,7 @@ import { authClient } from "@/lib/auth-client";
 export default function Navbar() {
   const { data: session, isPending } = authClient.useSession();
   return (
-    <header className="container sticky top-0 z-50 mb-5 flex flex-col justify-between gap-1 border-b bg-background py-4">
+    <header className="container sticky top-0 z-50 mb-5 flex flex-col justify-between gap-1 border-b border-border/50 bg-background/80 py-4 shadow-sm backdrop-blur-md">
       <div className="flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Logo />
