@@ -18,13 +18,13 @@ export default function AdPagePlaceholder() {
           <PriceAndTitlePlaceholder />
           <DescriptionPlaceholder />
           <UserInformationPlaceholder variant="mobile" />
-          <SafetyTipsCard />
+          <SafetyTipsCard className="md:hidden" />
           <Separator />
           <RelatedAdsPlaceholder />
         </div>
         <ContactInfoPlaceholder />
       </div>
-      <div className="hidden md:col-span-4 md:block">
+      <div className="hidden space-y-3 md:col-span-4 md:block">
         <UserInformationPlaceholder />
         <SafetyTipsCard />
       </div>
