@@ -49,7 +49,6 @@ export const categoriesTree: CategoryTreeItem[] = [
           },
           { name: "seats", type: "number" },
           { name: "color", type: "text" },
-          { name: "installation-location", type: "text" },
           { name: "fuel-consumption", type: "number", unit: "l/100km" },
         ],
       },
