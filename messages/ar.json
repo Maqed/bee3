@@ -203,25 +203,25 @@
     "vehicles": {
       "name": "المركبات",
       "categories": {
-        "cars_for_sale": {
+        "cars-for-sale": {
           "name": "سيارات للبيع"
         },
-        "cars_for_rent": {
+        "cars-for-rent": {
           "name": "سيارات للإيجار"
         },
-        "tyres_batteries_oils_accessories": {
+        "tyres-batteries-oils-accessories": {
           "name": "إطارات وبطاريات وزيوت وملحقات"
         },
-        "car_spare_parts": {
+        "car-spare-parts": {
           "name": "قطع غيار السيارات"
         },
-        "motorcycles_accessories": {
+        "motorcycles-accessories": {
           "name": "إكسسوارات الدراجات النارية"
         },
-        "boats_watercraft": {
+        "boats-watercraft": {
           "name": "قوارب ومراكب مائية"
         },
-        "heavy_trucks_buses_other_vehicles": {
+        "heavy-trucks-buses-other-vehicles": {
           "name": "شاحنات ثقيلة وحافلات ومركبات أخرى"
         }
       }
@@ -229,48 +229,48 @@
     "properties": {
       "name": "العقارات",
       "categories": {
-        "apartments_for_sale": {
+        "apartments-for-sale": {
           "name": "شقق للبيع"
         },
-        "apartments_for_rent": {
+        "apartments-for-rent": {
           "name": "شقق للإيجار"
         },
-        "villas_for_sale": {
+        "villas-for-sale": {
           "name": "فيلات للبيع"
         },
-        "villas_for_rent": {
+        "villas-for-rent": {
           "name": "فيلات للإيجار"
         },
-        "vacation_homes_for_sale": {
+        "vacation-homes-for-sale": {
           "name": "منازل العطلات للبيع"
         },
-        "vacation_homes_for_rent": {
+        "vacation-homes-for-rent": {
           "name": "منازل العطلات للإيجار"
         },
-        "commercial_for_sale": {
+        "commercial-for-sale": {
           "name": "عقارات تجارية للبيع"
         },
-        "commercial_for_rent": {
+        "commercial-for-rent": {
           "name": "عقارات تجارية للإيجار"
         },
-        "buildings_lands": {
+        "buildings-lands": {
           "name": "مبانٍ وأراضي"
         }
       }
     },
-    "mobiles_tablets": {
+    "mobiles-tablets": {
       "name": "الجوالات والأجهزة اللوحية",
       "categories": {
-        "mobile_phones": {
+        "mobile-phones": {
           "name": "هواتف محمولة"
         },
         "tablets": {
           "name": "أجهزة لوحية"
         },
-        "mobile_tablet_accessories": {
+        "mobile-tablet-accessories": {
           "name": "ملحقات الجوال والأجهزة اللوحية"
         },
-        "mobile_numbers": {
+        "mobile-numbers": {
           "name": "أرقام جوال"
         }
       }
@@ -278,7 +278,7 @@
     "jobs": {
       "name": "الوظائف",
       "categories": {
-        "accounting_finance_banking": {
+        "accounting-finance-banking": {
           "name": "المحاسبة والمالية والبنوك"
         },
         "engineering": {
@@ -287,16 +287,16 @@
         "designers": {
           "name": "المصممون"
         },
-        "customer_service_call_center": {
+        "customer-service-call-center": {
           "name": "خدمة العملاء ومركز الاتصال"
         },
-        "workers_technicians": {
+        "workers-technicians": {
           "name": "العمال والفنيون"
         },
-        "management_consulting": {
+        "management-consulting": {
           "name": "الإدارة والاستشارات"
         },
-        "drivers_delivery": {
+        "drivers-delivery": {
           "name": "السائقون والتوصيل"
         },
         "education": {
@@ -305,16 +305,16 @@
         "hr": {
           "name": "الموارد البشرية"
         },
-        "tourism_travel_hospitality": {
+        "tourism-travel-hospitality": {
           "name": "السياحة والسفر والضيافة"
         },
-        "it_telecom": {
+        "it-telecom": {
           "name": "تقنية المعلومات والاتصالات"
         },
-        "marketing_pr": {
+        "marketing-pr": {
           "name": "التسويق والعلاقات العامة"
         },
-        "medical_healthcare_nursing": {
+        "medical-healthcare-nursing": {
           "name": "الطب والرعاية الصحية والتمريض"
         },
         "sales": {
@@ -323,56 +323,56 @@
         "secretarial": {
           "name": "السكرتارية"
         },
-        "guards_security": {
+        "guards-security": {
           "name": "الحراسة والأمن"
         },
-        "legal_lawyers": {
+        "legal-lawyers": {
           "name": "القانون والمحاماة"
         },
-        "other_jobs": {
+        "other-jobs": {
           "name": "وظائف أخرى"
         }
       }
     },
-    "electronics_home_appliances": {
+    "electronics-home-appliances": {
       "name": "إلكترونيات وأجهزة منزلية",
       "categories": {
-        "tv_audio_video": {
+        "tv-audio-video": {
           "name": "التلفاز والصوت والفيديو"
         },
-        "computers_accessories": {
+        "computers-accessories": {
           "name": "الحواسيب والملحقات"
         },
-        "video_games_consoles": {
+        "video-games-consoles": {
           "name": "ألعاب الفيديو وأجهزة التحكم"
         },
-        "cameras_imaging": {
+        "cameras-imaging": {
           "name": "الكاميرات والتصوير"
         },
-        "home_appliances": {
+        "home-appliances": {
           "name": "الأجهزة المنزلية"
         }
       }
     },
-    "home_garden": {
+    "home-garden": {
       "name": "المنزل والحديقة",
       "categories": {
         "furniture": {
           "name": "الأثاث"
         },
-        "office_furniture": {
+        "office-furniture": {
           "name": "أثاث المكاتب"
         },
-        "home_decoration_accessories": {
+        "home-decoration-accessories": {
           "name": "ديكور المنزل والملحقات"
         },
-        "bathroom_kitchen": {
+        "bathroom-kitchen": {
           "name": "الحمام والمطبخ"
         },
-        "fabric_bedding_curtains": {
+        "fabric-bedding-curtains": {
           "name": "الأقمشة والفراش والستائر"
         },
-        "garden_outdoor": {
+        "garden-outdoor": {
           "name": "الحديقة والمنطقة الخارجية"
         },
         "kitchenware": {
@@ -383,27 +383,27 @@
         }
       }
     },
-    "fashion_beauty": {
+    "fashion-beauty": {
       "name": "الموضة والجمال",
       "categories": {
-        "womens_clothing": {
+        "womens-clothing": {
           "name": "ملابس نسائية"
         },
-        "mens_clothing": {
+        "mens-clothing": {
           "name": "ملابس رجالية"
         },
-        "womens_cosmetics": {
+        "womens-cosmetics": {
           "name": "مستحضرات تجميل نسائية"
         },
-        "womens_accessories_personal_care": {
+        "womens-accessories-personal-care": {
           "name": "ملحقات شخصية واعتناء للنساء"
         },
-        "mens_accessories_personal_care": {
+        "mens-accessories-personal-care": {
           "name": "ملحقات شخصية واعتناء للرجال"
         }
       }
     },
-    "pets_animals": {
+    "pets-animals": {
       "name": "الحيوانات الأليفة",
       "categories": {
         "dogs": {
@@ -412,44 +412,44 @@
         "cats": {
           "name": "قطط"
         },
-        "birds_pigeons": {
+        "birds-pigeons": {
           "name": "الطيور والحمام"
         },
-        "other_pets_animals": {
+        "other-pets-animals": {
           "name": "حيوانات أليفة أخرى"
         },
-        "pet_accessories_care_products": {
+        "pet-accessories-care-products": {
           "name": "مستلزمات العناية بالحيوانات الأليفة"
         }
       }
     },
-    "kids_babies": {
+    "kids-babies": {
       "name": "الأطفال والرضع",
       "categories": {
-        "baby_mom_healthcare": {
+        "baby-mom-healthcare": {
           "name": "رعاية الأم والطفل"
         },
-        "baby_clothing": {
+        "baby-clothing": {
           "name": "ملابس الأطفال"
         },
-        "baby_feeding_tools": {
+        "baby-feeding-tools": {
           "name": "أدوات تغذية الطفل"
         },
-        "cribs_strollers_carriers": {
+        "cribs-strollers-carriers": {
           "name": "أسرة وعربات وحمالات"
         },
         "toys": {
           "name": "ألعاب"
         },
-        "other_baby_items": {
+        "other-baby-items": {
           "name": "مستلزمات الأطفال الأخرى"
         }
       }
     },
-    "hobbies_books_sports": {
+    "hobbies-books-sports": {
       "name": "الهوايات والكتب والرياضة",
       "categories": {
-        "antiques_collectibles": {
+        "antiques-collectibles": {
           "name": "التحف والمقتنيات"
         },
         "bicycles": {
@@ -458,33 +458,33 @@
         "books": {
           "name": "الكتب"
         },
-        "board_card_games": {
+        "board-card-games": {
           "name": "ألعاب الطاولة والبطاقات"
         },
-        "movies_music": {
+        "movies-music": {
           "name": "الأفلام والموسيقى"
         },
-        "musical_instruments": {
+        "musical-instruments": {
           "name": "الآلات الموسيقية"
         },
-        "sports_equipment": {
+        "sports-equipment": {
           "name": "معدات الرياضة"
         },
-        "study_tools": {
+        "study-tools": {
           "name": "أدوات الدراسة"
         },
-        "tickets_vouchers": {
+        "tickets-vouchers": {
           "name": "التذاكر والقسائم"
         },
         "luggage": {
           "name": "الأمتعة"
         },
-        "other_items": {
+        "other-items": {
           "name": "عناصر أخرى"
         }
       }
     },
-    "business_industrial": {
+    "business-industrial": {
       "name": "الأعمال والصناعة",
       "categories": {
         "agriculture": {
@@ -493,22 +493,22 @@
         "construction": {
           "name": "الإنشاءات"
         },
-        "industrial_equipment": {
+        "industrial-equipment": {
           "name": "المعدات الصناعية"
         },
-        "medical_equipment": {
+        "medical-equipment": {
           "name": "المعدات الطبية"
         },
-        "office_furniture_equipment": {
+        "office-furniture-equipment": {
           "name": "أثاث ومعدات المكاتب"
         },
-        "restaurants_equipment": {
+        "restaurants-equipment": {
           "name": "معدات المطاعم"
         },
-        "whole_business_for_sale": {
+        "whole-business-for-sale": {
           "name": "أعمال كاملة للبيع"
         },
-        "other_business_industrial_agriculture": {
+        "other-business-industrial-agriculture": {
           "name": "أعمال وصناعات أخرى"
         }
       }
@@ -516,34 +516,34 @@
     "services": {
       "name": "الخدمات",
       "categories": {
-        "business_services": {
+        "business-services": {
           "name": "الخدمات التجارية"
         },
-        "car_services": {
+        "car-services": {
           "name": "خدمات السيارات"
         },
-        "event_services": {
+        "event-services": {
           "name": "خدمات الفعاليات"
         },
-        "health_beauty_services": {
+        "health-beauty-services": {
           "name": "خدمات الصحة والجمال"
         },
-        "home_maintenance": {
+        "home-maintenance": {
           "name": "صيانة المنزل"
         },
-        "medical_services": {
+        "medical-services": {
           "name": "الخدمات الطبية"
         },
         "movers": {
           "name": "شركات النقل"
         },
-        "pet_services": {
+        "pet-services": {
           "name": "خدمات الحيوانات الأليفة"
         },
-        "education_services": {
+        "education-services": {
           "name": "الخدمات التعليمية"
         },
-        "other_services": {
+        "other-services": {
           "name": "خدمات أخرى"
         }
       }
@@ -563,17 +563,17 @@
         "brand": "أدخل الماركة",
         "model": "أدخل الموديل",
         "year": "أدخل السنة",
-        "horse_power": "أدخل قوة الحصان",
-        "engine_capacity": "أدخل سعة المحرك",
+        "horse-power": "أدخل قوة الحصان",
+        "engine-capacity": "أدخل سعة المحرك",
         "seats": "أدخل عدد المقاعد",
         "color": "أدخل اللون",
-        "installation_location": "أدخل موقع التركيب",
-        "fuel_consumption": "أدخل استهلاك الوقود",
+        "installation-location": "أدخل موقع التركيب",
+        "fuel-consumption": "أدخل استهلاك الوقود",
         "area": "أدخل المساحة",
         "bedrooms": "أدخل عدد غرف النوم",
         "bathrooms": "أدخل عدد الحمامات",
         "floor": "أدخل الطابق",
-        "screen_size": "أدخل حجم الشاشة",
+        "screen-size": "أدخل حجم الشاشة",
         "salary": "أدخل الراتب",
         "experience": "أدخل عدد سنوات الخبرة"
       },
@@ -582,17 +582,17 @@
         "model": "الموديل",
         "year": "السنة",
         "condition": "الحالة",
-        "horse_power": "قوة الحصان",
-        "engine_type": "نوع المحرك",
-        "fuel_type": "نوع الوقود",
+        "horse-power": "قوة الحصان",
+        "engine-type": "نوع المحرك",
+        "fuel-type": "نوع الوقود",
         "transmission": "ناقل الحركة",
-        "engine_capacity": "سعة المحرك",
+        "engine-capacity": "سعة المحرك",
         "seats": "عدد المقاعد",
         "color": "اللون",
-        "installation_location": "موقع التركيب",
-        "fuel_consumption": "استهلاك الوقود",
+        "installation-location": "موقع التركيب",
+        "fuel-consumption": "استهلاك الوقود",
         "category": "الفئة",
-        "compatible_with": "متوافق مع",
+        "compatible-with": "متوافق مع",
         "area": "المساحة",
         "bedrooms": "غرف النوم",
         "bathrooms": "الحمامات",
@@ -602,13 +602,13 @@
         "gpu": "وحدة معالجة الرسوميات",
         "ram": "الذاكرة العشوائية",
         "storage": "التخزين",
-        "screen_size": "حجم الشاشة",
-        "employment_type": "نوع العمل",
+        "screen-size": "حجم الشاشة",
+        "employment-type": "نوع العمل",
         "salary": "الراتب",
         "experience": "الخبرة",
-        "education_level": "المستوى التعليمي",
+        "education-level": "المستوى التعليمي",
         "breed": "النوع",
-        "age_group": "الفئة العمرية",
+        "age-group": "الفئة العمرية",
         "warranty": "الضمان",
         "type": "النوع",
         "size": "المقاس"
@@ -618,14 +618,14 @@
         "used": "مستعمل",
         "yes": "نعم",
         "no": "لا",
-        "full_time": "دوام كامل",
-        "part_time": "دوام جزئي",
+        "full-time": "دوام كامل",
+        "part-time": "دوام جزئي",
         "contract": "عقد",
-        "high_school": "ثانوية عامة",
+        "high-school": "ثانوية عامة",
         "bachelors": "بكالوريوس",
         "masters": "ماجستير",
         "phd": "دكتوراه",
-        "petrol_benzine": "بنزين",
+        "petrol-benzine": "بنزين",
         "diesel": "ديزل",
         "hybrid": "هايبرد",
         "electric": "كهربائي",
@@ -653,7 +653,7 @@
         "oil": "زيت",
         "accessory": "إكسسوار",
         "case": "حافظة",
-        "screen_protector": "واقي الشاشة",
+        "screen-protector": "واقي الشاشة",
         "charger": "شاحن",
         "cable": "كابل",
         "other": "أخرى",
@@ -671,7 +671,7 @@
         "infant": "رضيع",
         "toddler": "طفل صغير",
         "preschooler": "طفل ما قبل المدرسة",
-        "school_age": "سن المدرسة"
+        "school-age": "سن المدرسة"
       }
     }
   },
