@@ -56,13 +56,15 @@ export function UserInformation({
           </p>
         </CardContent>
       </Link>
-      <CardFooter>
-        <ContactInfo
-          className="flex w-full flex-col gap-y-3"
-          showTitle={true}
-          phoneNumber={ad.user.phoneNumber}
-        />
-      </CardFooter>
+      {ad.user?.phoneNumber ? (
+        <CardFooter>
+          <ContactInfo
+            className="flex w-full flex-col gap-y-3"
+            showTitle={true}
+            phoneNumber={ad.user.phoneNumber}
+          />
+        </CardFooter>
+      ) : null}
     </Card>
   );
 }

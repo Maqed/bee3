@@ -34,7 +34,9 @@ export default function AdPageUI({ ad, isPreview = false }: AdPageUIProps) {
             <RelatedAds adId={ad.id} relatedCategories={ad.categoryPath} />
           )}
         </div>
-        <MobileContactInfo phoneNumber={ad.user.phoneNumber} />
+        {ad.user?.phoneNumber ? (
+          <MobileContactInfo phoneNumber={ad.user.phoneNumber} />
+        ) : null}
       </div>
       <div className="hidden space-y-3 md:col-span-4 md:block">
         <UserInformation ad={ad} tAd={tAd} locale={locale} />
