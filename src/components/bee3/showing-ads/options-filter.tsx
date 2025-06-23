@@ -2,7 +2,6 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { NumberInput } from "@/components/ui/number-input";
 import {
   Select,
@@ -108,7 +107,7 @@ function OptionsFilter({
                     tCategory("options.select-placeholder").replace(
                       "{attribute}",
                       tCategory(`options.attributes.${attribute.name}`) ||
-                      attribute.name.replace(/_/g, " "),
+                        attribute.name.replace(/_/g, " "),
                     )
                   }
                 />
@@ -188,23 +187,7 @@ function OptionsFilter({
                 min={0}
               />
             </div>
-          ) : (
-            <Input
-              id={attribute.name}
-              value={attributeFilters[attribute.name] || ""}
-              placeholder={
-                tCategory(`options.placeholders.${attribute.name}`) ||
-                tCategory("options.text-placeholder").replace(
-                  "{attribute}",
-                  tCategory(`options.attributes.${attribute.name}`) ||
-                  attribute.name.replace(/_/g, " "),
-                )
-              }
-              onChange={(e) =>
-                handleAttributeChange(attribute.name, e.target.value)
-              }
-            />
-          )}
+          ) : null}
         </div>
       ))}
     </div>

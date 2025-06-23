@@ -1,6 +1,6 @@
 export type CategoryAttributeDefinition = {
   name: string;
-  type: "text" | "number" | "select" | "multiselect";
+  type: "number" | "select";
   required?: boolean;
   options?: string[];
   unit?: string;
@@ -20,8 +20,6 @@ export const categoriesTree: CategoryTreeItem[] = [
     id: 1,
     name: "vehicles",
     attributes: [
-      { name: "brand", type: "text" },
-      { name: "model", type: "text" },
       { name: "year", type: "number" },
       { name: "condition", type: "select", options: ["new", "used"] },
     ],
@@ -30,13 +28,6 @@ export const categoriesTree: CategoryTreeItem[] = [
         id: 2,
         name: "cars-for-sale",
         attributes: [
-          { name: "horse-power", type: "number", unit: "HP" },
-          {
-            name: "engine-type",
-            type: "select",
-            options: ["gasoline", "diesel", "hybrid", "electric"],
-          },
-          { name: "engine-capacity", type: "number", unit: "CC" },
           {
             name: "fuel-type",
             type: "select",
@@ -48,21 +39,17 @@ export const categoriesTree: CategoryTreeItem[] = [
             options: ["manual", "automatic"],
           },
           { name: "seats", type: "number" },
-          { name: "color", type: "text" },
-          { name: "fuel-consumption", type: "number", unit: "l/100km" },
         ],
       },
       {
         id: 3,
         name: "cars-for-rent",
         attributes: [
-          { name: "horse-power", type: "number", unit: "HP" },
           {
             name: "engine-type",
             type: "select",
             options: ["gasoline", "diesel", "hybrid", "electric"],
           },
-          { name: "engine-capacity", type: "number", unit: "CC" },
           {
             name: "fuel-type",
             type: "select",
@@ -74,9 +61,6 @@ export const categoriesTree: CategoryTreeItem[] = [
             options: ["manual", "automatic"],
           },
           { name: "seats", type: "number" },
-          { name: "color", type: "text" },
-          { name: "installation-location", type: "text" },
-          { name: "fuel-consumption", type: "number", unit: "1/100km" },
         ],
       },
       {
@@ -89,8 +73,6 @@ export const categoriesTree: CategoryTreeItem[] = [
             type: "select",
             options: ["tyre", "battery", "oil", "accessory"],
           },
-          { name: "compatible-with", type: "text" },
-          { name: "brand", type: "text" },
         ],
       },
       { id: 5, name: "car-spare-parts", inheritParentAttributes: false },
@@ -133,8 +115,6 @@ export const categoriesTree: CategoryTreeItem[] = [
     id: 19,
     name: "mobiles-tablets",
     attributes: [
-      { name: "processor", type: "text" },
-      { name: "gpu", type: "text" },
       {
         name: "ram",
         type: "select",
@@ -145,7 +125,6 @@ export const categoriesTree: CategoryTreeItem[] = [
         type: "select",
         options: ["16GB", "32GB", "64GB", "128GB", "256GB", "512GB", "1tb"],
       },
-      { name: "screen-size", type: "number", unit: "Inches" },
     ],
     categories: [
       { id: 20, name: "mobile-phones" },
@@ -155,7 +134,6 @@ export const categoriesTree: CategoryTreeItem[] = [
         name: "mobile-tablet-accessories",
         inheritParentAttributes: false,
         attributes: [
-          { name: "compatible-with", type: "text" },
           {
             name: "type",
             type: "select",
@@ -240,14 +218,12 @@ export const categoriesTree: CategoryTreeItem[] = [
     id: 58,
     name: "fashion-beauty",
     attributes: [
-      { name: "brand", type: "text" },
       {
         name: "size",
         type: "select",
         options: ["XS", "S", "M", "L", "XL", "XXL", "special-sizes"],
       },
       { name: "condition", type: "select", options: ["new", "used"] },
-      { name: "color", type: "text" },
     ],
     categories: [
       { id: 59, name: "womens-clothing" },
@@ -313,7 +289,6 @@ export const categoriesTree: CategoryTreeItem[] = [
     name: "business-industrial",
     attributes: [
       { name: "condition", type: "select", options: ["new", "used"] },
-      { name: "brand", type: "text" },
     ],
     categories: [
       { id: 90, name: "agriculture" },

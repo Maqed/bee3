@@ -1,8 +1,6 @@
 import type { UseFormReturn } from "react-hook-form";
 import { categoriesTree } from "@/schema/categories-tree";
-import { Input } from "@/components/ui/input";
 import { NumberInput } from "@/components/ui/number-input";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -82,14 +80,7 @@ function CategoryOptionsSection({
               >
                 <SelectTrigger>
                   <SelectValue
-                    placeholder={
-                      tCategory(`options.placeholders.${attribute.name}`) ||
-                      tCategory("options.select-placeholder").replace(
-                        "{attribute}",
-                        tCategory(`options.attributes.${attribute.name}`) ||
-                          attribute.name.replace(/_/g, " "),
-                      )
-                    }
+                    placeholder={tCategory("options.placeholders.choose")}
                   />
                 </SelectTrigger>
                 <SelectContent>
@@ -119,51 +110,7 @@ function CategoryOptionsSection({
                 min={0}
                 disabled={isPending}
               />
-            ) : attribute.type === "multiselect" ? (
-              <div className="space-y-2">
-                {attribute.options?.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`${attribute.name}-${option}`}
-                      checked={(currentOptions[attribute.name] || []).includes(
-                        option,
-                      )}
-                      onCheckedChange={(checked) => {
-                        const currentValues =
-                          currentOptions[attribute.name] || [];
-                        const newValues = checked
-                          ? [...currentValues, option]
-                          : currentValues.filter((v: string) => v !== option);
-                        updateCategoryOptions(attribute.name, newValues);
-                      }}
-                      disabled={isPending}
-                    />
-                    <label
-                      htmlFor={`${attribute.name}-${option}`}
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      {tCategory(`options.values.${option}`) || option}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <Input
-                value={currentOptions[attribute.name] || ""}
-                placeholder={
-                  tCategory(`options.placeholders.${attribute.name}`) ||
-                  tCategory("options.text-placeholder").replace(
-                    "{attribute}",
-                    tCategory(`options.attributes.${attribute.name}`) ||
-                      attribute.name.replace(/_/g, " "),
-                  )
-                }
-                onChange={(e) =>
-                  updateCategoryOptions(attribute.name, e.target.value)
-                }
-                disabled={isPending}
-              />
-            )}
+            ) : null}
           </FormControl>
         </FormItem>
       ))}

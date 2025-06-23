@@ -1,34 +1,39 @@
 import { db } from "@/server/db";
-import { categoriesTree, CategoryTreeItem, CategoryAttributeDefinition } from "src/schema/categories-tree";
+import {
+  categoriesTree,
+  CategoryTreeItem,
+  CategoryAttributeDefinition,
+} from "src/schema/categories-tree";
 import { toPathFormat } from "@/lib/utils";
 
 async function getCategoryAttributes(
   item: CategoryTreeItem,
-  parentPath: string | undefined = undefined
+  parentPath: string | undefined = undefined,
 ): Promise<CategoryAttributeDefinition[]> {
   let attributes: CategoryAttributeDefinition[] = [...(item.attributes || [])];
 
   if (parentPath && item.inheritParentAttributes !== false) {
     const parentCategory = await db.category.findUnique({
       where: { path: parentPath },
-      include: { attributes: true }
+      include: { attributes: true },
     });
 
     if (parentCategory) {
       const parentAttributes = await db.categoryAttribute.findMany({
-        where: { categoryId: parentCategory.id }
+        where: { categoryId: parentCategory.id },
       });
 
-      const parentAttributeDefs: CategoryAttributeDefinition[] = parentAttributes.map(attr => ({
-        name: attr.name,
-        type: attr.type as "text" | "number" | "select" | "multiselect",
-        required: attr.required,
-        options: attr.options ? attr.options.split(',') : undefined,
-        unit: attr.unit || undefined
-      }));
+      const parentAttributeDefs: CategoryAttributeDefinition[] =
+        parentAttributes.map((attr) => ({
+          name: attr.name,
+          type: attr.type as "number" | "select",
+          required: attr.required,
+          options: attr.options ? attr.options.split(",") : undefined,
+          unit: attr.unit || undefined,
+        }));
 
       for (const parentAttr of parentAttributeDefs) {
-        if (!attributes.some(a => a.name === parentAttr.name)) {
+        if (!attributes.some((a) => a.name === parentAttr.name)) {
           attributes.push(parentAttr);
         }
       }
@@ -85,25 +90,25 @@ async function populateItemTree(
           where: {
             categoryId_name: {
               categoryId: category.id,
-              name: attr.name
-            }
+              name: attr.name,
+            },
           },
           update: {
             type: attr.type,
             required: attr.required || false,
-            options: attr.options ? attr.options.join(',') : null,
+            options: attr.options ? attr.options.join(",") : null,
             unit: attr.unit || null,
           },
           create: {
             name: attr.name,
             type: attr.type,
             required: attr.required || false,
-            options: attr.options ? attr.options.join(',') : null,
+            options: attr.options ? attr.options.join(",") : null,
             unit: attr.unit || null,
             category: {
-              connect: { id: category.id }
-            }
-          }
+              connect: { id: category.id },
+            },
+          },
         });
       }
     }
