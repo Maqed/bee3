@@ -186,7 +186,7 @@ export const categoriesTree: CategoryTreeItem[] = [
     name: "fashion-beauty",
     attributes: [
       { name: "brand", type: "text" },
-      { name: "size", type: "select", options: ["XS", "S", "M", "L", "XL", "XXL", "Special Sizes"] },
+      { name: "size", type: "select", options: ["XS", "S", "M", "L", "XL", "XXL", "special-sizes"] },
       { name: "condition", type: "select", options: ["new", "used"] },
       { name: "color", type: "text" }
     ],
@@ -201,9 +201,6 @@ export const categoriesTree: CategoryTreeItem[] = [
   {
     id: 64,
     name: "pets-animals",
-    attributes: [
-      { name: "breed", type: "select", options: ["dog", "cat", "bird", "other"] },
-    ],
     categories: [
       { id: 65, name: "dogs" },
       { id: 66, name: "cats" },
