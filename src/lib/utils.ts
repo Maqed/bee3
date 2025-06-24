@@ -3,7 +3,6 @@ import { twMerge } from "tailwind-merge";
 import { env } from "@/env";
 import { governorates } from "@/schema/governorates";
 import { cities } from "@/schema/cities";
-import { CategoryTreeItem } from "@/schema/categories-tree";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 import Compressor from "compressorjs";
 
@@ -150,4 +149,37 @@ export async function optimizeImages(
 ): Promise<File[]> {
   const optimizedImages = images.map((image) => optimizeImage(image, options));
   return Promise.all(optimizedImages);
+}
+
+// Range filter utilities
+export function parseRangeValue(filterValue: string) {
+  if (!filterValue) return { min: undefined, max: undefined };
+
+  if (filterValue.includes("-")) {
+    const [minStr, maxStr] = filterValue.split("-");
+    return {
+      min: minStr ? Number(minStr) : 0,
+      max: maxStr ? Number(maxStr) : 10000,
+    };
+  } else {
+    return {
+      min: Number(filterValue),
+      max: undefined,
+    };
+  }
+}
+
+export function formatRangeValue(
+  min: number | undefined,
+  max: number | undefined,
+): string {
+  if (min !== undefined && max !== undefined) {
+    return `${min}-${max}`;
+  } else if (min !== undefined) {
+    return min.toString();
+  } else if (max !== undefined) {
+    return `-${max}`;
+  } else {
+    return "";
+  }
 }

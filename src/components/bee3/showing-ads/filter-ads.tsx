@@ -14,7 +14,11 @@ import {
 import LocationCombobox from "../location-combobox";
 import OptionsFilter from "./options-filter";
 import RangeFilter from "./range-filter";
-import { getCategoryAndSubCategory } from "@/lib/utils";
+import {
+  getCategoryAndSubCategory,
+  parseRangeValue,
+  formatRangeValue,
+} from "@/lib/utils";
 
 type Props = {
   onApplyFilter?: () => void;
@@ -33,9 +37,9 @@ function FilterAds({ onApplyFilter, categoryPath }: Props) {
     : null;
 
   // Get initial values from search params
-  const priceRange = searchParams.get("price")?.split("-");
-  const initialMin = priceRange ? Number(priceRange[0]) : undefined;
-  const initialMax = priceRange ? Number(priceRange[1]) : undefined;
+  const priceFilterValue = searchParams.get("price") || "";
+  const { min: initialMin, max: initialMax } =
+    parseRangeValue(priceFilterValue);
   const initialGovId = Number(searchParams.get("governorate") || "0");
   const initialCityId = Number(searchParams.get("city") || "0");
 
@@ -58,11 +62,10 @@ function FilterAds({ onApplyFilter, categoryPath }: Props) {
 
   // Update filter states when search params change
   useEffect(() => {
-    const priceRange = searchParams.get("price")?.split("-");
-    if (priceRange) {
-      setMinPrice(Number(priceRange[0]));
-      setMaxPrice(Number(priceRange[1]));
-    }
+    const priceFilterValue = searchParams.get("price") || "";
+    const { min, max } = parseRangeValue(priceFilterValue);
+    setMinPrice(min);
+    setMaxPrice(max);
 
     const govId = searchParams.get("governorate");
     const citId = searchParams.get("city");
@@ -101,7 +104,7 @@ function FilterAds({ onApplyFilter, categoryPath }: Props) {
     });
 
     if (minPrice != undefined || maxPrice != undefined) {
-      queryParams.set("price", `${minPrice ?? 0}-${maxPrice ?? 1000000000}`);
+      queryParams.set("price", formatRangeValue(minPrice, maxPrice));
     }
 
     if (governorate > 0) {
