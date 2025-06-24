@@ -2,7 +2,6 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { Label } from "@/components/ui/label";
-import { NumberInput } from "@/components/ui/number-input";
 import {
   Select,
   SelectContent,
@@ -10,9 +9,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import RangeFilter from "./range-filter";
 import { categoriesTree } from "@/schema/categories-tree";
 import { getApplicableAttributes, findAncestorCategories } from "@/schema/ad";
-import { toPathFormat } from "@/lib/utils";
+import { toPathFormat, parseRangeValue, formatRangeValue } from "@/lib/utils";
 
 type CategoryInfo = {
   category: string;
@@ -77,6 +77,15 @@ function OptionsFilter({
     onAttributeFiltersChange(newFilters);
   };
 
+  const handleRangeChange = (
+    attributeName: string,
+    min: number | undefined,
+    max: number | undefined,
+  ) => {
+    const rangeValue = formatRangeValue(min, max);
+    handleAttributeChange(attributeName, rangeValue);
+  };
+
   return (
     <div className="flex flex-col gap-3">
       {attributes.map((attribute) => (
@@ -120,66 +129,25 @@ function OptionsFilter({
               </SelectContent>
             </Select>
           ) : attribute.type === "number" ? (
-            <div className="flex items-center gap-2">
-              <NumberInput
-                value={
-                  attributeFilters[attribute.name]?.includes("-")
-                    ? Number(attributeFilters[attribute.name]?.split("-")[0])
-                    : attributeFilters[attribute.name]
-                      ? Number(attributeFilters[attribute.name])
-                      : undefined
-                }
-                placeholder={tCategory("options.from")}
-                onValueChange={(value) => {
-                  const currentFilter = attributeFilters[attribute.name];
-                  const maxValue = currentFilter?.includes("-")
-                    ? currentFilter.split("-")[1]
-                    : "";
-
-                  if (value !== undefined) {
-                    const newValue = maxValue
-                      ? `${value}-${maxValue}`
-                      : value.toString();
-                    handleAttributeChange(attribute.name, newValue);
-                  } else if (maxValue) {
-                    handleAttributeChange(attribute.name, `-${maxValue}`);
-                  } else {
-                    handleAttributeChange(attribute.name, "");
+            (() => {
+              const { min, max } = parseRangeValue(
+                attributeFilters[attribute.name] || "",
+              );
+              return (
+                <RangeFilter
+                  label=""
+                  minValue={min}
+                  maxValue={max}
+                  onMinChange={(minValue) =>
+                    handleRangeChange(attribute.name, minValue, max)
                   }
-                }}
-                decimalScale={2}
-                fixedDecimalScale={false}
-                min={0}
-              />
-              <NumberInput
-                value={
-                  attributeFilters[attribute.name]?.includes("-")
-                    ? Number(attributeFilters[attribute.name]?.split("-")[1])
-                    : undefined
-                }
-                placeholder={tCategory("options.to")}
-                onValueChange={(value) => {
-                  const currentFilter = attributeFilters[attribute.name];
-                  const minValue = currentFilter?.includes("-")
-                    ? currentFilter.split("-")[0]
-                    : currentFilter || "";
-
-                  if (value !== undefined) {
-                    const newValue = minValue
-                      ? `${minValue}-${value}`
-                      : `-${value}`;
-                    handleAttributeChange(attribute.name, newValue);
-                  } else if (minValue) {
-                    handleAttributeChange(attribute.name, minValue);
-                  } else {
-                    handleAttributeChange(attribute.name, "");
+                  onMaxChange={(maxValue) =>
+                    handleRangeChange(attribute.name, min, maxValue)
                   }
-                }}
-                decimalScale={2}
-                fixedDecimalScale={false}
-                min={0}
-              />
-            </div>
+                  id={attribute.name}
+                />
+              );
+            })()
           ) : null}
         </div>
       ))}
