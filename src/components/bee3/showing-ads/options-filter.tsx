@@ -79,10 +79,6 @@ function OptionsFilter({
 
   return (
     <div className="flex flex-col gap-3">
-      <Label className="text-base font-semibold">
-        {tCategory("options.label")}
-      </Label>
-
       {attributes.map((attribute) => (
         <div key={attribute.name} className="flex flex-col">
           <Label className="mb-2" htmlFor={attribute.name}>
@@ -133,7 +129,7 @@ function OptionsFilter({
                       ? Number(attributeFilters[attribute.name])
                       : undefined
                 }
-                placeholder={`${tCategory("options.min")} ${attribute.unit || ""}`}
+                placeholder={tCategory("options.from")}
                 onValueChange={(value) => {
                   const currentFilter = attributeFilters[attribute.name];
                   const maxValue = currentFilter?.includes("-")
@@ -155,16 +151,13 @@ function OptionsFilter({
                 fixedDecimalScale={false}
                 min={0}
               />
-              <span className="text-muted-foreground">
-                {tCategory("options.to")}
-              </span>
               <NumberInput
                 value={
                   attributeFilters[attribute.name]?.includes("-")
                     ? Number(attributeFilters[attribute.name]?.split("-")[1])
                     : undefined
                 }
-                placeholder={`${tCategory("options.max")} ${attribute.unit || ""}`}
+                placeholder={tCategory("options.to")}
                 onValueChange={(value) => {
                   const currentFilter = attributeFilters[attribute.name];
                   const minValue = currentFilter?.includes("-")

@@ -170,8 +170,7 @@
   "filter-ads": {
     "title": "Filter Ads",
     "locationLabel": "Location",
-    "minPriceLabel": "Minimum Price",
-    "maxPriceLabel": "Maximum Price",
+    "priceLabel": "Price",
     "sortByLabel": "Sort by",
     "orderLabel": "Order",
     "sortOptions": {
@@ -553,8 +552,7 @@
       "select-placeholder": "Select {attribute}",
       "number-placeholder": "Enter {attribute}",
       "text-placeholder": "Enter {attribute}",
-      "min": "Min",
-      "max": "Max",
+      "from": "From",
       "to": "to",
       "all": "All",
       "placeholders": {

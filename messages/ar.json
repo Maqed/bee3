@@ -549,8 +549,7 @@
       "select-placeholder": "اختر {attribute}",
       "number-placeholder": "أدخل {attribute}",
       "text-placeholder": "أدخل {attribute}",
-      "min": "أدنى",
-      "max": "أقصى",
+      "from": "من",
       "to": "إلى",
       "all": "الكل",
       "placeholders": {

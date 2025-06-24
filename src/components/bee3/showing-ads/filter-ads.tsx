@@ -23,6 +23,7 @@ type Props = {
 
 function FilterAds({ onApplyFilter, categoryPath }: Props) {
   const t = useTranslations("filter-ads");
+  const tCategory = useTranslations("category");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -146,11 +147,9 @@ function FilterAds({ onApplyFilter, categoryPath }: Props) {
         />
       </div>
 
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex flex-col">
-          <Label className="mb-2" htmlFor="minPrice">
-            {t("minPriceLabel")}
-          </Label>
+      <div className="flex flex-col gap-2">
+        <Label>{t("priceLabel")}</Label>
+        <div className="flex items-center justify-between gap-3">
           <NumberInput
             id="minPrice"
             thousandSeparator=","
@@ -158,13 +157,8 @@ function FilterAds({ onApplyFilter, categoryPath }: Props) {
             onValueChange={(value) => {
               setMinPrice(value ? value : undefined);
             }}
-            placeholder={t("minPriceLabel")}
+            placeholder={tCategory("options.from")}
           />
-        </div>
-        <div className="flex flex-col">
-          <Label className="mb-2" htmlFor="maxPrice">
-            {t("maxPriceLabel")}
-          </Label>
           <NumberInput
             id="maxPrice"
             thousandSeparator=","
@@ -172,7 +166,7 @@ function FilterAds({ onApplyFilter, categoryPath }: Props) {
             onValueChange={(value) => {
               setMaxPrice(value ? value : undefined);
             }}
-            placeholder={t("maxPriceLabel")}
+            placeholder={tCategory("options.to")}
           />
         </div>
       </div>
