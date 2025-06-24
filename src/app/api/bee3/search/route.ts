@@ -345,13 +345,11 @@ function buildAttributeConditions(
   const conditions: any[] = [];
 
   for (const filter of attributeFilters) {
-    // Check if it's a range query (has a hyphen and both sides are numeric)
     const isRange = filter.value.includes("-");
+    const isNumeric = !isNaN(Number(filter.value));
 
     if (isRange) {
       const [minValue, maxValue] = filter.value.split("-");
-
-      // Check if both values are numeric
       if (!isNaN(Number(minValue)) && !isNaN(Number(maxValue))) {
         // Numeric range query
         conditions.push({
@@ -377,6 +375,18 @@ function buildAttributeConditions(
           },
         });
       }
+    } else if (isNumeric) {
+      // Numeric greater than or equal query
+      conditions.push({
+        attributeValues: {
+          some: {
+            attribute: {
+              name: filter.name,
+            },
+            value: { gte: filter.value },
+          },
+        },
+      });
     } else {
       // Exact match query
       conditions.push({
