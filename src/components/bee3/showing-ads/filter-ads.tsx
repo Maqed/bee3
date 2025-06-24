@@ -2,7 +2,6 @@
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { NumberInput } from "@/components/ui/number-input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import {
@@ -14,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import LocationCombobox from "../location-combobox";
 import OptionsFilter from "./options-filter";
+import RangeFilter from "./range-filter";
 import { getCategoryAndSubCategory } from "@/lib/utils";
 
 type Props = {
@@ -23,7 +23,6 @@ type Props = {
 
 function FilterAds({ onApplyFilter, categoryPath }: Props) {
   const t = useTranslations("filter-ads");
-  const tCategory = useTranslations("category");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -147,29 +146,15 @@ function FilterAds({ onApplyFilter, categoryPath }: Props) {
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <Label>{t("priceLabel")}</Label>
-        <div className="flex items-center justify-between gap-3">
-          <NumberInput
-            id="minPrice"
-            thousandSeparator=","
-            value={minPrice}
-            onValueChange={(value) => {
-              setMinPrice(value ? value : undefined);
-            }}
-            placeholder={tCategory("options.from")}
-          />
-          <NumberInput
-            id="maxPrice"
-            thousandSeparator=","
-            value={maxPrice}
-            onValueChange={(value) => {
-              setMaxPrice(value ? value : undefined);
-            }}
-            placeholder={tCategory("options.to")}
-          />
-        </div>
-      </div>
+      <RangeFilter
+        label={t("priceLabel")}
+        minValue={minPrice}
+        maxValue={maxPrice}
+        onMinChange={setMinPrice}
+        onMaxChange={setMaxPrice}
+        thousandSeparator=","
+        id="price"
+      />
 
       {/* Category-specific attribute filters */}
       {categoryInfo && (
