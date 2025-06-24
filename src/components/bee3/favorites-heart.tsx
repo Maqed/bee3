@@ -9,6 +9,7 @@ import { useFavoriteAds } from "@/hooks/useFavAds";
 import { useEffect, useState } from "react";
 import { DEFAULT_UNAUTHENTICATED_REDIRECT } from "@/consts/routes";
 import { getQueryClient } from "@/providers/get-query-client";
+import { Button } from "../ui/button";
 
 type Props = {
   adId: string;
@@ -85,14 +86,19 @@ function FavoritesHeart({ adId, className }: Props) {
   };
 
   return (
-    <button onClick={handleHeartClick}>
+    <Button
+      variant="ghost"
+      size="icon"
+      className="group size-8 p-1"
+      onClick={handleHeartClick}
+    >
       <Heart
         fill={isFavorited ? "currentColor" : "none"}
         className={cn(
-          "size-5 cursor-pointer transition-all",
+          "cursor-pointer transition-all",
           isFavorited && !isFavoritesFetching
-            ? "text-red-600 hover:text-red-700"
-            : "text-foreground/70 hover:fill-red-500 hover:text-red-600",
+            ? "text-red-600 group-hover:text-red-700"
+            : "text-foreground/70 group-hover:fill-red-500 group-hover:text-red-600",
           (mutation.isPending || isFavoritesFetching) && "animate-pulse",
           className,
         )}
@@ -102,7 +108,7 @@ function FavoritesHeart({ adId, className }: Props) {
             : tFavoritesHeart("aria-label.add-to-favorites")
         }
       />
-    </button>
+    </Button>
   );
 }
 
