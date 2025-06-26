@@ -701,6 +701,11 @@
         "placeholder": "My name is... and I sell ... I'm experienced in ...",
         "description": "Write about yourself here"
       },
+      "contact-info": {
+        "title": "Contact Information",
+        "description": "Buyers can contact you through this information",
+        "placeholder": "Enter your contact information"
+      },
       "phoneNumber": {
         "title": "Phone Number",
         "placeholder": "Enter your phone number"
@@ -926,6 +931,9 @@
       },
       "bio": {
         "invalid": "Bio must be at most 75 characters."
+      },
+      "contact-info": {
+        "invalid": "Contact Information must be at most 75 characters."
       }
     },
     "phone-number": {

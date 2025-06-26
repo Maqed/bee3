@@ -111,6 +111,9 @@ export const auth = betterAuth({
       bio: {
         type: "string",
       },
+      contactInfo: {
+        type: "string",
+      },
     },
   },
   plugins: [

@@ -5,8 +5,6 @@ import { adSchemaServer } from "@/schema/ad";
 import { db } from "@/server/db";
 import { createId } from "@paralleldrive/cuid2";
 import { cities } from "@/schema/cities";
-import { Prisma } from "@prisma/client";
-import { InputJsonValue, JsonValue } from "@prisma/client/runtime/library";
 
 export async function POST(request: Request) {
   const session = await getServerAuthSession();
@@ -14,8 +12,11 @@ export async function POST(request: Request) {
   const user = await getUserById(session.user.id);
   if (!user) return NextResponse.json({ error: "must-be-logged-in" });
 
-  if (!user.phoneNumber || !user.phoneNumberVerified)
-    return NextResponse.json({ error: "must-have-phone-number" });
+  // if (!user.phoneNumber || !user.phoneNumberVerified)
+  // return NextResponse.json({ error: "must-have-phone-number" });
+
+  if (!user.contactInfo)
+    return NextResponse.json({ error: "must-have-contact-info" });
 
   const req = adSchemaServer.safeParse(await request.json());
   if (!req.success)

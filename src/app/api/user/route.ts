@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
       select: {
         name: true,
         bio: true,
+        contactInfo: true,
         ads: {
           include: {
             images: {
