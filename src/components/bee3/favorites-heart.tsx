@@ -1,7 +1,7 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
-import { Heart } from "lucide-react";
+import LottieHeart from "../lottie/heart/lottie-heart";
 import { useRouter } from "@/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
@@ -92,13 +92,13 @@ function FavoritesHeart({ adId, className }: Props) {
       className="group size-8 p-1"
       onClick={handleHeartClick}
     >
-      <Heart
-        fill={isFavorited ? "currentColor" : "none"}
+      <LottieHeart
+        isFavorited={isFavorited}
         className={cn(
           "cursor-pointer transition-all",
           isFavorited && !isFavoritesFetching
             ? "text-red-600 group-hover:text-red-700"
-            : "text-foreground/70 group-hover:fill-red-500 group-hover:text-red-600",
+            : "text-foreground/70 group-hover:text-red-600",
           (mutation.isPending || isFavoritesFetching) && "animate-pulse",
           className,
         )}
