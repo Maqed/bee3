@@ -1,3 +1,4 @@
+import React from "react";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import { Avatar } from "@/components/ui/avatar";
 import { categoriesTree } from "@/schema/categories-tree";
@@ -17,7 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Link } from "@/navigation";
-import { toPathFormat } from "@/lib/utils";
+import { toPathFormat } from "@/lib/category";
 import { Separator } from "@/components/ui/separator";
 import { useTranslations } from "next-intl";
 import {

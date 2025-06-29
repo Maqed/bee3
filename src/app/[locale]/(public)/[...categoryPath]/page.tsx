@@ -3,7 +3,7 @@ import {
   getServerSideCategory,
   getServerSideSubCategory,
 } from "@/lib/server-side";
-import { getCategoryAndSubCategory } from "@/lib/utils";
+import { getCategoryAndSubCategory } from "@/lib/category";
 import { getTranslations } from "next-intl/server";
 
 type Props = {

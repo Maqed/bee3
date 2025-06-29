@@ -14,11 +14,8 @@ import {
 import LocationCombobox from "../location-combobox";
 import OptionsFilter from "./options-filter";
 import RangeFilter from "./range-filter";
-import {
-  getCategoryAndSubCategory,
-  parseRangeValue,
-  formatRangeValue,
-} from "@/lib/utils";
+import { getCategoryAndSubCategory } from "@/lib/category";
+import { parseRangeValue, formatRangeValue } from "@/lib/utils";
 
 type Props = {
   onApplyFilter?: () => void;

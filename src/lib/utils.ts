@@ -49,14 +49,7 @@ export function getLocalizedTimeAgo(
     inputDate,
   );
 }
-export function getCategoryAndSubCategory(categoryPath: string[] | string) {
-  const [category, subCategory] =
-    typeof categoryPath === "string" ? categoryPath.split("/") : categoryPath;
-  if (!category) {
-    throw new Error("Invalid category");
-  }
-  return { category, subCategory };
-}
+
 export function absoluteURL(url: string) {
   if (!url.startsWith("/")) url = "/" + url;
   return `${env.NEXT_PUBLIC_APP_URL}${url}`;
@@ -89,9 +82,7 @@ export function getGovernorate(governorateId: number) {
 export function getCity(cityId: number) {
   return cities.find((city) => city.id === cityId);
 }
-export function toPathFormat(input: string): string {
-  return input;
-}
+
 const shimmerPlaceholder = (w: number, h: number) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>

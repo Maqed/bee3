@@ -1,4 +1,4 @@
-import type React from "react";
+import React from "react";
 import { useTranslations } from "next-intl";
 import { categoriesTree } from "@/schema/categories-tree";
 import {
@@ -7,7 +7,7 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { toPathFormat } from "@/lib/utils";
+import { toPathFormat } from "@/lib/category";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import { useCategoryTranslations } from "@/lib/client-side";
 import { Listbox } from "@/components/ui/listbox";
@@ -44,7 +44,8 @@ function Step1Category({
         </FormLabel>
         <FormControl>
           <Listbox
-            value={selectedMainCategory || ""} orientation="mixed"
+            value={selectedMainCategory || ""}
+            orientation="mixed"
             onValueChange={(value) => onCategoryChange(value || null)}
             className="grid grid-cols-2 gap-4 py-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
           >

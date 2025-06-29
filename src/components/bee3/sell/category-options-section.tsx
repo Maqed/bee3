@@ -13,7 +13,7 @@ import {
   findCategory,
   getApplicableAttributes,
   findAncestorCategories,
-} from "@/schema/ad";
+} from "@/lib/category";
 import { useTranslations } from "next-intl";
 
 interface CategoryOptionsSectionProps {

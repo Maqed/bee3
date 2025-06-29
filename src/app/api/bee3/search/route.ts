@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/server/db";
 import { categoriesTree, CategoryTreeItem } from "@/schema/categories-tree";
-import { toPathFormat } from "@/lib/utils";
+import { toPathFormat, getSubCategoryPaths, getTreeFromPath } from "@/lib/category";
 import { Prisma } from "@prisma/client";
 import {
   DEFAULT_PAGE_SIZE,
@@ -403,32 +403,4 @@ function buildAttributeConditions(
   }
 
   return conditions;
-}
-
-// Returns a string array of all sub categories in the given path recursively.
-function getSubCategoryPaths(rootPath: string): string[] {
-  const subPaths = Array<string>();
-
-  const tree = getTreeFromPath(rootPath);
-  if (tree) {
-    for (const subTree of tree) {
-      const subPath = `${rootPath}/${toPathFormat(subTree.name)}`;
-      subPaths.push(subPath);
-      subPaths.push(...getSubCategoryPaths(subPath));
-    }
-  }
-
-  return subPaths;
-}
-
-// Traverses the categoriesTree structure to find the specified path within the tree..
-// ..so that it's possible to get its children.
-function getTreeFromPath(path: string): CategoryTreeItem[] {
-  const segments = path.split("/");
-  let tree = categoriesTree;
-  for (const segment of segments) {
-    tree = tree.find((c) => toPathFormat(c.name) == segment)!
-      .categories as CategoryTreeItem[];
-  }
-  return tree;
 }

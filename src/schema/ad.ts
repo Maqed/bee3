@@ -1,13 +1,18 @@
 import { z } from "zod";
 import {
   categoriesTree,
-  type CategoryTreeItem,
   type CategoryAttributeDefinition,
 } from "./categories-tree";
 import { cities } from "./cities";
 import { governorates } from "./governorates";
 import { MAX_AD_IMAGES, MAX_IMAGE_SIZE } from "@/consts/ad";
 import { env } from "@/env";
+import {
+  categoryExists,
+  findCategory,
+  findAncestorCategories,
+  getApplicableAttributes,
+} from "@/lib/category";
 
 /**
  * Validates that the categoryOptions JSON contains valid attributes for the selected category
@@ -98,67 +103,6 @@ const validateAttributeValue = (
   }
 };
 
-/**
- * Find all ancestor categories for a given category ID
- */
-const findAncestorCategories = (
-  categoryId: number,
-  tree: CategoryTreeItem[] = categoriesTree,
-  ancestors: CategoryTreeItem[] = [],
-): CategoryTreeItem[] => {
-  for (const category of tree) {
-    if (category.id === categoryId) {
-      return ancestors;
-    }
-
-    if (category.categories) {
-      // Create a new array with the current category added to ancestors
-      const newAncestors = [...ancestors, category];
-      const result = findAncestorCategories(
-        categoryId,
-        category.categories,
-        newAncestors,
-      );
-      if (result.length > 0) {
-        return result;
-      }
-    }
-  }
-
-  return [];
-};
-
-/**
- * Gets all applicable attributes for a category, including inherited ones if appropriate
- */
-const getApplicableAttributes = (
-  category: CategoryTreeItem,
-  ancestorCategories: CategoryTreeItem[] = [],
-): CategoryAttributeDefinition[] => {
-  let attributes: CategoryAttributeDefinition[] = [
-    ...(category.attributes || []),
-  ];
-
-  // Add attributes from ancestors if inheritance is enabled
-  if (
-    category.inheritParentAttributes !== false &&
-    ancestorCategories.length > 0
-  ) {
-    for (const ancestorCategory of ancestorCategories) {
-      if (ancestorCategory.attributes) {
-        // Add parent attributes, avoiding duplicates by name
-        for (const parentAttr of ancestorCategory.attributes) {
-          if (!attributes.some((a) => a.name === parentAttr.name)) {
-            attributes.push(parentAttr);
-          }
-        }
-      }
-    }
-  }
-
-  return attributes;
-};
-
 const adSchemaMutual = {
   title: z
     .string()
@@ -240,67 +184,3 @@ export const favAdSchema = z.object({
     ),
   state: z.boolean(),
 });
-
-/**
- * Checks if a category exists by ID
- */
-const categoryExists = (id: number, categories: CategoryTreeItem[]): boolean =>
-  categories.some(
-    (c) => c.id === id || (c.categories && categoryExists(id, c.categories)),
-  );
-
-/**
- * Checks if a category exists by path
- */
-const categoryPathExists = (
-  path: string,
-  categories: CategoryTreeItem[],
-  basePath: string = "",
-): boolean => {
-  for (const category of categories) {
-    const categoryPath = basePath
-      ? `${basePath}/${toPathFormat(category.name)}`
-      : toPathFormat(category.name);
-
-    if (categoryPath === path) return true;
-
-    if (
-      category.categories &&
-      categoryPathExists(path, category.categories, categoryPath)
-    ) {
-      return true;
-    }
-  }
-  return false;
-};
-
-/**
- * Finds a category by ID
- */
-const findCategory = (
-  id: number,
-  categories: CategoryTreeItem[],
-): CategoryTreeItem | null => {
-  for (const cat of categories) {
-    if (cat.id === id) return cat;
-    if (cat.categories) {
-      const found = findCategory(id, cat.categories);
-      if (found) return found;
-    }
-  }
-  return null;
-};
-
-/**
- * Convert a string to a URL-friendly path format
- */
-const toPathFormat = (str: string): string => {
-  return str
-    .toLowerCase()
-    .trim()
-    .replace(/[^\u0600-\u06FFa-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-};
-
-// Export helper functions for use in components
-export { findCategory, getApplicableAttributes, findAncestorCategories };

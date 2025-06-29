@@ -6,7 +6,7 @@ import { env } from "@/env";
 import { headers } from "next/headers";
 import { AdTiers } from "@prisma/client";
 import { phoneNumber } from "better-auth/plugins";
-import { toPathFormat } from "./utils";
+import { toPathFormat } from "./category";
 import { createId } from "@paralleldrive/cuid2";
 import { NextRequest } from "next/server";
 import { sendVerificationEmail, sendResetPasswordEmail } from "./mail";

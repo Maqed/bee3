@@ -4,7 +4,7 @@ import {
   CategoryTreeItem,
   CategoryAttributeDefinition,
 } from "src/schema/categories-tree";
-import { toPathFormat } from "@/lib/utils";
+import { toPathFormat } from "@/lib/category";
 
 async function getCategoryAttributes(
   item: CategoryTreeItem,

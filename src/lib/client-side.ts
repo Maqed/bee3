@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { getCategoryAndSubCategory } from "./utils";
+import { getCategoryAndSubCategory } from "./category";
 
 export function useCategoryTranslations() {
   const tCategory = useTranslations("categories");

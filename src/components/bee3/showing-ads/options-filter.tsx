@@ -11,8 +11,12 @@ import {
 } from "@/components/ui/select";
 import RangeFilter from "./range-filter";
 import { categoriesTree } from "@/schema/categories-tree";
-import { getApplicableAttributes, findAncestorCategories } from "@/schema/ad";
-import { toPathFormat, parseRangeValue, formatRangeValue } from "@/lib/utils";
+import { parseRangeValue, formatRangeValue } from "@/lib/utils";
+import {
+  toPathFormat,
+  getApplicableAttributes,
+  findAncestorCategories,
+} from "@/lib/category";
 
 type CategoryInfo = {
   category: string;

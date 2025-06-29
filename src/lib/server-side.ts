@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { getCategoryAndSubCategory } from "./utils";
+import { getCategoryAndSubCategory } from "./category";
 
 export async function getServerSideFullCategory(categoryPath: string) {
   const { category, subCategory } = getCategoryAndSubCategory(categoryPath);

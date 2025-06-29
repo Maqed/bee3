@@ -1,4 +1,4 @@
-import type React from "react";
+import React from "react";
 import { useTranslations } from "next-intl";
 import { categoriesTree } from "@/schema/categories-tree";
 import {
@@ -7,7 +7,7 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { toPathFormat } from "@/lib/utils";
+import { toPathFormat } from "@/lib/category";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import { useCategoryTranslations } from "@/lib/client-side";
 import { Listbox } from "@/components/ui/listbox";
