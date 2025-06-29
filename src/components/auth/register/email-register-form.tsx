@@ -189,7 +189,7 @@ function EmailRegisterForm() {
                     onCheckedChange={field.onChange}
                   />
                 </FormControl>
-                <FormLabel className="text-sm">
+                <FormLabel className="w-full text-sm sm:max-w-none">
                   {t.rich("tos-and-privacy", {
                     tos: (chunks) => (
                       <Link

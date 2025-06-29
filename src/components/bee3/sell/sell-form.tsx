@@ -150,8 +150,8 @@ function SellForm({
   };
 
   return (
-    <main className="container my-4 sm:mx-auto md:max-w-4xl">
-      <Card>
+    <main className="sm:container sm:mx-auto sm:my-4">
+      <Card className="w-full">
         <CardHeader>
           <CardTitle>{tSell("title")}</CardTitle>
         </CardHeader>

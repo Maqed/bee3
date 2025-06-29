@@ -76,12 +76,25 @@ const FormItemContext = React.createContext<FormItemContextValue>(
 const FormItem = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+>(({ className, children, ...props }, ref) => {
   const id = React.useId();
-
+  // Split children: first is label, rest are input/desc/message
+  const childrenArray = React.Children.toArray(children);
+  const label = childrenArray[0];
+  const endContent = childrenArray.slice(1);
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn("space-y-2", className)} {...props} />
+      <div
+        ref={ref}
+        className={cn(
+          "flex w-full flex-col items-start gap-x-6 gap-y-2 py-2 sm:flex-row",
+          className,
+        )}
+        {...props}
+      >
+        {label}
+        <div className="flex w-full flex-1 flex-col gap-1">{endContent}</div>
+      </div>
     </FormItemContext.Provider>
   );
 });
@@ -96,7 +109,11 @@ const FormLabel = React.forwardRef<
   return (
     <Label
       ref={ref}
-      className={cn(error && "text-destructive", className)}
+      className={cn(
+        "pt-2 text-start text-base font-semibold sm:min-w-[180px] sm:max-w-[220px]",
+        error && "text-destructive",
+        className,
+      )}
       htmlFor={formItemId}
       {...props}
     />
@@ -107,7 +124,7 @@ FormLabel.displayName = "FormLabel";
 const FormControl = React.forwardRef<
   React.ElementRef<typeof Slot>,
   React.ComponentPropsWithoutRef<typeof Slot>
->(({ ...props }, ref) => {
+>(({ className, ...props }, ref) => {
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
 
@@ -137,7 +154,7 @@ const FormDescription = React.forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn("mt-1 text-sm text-muted-foreground", className)}
       {...props}
     />
   );
@@ -160,7 +177,7 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn("text-sm font-medium text-destructive", className)}
+      className={cn("mt-1 text-xs font-medium text-destructive", className)}
       {...props}
     >
       {body}

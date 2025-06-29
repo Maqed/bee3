@@ -212,12 +212,12 @@ function Step3Information({
 
         <Separator />
 
-        <div className="flex h-full flex-wrap items-stretch gap-2">
+        <div>
           <FormField
             control={form.control}
             name="price"
             render={({ field }) => (
-              <FormItem className="flex-1">
+              <FormItem>
                 <FormLabel>{tSell("price.label")}</FormLabel>
                 <FormControl>
                   <PrefixLabelledInput
@@ -245,20 +245,23 @@ function Step3Information({
             control={form.control}
             name="negotiable"
             render={({ field }) => (
-              <FormItem className="mt-8 flex items-center justify-center gap-1 space-y-0 self-center">
-                <FormControl>
-                  <Checkbox
-                    checked={form.watch("negotiable")}
-                    onCheckedChange={(checked) =>
-                      form.setValue("negotiable", Boolean(checked))
-                    }
-                    disabled={isPending}
-                  />
-                </FormControl>
-                <FormLabel className="text-sm font-normal">
-                  {tSell("negotiable")}
-                </FormLabel>
+              <FormItem className="flex gap-x-6 space-y-0 sm:items-center sm:justify-center">
+                <FormLabel className="text-sm font-normal"></FormLabel>
                 <FormMessage />
+                <div className="flex flex-row items-center gap-1">
+                  <FormControl>
+                    <Checkbox
+                      checked={form.watch("negotiable")}
+                      onCheckedChange={(checked) =>
+                        form.setValue("negotiable", Boolean(checked))
+                      }
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormLabel className="mb-2 text-sm font-normal">
+                    {tSell("negotiable")}
+                  </FormLabel>
+                </div>
               </FormItem>
             )}
           />

@@ -71,44 +71,38 @@ export default function ForgetPasswordForm() {
       className="flex h-full min-h-[40vh] w-full items-center justify-center px-4"
       dir={isRtl ? "rtl" : "ltr"}
     >
-      <Card className="mx-auto max-w-sm">
+      <Card className="w-full max-w-2xl">
         <CardHeader>
           <CardTitle className="text-2xl">{t("title")}</CardTitle>
           <CardDescription>{t("description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <div className="grid gap-4">
-                {/* Email Field */}
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem className="grid gap-2">
-                      <FormLabel htmlFor="email">{t("emailLabel")}</FormLabel>
-                      <FormControl>
-                        <Input
-                          id="email"
-                          placeholder={t("emailPlaceholder")}
-                          type="email"
-                          autoComplete="email"
-                          disabled={isPending}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" disabled={isPending} className="w-full">
-                  {isPending ? (
-                    <Spinner className="size-5" />
-                  ) : (
-                    t("submitButton")
-                  )}
-                </Button>
-              </div>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+              {/* Email Field */}
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="">
+                    <FormLabel htmlFor="email">{t("emailLabel")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="email"
+                        placeholder={t("emailPlaceholder")}
+                        type="email"
+                        autoComplete="email"
+                        disabled={isPending}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" disabled={isPending} className="w-full">
+                {isPending ? <Spinner className="size-5" /> : t("submitButton")}
+              </Button>
             </form>
           </Form>
         </CardContent>

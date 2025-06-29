@@ -69,8 +69,8 @@ export default function ResetPasswordForm() {
     });
   }
   return (
-    <div className="flex h-full min-h-[50vh] w-full items-center justify-center px-4">
-      <Card className="mx-auto max-w-sm">
+    <div className="flex h-full min-h-[50vh] w-full items-center justify-center px-1">
+      <Card className="w-full max-w-2xl">
         <CardHeader>
           <CardTitle className="text-2xl">{tForm("title")}</CardTitle>
           <CardDescription>{tForm("description")}</CardDescription>
