@@ -98,7 +98,7 @@ function EmailRegisterForm() {
                 <Input
                   autoFocus
                   disabled={isPending}
-                  autoComplete="username"
+                  autoComplete="name"
                   placeholder={t("name.placeholder")}
                   {...field}
                 />
