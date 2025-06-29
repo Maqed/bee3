@@ -53,10 +53,10 @@ function SellForm({
   );
   type SellFormType = z.infer<typeof adSchemaClient>;
   const onSubmit = async (data: SellFormType) => {
-    if (!data.userContactInfo) {
+    if (!data.userContactMethod) {
       toast({
-        title: tErrors(`submit.must-have-contact-info.title`),
-        description: tErrors(`submit.must-have-contact-info.description`),
+        title: tErrors(`submit.must-have-contact-method.title`),
+        description: tErrors(`submit.must-have-contact-method.description`),
         variant: "destructive",
       });
       return;
@@ -69,10 +69,10 @@ function SellForm({
           userUpdateData.name = data.userName;
         }
         if (
-          data.userContactInfo !== undefined &&
-          data.userContactInfo !== session?.user.contactInfo
+          data.userContactMethod !== undefined &&
+          data.userContactMethod !== session?.user.contactMethod
         ) {
-          userUpdateData.contactInfo = data.userContactInfo;
+          userUpdateData.contactMethod = data.userContactMethod;
         }
 
         // Update user information if any changes were made

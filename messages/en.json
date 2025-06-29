@@ -701,10 +701,10 @@
         "placeholder": "My name is... and I sell ... I'm experienced in ...",
         "description": "Write about yourself here"
       },
-      "contact-info": {
-        "title": "Contact Information",
+      "contact-method": {
+        "title": "Contact method",
         "description": "Buyers can contact you through this information",
-        "placeholder": "Enter your contact information"
+        "placeholder": "Enter your contact method"
       },
       "phoneNumber": {
         "title": "Phone Number",
@@ -750,7 +750,7 @@
         "title": "Pricing"
       },
       "contact": {
-        "title": "Contact Information"
+        "title": "Contact method"
       },
       "user-info": {
         "title": "Your Information",
@@ -764,9 +764,9 @@
           "placeholder": "Tell buyers about yourself",
           "description": "A short description about you"
         },
-        "contact-info": {
-          "label": "Contact Information",
-          "placeholder": "Enter your contact information",
+        "contact-method": {
+          "label": "Contact method",
+          "placeholder": "Enter your contact method",
           "description": "How buyers can contact you"
         }
       }
@@ -841,7 +841,7 @@
     "user": {
       "posted-by": "Posted By",
       "member-since": "Member since:",
-      "contact-info": "Contact Info"
+      "contact-method": "Contact Info"
     },
     "safety-tips": {
       "title": "Your safety matters to us!",
@@ -931,13 +931,13 @@
         "min": "Name must be at least 2 characters long",
         "max": "Name must be at most 20 characters long"
       },
-      "user-contact-info": {
-        "max": "Contact information must be at most 75 characters long"
+      "user-contact-method": {
+        "max": "Contact method must be at most 75 characters long"
       },
       "submit": {
-        "must-have-contact-info": {
-          "title": "Contact information required",
-          "description": "Please add your contact information before submitting the ad."
+        "must-have-contact-method": {
+          "title": "Contact method required",
+          "description": "Please add your contact method before submitting the ad."
         },
         "failed-not-enough-tokens": {
           "title": "You don't have enough tokens.",
@@ -952,8 +952,8 @@
       "bio": {
         "invalid": "Bio must be at most 75 characters."
       },
-      "contact-info": {
-        "invalid": "Contact Information must be at most 75 characters."
+      "contact-method": {
+        "invalid": "Contact method must be at most 75 characters."
       }
     },
     "phone-number": {

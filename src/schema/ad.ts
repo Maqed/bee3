@@ -132,9 +132,9 @@ const adSchemaMutual = {
     .min(2, { message: "/sell.user-name.min" })
     .max(20, { message: "/sell.user-name.max" })
     .optional(),
-  userContactInfo: z
+  userContactMethod: z
     .string()
-    .max(75, { message: "/sell.user-contact-info.max" })
+    .max(75, { message: "/sell.user-contact-method.max" })
     .optional(),
 };
 

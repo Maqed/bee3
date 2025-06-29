@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { cn, getLocalizedTimeAgo } from "@/lib/utils";
 import type { AdWithUser } from "@/types/ad-page-types";
-import { ContactInfo } from "./contact-info";
+import { ContactMethod } from "./contact-method";
 
 type UserInformationProps = {
   ad: AdWithUser;
@@ -37,11 +37,11 @@ export function UserInformation({
           </p>
         </CardContent>
       </Link>
-      {ad.user?.contactInfo ? (
+      {ad.user?.contactMethod ? (
         <CardFooter>
-          <ContactInfo
-            title={tAd("user.contact-info")}
-            contactInfo={ad.user.contactInfo}
+          <ContactMethod
+            title={tAd("user.contact-method")}
+            contactMethod={ad.user.contactMethod}
           />
         </CardFooter>
       ) : null}

@@ -16,7 +16,7 @@ export async function GET(
             id: true,
             name: true,
             createdAt: true,
-            contactInfo: true,
+            contactMethod: true,
           },
         },
         images: {

@@ -111,7 +111,7 @@ export const auth = betterAuth({
       bio: {
         type: "string",
       },
-      contactInfo: {
+      contactMethod: {
         type: "string",
       },
     },

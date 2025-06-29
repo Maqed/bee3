@@ -34,7 +34,7 @@ function SellPage() {
       negotiable: false,
       categoryOptions: "",
       userName: "",
-      userContactInfo: "",
+      userContactMethod: "",
     },
   });
 
@@ -42,7 +42,7 @@ function SellPage() {
   useEffect(() => {
     if (session?.user) {
       form.setValue("userName", session.user.name || "");
-      form.setValue("userContactInfo", session.user.contactInfo || "");
+      form.setValue("userContactMethod", session.user.contactMethod || "");
     }
   }, [session, form]);
 

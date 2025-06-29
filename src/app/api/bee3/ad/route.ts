@@ -15,8 +15,8 @@ export async function POST(request: Request) {
   // if (!user.phoneNumber || !user.phoneNumberVerified)
   // return NextResponse.json({ error: "must-have-phone-number" });
 
-  if (!user.contactInfo)
-    return NextResponse.json({ error: "must-have-contact-info" });
+  if (!user.contactMethod)
+    return NextResponse.json({ error: "must-have-contact-method" });
 
   const req = adSchemaServer.safeParse(await request.json());
   if (!req.success)
@@ -123,21 +123,22 @@ export async function POST(request: Request) {
 
       // Create attribute values for each option
       for (const [attrName, attrValue] of Object.entries(categoryOptions)) {
-        const attribute = attributes.find(attr => attr.name === attrName);
+        const attribute = attributes.find((attr) => attr.name === attrName);
 
         if (attribute) {
           await tx.attributeValue.create({
             data: {
-              value: typeof attrValue === 'string'
-                ? attrValue
-                : JSON.stringify(attrValue),
+              value:
+                typeof attrValue === "string"
+                  ? attrValue
+                  : JSON.stringify(attrValue),
               attribute: {
-                connect: { id: attribute.id }
+                connect: { id: attribute.id },
               },
               ad: {
-                connect: { id: newAd.id }
-              }
-            }
+                connect: { id: newAd.id },
+              },
+            },
           });
         }
       }

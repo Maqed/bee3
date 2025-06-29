@@ -301,11 +301,11 @@ function Step3Information({
 
           <FormField
             control={form.control}
-            name="userContactInfo"
+            name="userContactMethod"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  {tSell("step3.user-info.contact-info.label")}
+                  {tSell("step3.user-info.contact-method.label")}
                 </FormLabel>
                 <FormControl>
                   {isSessionPending ? (
@@ -313,7 +313,7 @@ function Step3Information({
                   ) : (
                     <Textarea
                       placeholder={tSell(
-                        "step3.user-info.contact-info.placeholder",
+                        "step3.user-info.contact-method.placeholder",
                       )}
                       {...field}
                       disabled={isPending}
@@ -321,7 +321,7 @@ function Step3Information({
                   )}
                 </FormControl>
                 <FormDescription>
-                  {tSell("step3.user-info.contact-info.description")}
+                  {tSell("step3.user-info.contact-method.description")}
                 </FormDescription>
                 <FormMessage />
               </FormItem>

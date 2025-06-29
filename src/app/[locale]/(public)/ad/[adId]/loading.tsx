@@ -4,7 +4,7 @@ import {
   PriceAndTitlePlaceholder,
   DescriptionPlaceholder,
   UserInformationPlaceholder,
-  ContactInfoPlaceholder,
+  ContactMethodPlaceholder,
   RelatedAdsPlaceholder,
 } from "@/components/placeholders/ad-page-placeholder";
 import SafetyTipsCard from "@/components/bee3/ad-page/safety-matters";
@@ -22,7 +22,7 @@ export default function AdPagePlaceholder() {
           <Separator />
           <RelatedAdsPlaceholder />
         </div>
-        <ContactInfoPlaceholder />
+        <ContactMethodPlaceholder />
       </div>
       <div className="hidden space-y-3 md:col-span-4 md:block">
         <UserInformationPlaceholder />
