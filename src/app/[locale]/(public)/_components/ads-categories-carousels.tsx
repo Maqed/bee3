@@ -1,34 +1,28 @@
 import React from "react";
 import { getServerSideFullCategory } from "@/lib/server-side";
 import AdsCarousel from "@/components/bee3/ads-carousel";
-import { absoluteURL, toPathFormat } from "@/lib/utils";
-import { categoriesTree } from "@/schema/categories-tree";
-import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
-
-export async function fetchCategoryCarousel(categoryPath: string) {
-  const adsResponse = await fetch(
-    absoluteURL(
-      `/api/bee3/search?category=${categoryPath}&pageSize=${NUMBER_OF_ADS_IN_CAROUSEL}`,
-    ),
-    {
-      method: "GET",
-    },
-  );
-
-  const { ads } = await adsResponse.json();
-  return ads;
-}
+import { absoluteURL } from "@/lib/utils";
 
 async function AdsCategoriesCarousels() {
+  const response = await fetch(absoluteURL("/api/home-page-carousel"), {
+    method: "GET",
+  });
+
+  if (!response.ok) {
+    console.error("Failed to fetch carousel data");
+    return null;
+  }
+
+  const { categories } = await response.json();
+
+  // Get category titles for each category
   const categoriesData = await Promise.all(
-    categoriesTree.map(async (category) => {
-      const categoryPathName = toPathFormat(category.name);
-      const categoryURL = `/${categoryPathName}`;
-      const categoryAds = await fetchCategoryCarousel(categoryPathName);
+    categories.map(async (categoryData: any) => {
+      const title = await getServerSideFullCategory(categoryData.categoryPath);
       return {
-        categoryAds,
-        categoryURL,
-        title: await getServerSideFullCategory(categoryPathName),
+        categoryAds: categoryData.ads,
+        categoryURL: `/${categoryData.categoryPath}`,
+        title,
       };
     }),
   );
@@ -37,6 +31,7 @@ async function AdsCategoriesCarousels() {
     <>
       {categoriesData.map(({ categoryAds, categoryURL, title }) => (
         <AdsCarousel
+          key={categoryURL}
           ads={categoryAds}
           title={title}
           showMoreHref={categoryURL}
