@@ -17,7 +17,7 @@ export function Logo() {
         width={40}
         height={40}
       />
-      <span className="hidden sm:block">Bee3</span>
+      <span>Bee3</span>
     </div>
   );
 }
