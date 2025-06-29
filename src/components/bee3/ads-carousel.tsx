@@ -23,7 +23,7 @@ export default async function AdsCarousel({ title, showMoreHref, ads }: Props) {
   if (ads.length > 0)
     return (
       <section className="container w-full">
-        <div className="mb-3 flex items-center justify-between">
+        <div className="mb-3 flex flex-wrap items-center justify-between">
           <h2 className="text-lg font-bold md:text-2xl">{title}</h2>
           <Link
             href={showMoreHref}
