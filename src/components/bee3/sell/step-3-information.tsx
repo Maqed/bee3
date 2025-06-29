@@ -269,9 +269,6 @@ function Step3Information({
             <h3 className="text-lg font-semibold">
               {tSell("step3.user-info.title")}
             </h3>
-            <p className="text-sm text-muted-foreground">
-              {tSell("step3.user-info.description")}
-            </p>
           </div>
 
           <FormField
