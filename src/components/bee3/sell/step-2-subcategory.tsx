@@ -69,7 +69,8 @@ function Step2Subcategory({
                 subCategoryNamePathFormat,
               );
               const SubCategoryIcon = categoryIcons[categoryNamePathFormat]
-                ?.subCategories[subCategoryNamePathFormat] as CategoryIconType;
+                ?.categories?.[subCategoryNamePathFormat]
+                ?.icon as CategoryIconType;
 
               return (
                 <CategoryListboxItem

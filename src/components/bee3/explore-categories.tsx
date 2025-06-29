@@ -72,9 +72,8 @@ function ExploreCategories() {
                             subCategory.name,
                           );
                           const SubCategoryIcon = categoryIconData
-                            ?.subCategories[
-                            subCategoryNamePathFormat
-                          ] as CategoryIconType;
+                            ?.categories?.[subCategoryNamePathFormat]
+                            ?.icon as CategoryIconType;
                           const subCategoryName =
                             await getServerSideSubCategory(
                               categoryNamePathFormat,
