@@ -20,8 +20,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { Label } from "@/components/ui/label";
-import UserPhoneButton from "@/components/auth/user-phone-button/user-phone-button";
 
 type Props = {
   isPending: boolean;
@@ -115,17 +113,6 @@ function EditAccountSection({ isPending, startTransition }: Props) {
           </Button>
         </form>
       </Form>
-      <div className="flex flex-col gap-3">
-        <Label htmlFor="phoneNumber">{t("settings.phoneNumber.title")}</Label>
-        {isSessionPending ? (
-          <Skeleton className="h-10 w-full" />
-        ) : (
-          <UserPhoneButton
-            id="phoneNumber"
-            value={session?.user.phoneNumber?.slice(3)}
-          />
-        )}
-      </div>
     </section>
   );
 }

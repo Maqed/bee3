@@ -17,8 +17,6 @@ import { Separator } from "@/components/ui/separator";
 import { UploadAdImageButton } from "@/components/bee3/ad-image-button";
 import LocationCombobox from "@/components/bee3/location-combobox";
 import PrefixLabelledInput from "@/components/ui/prefix-labelled-input";
-import { Skeleton } from "@/components/ui/skeleton";
-import UserPhoneButton from "@/components/auth/user-phone-button/user-phone-button";
 import CategoryOptionsSection from "./category-options-section";
 import { authClient } from "@/lib/auth-client";
 import type { UseFormReturn } from "react-hook-form";
@@ -264,23 +262,6 @@ function Step3Information({
             )}
           />
         </div>
-
-        <Separator />
-
-        <FormItem className="flex flex-col gap-3">
-          <FormLabel>{tSell("user-phone-button.label")}</FormLabel>
-          <FormControl>
-            {isSessionPending ? (
-              <Skeleton className="h-10 w-full" />
-            ) : (
-              <UserPhoneButton
-                id="phoneNumber"
-                value={session?.user.phoneNumber?.slice(3)}
-              />
-            )}
-          </FormControl>
-          <FormMessage />
-        </FormItem>
       </div>
     </div>
   );

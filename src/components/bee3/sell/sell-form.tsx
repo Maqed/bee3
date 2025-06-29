@@ -2,7 +2,6 @@
 import type React from "react";
 import type { Dispatch, SetStateAction, TransitionStartFunction } from "react";
 import { useState } from "react";
-
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -45,22 +44,12 @@ function SellForm({
   const tErrors = useTranslations("errors./sell");
   const router = useRouter();
   const { toast } = useToast();
-  const { data: session, isPending: isSessionPending } =
-    authClient.useSession();
 
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
     null,
   );
   type SellFormType = z.infer<typeof adSchemaClient>;
   const onSubmit = async (data: SellFormType) => {
-    if (!session?.user.phoneNumber || !session?.user.phoneNumberVerified) {
-      toast({
-        title: tErrors(`submit.must-have-phone-number.title`),
-        description: tErrors(`submit.must-have-phone-number.description`),
-        variant: "destructive",
-      });
-      return;
-    }
     toast({
       title: tSell("toast.loading.title"),
       description: tSell("toast.loading.description"),

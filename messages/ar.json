@@ -800,9 +800,6 @@
       "description": "حدد سعر منتجك"
     },
     "negotiable": "قابل للتفاوض",
-    "user-phone-button": {
-      "label": "رقم الهاتف"
-    },
     "toast": {
       "loading": {
         "title": "يتم الآن رفع الإعلان على خوادمنا",
@@ -915,10 +912,6 @@
         "failed-not-enough-tokens": {
           "title": "ليس لديك ما يكفي من الرموز.",
           "description": "يرجى شراء المزيد من الرموز للاستمرار في البيع."
-        },
-        "must-have-phone-number": {
-          "title": "يجب أن يكون لديك رقم هاتف",
-          "description": "يرجى إدخال رقم هاتفك"
         }
       }
     },
