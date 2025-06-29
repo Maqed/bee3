@@ -66,7 +66,7 @@ function AdCard({ ad, orientation = "vertical", cardClassName }: Props) {
             <CardTitle className="relative flex w-full items-center justify-between">
               <span
                 className={cn(
-                  "flex w-full items-center gap-1 text-lg font-semibold text-primary",
+                  "flex w-full items-center gap-1 text-xl font-semibold text-primary",
                   orientation === "horizontal" && "md:text-3xl",
                 )}
               >
@@ -76,10 +76,7 @@ function AdCard({ ad, orientation = "vertical", cardClassName }: Props) {
                 )}
               </span>
               <FavoritesHeart
-                className={cn(
-                  "size-6",
-                  orientation === "horizontal" && "md:size-7",
-                )}
+                className={cn(orientation === "horizontal" && "md:size-7")}
                 adId={ad.id}
               />
             </CardTitle>

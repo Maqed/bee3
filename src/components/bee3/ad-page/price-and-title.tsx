@@ -31,7 +31,7 @@ export function PriceAndTitle({ ad, locale }: PriceAndTitleProps) {
             </Badge>
           </span>
           <div className="flex flex-wrap gap-2">
-            <FavoritesHeart className="size-6" adId={ad.id} />
+            <FavoritesHeart adId={ad.id} />
             <CopyToClipboardButton
               toBeCopiedText={adUrl}
               variant="ghost"

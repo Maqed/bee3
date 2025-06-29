@@ -89,13 +89,13 @@ function FavoritesHeart({ adId, className }: Props) {
     <Button
       variant="ghost"
       size="icon"
-      className="group size-8 p-1"
+      className="group p-1"
       onClick={handleHeartClick}
     >
       <LottieHeart
         isFavorited={isFavorited}
         className={cn(
-          "cursor-pointer transition-all",
+          "size-8 cursor-pointer transition-all",
           isFavorited && !isFavoritesFetching
             ? "text-red-600 group-hover:text-red-700"
             : "text-foreground/70 group-hover:text-red-600",
