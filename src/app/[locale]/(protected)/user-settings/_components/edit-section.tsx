@@ -36,15 +36,17 @@ function EditAccountSection({ isPending, startTransition }: Props) {
     defaultValues: {
       name: session?.user.name ?? "",
       bio: session?.user.bio ?? "",
+      contactInfo: session?.user.contactInfo ?? "",
     },
     values: session?.user,
   });
   async function onSubmit(values: z.infer<typeof userSettingsSchema>) {
     startTransition(async () => {
-      const { name, bio } = values;
+      const { name, bio, contactInfo } = values;
       await authClient.updateUser({
         name,
         bio,
+        contactInfo,
         fetchOptions: {
           onSuccess: () => {
             toast({ title: t("toast.updated"), variant: "success" });
@@ -102,6 +104,30 @@ function EditAccountSection({ isPending, startTransition }: Props) {
                 </FormControl>
                 <FormDescription>
                   {t("settings.bio.description")}
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="contactInfo"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("settings.contact-info.title")}</FormLabel>
+                <FormControl>
+                  {isSessionPending ? (
+                    <Skeleton className="h-10 w-full" />
+                  ) : (
+                    <Textarea
+                      disabled={isPending}
+                      placeholder={t("settings.contact-info.placeholder")}
+                      {...field}
+                    />
+                  )}
+                </FormControl>
+                <FormDescription>
+                  {t("settings.contact-info.description")}
                 </FormDescription>
                 <FormMessage />
               </FormItem>
