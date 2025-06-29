@@ -162,7 +162,7 @@ export function AsyncSearch<T>({
 
   return (
     <Command
-      className="relative w-full md:w-[300px] lg:w-[450px]"
+      className="relative w-full bg-transparent md:w-[300px] lg:w-[450px]"
       shouldFilter={false}
     >
       <CommandInput
