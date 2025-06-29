@@ -13,7 +13,7 @@ function AdSearchBoxDialog() {
           <Search />
         </Button>
       </DialogTrigger>
-      <DialogContent className="h-full w-full border-0 p-0">
+      <DialogContent className="h-full w-full max-w-none border-0 p-0">
         <AdSearchboxInput
           onSearch={() => {
             setOpen(false);

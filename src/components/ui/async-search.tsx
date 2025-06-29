@@ -171,7 +171,7 @@ export function AsyncSearch<T>({
           if (e.key === "Enter" && searchTerm.length) onSubmit();
         }}
         className={cn(
-          "flex items-center rounded-xl border border-b-0 bg-accent px-3 text-accent-foreground",
+          "flex items-center rounded-b-xl border border-b-0 bg-accent px-3 text-accent-foreground md:rounded-xl",
           { "rounded-b-none": isResultVisible },
         )}
         inputClassName="flex h-11 w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
