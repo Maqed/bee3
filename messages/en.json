@@ -751,6 +751,25 @@
       },
       "contact": {
         "title": "Contact Information"
+      },
+      "user-info": {
+        "title": "Your Information",
+        "description": "Update your profile information for this ad",
+        "name": {
+          "label": "Name",
+          "placeholder": "Enter your name",
+          "description": "Your name will be displayed with this ad"
+        },
+        "bio": {
+          "label": "Bio",
+          "placeholder": "Tell buyers about yourself",
+          "description": "A short description about you"
+        },
+        "contact-info": {
+          "label": "Contact Information",
+          "placeholder": "Enter your contact information",
+          "description": "How buyers can contact you"
+        }
       }
     },
     "stepper": {
@@ -911,7 +930,18 @@
       "image-size-description": "Please upload a smaller image.",
       "governorateId": "Please choose a governorate",
       "cityId": "Please choose a city",
+      "user-name": {
+        "min": "Name must be at least 2 characters long",
+        "max": "Name must be at most 20 characters long"
+      },
+      "user-contact-info": {
+        "max": "Contact information must be at most 75 characters long"
+      },
       "submit": {
+        "must-have-contact-info": {
+          "title": "Contact information required",
+          "description": "Please add your contact information before submitting the ad."
+        },
         "failed-not-enough-tokens": {
           "title": "You don't have enough tokens.",
           "description": "Please buy more tokens to continue selling."

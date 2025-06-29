@@ -1,5 +1,5 @@
 "use client";
-import { useTransition, useState } from "react";
+import { useTransition, useState, useEffect } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -32,8 +32,18 @@ function SellPage() {
       cityId: 0,
       negotiable: false,
       categoryOptions: "",
+      userName: "",
+      userContactInfo: "",
     },
   });
+
+  // Update form values when session becomes available
+  useEffect(() => {
+    if (session?.user) {
+      form.setValue("userName", session.user.name || "");
+      form.setValue("userContactInfo", session.user.contactInfo || "");
+    }
+  }, [session, form]);
 
   if (isPending && !isSubmissionSuccessful)
     return (

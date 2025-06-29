@@ -22,6 +22,7 @@ import { authClient } from "@/lib/auth-client";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 import type { adSchemaClient } from "@/schema/ad";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Step3InformationProps {
   form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
@@ -257,6 +258,71 @@ function Step3Information({
                 <FormLabel className="text-sm font-normal">
                   {tSell("negotiable")}
                 </FormLabel>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <Separator />
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <h3 className="text-lg font-semibold">
+              {tSell("step3.user-info.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {tSell("step3.user-info.description")}
+            </p>
+          </div>
+
+          <FormField
+            control={form.control}
+            name="userName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{tSell("step3.user-info.name.label")}</FormLabel>
+                <FormControl>
+                  {isSessionPending ? (
+                    <Skeleton className="h-10 w-full" />
+                  ) : (
+                    <Input
+                      placeholder={tSell("step3.user-info.name.placeholder")}
+                      {...field}
+                      disabled={isPending}
+                    />
+                  )}
+                </FormControl>
+                <FormDescription>
+                  {tSell("step3.user-info.name.description")}
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="userContactInfo"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {tSell("step3.user-info.contact-info.label")}
+                </FormLabel>
+                <FormControl>
+                  {isSessionPending ? (
+                    <Skeleton className="h-16 w-full" />
+                  ) : (
+                    <Textarea
+                      placeholder={tSell(
+                        "step3.user-info.contact-info.placeholder",
+                      )}
+                      {...field}
+                      disabled={isPending}
+                    />
+                  )}
+                </FormControl>
+                <FormDescription>
+                  {tSell("step3.user-info.contact-info.description")}
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

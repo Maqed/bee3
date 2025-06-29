@@ -2,6 +2,7 @@
 import type React from "react";
 import type { Dispatch, SetStateAction, TransitionStartFunction } from "react";
 import { useState } from "react";
+
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -44,21 +45,58 @@ function SellForm({
   const tErrors = useTranslations("errors./sell");
   const router = useRouter();
   const { toast } = useToast();
+  const { data: session, isPending: isSessionPending } =
+    authClient.useSession();
 
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
     null,
   );
   type SellFormType = z.infer<typeof adSchemaClient>;
   const onSubmit = async (data: SellFormType) => {
-    toast({
-      title: tSell("toast.loading.title"),
-      description: tSell("toast.loading.description"),
-      variant: "info",
-    });
-
+    if (!data.userContactInfo) {
+      toast({
+        title: tErrors(`submit.must-have-contact-info.title`),
+        description: tErrors(`submit.must-have-contact-info.description`),
+        variant: "destructive",
+      });
+      return;
+    }
     startTransition(async () => {
       try {
+        // Prepare user update data if any user fields were changed
+        const userUpdateData: any = {};
+        if (data.userName && data.userName !== session?.user.name) {
+          userUpdateData.name = data.userName;
+        }
+        if (
+          data.userContactInfo !== undefined &&
+          data.userContactInfo !== session?.user.contactInfo
+        ) {
+          userUpdateData.contactInfo = data.userContactInfo;
+        }
+
+        // Update user information if any changes were made
+        if (Object.keys(userUpdateData).length > 0) {
+          await authClient.updateUser({
+            ...userUpdateData,
+            fetchOptions: {
+              onSuccess: () => {
+                console.log("User information updated successfully");
+              },
+              onError: (error) => {
+                console.error("Failed to update user information:", error);
+              },
+            },
+          });
+        }
+
         const images = await uploadToR2(data.images);
+
+        toast({
+          title: tSell("toast.loading.title"),
+          description: tSell("toast.loading.description"),
+          variant: "info",
+        });
 
         const response = await fetch("/api/bee3/ad", {
           method: "POST",

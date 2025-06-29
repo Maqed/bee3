@@ -203,6 +203,16 @@ const adSchemaMutual = {
   cityId: z.number().refine((id) => cities.some((c) => c.id === id), {
     message: "/sell.cityId",
   }),
+  // User information fields
+  userName: z
+    .string()
+    .min(2, { message: "/sell.user-name.min" })
+    .max(20, { message: "/sell.user-name.max" })
+    .optional(),
+  userContactInfo: z
+    .string()
+    .max(75, { message: "/sell.user-contact-info.max" })
+    .optional(),
 };
 
 export const adSchemaServer = z
