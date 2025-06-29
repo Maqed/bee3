@@ -95,27 +95,6 @@ const validateAttributeValue = (
         });
       }
       break;
-
-    case "multiselect":
-      if (!Array.isArray(value)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: `/sell.categoryOptions-${key}-must-be-array`,
-          path: ["categoryOptions"],
-        });
-      } else if (attribute.options) {
-        // Check that all values are in the options list
-        for (const item of value) {
-          if (!attribute.options.includes(item)) {
-            ctx.addIssue({
-              code: z.ZodIssueCode.custom,
-              message: `/sell.categoryOptions-${key}-invalid-option-${item}`,
-              path: ["categoryOptions"],
-            });
-          }
-        }
-      }
-      break;
   }
 };
 
