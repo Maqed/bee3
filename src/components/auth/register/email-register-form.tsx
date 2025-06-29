@@ -58,6 +58,7 @@ function EmailRegisterForm() {
           image: undefined,
           bio: "",
           phoneNumber: "",
+          contactInfo: "",
           callbackURL: DEFAULT_LOGIN_REDIRECT,
         },
         {

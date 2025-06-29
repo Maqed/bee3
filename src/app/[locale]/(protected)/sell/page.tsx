@@ -73,7 +73,6 @@ function SellPage() {
           user: {
             id: session?.user.id!,
             name: session?.user.name!,
-            phoneNumber: session?.user.phoneNumber!,
             createdAt: session?.user.createdAt!,
           },
         }}
@@ -108,7 +107,6 @@ function SellPage() {
           user: {
             id: session?.user.id!,
             name: session?.user.name!,
-            phoneNumber: session?.user.phoneNumber!,
             createdAt: session?.user.createdAt!,
           },
         }}
