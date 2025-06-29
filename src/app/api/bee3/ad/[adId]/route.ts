@@ -16,7 +16,6 @@ export async function GET(
             id: true,
             name: true,
             createdAt: true,
-            phoneNumber: true,
             contactInfo: true,
           },
         },

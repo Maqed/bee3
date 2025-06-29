@@ -839,9 +839,7 @@
     "user": {
       "posted-by": "نشر بواسطة",
       "member-since": "عضو منذ:",
-      "phone-number": "اظهر رقم الهاتف",
-      "chat": "دردشة",
-      "WhatsApp": "واتساب"
+      "contact-info": "طريقة التواصل"
     },
     "safety-tips": {
       "title": "سلامتك تهمنا!",

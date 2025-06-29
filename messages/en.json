@@ -842,9 +842,7 @@
     "user": {
       "posted-by": "Posted By",
       "member-since": "Member since:",
-      "phone-number": "Show Phone Number",
-      "chat": "Chat",
-      "WhatsApp": "WhatsApp"
+      "contact-info": "Contact Info"
     },
     "safety-tips": {
       "title": "Your safety matters to us!",

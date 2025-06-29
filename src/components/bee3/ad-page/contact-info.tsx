@@ -1,34 +1,13 @@
-"use client";
-import PhoneButton from "@/components/bee3/contact-info/phone-button";
-import WhatsAppButton from "@/components/bee3/contact-info/whatsapp-button";
-
 type ContactInfoProps = {
-  showTitle: boolean;
-  phoneNumber: string;
-  className?: string;
+  contactInfo: string;
+  title: string;
 };
 
-export function ContactInfo({
-  showTitle,
-  phoneNumber,
-  className,
-}: ContactInfoProps) {
+export function ContactInfo({ contactInfo, title }: ContactInfoProps) {
   return (
-    <div className={className}>
-      <PhoneButton showTitle={showTitle} phoneNumber={phoneNumber} />
-      <WhatsAppButton showTitle={showTitle} phoneNumber={phoneNumber} />
-    </div>
-  );
-}
-
-export function MobileContactInfo({ phoneNumber }: { phoneNumber: string }) {
-  return (
-    <div className="fixed bottom-0 start-0 flex w-full items-center justify-center border-t bg-background py-3 md:hidden">
-      <ContactInfo
-        className="flex gap-3"
-        showTitle={false}
-        phoneNumber={phoneNumber}
-      />
+    <div className="flex flex-col gap-1">
+      <div className="text-xl font-bold">{title}</div>
+      <div className="text-lg">{contactInfo}</div>
     </div>
   );
 }
