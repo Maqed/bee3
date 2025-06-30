@@ -166,6 +166,7 @@
   "filter-ads": {
     "title": "فلتر الاعلانات",
     "locationLabel": "الموقع",
+    "priceLabel": "السعر",
     "minPriceLabel": "السعر الأدنى",
     "maxPriceLabel": "السعر الأقصى",
     "sortByLabel": "ترتيب حسب",
