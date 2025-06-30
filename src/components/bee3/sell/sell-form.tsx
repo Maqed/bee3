@@ -150,8 +150,8 @@ function SellForm({
   };
 
   return (
-    <main className="sm:container sm:mx-auto sm:my-4">
-      <Card className="w-full">
+    <main className="flex items-center justify-center sm:container sm:mx-auto sm:my-4">
+      <Card className="w-full md:max-w-[1000px]">
         <CardHeader>
           <CardTitle>{tSell("title")}</CardTitle>
         </CardHeader>
