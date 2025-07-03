@@ -26,9 +26,11 @@ export function PriceAndTitle({ ad, locale }: PriceAndTitleProps) {
         <CardTitle className="flex flex-wrap items-center justify-between text-3xl text-primary md:text-5xl">
           <span className="flex items-center justify-center gap-3">
             {getLocalizedPrice(locale, ad.price)}{" "}
-            <Badge className="px-3 py-1 text-xl" variant="secondary">
-              {tAd("negotiable")}
-            </Badge>
+            {ad.negotiable && (
+              <Badge className="px-3 py-1 text-xl" variant="secondary">
+                {tAd("negotiable")}
+              </Badge>
+            )}
           </span>
           <div className="flex flex-wrap gap-2">
             <FavoritesHeart adId={ad.id} />
