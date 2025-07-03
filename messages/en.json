@@ -703,7 +703,7 @@
       },
       "contact-method": {
         "title": "Contact method",
-        "description": "Buyers can contact you through this information",
+        "description": "Buyers can contact you through this method",
         "placeholder": "Enter your contact method"
       },
       "phoneNumber": {
