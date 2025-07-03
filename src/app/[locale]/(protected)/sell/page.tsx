@@ -75,6 +75,7 @@ function SellPage() {
             id: session?.user.id!,
             name: session?.user.name!,
             createdAt: session?.user.createdAt!,
+            contactMethod: session?.user.contactMethod,
           },
         }}
       />
