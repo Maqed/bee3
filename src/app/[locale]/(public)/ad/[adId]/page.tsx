@@ -9,7 +9,6 @@ import type { AdWithUser } from "@/types/ad-page-types";
 import AdPageUI from "@/components/bee3/ad-page/ad-page-ui";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { db } from "@/server/db";
 import { getCategoryAndSubCategory } from "@/lib/category";
 
 async function fetchAdData(adId: string): Promise<AdWithUser | null> {
