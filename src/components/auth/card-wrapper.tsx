@@ -1,21 +1,14 @@
 "use client";
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Alert } from "@/components/ui/alert";
 import Social from "@/components/auth/social";
 import BackButton from "@/components/auth/back-button";
-import { AlertCircle, Mail } from "lucide-react";
-import { Button } from "../ui/button";
 import { useTranslations } from "next-intl";
 import SeparatorWithText from "../ui/separator-with-text";
-import { ReactNode, useState } from "react";
-import { BackwardArrow } from "../ui/arrows";
+import { ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 type CardWrapperProps = {
   headerLabel: string;
@@ -35,8 +28,6 @@ type CardWrapperProps = {
     }
 );
 
-type Methods = "" | "email";
-
 function CardWrapper({
   headerLabel,
   children,
@@ -49,7 +40,6 @@ function CardWrapper({
   const tSocialErrors = useTranslations("errors.social");
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
-  const [selectedMethod, setSelectedMethod] = useState<Methods>("");
   return (
     <Card className="w-full max-w-2xl shadow-md">
       <CardHeader>
@@ -67,41 +57,21 @@ function CardWrapper({
           />
         )}
       </CardHeader>
-      <CardContent className="pb-0">
-        {selectedMethod === "email" && continueWithEmailForm}
-        {selectedMethod && (
-          <Button
-            className="mt-5"
-            onClick={() => {
-              setSelectedMethod("");
-            }}
-            variant="link"
-          >
-            <BackwardArrow /> {t("go-back")}
-          </Button>
-        )}
+      <CardContent
+        className={cn("pb-0", {
+          "flex flex-col gap-3": isAuthenticationWrapper,
+        })}
+      >
         {children}
-      </CardContent>
-      <CardFooter className="flex w-full flex-col items-center gap-y-2">
-        {!selectedMethod && isAuthenticationWrapper && (
+        {isAuthenticationWrapper && (
           <>
-            <Button
-              autoFocus
-              onClick={() => {
-                setSelectedMethod("email");
-              }}
-              size="lg"
-              className="flex w-full gap-x-2"
-              variant="outline"
-            >
-              {t("email.title")} <Mail className="size-5 text-primary" />
-            </Button>
-            <SeparatorWithText>{t("or")}</SeparatorWithText>
             <Social />
+            <SeparatorWithText>{t("or")}</SeparatorWithText>
+            {continueWithEmailForm}
           </>
         )}
-        <BackButton label={backButtonLabel} href={backButtonHref} />
-      </CardFooter>
+      </CardContent>
+      <BackButton label={backButtonLabel} href={backButtonHref} />
     </Card>
   );
 }
