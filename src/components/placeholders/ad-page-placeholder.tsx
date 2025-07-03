@@ -1,16 +1,8 @@
 "use client";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { MapPin, Phone } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MapPin } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import Whatsapp from "@/components/icons/whatsapp";
 import {
   Carousel,
   CarouselContent,
@@ -104,30 +96,7 @@ export function UserInformationPlaceholder({
         <Skeleton className="mb-2 h-6 w-3/4" />
         <Skeleton className="h-4 w-1/2" />
       </CardContent>
-      <CardFooter className="flex flex-col gap-y-3">
-        <Button disabled className="w-full">
-          <Phone className="me-2" />
-          <Skeleton className="h-4 w-24" />
-        </Button>
-        <Button disabled variant="whatsapp" className="w-full">
-          <Whatsapp className="me-2 size-6" />
-          <Skeleton className="h-4 w-24" />
-        </Button>
-      </CardFooter>
     </Card>
-  );
-}
-
-export function ContactMethodPlaceholder() {
-  return (
-    <div className="fixed bottom-0 start-0 flex w-full items-center justify-center gap-3 border-t bg-background py-3 md:hidden">
-      <Button disabled size="lg">
-        <Phone className="me-2" />
-      </Button>
-      <Button disabled size="lg" variant="whatsapp">
-        <Whatsapp className="me-2 size-6" />
-      </Button>
-    </div>
   );
 }
 
