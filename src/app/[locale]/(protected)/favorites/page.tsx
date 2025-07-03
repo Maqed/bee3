@@ -1,10 +1,10 @@
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 import Navbar from "@/components/navbar/navbar";
 import { FavoriteAds } from "./_components/favorite-ads";
 import { Heart } from "lucide-react";
 
-async function FavoritesPage() {
-  const tFavorites = await getTranslations("/favorites");
+function FavoritesPage() {
+  const tFavorites = useTranslations("/favorites");
   return (
     <div>
       <Navbar />
