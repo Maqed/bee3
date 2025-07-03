@@ -65,9 +65,9 @@ const Carousel = React.forwardRef<
     const locale = useLocale();
     const [carouselRef, api] = useEmblaCarousel(
       {
-        ...opts,
         direction: locale === "ar" ? "rtl" : "ltr",
         axis: orientation === "horizontal" ? "x" : "y",
+        ...opts,
       },
       [WheelGesturesPlugin(), ...(plugins || [])],
     );
