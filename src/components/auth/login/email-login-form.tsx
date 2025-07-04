@@ -103,7 +103,7 @@ function EmailLoginForm() {
                 <PasswordInput
                   disabled={isPending}
                   autoComplete="current-password"
-                  placeholder="********"
+                  placeholder="∗∗∗∗∗∗∗∗"
                   {...field}
                 />
               </FormControl>

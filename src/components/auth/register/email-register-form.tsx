@@ -145,7 +145,7 @@ function EmailRegisterForm() {
                 <PasswordInput
                   disabled={isPending}
                   autoComplete="current-password"
-                  placeholder="********"
+                  placeholder="∗∗∗∗∗∗∗∗"
                   {...field}
                 />
               </FormControl>
@@ -167,7 +167,7 @@ function EmailRegisterForm() {
                 <PasswordInput
                   disabled={isPending}
                   autoComplete="new-password"
-                  placeholder="********"
+                  placeholder="∗∗∗∗∗∗∗∗"
                   {...field}
                 />
               </FormControl>

@@ -89,7 +89,7 @@ export default function ResetPasswordForm() {
                         <PasswordInput
                           disabled={isPending}
                           autoComplete="current-password"
-                          placeholder="********"
+                          placeholder="∗∗∗∗∗∗∗∗"
                           {...field}
                         />
                       </FormControl>
@@ -110,7 +110,7 @@ export default function ResetPasswordForm() {
                         <PasswordInput
                           disabled={isPending}
                           autoComplete="new-password"
-                          placeholder="********"
+                          placeholder="∗∗∗∗∗∗∗∗"
                           {...field}
                         />
                       </FormControl>
