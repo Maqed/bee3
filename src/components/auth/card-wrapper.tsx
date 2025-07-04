@@ -1,6 +1,11 @@
 "use client";
 import React from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { Alert } from "@/components/ui/alert";
 import Social from "@/components/auth/social";
 import BackButton from "@/components/auth/back-button";
@@ -71,7 +76,9 @@ function CardWrapper({
           </>
         )}
       </CardContent>
-      <BackButton label={backButtonLabel} href={backButtonHref} />
+      <CardFooter>
+        <BackButton label={backButtonLabel} href={backButtonHref} />
+      </CardFooter>
     </Card>
   );
 }

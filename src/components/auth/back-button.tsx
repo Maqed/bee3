@@ -10,7 +10,12 @@ interface BackButton {
 
 function BackButton({ label, href }: BackButton) {
   return (
-    <Button variant="link" className="w-full font-normal" size="sm" asChild>
+    <Button
+      variant="link"
+      className="mt-2 w-full font-normal"
+      size="sm"
+      asChild
+    >
       <Link href={href}>{label}</Link>
     </Button>
   );
