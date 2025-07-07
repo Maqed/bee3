@@ -138,7 +138,7 @@ function Step3Information({
             control={form.control}
             name="cityId"
             render={({ field }) => (
-              <FormItem className="flex flex-col gap-1">
+              <FormItem>
                 <FormLabel>{tSell("location.location.label")}</FormLabel>
                 <FormControl>
                   <LocationCombobox
@@ -164,7 +164,7 @@ function Step3Information({
               control={form.control}
               name="governorateId"
               render={({ field }) => (
-                <FormItem className="flex flex-col gap-1">
+                <FormItem>
                   <FormLabel>{tSell("location.governorate.label")}</FormLabel>
                   <FormControl>
                     <LocationCombobox
@@ -188,7 +188,7 @@ function Step3Information({
               control={form.control}
               name="cityId"
               render={({ field }) => (
-                <FormItem className="flex flex-col gap-1">
+                <FormItem>
                   <FormLabel>{tSell("location.city.label")}</FormLabel>
                   <FormControl>
                     <LocationCombobox
