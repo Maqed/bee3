@@ -1,65 +1,48 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/server/db";
-import { categoriesTree } from "@/schema/categories-tree";
-import { toPathFormat, getSubCategoryPaths } from "@/lib/category";
+import { getSubCategoryPaths, getFirstLevelCategories } from "@/lib/category";
 import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
 
 export async function GET(request: NextRequest) {
   try {
     // Get all first-level category paths
-    const firstLevelCategories = categoriesTree.map((category) => ({
-      name: category.name,
-      path: toPathFormat(category.name),
-    }));
+    const firstLevelCategories = getFirstLevelCategories();
 
-    // Build a single query to get ads for all first-level categories
-    const categoryPaths = firstLevelCategories.map((cat) => cat.path);
+    // Query ads for each category separately to limit results at database level
+    const groupedAds = await Promise.all(
+      firstLevelCategories.map(async (category) => {
+        // Get all subcategory paths for this category
+        const subPaths = getSubCategoryPaths(category.path);
+        const allCategoryPaths = [category.path, ...subPaths];
 
-    // Get all subcategory paths for each first-level category
-    const allCategoryPaths = categoryPaths.flatMap((categoryPath) => {
-      const subPaths = getSubCategoryPaths(categoryPath);
-      return [categoryPath, ...subPaths];
-    });
-
-    // Single query to get ads for all categories with proper grouping
-    const adsByCategory = await db.ad.findMany({
-      where: {
-        categoryPath: {
-          in: allCategoryPaths,
-        },
-      },
-      include: {
-        images: {
-          select: {
-            url: true,
+        // Query only the required number of ads for this category
+        const categoryAds = await db.ad.findMany({
+          where: {
+            categoryPath: {
+              in: allCategoryPaths,
+            },
           },
-          take: 1,
-        },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+          include: {
+            images: {
+              select: {
+                url: true,
+              },
+              take: 1,
+            },
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+          take: NUMBER_OF_ADS_IN_CAROUSEL,
+        });
 
-    // Group ads by their first-level category
-    const groupedAds = firstLevelCategories.map((category) => {
-      const categoryAds = adsByCategory
-        .filter((ad) => {
-          // Check if ad belongs to this category or its subcategories
-          const adCategoryPath = ad.categoryPath;
-          return (
-            adCategoryPath === category.path ||
-            adCategoryPath.startsWith(category.path + "/")
-          );
-        })
-        .slice(0, NUMBER_OF_ADS_IN_CAROUSEL);
-
-      return {
-        categoryName: category.name,
-        categoryPath: category.path,
-        ads: categoryAds,
-      };
-    });
+        return {
+          categoryName: category.name,
+          categoryPath: category.path,
+          ads: categoryAds,
+        };
+      }),
+    );
 
     return NextResponse.json({ categories: groupedAds });
   } catch (error) {
