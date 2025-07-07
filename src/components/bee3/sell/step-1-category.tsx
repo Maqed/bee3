@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/form";
 import { toPathFormat } from "@/lib/category";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
-import { useCategoryTranslations } from "@/lib/client-side";
+import { useCategoryTranslations } from "@/lib/category-synchronous";
 import { Listbox } from "@/components/ui/listbox";
 import CategoryListboxItem from "./category-list-box-item";
 
@@ -23,7 +23,7 @@ function Step1Category({
   onCategoryChange,
 }: Step1CategoryProps) {
   const tSell = useTranslations("/sell");
-  const { getClientSideFullCategory } = useCategoryTranslations();
+  const { getSynchronousFullCategory } = useCategoryTranslations();
 
   const mainCategories = categoriesTree;
 
@@ -51,7 +51,7 @@ function Step1Category({
           >
             {mainCategories.map((category) => {
               const categoryNamePathFormat = toPathFormat(category.name);
-              const categoryName = getClientSideFullCategory(
+              const categoryName = getSynchronousFullCategory(
                 categoryNamePathFormat,
               );
               const CategoryIcon = categoryIcons[categoryNamePathFormat]

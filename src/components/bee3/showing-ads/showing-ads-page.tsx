@@ -1,4 +1,4 @@
-import { useCategoryTranslations } from "@/lib/client-side";
+import { useCategoryTranslations } from "@/lib/category-synchronous";
 import FilterAds from "./filter-ads";
 import AdFilterDialog from "./ad-filter-dialog";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,9 +15,9 @@ function ShowingAdsPage({ categoryPath, searchParams }: Props) {
   let params = getURLSearchParamsFromPageParams(searchParams);
   const tShowingAdsPage = useTranslations("showing-ads-page");
   if (categoryPath) params.set("category", categoryPath.join("/"));
-  const { getClientSideFullCategory } = useCategoryTranslations();
+  const { getSynchronousFullCategory } = useCategoryTranslations();
   let title = categoryPath
-    ? getClientSideFullCategory(categoryPath.join("/"))
+    ? getSynchronousFullCategory(categoryPath.join("/"))
     : params.get("q")
       ? params.get("q")
       : "";

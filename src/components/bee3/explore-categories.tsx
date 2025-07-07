@@ -21,11 +21,11 @@ import { Link } from "@/navigation";
 import { toPathFormat } from "@/lib/category";
 import { Separator } from "@/components/ui/separator";
 import { useTranslations } from "next-intl";
-import { useCategoryTranslations } from "@/lib/client-side";
+import { useCategoryTranslations } from "@/lib/category-synchronous";
 
 function ExploreCategories() {
   const tNavigation = useTranslations("/.navigation");
-  const { getClientSideCategory, getClientSideSubCategory } =
+  const { getSynchronousCategory, getSynchronousSubCategory } =
     useCategoryTranslations();
 
   return (
@@ -36,7 +36,7 @@ function ExploreCategories() {
             const categoryNamePathFormat = toPathFormat(category.name);
             const categoryIconData = categoryIcons[categoryNamePathFormat];
             const CategoryIcon = categoryIconData?.icon as CategoryIconType;
-            const categoryName = getClientSideCategory(categoryNamePathFormat);
+            const categoryName = getSynchronousCategory(categoryNamePathFormat);
             return (
               <CarouselItem key={categoryName}>
                 <Dialog>
@@ -72,7 +72,7 @@ function ExploreCategories() {
                           const SubCategoryIcon = categoryIconData
                             ?.categories?.[subCategoryNamePathFormat]
                             ?.icon as CategoryIconType;
-                          const subCategoryName = getClientSideSubCategory(
+                          const subCategoryName = getSynchronousSubCategory(
                             categoryNamePathFormat,
                             subCategoryNamePathFormat,
                           );

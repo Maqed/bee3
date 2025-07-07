@@ -1,6 +1,6 @@
 "use client";
 import { AsyncSearch } from "@/components/ui/async-search";
-import { useCategoryTranslations } from "@/lib/client-side";
+import { useCategoryTranslations } from "@/lib/category-synchronous";
 import { absoluteURL } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -61,7 +61,7 @@ type fetchedDataType = {
 function AdSearchboxInput({ onSearch }: { onSearch?: () => void }) {
   const t = useTranslations("ad-searchbox");
   const router = useRouter();
-  const { getClientSideFullCategory } = useCategoryTranslations();
+  const { getSynchronousFullCategory } = useCategoryTranslations();
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState(searchParams.get("q") ?? "");
   return (
@@ -77,7 +77,7 @@ function AdSearchboxInput({ onSearch }: { onSearch?: () => void }) {
             {title}
             {category && (
               <span className="text-foreground/80 group-data-[selected='true']:text-primary-foreground/80">
-                {t("in")} {getClientSideFullCategory(category.categoryPath)}
+                {t("in")} {getSynchronousFullCategory(category.categoryPath)}
               </span>
             )}
           </div>

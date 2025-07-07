@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/form";
 import { toPathFormat } from "@/lib/category";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
-import { useCategoryTranslations } from "@/lib/client-side";
+import { useCategoryTranslations } from "@/lib/category-synchronous";
 import { Listbox } from "@/components/ui/listbox";
 import CategoryListboxItem from "./category-list-box-item";
 
@@ -27,7 +27,7 @@ function Step2Subcategory({
   isPending,
 }: Step2SubcategoryProps) {
   const tSell = useTranslations("/sell");
-  const { getClientSideSubCategory } = useCategoryTranslations();
+  const { getSynchronousSubCategory } = useCategoryTranslations();
 
   const subCategories = selectedMainCategory
     ? categoriesTree.find((category) => category.name === selectedMainCategory)
@@ -64,7 +64,7 @@ function Step2Subcategory({
             {subCategories.map((subCategory) => {
               const categoryNamePathFormat = toPathFormat(selectedMainCategory);
               const subCategoryNamePathFormat = toPathFormat(subCategory.name);
-              const subCategoryName = getClientSideSubCategory(
+              const subCategoryName = getSynchronousSubCategory(
                 categoryNamePathFormat,
                 subCategoryNamePathFormat,
               );
