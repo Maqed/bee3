@@ -21,25 +21,22 @@ import { Link } from "@/navigation";
 import { toPathFormat } from "@/lib/category";
 import { Separator } from "@/components/ui/separator";
 import { useTranslations } from "next-intl";
-import {
-  getServerSideCategory,
-  getServerSideSubCategory,
-} from "@/lib/server-side";
+import { useCategoryTranslations } from "@/lib/client-side";
 
 function ExploreCategories() {
   const tNavigation = useTranslations("/.navigation");
+  const { getClientSideCategory, getClientSideSubCategory } =
+    useCategoryTranslations();
 
   return (
     <section className="container">
       <Carousel opts={{ dragFree: true }} className="w-full whitespace-nowrap">
         <CarouselContent>
-          {categoriesTree.map(async (category) => {
+          {categoriesTree.map((category) => {
             const categoryNamePathFormat = toPathFormat(category.name);
             const categoryIconData = categoryIcons[categoryNamePathFormat];
             const CategoryIcon = categoryIconData?.icon as CategoryIconType;
-            const categoryName = await getServerSideCategory(
-              categoryNamePathFormat,
-            );
+            const categoryName = getClientSideCategory(categoryNamePathFormat);
             return (
               <CarouselItem key={categoryName}>
                 <Dialog>
@@ -68,18 +65,17 @@ function ExploreCategories() {
                         <Separator className="my-1 w-1/2" />
                       </div>
                       <div className="grid h-full w-full grid-cols-1 gap-4 py-4 max-sm:justify-items-start sm:grid-cols-3">
-                        {category.categories?.map(async (subCategory) => {
+                        {category.categories?.map((subCategory) => {
                           const subCategoryNamePathFormat = toPathFormat(
                             subCategory.name,
                           );
                           const SubCategoryIcon = categoryIconData
                             ?.categories?.[subCategoryNamePathFormat]
                             ?.icon as CategoryIconType;
-                          const subCategoryName =
-                            await getServerSideSubCategory(
-                              categoryNamePathFormat,
-                              subCategoryNamePathFormat,
-                            );
+                          const subCategoryName = getClientSideSubCategory(
+                            categoryNamePathFormat,
+                            subCategoryNamePathFormat,
+                          );
                           return (
                             <Link
                               key={`explore-subcategory-${subCategoryNamePathFormat}`}
