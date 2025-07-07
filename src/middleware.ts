@@ -1,5 +1,5 @@
 import createMiddleware from "next-intl/middleware";
-import { locales } from "./config";
+import { locales, localePrefix } from "./config";
 import { NextRequest, NextResponse } from "next/server";
 import {
   ONLY_UNAUTHENTICATED_ROUTES,
@@ -15,6 +15,9 @@ const intlMiddleware = createMiddleware({
 
   // Used when no locale matches
   defaultLocale: "ar",
+
+  // Configure locale prefix behavior
+  localePrefix,
 });
 
 export default async function middleware(req: NextRequest) {
