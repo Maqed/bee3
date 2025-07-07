@@ -121,7 +121,7 @@ function Step3Information({
         <Separator />
 
         {/* Category Options Section */}
-        {selectedSubCategory && form.watch("categoryId") > 0 && (
+        {selectedSubCategory && form.watch("categoryId") && (
           <>
             <CategoryOptionsSection
               form={form}

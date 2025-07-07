@@ -18,7 +18,7 @@ import { useTranslations } from "next-intl";
 
 interface CategoryOptionsSectionProps {
   form: UseFormReturn<any>;
-  categoryId: number;
+  categoryId: string;
   isPending: boolean;
   tSell: any;
 }

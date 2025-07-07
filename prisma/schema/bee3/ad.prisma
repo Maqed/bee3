@@ -5,7 +5,7 @@ enum AdTiers {
 }
 
 model Category {
-    id               Int        @id
+    id               String     @id
     path             String     @unique
     parentCategory   Category?  @relation("CategoryToCategory", fields: [parentCategoryId], references: [path], onDelete: NoAction, onUpdate: NoAction)
     parentCategoryId String?

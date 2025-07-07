@@ -8,7 +8,7 @@ model CategoryAttribute {
 
     // Link to category
     category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-    categoryId Int
+    categoryId String
 
     // Values for this attribute across ads
     values AttributeValue[]

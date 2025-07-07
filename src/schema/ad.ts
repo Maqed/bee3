@@ -114,7 +114,7 @@ const adSchemaMutual = {
     .optional(),
   categoryOptions: z.string().optional(),
   price: z.number().min(0, { message: "/sell.price" }),
-  categoryId: z.number().refine((id) => categoryExists(id, categoriesTree), {
+  categoryId: z.string().refine((id) => categoryExists(id, categoriesTree), {
     message: "/sell.categoryId",
   }),
   negotiable: z.boolean(),

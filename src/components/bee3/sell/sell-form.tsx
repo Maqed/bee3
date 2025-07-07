@@ -139,13 +139,13 @@ function SellForm({
   const handleCategoryChange = (category: string | null) => {
     setSelectedMainCategory(category);
     setSelectedSubCategory(null);
-    form.setValue("categoryId", 0);
+    form.setValue("categoryId", "");
     form.setValue("categoryOptions", "");
   };
 
   const handleSubCategoryChange = (subCategory: string | null) => {
     setSelectedSubCategory(subCategory);
-    form.setValue("categoryId", subCategory ? Number(subCategory) : 0);
+    form.setValue("categoryId", subCategory ? subCategory : "");
     form.setValue("categoryOptions", "");
   };
 

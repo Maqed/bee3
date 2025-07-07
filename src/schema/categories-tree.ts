@@ -7,7 +7,7 @@ export type CategoryAttributeDefinition = {
 };
 
 export type CategoryTreeItem = {
-  id: number;
+  id: string;
   name: string;
   attributes?: CategoryAttributeDefinition[];
   inheritParentAttributes?: boolean;
@@ -15,9 +15,14 @@ export type CategoryTreeItem = {
   categories?: CategoryTreeItem[];
 };
 
+/*
+Categories IDs: Based on its depth & position, 
+For example: 1,2,3,4, ... , 9, a, b, c, ...., z for categories with depth 0
+if category of ID 2 has sub categories: their IDs will be: 21, 22, 23, ... ,29, 2a, 2b, 2c, ..., 2z
+*/
 export const categoriesTree: CategoryTreeItem[] = [
   {
-    id: 1,
+    id: "1",
     name: "vehicles",
     attributes: [
       { name: "year", type: "number" },
@@ -25,7 +30,7 @@ export const categoriesTree: CategoryTreeItem[] = [
     ],
     categories: [
       {
-        id: 2,
+        id: "12",
         name: "cars-for-sale",
         attributes: [
           {
@@ -42,7 +47,7 @@ export const categoriesTree: CategoryTreeItem[] = [
         ],
       },
       {
-        id: 3,
+        id: "13",
         name: "cars-for-rent",
         attributes: [
           {
@@ -64,7 +69,7 @@ export const categoriesTree: CategoryTreeItem[] = [
         ],
       },
       {
-        id: 4,
+        id: "14",
         name: "tyres-batteries-oils-accessories",
         inheritParentAttributes: false,
         attributes: [
@@ -75,22 +80,22 @@ export const categoriesTree: CategoryTreeItem[] = [
           },
         ],
       },
-      { id: 5, name: "car-spare-parts", inheritParentAttributes: false },
+      { id: "15", name: "car-spare-parts", inheritParentAttributes: false },
       {
-        id: 6,
+        id: "16",
         name: "motorcycles-accessories",
         inheritParentAttributes: false,
       },
-      { id: 7, name: "boats-watercraft", inheritParentAttributes: false },
+      { id: "17", name: "boats-watercraft", inheritParentAttributes: false },
       {
-        id: 8,
+        id: "18",
         name: "heavy-trucks-buses-other-vehicles",
         inheritParentAttributes: false,
       },
     ],
   },
   {
-    id: 9,
+    id: "2",
     name: "properties",
     attributes: [
       { name: "area", type: "number", unit: "Sqm" },
@@ -100,19 +105,19 @@ export const categoriesTree: CategoryTreeItem[] = [
       { name: "furnished", type: "select", options: ["yes", "no"] },
     ],
     categories: [
-      { id: 10, name: "apartments-for-sale" },
-      { id: 11, name: "apartments-for-rent" },
-      { id: 12, name: "villas-for-sale" },
-      { id: 13, name: "villas-for-rent" },
-      { id: 14, name: "vacation-homes-for-sale" },
-      { id: 15, name: "vacation-homes-for-rent" },
-      { id: 16, name: "commercial-for-sale" },
-      { id: 17, name: "commercial-for-rent" },
-      { id: 18, name: "buildings-lands" },
+      { id: "21", name: "apartments-for-sale" },
+      { id: "22", name: "apartments-for-rent" },
+      { id: "23", name: "villas-for-sale" },
+      { id: "24", name: "villas-for-rent" },
+      { id: "25", name: "vacation-homes-for-sale" },
+      { id: "26", name: "vacation-homes-for-rent" },
+      { id: "27", name: "commercial-for-sale" },
+      { id: "28", name: "commercial-for-rent" },
+      { id: "29", name: "buildings-lands" },
     ],
   },
   {
-    id: 19,
+    id: "3",
     name: "mobiles-tablets",
     attributes: [
       {
@@ -127,10 +132,10 @@ export const categoriesTree: CategoryTreeItem[] = [
       },
     ],
     categories: [
-      { id: 20, name: "mobile-phones" },
-      { id: 21, name: "tablets" },
+      { id: "31", name: "mobile-phones" },
+      { id: "32", name: "tablets" },
       {
-        id: 22,
+        id: "33",
         name: "mobile-tablet-accessories",
         inheritParentAttributes: false,
         attributes: [
@@ -141,11 +146,11 @@ export const categoriesTree: CategoryTreeItem[] = [
           },
         ],
       },
-      { id: 23, name: "mobile-numbers" },
+      { id: "34", name: "mobile-numbers" },
     ],
   },
   {
-    id: 24,
+    id: "4",
     name: "jobs",
     attributes: [
       {
@@ -162,60 +167,60 @@ export const categoriesTree: CategoryTreeItem[] = [
       },
     ],
     categories: [
-      { id: 25, name: "accounting-finance-banking" },
-      { id: 26, name: "engineering" },
-      { id: 27, name: "designers" },
-      { id: 28, name: "customer-service-call-center" },
-      { id: 29, name: "workers-technicians" },
-      { id: 30, name: "management-consulting" },
-      { id: 31, name: "drivers-delivery" },
-      { id: 32, name: "education" },
-      { id: 33, name: "hr" },
-      { id: 34, name: "tourism-travel-hospitality" },
-      { id: 35, name: "it-telecom" },
-      { id: 36, name: "marketing-pr" },
-      { id: 37, name: "medical-healthcare-nursing" },
-      { id: 38, name: "sales" },
-      { id: 39, name: "secretarial" },
-      { id: 40, name: "guards-security" },
-      { id: 41, name: "legal-lawyers" },
-      { id: 42, name: "other-jobs" },
+      { id: "41", name: "accounting-finance-banking" },
+      { id: "42", name: "engineering" },
+      { id: "43", name: "designers" },
+      { id: "44", name: "customer-service-call-center" },
+      { id: "45", name: "workers-technicians" },
+      { id: "46", name: "management-consulting" },
+      { id: "47", name: "drivers-delivery" },
+      { id: "48", name: "education" },
+      { id: "49", name: "hr" },
+      { id: "4a", name: "tourism-travel-hospitality" },
+      { id: "4b", name: "it-telecom" },
+      { id: "4c", name: "marketing-pr" },
+      { id: "4d", name: "medical-healthcare-nursing" },
+      { id: "4e", name: "sales" },
+      { id: "4f", name: "secretarial" },
+      { id: "4g", name: "guards-security" },
+      { id: "4h", name: "legal-lawyers" },
+      { id: "4i", name: "other-jobs" },
     ],
   },
   {
-    id: 43,
+    id: "5",
     name: "electronics-home-appliances",
     attributes: [
       { name: "condition", type: "select", options: ["new", "used"] },
       { name: "warranty", type: "select", options: ["yes", "no"] },
     ],
     categories: [
-      { id: 44, name: "tv-audio-video" },
-      { id: 45, name: "computers-accessories" },
-      { id: 46, name: "video-games-consoles" },
-      { id: 47, name: "cameras-imaging" },
-      { id: 48, name: "home-appliances" },
+      { id: "51", name: "tv-audio-video" },
+      { id: "52", name: "computers-accessories" },
+      { id: "53", name: "video-games-consoles" },
+      { id: "54", name: "cameras-imaging" },
+      { id: "55", name: "home-appliances" },
     ],
   },
   {
-    id: 49,
+    id: "6",
     name: "home-garden",
     attributes: [
       { name: "condition", type: "select", options: ["new", "used"] },
     ],
     categories: [
-      { id: 50, name: "furniture" },
-      { id: 51, name: "office-furniture" },
-      { id: 52, name: "home-decoration-accessories" },
-      { id: 53, name: "bathroom-kitchen" },
-      { id: 54, name: "fabric-bedding-curtains" },
-      { id: 55, name: "garden-outdoor" },
-      { id: 56, name: "kitchenware" },
-      { id: 57, name: "lighting" },
+      { id: "61", name: "furniture" },
+      { id: "62", name: "office-furniture" },
+      { id: "63", name: "home-decoration-accessories" },
+      { id: "64", name: "bathroom-kitchen" },
+      { id: "65", name: "fabric-bedding-curtains" },
+      { id: "66", name: "garden-outdoor" },
+      { id: "67", name: "kitchenware" },
+      { id: "68", name: "lighting" },
     ],
   },
   {
-    id: 58,
+    id: "7",
     name: "fashion-beauty",
     attributes: [
       {
@@ -226,26 +231,26 @@ export const categoriesTree: CategoryTreeItem[] = [
       { name: "condition", type: "select", options: ["new", "used"] },
     ],
     categories: [
-      { id: 59, name: "womens-clothing" },
-      { id: 60, name: "mens-clothing" },
-      { id: 61, name: "womens-cosmetics" },
-      { id: 62, name: "womens-accessories-personal-care" },
-      { id: 63, name: "mens-accessories-personal-care" },
+      { id: "71", name: "womens-clothing" },
+      { id: "72", name: "mens-clothing" },
+      { id: "73", name: "womens-cosmetics" },
+      { id: "74", name: "womens-accessories-personal-care" },
+      { id: "75", name: "mens-accessories-personal-care" },
     ],
   },
   {
-    id: 64,
+    id: "8",
     name: "pets-animals",
     categories: [
-      { id: 65, name: "dogs" },
-      { id: 66, name: "cats" },
-      { id: 67, name: "birds-pigeons" },
-      { id: 68, name: "other-pets-animals" },
-      { id: 69, name: "pet-accessories-care-products" },
+      { id: "81", name: "dogs" },
+      { id: "82", name: "cats" },
+      { id: "83", name: "birds-pigeons" },
+      { id: "84", name: "other-pets-animals" },
+      { id: "85", name: "pet-accessories-care-products" },
     ],
   },
   {
-    id: 70,
+    id: "9",
     name: "kids-babies",
     attributes: [
       {
@@ -256,65 +261,65 @@ export const categoriesTree: CategoryTreeItem[] = [
       { name: "condition", type: "select", options: ["new", "used"] },
     ],
     categories: [
-      { id: 71, name: "baby-mom-healthcare" },
-      { id: 72, name: "baby-clothing" },
-      { id: 73, name: "baby-feeding-tools" },
-      { id: 74, name: "cribs-strollers-carriers" },
-      { id: 75, name: "toys" },
-      { id: 76, name: "other-baby-items" },
+      { id: "91", name: "baby-mom-healthcare" },
+      { id: "92", name: "baby-clothing" },
+      { id: "93", name: "baby-feeding-tools" },
+      { id: "94", name: "cribs-strollers-carriers" },
+      { id: "95", name: "toys" },
+      { id: "96", name: "other-baby-items" },
     ],
   },
   {
-    id: 77,
+    id: "a",
     name: "hobbies-books-sports",
     attributes: [
       { name: "condition", type: "select", options: ["new", "used"] },
     ],
     categories: [
-      { id: 78, name: "antiques-collectibles" },
-      { id: 79, name: "bicycles" },
-      { id: 80, name: "books" },
-      { id: 81, name: "board-card-games" },
-      { id: 82, name: "movies-music" },
-      { id: 83, name: "musical-instruments" },
-      { id: 84, name: "sports-equipment" },
-      { id: 85, name: "study-tools" },
-      { id: 86, name: "tickets-vouchers" },
-      { id: 87, name: "luggage" },
-      { id: 88, name: "other-items" },
+      { id: "a1", name: "antiques-collectibles" },
+      { id: "a2", name: "bicycles" },
+      { id: "a3", name: "books" },
+      { id: "a4", name: "board-card-games" },
+      { id: "a5", name: "movies-music" },
+      { id: "a6", name: "musical-instruments" },
+      { id: "a7", name: "sports-equipment" },
+      { id: "a8", name: "study-tools" },
+      { id: "a9", name: "tickets-vouchers" },
+      { id: "aa", name: "luggage" },
+      { id: "ab", name: "other-items" },
     ],
   },
   {
-    id: 89,
+    id: "b",
     name: "business-industrial",
     attributes: [
       { name: "condition", type: "select", options: ["new", "used"] },
     ],
     categories: [
-      { id: 90, name: "agriculture" },
-      { id: 91, name: "construction" },
-      { id: 92, name: "industrial-equipment" },
-      { id: 93, name: "medical-equipment" },
-      { id: 94, name: "office-furniture-equipment" },
-      { id: 95, name: "restaurants-equipment" },
-      { id: 96, name: "whole-business-for-sale" },
-      { id: 97, name: "other-business-industrial-agriculture" },
+      { id: "b1", name: "agriculture" },
+      { id: "b2", name: "construction" },
+      { id: "b3", name: "industrial-equipment" },
+      { id: "b4", name: "medical-equipment" },
+      { id: "b5", name: "office-furniture-equipment" },
+      { id: "b6", name: "restaurants-equipment" },
+      { id: "b7", name: "whole-business-for-sale" },
+      { id: "b8", name: "other-business-industrial-agriculture" },
     ],
   },
   {
-    id: 98,
+    id: "c",
     name: "services",
     categories: [
-      { id: 99, name: "business-services" },
-      { id: 100, name: "car-services" },
-      { id: 101, name: "event-services" },
-      { id: 102, name: "health-beauty-services" },
-      { id: 103, name: "home-maintenance" },
-      { id: 104, name: "medical-services" },
-      { id: 105, name: "movers" },
-      { id: 106, name: "pet-services" },
-      { id: 107, name: "education-services" },
-      { id: 108, name: "other-services" },
+      { id: "c1", name: "business-services" },
+      { id: "c2", name: "car-services" },
+      { id: "c3", name: "event-services" },
+      { id: "c4", name: "health-beauty-services" },
+      { id: "c5", name: "home-maintenance" },
+      { id: "c6", name: "medical-services" },
+      { id: "c7", name: "movers" },
+      { id: "c8", name: "pet-services" },
+      { id: "c9", name: "education-services" },
+      { id: "ca", name: "other-services" },
     ],
   },
 ];

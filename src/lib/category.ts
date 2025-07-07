@@ -64,7 +64,7 @@ export function getTreeFromPath(path: string): CategoryTreeItem[] {
  * Checks if a category exists by ID
  */
 export function categoryExists(
-  id: number,
+  id: string,
   categories: CategoryTreeItem[] = categoriesTree,
 ): boolean {
   return categories.some(
@@ -101,7 +101,7 @@ export function categoryPathExists(
  * Finds a category by ID
  */
 export function findCategory(
-  id: number,
+  id: string,
   categories: CategoryTreeItem[] = categoriesTree,
 ): CategoryTreeItem | null {
   for (const cat of categories) {
@@ -118,7 +118,7 @@ export function findCategory(
  * Find ancestor categories for a given category ID
  */
 export function findAncestorCategories(
-  categoryId: number,
+  categoryId: string,
   tree: CategoryTreeItem[] = categoriesTree,
   ancestors: CategoryTreeItem[] = [],
 ): CategoryTreeItem[] {

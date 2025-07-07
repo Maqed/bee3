@@ -27,7 +27,7 @@ function SellPage() {
       title: "",
       description: "",
       price: undefined,
-      categoryId: 0,
+      categoryId: "",
       images: [],
       governorateId: 0,
       cityId: 0,
