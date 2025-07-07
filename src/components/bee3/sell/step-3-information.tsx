@@ -229,7 +229,8 @@ function Step3Information({
                         className="peer ps-11"
                         thousandSeparator=","
                         onValueChange={(value) => {
-                          form.setValue("price", value ?? 0);
+                          // @ts-expect-error
+                          form.setValue("price", value);
                         }}
                         disabled={isPending}
                       />
