@@ -178,7 +178,7 @@ const LocationCombobox = ({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn("justify-between", className)}
+          className={cn("justify-between bg-muted", className)}
           id="location"
         >
           {getSelectedLocationName()}

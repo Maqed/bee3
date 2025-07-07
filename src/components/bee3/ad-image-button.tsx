@@ -230,7 +230,7 @@ export function UploadAdImageButton({
               <div
                 {...getRootProps()}
                 className={cn(
-                  "flex size-16 items-center justify-center rounded-md border border-dashed focus:border-primary focus:outline-none md:size-24",
+                  "flex size-16 items-center justify-center rounded-md border border-dashed bg-muted focus:border-primary focus:outline-none md:size-24",
                   {
                     "border-primary bg-secondary": isDragActive && isDragAccept,
                     "border-destructive bg-destructive/20":
