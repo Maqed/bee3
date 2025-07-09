@@ -31,11 +31,13 @@ export async function generateMetadata({
       url: process.env.NEXTAUTH_URL,
       locale: t("locale"),
       type: "website",
+      images: ["/og.png"],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: ["/og.png"],
     },
     robots: {
       index: true,
