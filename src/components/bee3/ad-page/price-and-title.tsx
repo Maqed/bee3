@@ -14,10 +14,11 @@ import CopyToClipboardButton from "@/components/ui/copy-to-clipboard";
 
 type PriceAndTitleProps = {
   ad: AdWithUser;
+  isPreview?: boolean;
   locale: string;
 };
 
-export function PriceAndTitle({ ad, locale }: PriceAndTitleProps) {
+export function PriceAndTitle({ ad, locale, isPreview }: PriceAndTitleProps) {
   const tAd = useTranslations("/ad/[adId]");
   const adUrl = absoluteURL(`/${locale}/ad/${ad.id}`);
   return (
@@ -33,9 +34,10 @@ export function PriceAndTitle({ ad, locale }: PriceAndTitleProps) {
             )}
           </span>
           <div className="flex flex-wrap gap-2">
-            <FavoritesHeart adId={ad.id} />
+            <FavoritesHeart disabled={isPreview} adId={ad.id} />
             <CopyToClipboardButton
               toBeCopiedText={adUrl}
+              disabled={isPreview}
               variant="ghost"
               size={"icon"}
               copyText={""}

@@ -13,10 +13,11 @@ import { Button } from "../ui/button";
 
 type Props = {
   adId: string;
+  disabled?: boolean;
   className?: string;
 };
 
-function FavoritesHeart({ adId, className }: Props) {
+function FavoritesHeart({ adId, disabled = false, className }: Props) {
   const { data: session, isPending: isSessionPending } =
     authClient.useSession();
   const router = useRouter();
@@ -89,6 +90,7 @@ function FavoritesHeart({ adId, className }: Props) {
     <Button
       variant="ghost"
       size="icon"
+      disabled={disabled}
       className="group p-1"
       onClick={handleHeartClick}
     >

@@ -23,7 +23,7 @@ export default function AdPageUI({ ad, isPreview = false }: AdPageUIProps) {
       <div className="col-span-12 flex flex-col gap-y-5 pb-20 md:col-span-8 md:pb-0">
         <AdImages ad={ad} />
         <div className="flex flex-col gap-y-5 max-sm:mx-1">
-          <PriceAndTitle ad={ad} locale={locale} />
+          <PriceAndTitle isPreview={isPreview} ad={ad} locale={locale} />
           <AdDescription ad={ad} tAd={tAd} />
           <AdAttributes ad={ad} />
           <UserInformation ad={ad} tAd={tAd} locale={locale} variant="mobile" />
