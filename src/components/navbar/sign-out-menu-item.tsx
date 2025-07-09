@@ -2,7 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { LogOut } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 
 function SignOutMenuItem({ title }: { title: string }) {
   const router = useRouter();

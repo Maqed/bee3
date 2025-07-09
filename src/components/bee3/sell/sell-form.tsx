@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { authClient } from "@/lib/auth-client";
 import type { UseFormReturn } from "react-hook-form";

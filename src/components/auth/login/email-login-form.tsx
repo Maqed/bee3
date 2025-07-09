@@ -22,7 +22,7 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { useTranslations } from "next-intl";
 import Spinner from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import { Link } from "@/navigation";
 
 function EmailLoginForm() {
