@@ -351,8 +351,8 @@
         }
       }
     },
-    "home-garden": {
-      "name": "Home & Garden",
+    "home-office": {
+      "name": "Home & Office Furniture",
       "categories": {
         "furniture": {
           "name": "Furniture"

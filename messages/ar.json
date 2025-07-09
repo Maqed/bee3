@@ -349,8 +349,8 @@
         }
       }
     },
-    "home-garden": {
-      "name": "المنزل والحديقة",
+    "home-office": {
+      "name": "أثاث المنزل والمكتب",
       "categories": {
         "furniture": {
           "name": "الأثاث"

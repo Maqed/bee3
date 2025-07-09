@@ -188,7 +188,7 @@ export const categoryIcons: CategoryIconsType = {
       "home-appliances": { icon: FaBlender },
     },
   },
-  "home-garden": {
+  "home-office": {
     icon: FaCouch,
     categories: {
       furniture: { icon: MdTableRestaurant },

@@ -204,7 +204,7 @@ export const categoriesTree: CategoryTreeItem[] = [
   },
   {
     id: "6",
-    name: "home-garden",
+    name: "home-office",
     attributes: [
       { name: "condition", type: "select", options: ["new", "used"] },
     ],
