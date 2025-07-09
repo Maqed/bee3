@@ -1,5 +1,4 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import { Avatar } from "@/components/ui/avatar";
 import { categoriesTree, CategoryTreeItem } from "@/schema/categories-tree";
@@ -38,7 +37,6 @@ function CategoryDialog({
 }) {
   const tNavigation = useTranslations("/.navigation");
   const { getRecursiveCategoryName } = useCategoryTranslations();
-  const [open, setOpen] = useState(false);
 
   const currentPathSegments = [...pathSegments, toPathFormat(category.name)];
   const categoryPath = currentPathSegments.join("/");
@@ -52,7 +50,7 @@ function CategoryDialog({
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog>
       <DialogTrigger>{children}</DialogTrigger>
       <DialogContent
         overlayClassName={depth > 0 ? "bg-transparent" : ""}
@@ -60,11 +58,7 @@ function CategoryDialog({
       >
         <DialogHeader className="h-min">
           <DialogTitle>
-            <Link
-              tabIndex={-1}
-              href={`/${categoryPath}`}
-              onClick={() => setOpen(false)}
-            >
+            <Link tabIndex={-1} href={`/${categoryPath}`}>
               {categoryName}
             </Link>
           </DialogTitle>
@@ -73,7 +67,6 @@ function CategoryDialog({
           <Link
             className="text-primary hover:underline"
             href={`/${categoryPath}`}
-            onClick={() => setOpen(false)}
           >
             {tNavigation("show-all")}
           </Link>
