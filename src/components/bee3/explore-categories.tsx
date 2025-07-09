@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import { Avatar } from "@/components/ui/avatar";
 import { categoriesTree, CategoryTreeItem } from "@/schema/categories-tree";
@@ -21,7 +21,9 @@ import {
 } from "@/components/ui/dialog";
 import { Link } from "@/navigation";
 import { toPathFormat } from "@/lib/category";
+import { useTranslations } from "next-intl";
 import { useCategoryTranslations } from "@/lib/category-synchronous";
+import { Separator } from "@/components/ui/separator";
 import CategoryChooseStepperMobile from "./category-choose-stepper-mobile";
 
 function CategoryDialog({
@@ -32,7 +34,13 @@ function CategoryDialog({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const tNavigation = useTranslations("/.navigation");
   const { getRecursiveCategoryName } = useCategoryTranslations();
+
+  // State to track current navigation in the stepper
+  const [currentNavigationPath, setCurrentNavigationPath] = useState<string[]>(
+    [],
+  );
 
   const categoryPathFormat = toPathFormat(category.name);
   const categoryPath = categoryPathFormat;
@@ -55,6 +63,16 @@ function CategoryDialog({
     router.push(fullPath);
   };
 
+  const handleNavigationChange = (currentPath: string[]) => {
+    setCurrentNavigationPath(currentPath);
+  };
+
+  // Build the current "show all" path based on navigation
+  const currentShowAllPath =
+    currentNavigationPath.length > 0
+      ? currentNavigationPath.join("/")
+      : categoryPath;
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -67,8 +85,18 @@ function CategoryDialog({
           </DialogTitle>
         </DialogHeader>
         <div className="flex h-[calc(100vh-100px)] flex-col overflow-auto">
+          <Link
+            className="text-xl font-bold text-primary hover:underline"
+            href={`/${currentShowAllPath}`}
+          >
+            {tNavigation("show-all")}
+          </Link>
+          <div className="flex w-full items-center justify-center">
+            <Separator className="my-1 w-full" />
+          </div>
           <CategoryChooseStepperMobile
             onChoice={handleCategoryChoice}
+            onNavigationChange={handleNavigationChange}
             defaultPath={category.name}
             categories={category.categories || []}
           />
