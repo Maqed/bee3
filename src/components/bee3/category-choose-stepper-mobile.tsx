@@ -25,10 +25,12 @@ interface NavigationLevel {
 
 function CategoryChooseStepperMobile({
   onChoice,
+  onNavigationChange,
   defaultPath = "",
   categories = categoriesTree,
 }: {
   onChoice: (chosenCategory: CategoryTreeItem) => void;
+  onNavigationChange?: (currentPath: string[], currentTitle: string) => void;
   defaultPath?: string;
   categories?: CategoryTreeItem[];
 }) {
@@ -46,6 +48,15 @@ function CategoryChooseStepperMobile({
   );
 
   const currentLevel = navigationHistory[navigationHistory.length - 1]!;
+
+  React.useEffect(() => {
+    if (onNavigationChange) {
+      const fullPath = defaultPath
+        ? [defaultPath, ...currentLevel.path]
+        : currentLevel.path;
+      onNavigationChange(fullPath, currentLevel.title);
+    }
+  }, [currentLevel.path]);
 
   const getCategoryDisplayName = (
     category: CategoryTreeItem,
