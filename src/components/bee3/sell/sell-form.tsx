@@ -22,8 +22,6 @@ import StepperIndicator from "./stepper-indicator";
 type SellFormProps = {
   startTransition: TransitionStartFunction;
   isPending: boolean;
-  selectedMainCategory: string | null;
-  setSelectedMainCategory: Dispatch<SetStateAction<string | null>>;
   form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
   setIsSubmissionSuccessful: Dispatch<SetStateAction<boolean>>;
   setSubmittedFormData: Dispatch<
@@ -35,8 +33,6 @@ function SellForm({
   startTransition,
   isPending,
   form,
-  selectedMainCategory,
-  setSelectedMainCategory,
   setIsSubmissionSuccessful,
   setSubmittedFormData,
 }: SellFormProps) {
@@ -47,9 +43,6 @@ function SellForm({
   const { data: session, isPending: isSessionPending } =
     authClient.useSession();
 
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
-    null,
-  );
   type SellFormType = z.infer<typeof adSchemaClient>;
   const onSubmit = async (data: SellFormType) => {
     if (!data.userContactMethod) {
@@ -135,19 +128,6 @@ function SellForm({
     });
   };
 
-  const handleCategoryChange = (category: string | null) => {
-    setSelectedMainCategory(category);
-    setSelectedSubCategory(null);
-    form.setValue("categoryId", "");
-    form.setValue("categoryOptions", "");
-  };
-
-  const handleSubCategoryChange = (subCategory: string | null) => {
-    setSelectedSubCategory(subCategory);
-    form.setValue("categoryId", subCategory ? subCategory : "");
-    form.setValue("categoryOptions", "");
-  };
-
   return (
     <main className="flex items-center justify-center sm:container sm:mx-auto sm:my-4">
       <Card className="w-full md:max-w-[1000px]">
@@ -160,22 +140,9 @@ function SellForm({
               <Scoped>
                 <StepperIndicator />
 
-                <StepContent
-                  selectedMainCategory={selectedMainCategory}
-                  selectedSubCategory={selectedSubCategory}
-                  onCategoryChange={handleCategoryChange}
-                  onSubCategoryChange={handleSubCategoryChange}
-                  isPending={isPending}
-                  form={form}
-                  tSell={tSell}
-                />
+                <StepContent isPending={isPending} form={form} tSell={tSell} />
 
-                <StepperActions
-                  selectedMainCategory={selectedMainCategory}
-                  selectedSubCategory={selectedSubCategory}
-                  form={form}
-                  onSubmit={onSubmit}
-                />
+                <StepperActions form={form} onSubmit={onSubmit} />
               </Scoped>
             </div>
           </Form>
@@ -186,39 +153,22 @@ function SellForm({
 }
 
 function StepContent({
-  selectedMainCategory,
-  selectedSubCategory,
-  onCategoryChange,
   isPending,
   form,
   tSell,
 }: {
-  selectedMainCategory: string | null;
-  selectedSubCategory: string | null;
-  onCategoryChange: (category: string | null) => void;
-  onSubCategoryChange: (subCategory: string | null) => void;
   isPending: boolean;
   form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
   tSell: any;
 }) {
-  const { current } = useStepper();
+  const { current, next } = useStepper();
 
   switch (current.id) {
     case "category":
-      return (
-        <Step1Category
-          selectedMainCategory={selectedMainCategory}
-          onCategoryChange={onCategoryChange}
-        />
-      );
+      return <Step1Category form={form} onNext={next} />;
     case "information":
       return (
-        <Step2Information
-          form={form}
-          selectedSubCategory={selectedSubCategory}
-          isPending={isPending}
-          tSell={tSell}
-        />
+        <Step2Information form={form} isPending={isPending} tSell={tSell} />
       );
     default:
       return null;
@@ -226,13 +176,9 @@ function StepContent({
 }
 
 function StepperActions({
-  selectedMainCategory,
-  selectedSubCategory,
   form,
   onSubmit,
 }: {
-  selectedMainCategory: string | null;
-  selectedSubCategory: string | null;
   form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
   onSubmit: (data: any) => Promise<void>;
 }) {
@@ -242,9 +188,6 @@ function StepperActions({
 
   const canProceedToNext = () => {
     if (isLast) return false;
-
-    // For step 1: need a main category selected
-    if (isFirst && !selectedMainCategory) return false;
 
     return true;
   };

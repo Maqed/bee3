@@ -1,31 +1,18 @@
 import React from "react";
 import { useTranslations } from "next-intl";
-import { categoriesTree } from "@/schema/categories-tree";
-import {
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
-import { toPathFormat } from "@/lib/category";
-import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
-import { useCategoryTranslations } from "@/lib/category-synchronous";
-import { Listbox } from "@/components/ui/listbox";
-import CategoryListboxItem from "./category-list-box-item";
+import { FormItem, FormControl, FormMessage } from "@/components/ui/form";
+import CategoryChooseStepperMobile from "../category-choose-stepper-mobile";
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+import { adSchemaClient } from "@/schema/ad";
 
 interface Step1CategoryProps {
-  selectedMainCategory: string | null;
-  onCategoryChange: (category: string | null) => void;
+  form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
+  onNext: () => void;
 }
 
-function Step1Category({
-  selectedMainCategory,
-  onCategoryChange,
-}: Step1CategoryProps) {
+function Step1Category({ form, onNext }: Step1CategoryProps) {
   const tSell = useTranslations("/sell");
-  const { getSynchronousFullCategory } = useCategoryTranslations();
-
-  const mainCategories = categoriesTree;
 
   return (
     <div className="space-y-6">
@@ -39,34 +26,13 @@ function Step1Category({
       </div>
 
       <FormItem className="space-y-3">
-        <FormLabel className="text-base sm:text-lg">
-          {tSell("category.main.label")}
-        </FormLabel>
         <FormControl>
-          <Listbox
-            value={selectedMainCategory || ""}
-            orientation="mixed"
-            onValueChange={(value) => onCategoryChange(value || null)}
-            className="grid grid-cols-2 gap-4 py-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
-          >
-            {mainCategories.map((category) => {
-              const categoryNamePathFormat = toPathFormat(category.name);
-              const categoryName = getSynchronousFullCategory(
-                categoryNamePathFormat,
-              );
-              const CategoryIcon = categoryIcons[categoryNamePathFormat]
-                ?.icon as CategoryIconType;
-
-              return (
-                <CategoryListboxItem
-                  key={categoryName}
-                  value={category.name}
-                  Icon={CategoryIcon}
-                  categoryName={categoryName}
-                />
-              );
-            })}
-          </Listbox>
+          <CategoryChooseStepperMobile
+            onChoice={(chosenCategory) => {
+              form.setValue("categoryId", chosenCategory.id);
+              onNext();
+            }}
+          />
         </FormControl>
         <FormMessage />
       </FormItem>

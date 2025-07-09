@@ -26,17 +26,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 interface Step2InformationProps {
   form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
-  selectedSubCategory: string | null;
   isPending: boolean;
   tSell: any;
 }
 
-function Step2Information({
-  form,
-  selectedSubCategory,
-  isPending,
-  tSell,
-}: Step2InformationProps) {
+function Step2Information({ form, isPending, tSell }: Step2InformationProps) {
   const locale = useLocale();
   const { data: session, isPending: isSessionPending } =
     authClient.useSession();
@@ -120,8 +114,7 @@ function Step2Information({
 
         <Separator />
 
-        {/* Category Options Section */}
-        {selectedSubCategory && form.watch("categoryId") && (
+        {form.watch("categoryId") && (
           <>
             <CategoryOptionsSection
               form={form}
