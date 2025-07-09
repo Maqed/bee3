@@ -405,6 +405,32 @@
             "other": { "name": "Other" }
           }
         },
+        "office-furniture": {
+          "name": "Office Furniture",
+          "categories": {
+            "office-chairs": {
+              "name": "Office Chairs"
+            },
+            "desks": {
+              "name": "Desks"
+            },
+            "office-storage": {
+              "name": "Office Storage Units"
+            },
+            "office-accessories": {
+              "name": "Office Accessories"
+            },
+            "reception-counter": {
+              "name": "Reception Counter"
+            },
+            "gaming-furniture": {
+              "name": "Gaming Furniture"
+            },
+            "other-furniture": {
+              "name": "Other Furniture"
+            }
+          }
+        },
         "home-decoration-accessories": {
           "name": "Home Decoration & Accessories",
           "categories": {
