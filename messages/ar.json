@@ -353,22 +353,85 @@
       "name": "أثاث المنزل والمكتب",
       "categories": {
         "furniture": {
-          "name": "الأثاث"
+          "name": "الأثاث",
+          "categories": {
+            "beds": { "name": "السراير" },
+            "full-rooms": { "name": "غرف كاملة" },
+            "full-kitchen": { "name": "مطبخ كامل" },
+            "chairs": { "name": "كراسي" },
+            "sofas": { "name": "كنب" },
+            "tables": { "name": "ترابيزات" },
+            "storage": { "name": "تخزين" },
+            "other": { "name": "أخرى" }
+          }
         },
         "office-furniture": {
-          "name": "أثاث المكاتب"
+          "name": "أثاث المكاتب",
+          "categories": {
+            "office-chairs": {
+              "name": "كراسي المكاتب"
+            },
+            "desks": {
+              "name": "مكاتب"
+            },
+            "office-storage": {
+              "name": "وحدات تخزين المكاتب"
+            },
+            "office-accessories": {
+              "name": "إكسسوارات المكاتب"
+            },
+            "reception-counter": {
+              "name": "كاونتر الاستقبال"
+            },
+            "gaming-furniture": {
+              "name": "أثاث الألعاب"
+            },
+            "other-furniture": {
+              "name": "أثاث آخر"
+            }
+          }
         },
         "home-decoration-accessories": {
-          "name": "ديكور المنزل والملحقات"
+          "name": "ديكور المنزل والملحقات",
+          "categories": {
+            "mirrors": { "name": "مرايات" },
+            "home-decoration": { "name": "ديكور المنزل" }
+          }
         },
         "bathroom-kitchen": {
-          "name": "الحمام والمطبخ"
+          "name": "الحمام والمطبخ",
+          "categories": {
+            "bathroom": { "name": "حمام" },
+            "kitchenware": { "name": "أدوات المطبخ" }
+          }
         },
         "fabric-bedding-curtains": {
-          "name": "الأقمشة والفراش والستائر"
+          "name": "الأقمشة والفراش والستائر",
+          "categories": {
+            "mattresses": { "name": "مراتب" },
+            "curtains": { "name": "ستائر" },
+            "pillows": { "name": "مخدات" },
+            "bed-linens-covers": { "name": "مفارش وأغطية السرير" },
+            "fabrics": { "name": "أقمشة" },
+            "towels": { "name": "مناشف" },
+            "cushions": { "name": "خدديات" },
+            "table-runners": { "name": "مفارش الترابيزة" },
+            "carpets": { "name": "سجاد" },
+            "blankets": { "name": "بطانيات" },
+            "bedding-sets": { "name": "طقم سرير" },
+            "other": { "name": "أخرى" }
+          }
         },
         "garden-outdoor": {
-          "name": "الحديقة والمنطقة الخارجية"
+          "name": "الحديقة والمنطقة الخارجية",
+          "categories": {
+            "garden-furniture": { "name": "أثاث الحديقة" },
+            "swings-hanging-chairs": { "name": "أراجيح وكراسي معلقة" },
+            "pergolas-tents": { "name": "برجولات وخيام" },
+            "pools-and-accessories": { "name": "مسابح واكسسوارات المسابح" },
+            "grills": { "name": "شوايات" },
+            "other": { "name": "أخرى" }
+          }
         },
         "kitchenware": {
           "name": "أدوات المطبخ"

@@ -355,22 +355,59 @@
       "name": "Home & Office Furniture",
       "categories": {
         "furniture": {
-          "name": "Furniture"
-        },
-        "office-furniture": {
-          "name": "Office Furniture"
+          "name": "Furniture",
+          "categories": {
+            "beds": { "name": "Beds" },
+            "full-rooms": { "name": "Full Rooms" },
+            "full-kitchen": { "name": "Full Kitchen" },
+            "chairs": { "name": "Chairs" },
+            "sofas": { "name": "Sofas" },
+            "tables": { "name": "Tables" },
+            "storage": { "name": "Storage" },
+            "other": { "name": "Other" }
+          }
         },
         "home-decoration-accessories": {
-          "name": "Home Decoration & Accessories"
+          "name": "Home Decoration & Accessories",
+          "categories": {
+            "mirrors": { "name": "Mirrors" },
+            "home-decoration": { "name": "Home Decoration" }
+          }
         },
         "bathroom-kitchen": {
-          "name": "Bathroom & Kitchen"
+          "name": "Bathroom & Kitchen",
+          "categories": {
+            "bathroom": { "name": "Bathroom" },
+            "kitchenware": { "name": "Kitchenware" }
+          }
         },
         "fabric-bedding-curtains": {
-          "name": "Fabric, Bedding & Curtains"
+          "name": "Fabric, Bedding & Curtains",
+          "categories": {
+            "mattresses": { "name": "Mattresses" },
+            "curtains": { "name": "Curtains" },
+            "pillows": { "name": "Pillows" },
+            "bed-linens-covers": { "name": "Bed Linens & Covers" },
+            "fabrics": { "name": "Fabrics" },
+            "towels": { "name": "Towels" },
+            "cushions": { "name": "Cushions" },
+            "table-runners": { "name": "Table Runners" },
+            "carpets": { "name": "Carpets" },
+            "blankets": { "name": "Blankets" },
+            "bedding-sets": { "name": "Bedding sets" },
+            "other": { "name": "Other" }
+          }
         },
         "garden-outdoor": {
-          "name": "Garden & Outdoor"
+          "name": "Garden & Outdoor",
+          "categories": {
+            "garden-furniture": { "name": "Garden Furniture" },
+            "swings-hanging-chairs": { "name": "Swings & Hanging Chairs" },
+            "pergolas-tents": { "name": "Pergolas & Tents" },
+            "pools-and-accessories": { "name": "Pools & Pools Accessories" },
+            "grills": { "name": "Grills" },
+            "other": { "name": "Other" }
+          }
         },
         "kitchenware": {
           "name": "Kitchenware"

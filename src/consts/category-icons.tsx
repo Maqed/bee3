@@ -44,6 +44,10 @@ import {
   FaHandshake,
   FaPhone,
   FaHashtag,
+  FaKeyboard,
+  FaArchive,
+  FaRegCircle,
+  FaBath,
 } from "react-icons/fa";
 
 import {
@@ -108,6 +112,8 @@ import {
   MdMoving,
   MdPets as MdPetCare,
   MdCastForEducation,
+  MdContactSupport,
+  MdTableChart,
 } from "react-icons/md";
 
 import type { IconType } from "react-icons";
@@ -191,12 +197,73 @@ export const categoryIcons: CategoryIconsType = {
   "home-office": {
     icon: FaCouch,
     categories: {
-      furniture: { icon: MdTableRestaurant },
-      "office-furniture": { icon: FaChair },
-      "home-decoration-accessories": { icon: MdPalette },
-      "bathroom-kitchen": { icon: MdKitchen },
-      "fabric-bedding-curtains": { icon: FaBed },
-      "garden-outdoor": { icon: MdYard },
+      furniture: {
+        icon: MdTableRestaurant,
+        categories: {
+          beds: { icon: FaBed },
+          "full-rooms": { icon: FaBuilding },
+          "full-kitchen": { icon: MdKitchen },
+          chairs: { icon: FaChair },
+          sofas: { icon: FaCouch },
+          tables: { icon: MdTableChart },
+          storage: { icon: FaArchive },
+          other: { icon: FaBoxes },
+        },
+      },
+      "office-furniture": {
+        icon: FaChair,
+        categories: {
+          "office-chairs": { icon: FaChair },
+          desks: { icon: MdTableChart },
+          "office-storage": { icon: FaArchive },
+          "office-accessories": { icon: FaKeyboard },
+          "reception-counter": { icon: MdContactSupport },
+          "gaming-furniture": { icon: FaGamepad },
+          "other-furniture": { icon: FaCouch },
+        },
+      },
+      "home-decoration-accessories": {
+        icon: MdPalette,
+        categories: {
+          mirrors: { icon: FaRegCircle },
+          "home-decoration": { icon: FaPalette },
+        },
+      },
+      "bathroom-kitchen": {
+        icon: MdKitchen,
+        categories: {
+          bathroom: { icon: FaBath },
+          kitchenware: { icon: FaUtensils },
+        },
+      },
+      "fabric-bedding-curtains": {
+        icon: FaBed,
+        categories: {
+          mattresses: { icon: FaBed },
+          curtains: { icon: FaRegCircle },
+          pillows: { icon: FaRegCircle },
+          "bed-linens-covers": { icon: FaRegCircle },
+          fabrics: { icon: FaRegCircle },
+          towels: { icon: FaRegCircle },
+          cushions: { icon: FaRegCircle },
+          "table-runners": { icon: FaRegCircle },
+          carpets: { icon: FaRegCircle },
+          blankets: { icon: FaRegCircle },
+          "bedding-sets": { icon: FaRegCircle },
+          other: { icon: FaBoxes },
+        },
+      },
+      "garden-outdoor": {
+        icon: MdYard,
+        categories: {
+          "garden-furniture": { icon: FaCouch },
+          "swings-hanging-chairs": { icon: FaRegCircle },
+          "pergolas-tents": { icon: FaRegCircle },
+          "pools-and-accessories": { icon: FaRegCircle },
+          grills: { icon: FaRegCircle },
+          other: { icon: FaBoxes },
+        },
+      },
       kitchenware: { icon: FaUtensils },
       lighting: { icon: MdWbIncandescent },
     },
