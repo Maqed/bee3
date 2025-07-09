@@ -645,6 +645,9 @@
       }
     }
   },
+  "category-stepper": {
+    "title": "الفئات"
+  },
   "category": {
     "options": {
       "label": "خيارات الفئة",

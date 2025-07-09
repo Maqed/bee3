@@ -647,6 +647,9 @@
       }
     }
   },
+  "category-stepper": {
+    "title": "Categories"
+  },
   "category": {
     "options": {
       "label": "Category Options",
