@@ -24,6 +24,7 @@ import { toPathFormat } from "@/lib/category";
 import { useTranslations } from "next-intl";
 import { useCategoryTranslations } from "@/lib/category-synchronous";
 import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import CategoryChooseStepperMobile from "./category-choose-stepper-mobile";
 
 function CategoryDialog({
@@ -88,7 +89,7 @@ function CategoryDialog({
             </Link>
           </DialogTitle>
         </DialogHeader>
-        <div className="flex h-[calc(100vh-100px)] flex-col overflow-auto">
+        <ScrollArea className="flex h-[calc(100vh-100px)] flex-col">
           <Link
             className="text-xl font-bold text-primary hover:underline"
             href={`/${currentShowAllPath}`}
@@ -104,7 +105,7 @@ function CategoryDialog({
             defaultPath={category.name}
             categories={category.categories || []}
           />
-        </div>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );
