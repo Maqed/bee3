@@ -89,22 +89,24 @@ function CategoryDialog({
             </Link>
           </DialogTitle>
         </DialogHeader>
-        <ScrollArea className="flex h-[calc(100vh-100px)] flex-col">
-          <Link
-            className="text-xl font-bold text-primary hover:underline"
-            href={`/${currentShowAllPath}`}
-          >
-            {tNavigation("show-all")}
-          </Link>
-          <div className="flex w-full items-center justify-center">
-            <Separator className="my-1 w-full" />
+        <ScrollArea className="h-[calc(100vh-100px)]">
+          <div className="flex flex-col p-1 pe-4">
+            <Link
+              className="text-xl font-bold text-primary hover:underline"
+              href={`/${currentShowAllPath}`}
+            >
+              {tNavigation("show-all")}
+            </Link>
+            <div className="flex w-full items-center justify-center">
+              <Separator className="my-1 w-full" />
+            </div>
+            <CategoryChooseStepperMobile
+              onChoice={handleCategoryChoice}
+              onNavigationChange={handleNavigationChange}
+              defaultPath={category.name}
+              categories={category.categories || []}
+            />
           </div>
-          <CategoryChooseStepperMobile
-            onChoice={handleCategoryChoice}
-            onNavigationChange={handleNavigationChange}
-            defaultPath={category.name}
-            categories={category.categories || []}
-          />
         </ScrollArea>
       </DialogContent>
     </Dialog>
