@@ -27,10 +27,12 @@ import { ForwardArrow } from "../ui/arrows";
 
 function CategoryDialog({
   category,
+  depth,
   pathSegments = [],
   children,
 }: {
   category: CategoryTreeItem;
+  depth: number;
   pathSegments?: string[];
   children: React.ReactNode;
 }) {
@@ -52,7 +54,10 @@ function CategoryDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>{children}</DialogTrigger>
-      <DialogContent className="h-full max-w-2xl pb-0">
+      <DialogContent
+        overlayClassName={depth > 0 ? "bg-transparent" : ""}
+        className="h-full max-w-2xl pb-0"
+      >
         <DialogHeader className="h-min">
           <DialogTitle>
             <Link
@@ -90,6 +95,7 @@ function CategoryDialog({
               return (
                 <CategoryDialog
                   key={`category-${subCategory.id}`}
+                  depth={depth + 1}
                   category={subCategory}
                   pathSegments={currentPathSegments}
                 >
@@ -122,7 +128,7 @@ function ExploreCategories() {
 
             return (
               <CarouselItem key={categoryName}>
-                <CategoryDialog category={category}>
+                <CategoryDialog depth={0} category={category}>
                   <div className="flex cursor-pointer flex-col items-center justify-center">
                     <Avatar className="rounded-md bg-primary/60">
                       <CategoryIcon className="size-[18px]" />
