@@ -30,7 +30,7 @@ function CategoryChooseStepperMobile({
   categories = categoriesTree,
 }: {
   onChoice: (chosenCategory: CategoryTreeItem) => void;
-  onNavigationChange?: (currentPath: string[], currentTitle: string) => void;
+  onNavigationChange?: (currentPath: string[]) => void;
   defaultPath?: string;
   categories?: CategoryTreeItem[];
 }) {
@@ -54,7 +54,7 @@ function CategoryChooseStepperMobile({
       const fullPath = defaultPath
         ? [defaultPath, ...currentLevel.path]
         : currentLevel.path;
-      onNavigationChange(fullPath, currentLevel.title);
+      onNavigationChange(fullPath);
     }
   }, [currentLevel.path]);
 

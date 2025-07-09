@@ -55,10 +55,14 @@ function CategoryDialog({
   }
 
   const handleCategoryChoice = (chosenCategory: CategoryTreeItem) => {
-    // Build the full path including the parent category
-    const parentPath = toPathFormat(category.name);
-    const childPath = toPathFormat(chosenCategory.name);
-    const fullPath = `/${parentPath}/${childPath}`;
+    // Build the full path using the complete navigation path
+    const chosenCategoryPath = toPathFormat(chosenCategory.name);
+    const completePath =
+      currentNavigationPath.length > 0
+        ? [...currentNavigationPath, chosenCategoryPath]
+        : [toPathFormat(category.name), chosenCategoryPath];
+
+    const fullPath = `/${completePath.join("/")}`;
 
     router.push(fullPath);
   };
