@@ -64,11 +64,10 @@ function CategoryChooseStepperMobile({
   ) => {
     try {
       // Build the path segments for this category
-      const pathSegments = [
-        defaultPath,
-        ...currentPath,
-        toPathFormat(category.name),
-      ];
+      const pathSegments = [...currentPath, toPathFormat(category.name)];
+      if (defaultPath) {
+        pathSegments.unshift(defaultPath);
+      }
       return getRecursiveCategoryName(pathSegments);
     } catch {
       // Fallback to the original name if translation fails
