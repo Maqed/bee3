@@ -1,3 +1,4 @@
+import { categoryIcons } from "@/consts/category-icons";
 import {
   categoriesTree,
   CategoryTreeItem,
@@ -207,3 +208,7 @@ export function getCategoryByPath(path: string): CategoryTreeItem | null {
 
   return null;
 }
+export const getCategoryIcon = (category: CategoryTreeItem) => {
+  const categoryPath = toPathFormat(category.name);
+  return categoryIcons[categoryPath]?.icon;
+};
