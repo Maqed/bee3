@@ -46,7 +46,7 @@ function ExploreCategories() {
                     </Avatar>
                     <p className="text-sm">{categoryName}</p>
                   </DialogTrigger>
-                  <DialogContent className="max-w-2xl pb-0 max-sm:h-full">
+                  <DialogContent className="h-full max-w-2xl pb-0">
                     <DialogHeader className="h-min">
                       <DialogTitle>
                         <Link tabIndex={-1} href={`/${categoryNamePathFormat}`}>
@@ -54,24 +54,21 @@ function ExploreCategories() {
                         </Link>
                       </DialogTitle>
                     </DialogHeader>
-                    <div className="flex flex-col items-start justify-start max-sm:max-h-[calc(100vh-100px)] max-sm:overflow-auto">
+                    <div className="flex h-[calc(100vh-100px)] flex-col overflow-auto">
                       <Link
-                        className="w-full text-primary hover:underline max-sm:text-center"
+                        className="w-full text-primary hover:underline"
                         href={`/${categoryNamePathFormat}`}
                       >
                         {tNavigation("show-all")}
                       </Link>
                       <div className="flex w-full items-center justify-center">
-                        <Separator className="my-1 w-1/2" />
+                        <Separator className="my-1 w-full" />
                       </div>
-                      <div className="grid h-full w-full grid-cols-1 gap-4 py-4 max-sm:justify-items-start sm:grid-cols-3">
+                      <div className="flex w-full flex-col gap-5 py-4">
                         {category.categories?.map((subCategory) => {
                           const subCategoryNamePathFormat = toPathFormat(
                             subCategory.name,
                           );
-                          const SubCategoryIcon = categoryIconData
-                            ?.categories?.[subCategoryNamePathFormat]
-                            ?.icon as CategoryIconType;
                           const subCategoryName = getSynchronousSubCategory(
                             categoryNamePathFormat,
                             subCategoryNamePathFormat,
@@ -80,12 +77,8 @@ function ExploreCategories() {
                             <Link
                               key={`explore-subcategory-${subCategoryNamePathFormat}`}
                               href={`/${categoryNamePathFormat}/${subCategoryNamePathFormat}`}
-                              className="group flex items-center justify-center gap-1 sm:flex-col"
                             >
-                              <Avatar className="rounded-md bg-primary/60">
-                                <SubCategoryIcon className="size-[18px]" />
-                              </Avatar>
-                              <p className="text-center text-sm group-hover:underline group-focus:underline">
+                              <p className="text-lg hover:underline focus:underline">
                                 {subCategoryName}
                               </p>
                             </Link>
