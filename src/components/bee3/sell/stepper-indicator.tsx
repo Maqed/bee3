@@ -10,7 +10,6 @@ function StepperIndicator() {
   const stepLabels = [
     tSell("stepper.step1"),
     tSell("stepper.step2"),
-    tSell("stepper.step3"),
   ];
 
   return (

@@ -16,8 +16,7 @@ import { uploadToR2 } from "@/lib/s3";
 import { Card, CardTitle, CardContent, CardHeader } from "@/components/ui/card";
 import { Scoped, useStepper } from "./stepper-config";
 import Step1Category from "./step-1-category";
-import Step2Subcategory from "./step-2-subcategory";
-import Step3Information from "./step-3-information";
+import Step2Information from "./step-2-information";
 import StepperIndicator from "./stepper-indicator";
 
 type SellFormProps = {
@@ -190,7 +189,6 @@ function StepContent({
   selectedMainCategory,
   selectedSubCategory,
   onCategoryChange,
-  onSubCategoryChange,
   isPending,
   form,
   tSell,
@@ -213,18 +211,9 @@ function StepContent({
           onCategoryChange={onCategoryChange}
         />
       );
-    case "subcategory":
-      return (
-        <Step2Subcategory
-          selectedMainCategory={selectedMainCategory}
-          selectedSubCategory={selectedSubCategory}
-          onSubCategoryChange={onSubCategoryChange}
-          isPending={isPending}
-        />
-      );
     case "information":
       return (
-        <Step3Information
+        <Step2Information
           form={form}
           selectedSubCategory={selectedSubCategory}
           isPending={isPending}
@@ -256,9 +245,6 @@ function StepperActions({
 
     // For step 1: need a main category selected
     if (isFirst && !selectedMainCategory) return false;
-
-    // For step 2: need a subcategory selected
-    if (!isFirst && !selectedSubCategory) return false;
 
     return true;
   };

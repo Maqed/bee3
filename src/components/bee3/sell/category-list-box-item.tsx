@@ -8,7 +8,7 @@ import { ListboxItem } from "@/components/ui/listbox";
 const CategoryListboxItem = React.forwardRef<
   React.ElementRef<typeof ListboxItem>,
   React.ComponentPropsWithoutRef<typeof ListboxItem> & {
-    Icon: CategoryIconType;
+    Icon?: CategoryIconType;
     categoryName: string;
   }
 >(({ className, categoryName, Icon, ...props }, ref) => {
@@ -29,9 +29,11 @@ const CategoryListboxItem = React.forwardRef<
           "min-w-[80px] sm:min-w-[100px]",
         )}
       >
-        <Avatar className="h-8 w-8 rounded-md bg-accent text-foreground drop-shadow-md group-aria-selected:bg-primary/70 group-aria-selected:drop-shadow sm:h-10 sm:w-10">
-          <Icon className="size-[14px] sm:size-[18px]" />
-        </Avatar>
+        {Icon && (
+          <Avatar className="h-8 w-8 rounded-md bg-accent text-foreground drop-shadow-md group-aria-selected:bg-primary/70 group-aria-selected:drop-shadow sm:h-10 sm:w-10">
+            <Icon className="size-[14px] sm:size-[18px]" />
+          </Avatar>
+        )}
         <span className="text-center leading-tight">{categoryName}</span>
       </FormLabel>
     </ListboxItem>

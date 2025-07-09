@@ -838,10 +838,6 @@
       "description": "Select the main category for your item"
     },
     "step2": {
-      "title": "Choose Subcategory",
-      "description": "Select the specific subcategory for your item"
-    },
-    "step3": {
       "title": "Item Information",
       "description": "Provide details about your item",
       "location": {
@@ -876,15 +872,11 @@
       "previous": "Previous",
       "next": "Next",
       "step1": "Category",
-      "step2": "Subcategory",
-      "step3": "Information"
+      "step2": "Information"
     },
     "category": {
       "main": {
         "label": "Category"
-      },
-      "sub": {
-        "label": "Subcategory"
       }
     },
     "images": {

@@ -24,19 +24,19 @@ import type { z } from "zod";
 import type { adSchemaClient } from "@/schema/ad";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface Step3InformationProps {
+interface Step2InformationProps {
   form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
   selectedSubCategory: string | null;
   isPending: boolean;
   tSell: any;
 }
 
-function Step3Information({
+function Step2Information({
   form,
   selectedSubCategory,
   isPending,
   tSell,
-}: Step3InformationProps) {
+}: Step2InformationProps) {
   const locale = useLocale();
   const { data: session, isPending: isSessionPending } =
     authClient.useSession();
@@ -55,8 +55,8 @@ function Step3Information({
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
-        <h2 className="text-2xl font-bold">{tSell("step3.title")}</h2>
-        <p className="text-muted-foreground">{tSell("step3.description")}</p>
+        <h2 className="text-2xl font-bold">{tSell("step2.title")}</h2>
+        <p className="text-muted-foreground">{tSell("step2.description")}</p>
       </div>
 
       <div className="space-y-8" onKeyDown={handleKeyDown}>
@@ -271,7 +271,7 @@ function Step3Information({
         <div className="space-y-4">
           <div className="space-y-2">
             <h3 className="text-lg font-semibold">
-              {tSell("step3.user-info.title")}
+              {tSell("step2.user-info.title")}
             </h3>
           </div>
 
@@ -280,20 +280,20 @@ function Step3Information({
             name="userName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{tSell("step3.user-info.name.label")}</FormLabel>
+                <FormLabel>{tSell("step2.user-info.name.label")}</FormLabel>
                 <FormControl>
                   {isSessionPending ? (
                     <Skeleton className="h-10 w-full" />
                   ) : (
                     <Input
-                      placeholder={tSell("step3.user-info.name.placeholder")}
+                      placeholder={tSell("step2.user-info.name.placeholder")}
                       {...field}
                       disabled={isPending}
                     />
                   )}
                 </FormControl>
                 <FormDescription>
-                  {tSell("step3.user-info.name.description")}
+                  {tSell("step2.user-info.name.description")}
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -306,7 +306,7 @@ function Step3Information({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  {tSell("step3.user-info.contact-method.label")}
+                  {tSell("step2.user-info.contact-method.label")}
                 </FormLabel>
                 <FormControl>
                   {isSessionPending ? (
@@ -314,7 +314,7 @@ function Step3Information({
                   ) : (
                     <Textarea
                       placeholder={tSell(
-                        "step3.user-info.contact-method.placeholder",
+                        "step2.user-info.contact-method.placeholder",
                       )}
                       {...field}
                       disabled={isPending}
@@ -322,7 +322,7 @@ function Step3Information({
                   )}
                 </FormControl>
                 <FormDescription>
-                  {tSell("step3.user-info.contact-method.description")}
+                  {tSell("step2.user-info.contact-method.description")}
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -334,4 +334,4 @@ function Step3Information({
   );
 }
 
-export default Step3Information;
+export default Step2Information;
