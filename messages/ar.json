@@ -841,6 +841,10 @@
     "step2": {
       "title": "معلومات المنتج",
       "description": "قدم تفاصيل عن منتجك",
+      "current-category": {
+        "label": "الفئة",
+        "change": "تغيير"
+      },
       "location": {
         "title": "الموقع"
       },

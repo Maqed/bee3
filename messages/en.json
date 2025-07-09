@@ -843,6 +843,10 @@
     "step2": {
       "title": "Item Information",
       "description": "Provide details about your item",
+      "current-category": {
+        "label": "Category",
+        "change": "Change"
+      },
       "location": {
         "title": "Location"
       },

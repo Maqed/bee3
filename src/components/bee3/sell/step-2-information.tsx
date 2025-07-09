@@ -23,6 +23,21 @@ import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
 import type { adSchemaClient } from "@/schema/ad";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useStepper } from "./stepper-config";
+import {
+  findCategory,
+  findAncestorCategories,
+  toPathFormat,
+  getCategoryIcon,
+} from "@/lib/category";
+import { useCategoryTranslations } from "@/lib/category-synchronous";
+import { Button } from "@/components/ui/button";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb";
 
 interface Step2InformationProps {
   form: UseFormReturn<z.infer<typeof adSchemaClient>, any, undefined>;
@@ -35,6 +50,8 @@ function Step2Information({ form, isPending, tSell }: Step2InformationProps) {
   const { data: session, isPending: isSessionPending } =
     authClient.useSession();
   const [isSelectedALocation, setIsSelectedLocation] = useState(false);
+  const { prev } = useStepper();
+  const { getRecursiveCategoryName } = useCategoryTranslations();
 
   const onImagesChange = (newImages: File[]) => {
     form.setValue("images", newImages);
@@ -46,12 +63,86 @@ function Step2Information({ form, isPending, tSell }: Step2InformationProps) {
     }
   };
 
+  // Get current category information
+  const currentCategoryId = form.watch("categoryId");
+  const currentCategory = currentCategoryId
+    ? findCategory(currentCategoryId)
+    : null;
+  const ancestorCategories = currentCategoryId
+    ? findAncestorCategories(currentCategoryId)
+    : [];
+
+  // Build category path for translation
+  const categoryPathSegments = currentCategory
+    ? [
+        ...ancestorCategories.map((ancestor) => toPathFormat(ancestor.name)),
+        toPathFormat(currentCategory.name),
+      ]
+    : [];
+  const CategoryIcon = ancestorCategories[0]
+    ? getCategoryIcon(ancestorCategories[0])
+    : null;
+
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
         <h2 className="text-2xl font-bold">{tSell("step2.title")}</h2>
         <p className="text-muted-foreground">{tSell("step2.description")}</p>
       </div>
+
+      {/* Current Category Display */}
+      {currentCategory && (
+        <FormItem>
+          <FormLabel className="text-start">
+            {tSell("step2.current-category.label")}
+          </FormLabel>
+          <div className="flex items-center gap-3">
+            {CategoryIcon && (
+              <div className="flex size-10 items-center justify-center rounded-lg bg-primary/5 text-primary">
+                {<CategoryIcon className="size-6" />}
+              </div>
+            )}
+            <div className="flex-1">
+              <h5 className="font-bold">
+                {getRecursiveCategoryName([categoryPathSegments[0] ?? ""])}
+              </h5>
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>
+                      {categoryPathSegments
+                        .slice(1)
+                        .map((categoryPathSegment, index) => {
+                          const isLastElement =
+                            index === categoryPathSegments.length - 2;
+                          return (
+                            <>
+                              {getRecursiveCategoryName([
+                                ...categoryPathSegments.slice(0, index + 1),
+                                categoryPathSegment,
+                              ])}
+                              {!isLastElement && " / "}
+                            </>
+                          );
+                        })}
+                    </BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+            <Button
+              type="button"
+              variant="ghost"
+              className="w-fit text-primary hover:bg-muted hover:text-primary"
+              size="sm"
+              onClick={prev}
+              disabled={isPending}
+            >
+              {tSell("step2.current-category.change")}
+            </Button>
+          </div>
+        </FormItem>
+      )}
 
       <div className="space-y-8" onKeyDown={handleKeyDown}>
         {/* Images Section */}

@@ -18,7 +18,9 @@ export function useCategoryTranslations() {
     return tCategory(`${category}.categories.${subCategory}.name`);
   };
 
-  const getRecursiveCategoryName = (pathSegments: string[]): string => {
+  const getRecursiveCategoryName = (
+    pathSegments: string[] | string,
+  ): string => {
     let translationPath = pathSegments[0];
     for (let i = 1; i < pathSegments.length; i++) {
       translationPath += `.categories.${pathSegments[i]}`;
