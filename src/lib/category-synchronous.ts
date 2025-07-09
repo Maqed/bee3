@@ -18,9 +18,19 @@ export function useCategoryTranslations() {
     return tCategory(`${category}.categories.${subCategory}.name`);
   };
 
+  const getRecursiveCategoryName = (pathSegments: string[]): string => {
+    let translationPath = pathSegments[0];
+    for (let i = 1; i < pathSegments.length; i++) {
+      translationPath += `.categories.${pathSegments[i]}`;
+    }
+    translationPath += ".name";
+    return tCategory(translationPath);
+  };
+
   return {
     getSynchronousFullCategory,
     getSynchronousCategory,
     getSynchronousSubCategory,
+    getRecursiveCategoryName,
   };
 }
