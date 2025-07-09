@@ -335,19 +335,57 @@
       "name": "Electronics & Home Appliances",
       "categories": {
         "tv-audio-video": {
-          "name": "TV, Audio & Video"
+          "name": "TV, Audio & Video",
+          "categories": {
+            "televisions": { "name": "Televisions" },
+            "dvd-home-theater": { "name": "DVD - Home Theater" },
+            "home-audio": { "name": "Home Audio" },
+            "mp3-players-portable-audio": {
+              "name": "Mp3 Players - Portable audio"
+            },
+            "satellite-tv-receivers": { "name": "Satellite TV receivers" }
+          }
         },
         "computers-accessories": {
-          "name": "Computers & Accessories"
+          "name": "Computers & Accessories",
+          "categories": {
+            "desktop-computers": { "name": "Desktop computers" },
+            "laptop-computers": { "name": "Laptop computers" },
+            "computer-accessories-spare-parts": {
+              "name": "Computer Accessories & Spare Parts"
+            }
+          }
         },
         "video-games-consoles": {
-          "name": "Video Games & Consoles"
+          "name": "Video Games & Consoles",
+          "categories": {
+            "video-game-consoles": { "name": "Video Game Consoles" },
+            "video-games-accessories": { "name": "Video Games & Accessories" }
+          }
         },
         "cameras-imaging": {
-          "name": "Cameras & Imaging"
+          "name": "Cameras & Imaging",
+          "categories": {
+            "cameras": { "name": "Cameras" },
+            "security-cameras": { "name": "Security Cameras" },
+            "camera-accessories": { "name": "Camera Accessories" },
+            "binoculars-telescopes": { "name": "Binoculars - Telescopes" }
+          }
         },
         "home-appliances": {
-          "name": "Home Appliances"
+          "name": "Home Appliances",
+          "categories": {
+            "refrigerators-freezers": { "name": "Refrigerators - Freezers" },
+            "ovens-microwaves": { "name": "Ovens - Microwaves" },
+            "dishwashers": { "name": "Dishwashers" },
+            "cooking-tools": { "name": "Cooking Tools" },
+            "washers-dryers": { "name": "Washers - Dryers" },
+            "water-coolers-kettles": { "name": "Water Coolers & Kettles" },
+            "air-conditioners-fans": { "name": "Air conditioners & Fans" },
+            "cleaning-appliances": { "name": "Cleaning Appliances" },
+            "other-home-appliances": { "name": "Other Home Appliances" },
+            "heaters": { "name": "Heaters" }
+          }
         }
       }
     },

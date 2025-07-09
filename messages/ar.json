@@ -205,7 +205,7 @@
           "name": "سيارات للإيجار"
         },
         "tyres-batteries-oils-accessories": {
-          "name": "إطارات وبطاريات وزيوت وملحقات"
+          "name": "إطارات وبطاريات وزيوت واكسسوارات"
         },
         "car-spare-parts": {
           "name": "قطع غيار السيارات"
@@ -263,7 +263,7 @@
           "name": "أجهزة لوحية"
         },
         "mobile-tablet-accessories": {
-          "name": "ملحقات الجوال والأجهزة اللوحية"
+          "name": "اكسسوارات الجوال والأجهزة اللوحية"
         },
         "mobile-numbers": {
           "name": "أرقام جوال"
@@ -333,19 +333,57 @@
       "name": "إلكترونيات وأجهزة منزلية",
       "categories": {
         "tv-audio-video": {
-          "name": "التلفاز والصوت والفيديو"
+          "name": "التلفاز والصوت والفيديو",
+          "categories": {
+            "televisions": { "name": "تلفزيونات" },
+            "dvd-home-theater": { "name": "دي في دي - مسرح منزلي" },
+            "home-audio": { "name": "صوت منزلي" },
+            "mp3-players-portable-audio": { "name": "مشغلات MP3 - صوتيات" },
+            "satellite-tv-receivers": {
+              "name": "ريسيفرات"
+            }
+          }
         },
         "computers-accessories": {
-          "name": "الحواسيب والملحقات"
+          "name": "الحواسيب والاكسسوارات",
+          "categories": {
+            "desktop-computers": { "name": "أجهزة كمبيوتر مكتبية" },
+            "laptop-computers": { "name": "أجهزة كمبيوتر محمولة" },
+            "computer-accessories-spare-parts": {
+              "name": "اكسسوارات وقطع غيار الكمبيوتر"
+            }
+          }
         },
         "video-games-consoles": {
-          "name": "ألعاب الفيديو وأجهزة التحكم"
+          "name": "ألعاب الفيديو وأجهزة التحكم",
+          "categories": {
+            "video-game-consoles": { "name": "أجهزة ألعاب الفيديو" },
+            "video-games-accessories": { "name": "ألعاب الفيديو واكسسواراتها" }
+          }
         },
         "cameras-imaging": {
-          "name": "الكاميرات والتصوير"
+          "name": "الكاميرات والتصوير",
+          "categories": {
+            "cameras": { "name": "كاميرات" },
+            "security-cameras": { "name": "كاميرات مراقبة" },
+            "camera-accessories": { "name": "اكسسوارات الكاميرا" },
+            "binoculars-telescopes": { "name": "مناظير وتلسكوبات" }
+          }
         },
         "home-appliances": {
-          "name": "الأجهزة المنزلية"
+          "name": "الأجهزة المنزلية",
+          "categories": {
+            "refrigerators-freezers": { "name": "ثلاجات - فريزرات" },
+            "ovens-microwaves": { "name": "أفران - ميكروويف" },
+            "dishwashers": { "name": "غسالات الصحون" },
+            "cooking-tools": { "name": "أدوات الطبخ" },
+            "washers-dryers": { "name": "غسالات - نشافات" },
+            "water-coolers-kettles": { "name": "مبردات مياه وغلايات" },
+            "air-conditioners-fans": { "name": "مكيفات ومراوح" },
+            "cleaning-appliances": { "name": "أجهزة التنظيف" },
+            "other-home-appliances": { "name": "أجهزة منزلية أخرى" },
+            "heaters": { "name": "دفايات" }
+          }
         }
       }
     },
@@ -392,7 +430,7 @@
           }
         },
         "home-decoration-accessories": {
-          "name": "ديكور المنزل والملحقات",
+          "name": "ديكور المنزل والاكسسوارات",
           "categories": {
             "mirrors": { "name": "مرايات" },
             "home-decoration": { "name": "ديكور المنزل" }
@@ -454,10 +492,10 @@
           "name": "مستحضرات تجميل نسائية"
         },
         "womens-accessories-personal-care": {
-          "name": "ملحقات شخصية واعتناء للنساء"
+          "name": "اكسسوارات شخصية واعتناء للنساء"
         },
         "mens-accessories-personal-care": {
-          "name": "ملحقات شخصية واعتناء للرجال"
+          "name": "اكسسوارات شخصية واعتناء للرجال"
         }
       }
     },

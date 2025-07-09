@@ -30,6 +30,7 @@ import {
   FaBone,
   FaBaby,
   FaTshirt as FaShirt,
+  FaSatellite,
   FaBreadSlice,
   FaBed,
   FaGamepad as FaToyIcon,
@@ -48,10 +49,13 @@ import {
   FaArchive,
   FaRegCircle,
   FaBath,
+  FaCamera,
+  FaBinoculars,
 } from "react-icons/fa";
 
 import {
   MdElectricCar,
+  MdAudiotrack,
   MdLocalGasStation,
   MdDirectionsCar,
   MdApartment,
@@ -117,6 +121,7 @@ import {
 } from "react-icons/md";
 
 import type { IconType } from "react-icons";
+import { BsFiletypeMp3 } from "react-icons/bs";
 
 export type CategoryIconType = IconType;
 
@@ -187,11 +192,55 @@ export const categoryIcons: CategoryIconsType = {
   "electronics-home-appliances": {
     icon: FaTv,
     categories: {
-      "tv-audio-video": { icon: MdSpeaker },
-      "computers-accessories": { icon: FaLaptop },
-      "video-games-consoles": { icon: MdVideogameAsset },
-      "cameras-imaging": { icon: MdPhotoCamera },
-      "home-appliances": { icon: FaBlender },
+      "tv-audio-video": {
+        icon: MdSpeaker,
+        categories: {
+          televisions: { icon: FaTv },
+          "dvd-home-theater": { icon: MdAudiotrack },
+          "home-audio": { icon: FaRegCircle },
+          "mp3-players-portable-audio": { icon: BsFiletypeMp3 },
+          "satellite-tv-receivers": { icon: FaSatellite },
+        },
+      },
+      "computers-accessories": {
+        icon: FaLaptop,
+        categories: {
+          "desktop-computers": { icon: FaDesktop },
+          "laptop-computers": { icon: FaLaptop },
+          "computer-accessories-spare-parts": { icon: FaRegCircle },
+        },
+      },
+      "video-games-consoles": {
+        icon: MdVideogameAsset,
+        categories: {
+          "video-game-consoles": { icon: MdVideogameAsset },
+          "video-games-accessories": { icon: FaRegCircle },
+        },
+      },
+      "cameras-imaging": {
+        icon: MdPhotoCamera,
+        categories: {
+          cameras: { icon: MdPhotoCamera },
+          "security-cameras": { icon: FaCamera },
+          "camera-accessories": { icon: FaRegCircle },
+          "binoculars-telescopes": { icon: FaBinoculars },
+        },
+      },
+      "home-appliances": {
+        icon: FaBlender,
+        categories: {
+          "refrigerators-freezers": { icon: FaRegCircle },
+          "ovens-microwaves": { icon: FaRegCircle },
+          dishwashers: { icon: FaRegCircle },
+          "cooking-tools": { icon: FaRegCircle },
+          "washers-dryers": { icon: FaRegCircle },
+          "water-coolers-kettles": { icon: FaRegCircle },
+          "air-conditioners-fans": { icon: FaRegCircle },
+          "cleaning-appliances": { icon: FaRegCircle },
+          "other-home-appliances": { icon: FaBoxes },
+          heaters: { icon: FaRegCircle },
+        },
+      },
     },
   },
   "home-office": {

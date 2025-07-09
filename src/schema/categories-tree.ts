@@ -195,11 +195,60 @@ export const categoriesTree: CategoryTreeItem[] = [
       { name: "warranty", type: "select", options: ["yes", "no"] },
     ],
     categories: [
-      { id: "51", name: "tv-audio-video" },
-      { id: "52", name: "computers-accessories" },
-      { id: "53", name: "video-games-consoles" },
-      { id: "54", name: "cameras-imaging" },
-      { id: "55", name: "home-appliances" },
+      {
+        id: "51",
+        name: "tv-audio-video",
+        categories: [
+          { id: "511", name: "televisions" },
+          { id: "512", name: "dvd-home-theater" },
+          { id: "513", name: "home-audio" },
+          { id: "514", name: "mp3-players-portable-audio" },
+          { id: "515", name: "satellite-tv-receivers" },
+        ],
+      },
+      {
+        id: "52",
+        name: "computers-accessories",
+        categories: [
+          { id: "521", name: "desktop-computers" },
+          { id: "522", name: "laptop-computers" },
+          { id: "523", name: "computer-accessories-spare-parts" },
+        ],
+      },
+      {
+        id: "53",
+        name: "video-games-consoles",
+        categories: [
+          { id: "531", name: "video-game-consoles" },
+          { id: "532", name: "video-games-accessories" },
+        ],
+      },
+      {
+        id: "54",
+        name: "cameras-imaging",
+        categories: [
+          { id: "541", name: "cameras" },
+          { id: "542", name: "security-cameras" },
+          { id: "543", name: "camera-accessories" },
+          { id: "544", name: "binoculars-telescopes" },
+        ],
+      },
+      {
+        id: "55",
+        name: "home-appliances",
+        categories: [
+          { id: "551", name: "refrigerators-freezers" },
+          { id: "552", name: "ovens-microwaves" },
+          { id: "553", name: "dishwashers" },
+          { id: "554", name: "cooking-tools" },
+          { id: "555", name: "washers-dryers" },
+          { id: "556", name: "water-coolers-kettles" },
+          { id: "557", name: "air-conditioners-fans" },
+          { id: "558", name: "cleaning-appliances" },
+          { id: "559", name: "other-home-appliances" },
+          { id: "55a", name: "heaters" },
+        ],
+      },
     ],
   },
   {
