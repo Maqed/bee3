@@ -119,7 +119,9 @@ function CategoryChooseStepperMobile({
             <BackwardArrow className="h-4 w-4" />
           </Button>
         )}
-        <h2 className="text-lg font-semibold">{currentLevel.title}</h2>
+        <h2 className="text-lg font-semibold md:text-xl">
+          {currentLevel.title}
+        </h2>
       </div>
 
       {/* Breadcrumb navigation */}
@@ -168,7 +170,7 @@ function CategoryChooseStepperMobile({
               onClick={() => handleCategoryClick(category)}
             >
               <div className="flex w-full items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 md:text-lg">
                   {CategoryIcon && (
                     <CategoryIcon className="size-5 text-primary" />
                   )}
