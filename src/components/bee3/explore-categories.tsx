@@ -1,7 +1,9 @@
+"use client";
 import React from "react";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import { Avatar } from "@/components/ui/avatar";
 import { categoriesTree, CategoryTreeItem } from "@/schema/categories-tree";
+import { useRouter } from "@/navigation";
 
 import {
   Carousel,
@@ -19,43 +21,44 @@ import {
 } from "@/components/ui/dialog";
 import { Link } from "@/navigation";
 import { toPathFormat } from "@/lib/category";
-import { Separator } from "@/components/ui/separator";
-import { useTranslations } from "next-intl";
 import { useCategoryTranslations } from "@/lib/category-synchronous";
-import { ForwardArrow } from "../ui/arrows";
+import CategoryChooseStepperMobile from "./category-choose-stepper-mobile";
 
 function CategoryDialog({
   category,
-  depth,
-  pathSegments = [],
   children,
 }: {
   category: CategoryTreeItem;
-  depth: number;
-  pathSegments?: string[];
   children: React.ReactNode;
 }) {
-  const tNavigation = useTranslations("/.navigation");
+  const router = useRouter();
   const { getRecursiveCategoryName } = useCategoryTranslations();
 
-  const currentPathSegments = [...pathSegments, toPathFormat(category.name)];
-  const categoryPath = currentPathSegments.join("/");
-  const categoryName = getRecursiveCategoryName(currentPathSegments);
+  const categoryPathFormat = toPathFormat(category.name);
+  const categoryPath = categoryPathFormat;
+  const categoryName = getRecursiveCategoryName([categoryPathFormat]);
 
   const hasSubcategories =
     category.categories && category.categories.length > 0;
 
+  // If no subcategories, directly link to the category path
   if (!hasSubcategories) {
     return <Link href={`/${categoryPath}`}>{children}</Link>;
   }
 
+  const handleCategoryChoice = (chosenCategory: CategoryTreeItem) => {
+    // Build the full path including the parent category
+    const parentPath = toPathFormat(category.name);
+    const childPath = toPathFormat(chosenCategory.name);
+    const fullPath = `/${parentPath}/${childPath}`;
+
+    router.push(fullPath);
+  };
+
   return (
     <Dialog>
-      <DialogTrigger>{children}</DialogTrigger>
-      <DialogContent
-        overlayClassName={depth > 0 ? "bg-transparent" : ""}
-        className="h-full max-w-2xl pb-0"
-      >
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent className="h-full max-w-2xl pb-0">
         <DialogHeader className="h-min">
           <DialogTitle>
             <Link tabIndex={-1} href={`/${categoryPath}`}>
@@ -64,42 +67,11 @@ function CategoryDialog({
           </DialogTitle>
         </DialogHeader>
         <div className="flex h-[calc(100vh-100px)] flex-col overflow-auto">
-          <Link
-            className="text-primary hover:underline"
-            href={`/${categoryPath}`}
-          >
-            {tNavigation("show-all")}
-          </Link>
-          <div className="flex w-full items-center justify-center">
-            <Separator className="my-1 w-full" />
-          </div>
-          <div className="flex w-full flex-col gap-5 py-4">
-            {category.categories?.map((subCategory) => {
-              const hasSubcategories =
-                subCategory.categories && subCategory.categories.length > 0;
-              const subCategoryPathSegments = [
-                ...currentPathSegments,
-                toPathFormat(subCategory.name),
-              ];
-              const subCategoryName = getRecursiveCategoryName(
-                subCategoryPathSegments,
-              );
-
-              return (
-                <CategoryDialog
-                  key={`category-${subCategory.id}`}
-                  depth={depth + 1}
-                  category={subCategory}
-                  pathSegments={currentPathSegments}
-                >
-                  <p className="flex cursor-pointer items-center text-lg hover:underline focus:underline">
-                    {subCategoryName}
-                    {hasSubcategories && <ForwardArrow className="size-5" />}
-                  </p>
-                </CategoryDialog>
-              );
-            })}
-          </div>
+          <CategoryChooseStepperMobile
+            onChoice={handleCategoryChoice}
+            defaultPath={category.name}
+            categories={category.categories || []}
+          />
         </div>
       </DialogContent>
     </Dialog>
@@ -121,7 +93,7 @@ function ExploreCategories() {
 
             return (
               <CarouselItem key={categoryName}>
-                <CategoryDialog depth={0} category={category}>
+                <CategoryDialog category={category}>
                   <div className="flex cursor-pointer flex-col items-center justify-center">
                     <Avatar className="rounded-md bg-primary/60">
                       <CategoryIcon className="size-[18px]" />
