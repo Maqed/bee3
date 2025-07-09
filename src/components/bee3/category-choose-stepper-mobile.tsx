@@ -25,8 +25,12 @@ interface NavigationLevel {
 
 function CategoryChooseStepperMobile({
   onChoice,
+  defaultPath = "",
+  categories = categoriesTree,
 }: {
   onChoice: (chosenCategory: CategoryTreeItem) => void;
+  defaultPath?: string;
+  categories?: CategoryTreeItem[];
 }) {
   const t = useTranslations("category-stepper");
   const { getRecursiveCategoryName } = useCategoryTranslations();
@@ -34,7 +38,7 @@ function CategoryChooseStepperMobile({
   const [navigationHistory, setNavigationHistory] = useState<NavigationLevel[]>(
     [
       {
-        categories: categoriesTree,
+        categories,
         title: t("title"),
         path: [],
       },
@@ -49,7 +53,11 @@ function CategoryChooseStepperMobile({
   ) => {
     try {
       // Build the path segments for this category
-      const pathSegments = [...currentPath, toPathFormat(category.name)];
+      const pathSegments = [
+        defaultPath,
+        ...currentPath,
+        toPathFormat(category.name),
+      ];
       return getRecursiveCategoryName(pathSegments);
     } catch {
       // Fallback to the original name if translation fails
