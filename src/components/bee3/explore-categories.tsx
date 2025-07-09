@@ -51,7 +51,7 @@ function CategoryDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogTrigger>{children}</DialogTrigger>
       <DialogContent className="h-full max-w-2xl pb-0">
         <DialogHeader className="h-min">
           <DialogTitle>
@@ -66,7 +66,7 @@ function CategoryDialog({
         </DialogHeader>
         <div className="flex h-[calc(100vh-100px)] flex-col overflow-auto">
           <Link
-            className="w-full text-primary hover:underline"
+            className="text-primary hover:underline"
             href={`/${categoryPath}`}
             onClick={() => setOpen(false)}
           >
