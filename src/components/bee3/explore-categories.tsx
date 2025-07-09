@@ -133,7 +133,11 @@ function ExploreCategories() {
                     <Avatar className="rounded-md bg-primary/60">
                       <CategoryIcon className="size-[18px]" />
                     </Avatar>
-                    <p className="text-sm">{categoryName}</p>
+                    <p className="w-20 text-wrap text-center text-[12px]">
+                      {categoryName.length > 20
+                        ? `${categoryName.slice(0, 20)}...`
+                        : categoryName}
+                    </p>
                   </div>
                 </CategoryDialog>
               </CarouselItem>
