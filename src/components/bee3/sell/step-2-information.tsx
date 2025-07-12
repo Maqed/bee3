@@ -102,7 +102,7 @@ function Step2Information({ form, isPending, tSell }: Step2InformationProps) {
                 {<CategoryIcon className="size-6" />}
               </div>
             )}
-            <div className="flex-1">
+            <div className="min-w-0 flex-1">
               <h5 className="font-bold">
                 {getRecursiveCategoryName([categoryPathSegments[0] ?? ""])}
               </h5>
@@ -133,7 +133,7 @@ function Step2Information({ form, isPending, tSell }: Step2InformationProps) {
             <Button
               type="button"
               variant="ghost"
-              className="w-fit text-primary hover:bg-muted hover:text-primary"
+              className="w-fit shrink-0 text-primary hover:bg-muted hover:text-primary"
               size="sm"
               onClick={prev}
               disabled={isPending}

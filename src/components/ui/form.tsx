@@ -93,7 +93,9 @@ const FormItem = React.forwardRef<
         {...props}
       >
         {label}
-        <div className="flex w-full flex-1 flex-col gap-1">{endContent}</div>
+        <div className="flex w-full min-w-0 flex-1 flex-col gap-1">
+          {endContent}
+        </div>
       </div>
     </FormItemContext.Provider>
   );
