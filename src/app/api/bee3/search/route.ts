@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/server/db";
 import { categoriesTree, CategoryTreeItem } from "@/schema/categories-tree";
-import { toPathFormat, getSubCategoryPaths, getTreeFromPath } from "@/lib/category";
+import {
+  toPathFormat,
+  getSubCategoryPaths,
+  getTreeFromPath,
+} from "@/lib/category";
 import { Prisma } from "@prisma/client";
 import {
   DEFAULT_PAGE_SIZE,
@@ -28,9 +32,6 @@ import {
 export async function GET(request: NextRequest) {
   const categoryPath = request.nextUrl.searchParams.get("category");
   const search = request.nextUrl.searchParams.get("q");
-
-  if (!categoryPath && !search)
-    return NextResponse.json({ error: "invalid-query" }, { status: 400 });
 
   const pageNum = +(request.nextUrl.searchParams.get("page") ?? 1);
   const pageSize = Math.min(
