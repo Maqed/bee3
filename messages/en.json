@@ -1023,8 +1023,6 @@
       "categoryPath": "Please choose a category",
       "max-images": "You can only upload 10 images per ad",
       "submit-error": "Error submitting the ad. Please try again.",
-      "image-size": "Image size must be smaller than 2MB.",
-      "image-size-description": "Please upload a smaller image.",
       "governorateId": "Please choose a governorate",
       "cityId": "Please choose a city",
       "user-name": {

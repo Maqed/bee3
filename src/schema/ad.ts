@@ -5,7 +5,7 @@ import {
 } from "./categories-tree";
 import { cities } from "./cities";
 import { governorates } from "./governorates";
-import { MAX_AD_IMAGES, MAX_IMAGE_SIZE } from "@/consts/ad";
+import { MAX_AD_IMAGES } from "@/consts/ad";
 import { env } from "@/env";
 import {
   categoryExists,
@@ -163,12 +163,7 @@ export const adSchemaClient = z
     ...adSchemaMutual,
     images: z
       .array(
-        z
-          .instanceof(File)
-          .refine((file) => file.size <= MAX_IMAGE_SIZE, {
-            message: "/sell.image-size",
-          })
-          .refine((file) => file.type.startsWith("image/")),
+        z.instanceof(File).refine((file) => file.type.startsWith("image/")),
       )
       .min(1, { message: "/sell.images" })
       .max(MAX_AD_IMAGES, { message: "/sell.max-images" }),

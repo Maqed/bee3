@@ -5,7 +5,7 @@ import { XCircleIcon, ImageIcon } from "lucide-react";
 import { cn, optimizeImages } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { useTranslations } from "next-intl";
-import { MAX_AD_IMAGES, MAX_IMAGE_SIZE } from "@/consts/ad";
+import { MAX_AD_IMAGES } from "@/consts/ad";
 import {
   DndContext,
   DragEndEvent,
@@ -119,19 +119,6 @@ export function UploadAdImageButton({
   );
 
   const handleDrop = async (acceptedFiles: File[]) => {
-    const oversizedFiles = acceptedFiles.filter(
-      (file) => file.size > MAX_IMAGE_SIZE,
-    );
-
-    if (oversizedFiles.length > 0) {
-      toast({
-        title: tErrors("image-size"),
-        description: tErrors("image-size-description"),
-        variant: "destructive",
-      });
-      return;
-    }
-
     const newTotalImages = images.length + acceptedFiles.length;
     if (newTotalImages > MAX_AD_IMAGES) {
       toast({
@@ -143,9 +130,9 @@ export function UploadAdImageButton({
 
     try {
       const optimizedFiles = await optimizeImages(acceptedFiles, {
-        quality: 0.5,
-        maxWidth: 1500,
-        maxHeight: 450,
+        quality: 0.7,
+        maxWidth: 1200,
+        maxHeight: 800,
       });
       const newImages = [...images, ...optimizedFiles];
       onImagesChange(newImages);

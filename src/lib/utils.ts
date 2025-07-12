@@ -115,16 +115,55 @@ type CompressorOptions = {
   quality: number;
   maxHeight: number;
   maxWidth: number;
-  convertSize?: number;
 };
 
 export const optimizeImage = async (
   file: File,
   options: CompressorOptions,
 ): Promise<File> => {
+  const MAX_FILE_SIZE = 100 * 1024; // 100kB
+  let quality = options.quality;
+  let maxWidth = options.maxWidth;
+  let maxHeight = options.maxHeight;
+
+  // Try progressively more aggressive compression until we get under 100kB
+  while (quality > 0.1) {
+    try {
+      const result = await new Promise<Blob>((resolve, reject) => {
+        new Compressor(file, {
+          quality,
+          maxWidth,
+          maxHeight,
+          success: resolve,
+          error: reject,
+        });
+      });
+
+      // If the compressed file is under 100kB, we're done
+      if (result.size <= MAX_FILE_SIZE) {
+        return blobToFile(result, file.name);
+      }
+
+      // If still too large, try more aggressive compression
+      quality -= 0.1;
+
+      // Also reduce dimensions if quality is getting very low
+      if (quality < 0.4) {
+        maxWidth = Math.floor(maxWidth * 0.8);
+        maxHeight = Math.floor(maxHeight * 0.8);
+      }
+    } catch (error) {
+      // If compression fails, try with lower quality
+      quality -= 0.1;
+    }
+  }
+
+  // Final attempt with very low quality and small dimensions
   return await new Promise((resolve, reject) => {
     new Compressor(file, {
-      ...options,
+      quality: 0.1,
+      maxWidth: Math.floor(maxWidth * 0.5),
+      maxHeight: Math.floor(maxHeight * 0.5),
       success: (result) => {
         const optimizedFile = blobToFile(result, file.name);
         resolve(optimizedFile);
