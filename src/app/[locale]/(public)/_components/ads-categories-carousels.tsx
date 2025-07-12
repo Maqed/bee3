@@ -6,6 +6,7 @@ import { absoluteURL } from "@/lib/utils";
 async function AdsCategoriesCarousels() {
   const response = await fetch(absoluteURL("/api/home-page-carousel"), {
     method: "GET",
+    cache: "no-cache",
   });
 
   if (!response.ok) {
