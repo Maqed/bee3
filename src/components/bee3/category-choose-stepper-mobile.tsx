@@ -119,9 +119,7 @@ function CategoryChooseStepperMobile({
             <BackwardArrow className="h-4 w-4" />
           </Button>
         )}
-        <h2 className="text-lg font-semibold md:text-xl">
-          {currentLevel.title}
-        </h2>
+        <h2 className="text-lg font-semibold">{currentLevel.title}</h2>
       </div>
 
       {/* Breadcrumb navigation */}
@@ -154,7 +152,7 @@ function CategoryChooseStepperMobile({
       )}
 
       {/* Categories grid */}
-      <div className="flex w-full flex-col gap-3">
+      <div className="flex w-full flex-col">
         {currentLevel.categories.map((category) => {
           const displayName = getCategoryDisplayName(
             category,
@@ -166,11 +164,11 @@ function CategoryChooseStepperMobile({
             <Button
               key={category.id}
               variant="outline"
-              className="h-auto w-full justify-start p-4 text-start"
+              className="h-auto w-full justify-start rounded-none border-t-0 p-4 text-start first-of-type:border-t"
               onClick={() => handleCategoryClick(category)}
             >
               <div className="flex w-full items-center justify-between gap-3">
-                <div className="flex items-center gap-3 md:text-lg">
+                <div className="flex items-center gap-3">
                   {CategoryIcon && (
                     <CategoryIcon className="size-5 text-primary" />
                   )}
