@@ -4,6 +4,7 @@ import { MoreHorizontal } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { ForwardChevron } from "./chevrons";
+import { ScrollArea, ScrollBar } from "./scroll-area";
 
 const Breadcrumb = React.forwardRef<
   HTMLElement,
@@ -17,14 +18,17 @@ const BreadcrumbList = React.forwardRef<
   HTMLOListElement,
   React.ComponentPropsWithoutRef<"ol">
 >(({ className, ...props }, ref) => (
-  <ol
-    ref={ref}
-    className={cn(
-      "flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5",
-      className,
-    )}
-    {...props}
-  />
+  <ScrollArea className="w-full">
+    <ol
+      ref={ref}
+      className={cn(
+        "flex items-center gap-1.5 whitespace-nowrap text-sm text-muted-foreground sm:gap-2.5",
+        className,
+      )}
+      {...props}
+    />
+    <ScrollBar orientation="horizontal" />
+  </ScrollArea>
 ));
 BreadcrumbList.displayName = "BreadcrumbList";
 
