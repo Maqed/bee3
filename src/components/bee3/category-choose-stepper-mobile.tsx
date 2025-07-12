@@ -164,7 +164,7 @@ function CategoryChooseStepperMobile({
             <Button
               key={category.id}
               variant="outline"
-              className="h-auto w-full justify-start rounded-none border-t-0 p-4 text-start first-of-type:border-t"
+              className="h-auto w-full justify-start rounded-none border-t-0 p-4 text-start ring-inset first-of-type:border-t"
               onClick={() => handleCategoryClick(category)}
             >
               <div className="flex w-full items-center justify-between gap-3">
