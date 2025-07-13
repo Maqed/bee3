@@ -149,16 +149,6 @@ function FilterAds({ onApplyFilter, categoryPath }: Props) {
         thousandSeparator=","
         id="price"
       />
-
-      {/* Category-specific attribute filters */}
-      {categoryPath && (
-        <OptionsFilter
-          categoryPath={categoryPath}
-          attributeFilters={attributeFilters}
-          onAttributeFiltersChange={handleAttributeFiltersChange}
-        />
-      )}
-
       <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col">
           <Label className="mb-2" htmlFor="sort">
@@ -193,6 +183,15 @@ function FilterAds({ onApplyFilter, categoryPath }: Props) {
           </Select>
         </div>
       </div>
+
+      {/* Category-specific attribute filters */}
+      {categoryPath && (
+        <OptionsFilter
+          categoryPath={categoryPath}
+          attributeFilters={attributeFilters}
+          onAttributeFiltersChange={handleAttributeFiltersChange}
+        />
+      )}
 
       <Button onClick={handleApplyFilter}>{t("apply-filters")}</Button>
     </div>
