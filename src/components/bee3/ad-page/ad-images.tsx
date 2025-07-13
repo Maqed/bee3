@@ -1,11 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselDot,
+  CarouselPrevious,
+  CarouselNext,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { generateImagePlaceholder } from "@/lib/utils";
@@ -16,34 +19,41 @@ type AdImagesProps = {
 };
 
 export function AdImages({ ad }: AdImagesProps) {
+  const [api, setApi] = useState<CarouselApi>();
+
   if (ad.images.length > 1) {
     return (
-      <Carousel>
-        <CarouselContent className="mb-3">
-          {ad.images.map((imageURL, index) => (
-            <CarouselItem
-              key={`carousel-item-${imageURL}`}
-              className="min-w-0 shrink-0 grow-0 basis-full"
-            >
-              <Image
-                priority={index === 0 || index === 1}
-                width={1500}
-                height={450}
-                src={imageURL.url || "/placeholder.svg"}
-                placeholder={generateImagePlaceholder(1500, 450)}
-                className="h-auto max-h-[450px] w-full object-contain"
-                alt={ad.title}
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
+      <div>
+        <Carousel setApi={setApi}>
+          <CarouselContent className="mb-3">
+            {ad.images.map((imageURL, index) => (
+              <CarouselItem
+                key={`carousel-item-${imageURL}`}
+                className="min-w-0 shrink-0 grow-0 basis-full"
+              >
+                <Image
+                  priority={index === 0 || index === 1}
+                  width={1500}
+                  height={450}
+                  src={imageURL.url || "/placeholder.svg"}
+                  placeholder={generateImagePlaceholder(1500, 450)}
+                  className="h-auto max-h-[450px] w-full object-contain"
+                  alt={ad.title}
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="start-0 h-full rounded-none bg-primary/80 text-primary-foreground hover:bg-primary/70" />
+          <CarouselNext className="end-0 h-full rounded-none bg-primary/80 text-primary-foreground hover:bg-primary/70" />
+        </Carousel>
+
         <ScrollArea className="w-full whitespace-nowrap rounded-md border">
           <div className="flex w-max gap-x-2 px-2 py-3">
             {ad.images.map((imageURL, index) => (
-              <CarouselDot
-                className="inline hover:outline hover:outline-2 hover:outline-primary"
-                key={`carousel-dot-${imageURL}`}
-                index={index}
+              <button
+                key={`thumbnail-${imageURL}`}
+                className="inline hover:outline hover:outline-2 hover:outline-primary focus:outline focus:outline-2 focus:outline-primary"
+                onClick={() => api?.scrollTo(index)}
               >
                 <Image
                   width={100}
@@ -53,12 +63,12 @@ export function AdImages({ ad }: AdImagesProps) {
                   className="h-auto max-h-[100px] w-full object-contain"
                   alt={ad.title}
                 />
-              </CarouselDot>
+              </button>
             ))}
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
-      </Carousel>
+      </div>
     );
   }
 
