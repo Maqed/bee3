@@ -15,9 +15,9 @@ function ShowingAdsPage({ categoryPath, searchParams }: Props) {
   let params = getURLSearchParamsFromPageParams(searchParams);
   const tShowingAdsPage = useTranslations("showing-ads-page");
   if (categoryPath) params.set("category", categoryPath.join("/"));
-  const { getSynchronousFullCategory } = useCategoryTranslations();
+  const { getRecursiveCategoryName } = useCategoryTranslations();
   let title = categoryPath
-    ? getSynchronousFullCategory(categoryPath.join("/"))
+    ? getRecursiveCategoryName(categoryPath)
     : params.get("q")
       ? params.get("q")
       : "";
