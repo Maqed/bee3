@@ -8,14 +8,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { adSchemaClient } from "@/schema/ad";
 import AdPageUI from "@/components/bee3/ad-page/ad-page-ui";
 import SellForm from "@/components/bee3/sell/sell-form";
-import { toPathFormat } from "@/lib/category";
 
 function SellPage() {
   const [isPending, startTransition] = useTransition();
   const { data: session } = authClient.useSession();
-  const [selectedMainCategory, setSelectedMainCategory] = useState<
-    string | null
-  >(null);
   const [isSubmissionSuccessful, setIsSubmissionSuccessful] = useState(false);
   const [submittedFormData, setSubmittedFormData] = useState<z.infer<
     typeof adSchemaClient
@@ -65,7 +61,7 @@ function SellPage() {
           description: form.getValues("description")!,
           governorateId: form.getValues("governorateId"),
           negotiable: form.getValues("negotiable"),
-          categoryPath: toPathFormat(selectedMainCategory ?? ""),
+          categoryPath: "",
           createdAt: new Date(),
           updatedAt: new Date(),
           adAnalyticsId: "preview",
@@ -100,7 +96,7 @@ function SellPage() {
           description: submittedFormData.description!,
           governorateId: submittedFormData.governorateId,
           negotiable: submittedFormData.negotiable,
-          categoryPath: toPathFormat(selectedMainCategory ?? ""),
+          categoryPath: "",
           createdAt: new Date(),
           updatedAt: new Date(),
           adAnalyticsId: "preview",
@@ -120,8 +116,6 @@ function SellPage() {
       isPending={isPending}
       startTransition={startTransition}
       form={form}
-      selectedMainCategory={selectedMainCategory}
-      setSelectedMainCategory={setSelectedMainCategory}
       setIsSubmissionSuccessful={setIsSubmissionSuccessful}
       setSubmittedFormData={setSubmittedFormData}
     />
