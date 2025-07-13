@@ -123,12 +123,31 @@ export const categoriesTree: CategoryTreeItem[] = [
       {
         name: "ram",
         type: "select",
-        options: ["1GB", "2GB", "3GB", "4GB", "6GB", "8GB", "12GB", "16GB"],
+        options: [
+          "1GB",
+          "2GB",
+          "3GB",
+          "4GB",
+          "6GB",
+          "8GB",
+          "12GB",
+          "16GB",
+          ">16GB",
+        ],
       },
       {
         name: "storage",
         type: "select",
-        options: ["16GB", "32GB", "64GB", "128GB", "256GB", "512GB", "1tb"],
+        options: [
+          "4GB",
+          "16GB",
+          "32GB",
+          "64GB",
+          "128GB",
+          "256GB",
+          "512GB",
+          "1TB",
+        ],
       },
     ],
     categories: [
@@ -209,9 +228,81 @@ export const categoriesTree: CategoryTreeItem[] = [
         id: "52",
         name: "computers-accessories",
         categories: [
-          { id: "521", name: "desktop-computers" },
-          { id: "522", name: "laptop-computers" },
-          { id: "523", name: "computer-accessories-spare-parts" },
+          {
+            id: "521",
+            name: "desktop-computers",
+            attributes: [
+              {
+                name: "ram",
+                type: "select",
+                options: [
+                  "<4GB",
+                  "4GB",
+                  "8GB",
+                  "16GB",
+                  "32GB",
+                  "64GB",
+                  ">64GB",
+                ],
+              },
+              {
+                name: "storage",
+                type: "select",
+                options: ["<128GB", "128GB", "256GB", "512GB", "1TB", ">1TB"],
+              },
+            ],
+          },
+          {
+            id: "522",
+            name: "laptop-computers",
+            attributes: [
+              {
+                name: "ram",
+                type: "select",
+                options: [
+                  "<4GB",
+                  "4GB",
+                  "8GB",
+                  "16GB",
+                  "32GB",
+                  "64GB",
+                  ">64GB",
+                ],
+              },
+              {
+                name: "storage",
+                type: "select",
+                options: ["<128GB", "128GB", "256GB", "512GB", "1TB", ">1TB"],
+              },
+            ],
+          },
+          {
+            id: "523",
+            name: "computer-accessories-spare-parts",
+            attributes: [
+              {
+                name: "type",
+                type: "select",
+                options: [
+                  "keyboard",
+                  "mouse",
+                  "monitor",
+                  "speaker",
+                  "headset",
+                  "webcam",
+                  "cable",
+                  "adapter",
+                  "memory",
+                  "hard-drive",
+                  "motherboard",
+                  "power-supply",
+                  "cooling-fan",
+                  "case",
+                  "other",
+                ],
+              },
+            ],
+          },
         ],
       },
       {
