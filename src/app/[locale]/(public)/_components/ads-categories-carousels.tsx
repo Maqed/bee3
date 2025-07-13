@@ -1,45 +1,87 @@
 import React from "react";
 import { getServerSideFullCategory } from "@/lib/server-side";
 import AdsCarousel from "@/components/bee3/ads-carousel";
-import { absoluteURL } from "@/lib/utils";
+import { db } from "@/server/db";
+import { getSubCategoryPaths, getFirstLevelCategories } from "@/lib/category";
+import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
+import { Ad } from "@/types/bee3";
+
+// Type for carousel ads that matches what we query from database
+type CarouselAd = Omit<Ad, "images"> & {
+  images: { url: string }[];
+};
 
 async function AdsCategoriesCarousels() {
-  const response = await fetch(absoluteURL("/api/home-page-carousel"), {
-    method: "GET",
-    cache: "no-cache",
-  });
+  try {
+    // Get all first-level category paths
+    const firstLevelCategories = getFirstLevelCategories();
 
-  if (!response.ok) {
-    console.error("Failed to fetch carousel data");
+    // Query ads for each category separately to limit results at database level
+    const categories = await Promise.all(
+      firstLevelCategories.map(async (category) => {
+        // Get all subcategory paths for this category
+        const subPaths = getSubCategoryPaths(category.path);
+        const allCategoryPaths = [category.path, ...subPaths];
+
+        // Query only the required number of ads for this category
+        const categoryAds = await db.ad.findMany({
+          where: {
+            categoryPath: {
+              in: allCategoryPaths,
+            },
+          },
+          include: {
+            images: {
+              select: {
+                url: true,
+              },
+              take: 1,
+            },
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+          take: NUMBER_OF_ADS_IN_CAROUSEL,
+        });
+
+        return {
+          categoryName: category.name,
+          categoryPath: category.path,
+          ads: categoryAds as CarouselAd[],
+        };
+      }),
+    );
+
+    // Get category titles for each category
+    const categoriesData = await Promise.all(
+      categories.map(async (categoryData) => {
+        const title = await getServerSideFullCategory(
+          categoryData.categoryPath,
+        );
+        return {
+          categoryAds: categoryData.ads,
+          categoryURL: `/${categoryData.categoryPath}`,
+          title,
+        };
+      }),
+    );
+
+    return (
+      <>
+        {categoriesData.map(({ categoryAds, categoryURL, title }) => (
+          <AdsCarousel
+            key={categoryURL}
+            ads={categoryAds as Ad[]}
+            title={title}
+            showMoreHref={categoryURL}
+          />
+        ))}
+      </>
+    );
+  } catch (error) {
+    console.error("Error fetching home page carousel data:", error);
     return null;
   }
-
-  const { categories } = await response.json();
-
-  // Get category titles for each category
-  const categoriesData = await Promise.all(
-    categories.map(async (categoryData: any) => {
-      const title = await getServerSideFullCategory(categoryData.categoryPath);
-      return {
-        categoryAds: categoryData.ads,
-        categoryURL: `/${categoryData.categoryPath}`,
-        title,
-      };
-    }),
-  );
-
-  return (
-    <>
-      {categoriesData.map(({ categoryAds, categoryURL, title }) => (
-        <AdsCarousel
-          key={categoryURL}
-          ads={categoryAds}
-          title={title}
-          showMoreHref={categoryURL}
-        />
-      ))}
-    </>
-  );
 }
 
 export default AdsCategoriesCarousels;
