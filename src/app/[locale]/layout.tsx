@@ -17,6 +17,9 @@ export async function generateMetadata({
   // @ts-ignore
   const keywords = Object.values(messages.metadata.keywords);
 
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const ogImageUrl = `${baseUrl}/og.png`;
+
   return {
     title: {
       default: title,
@@ -28,16 +31,23 @@ export async function generateMetadata({
       title,
       description,
       siteName: title,
-      url: process.env.NEXTAUTH_URL,
+      url: baseUrl,
       locale: t("locale"),
       type: "website",
-      images: ["/og.png"],
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: description,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ["/og.png"],
+      images: [ogImageUrl],
     },
     robots: {
       index: true,
