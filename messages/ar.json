@@ -196,22 +196,22 @@
   },
   "categories": {
     "vehicles": {
-      "name": "المركبات",
+      "name": "عربيات",
       "categories": {
         "cars-for-sale": {
-          "name": "سيارات للبيع"
+          "name": "عربيات للبيع"
         },
         "cars-for-rent": {
-          "name": "سيارات للإيجار"
+          "name": "عربيات للإيجار"
         },
         "tyres-batteries-oils-accessories": {
-          "name": "إطارات وبطاريات وزيوت واكسسوارات"
+          "name": "كاوتش وبطاريات وزيوت واكسسوارات"
         },
         "car-spare-parts": {
-          "name": "قطع غيار السيارات"
+          "name": "قطع غيار عربيات"
         },
         "motorcycles-accessories": {
-          "name": "إكسسوارات الدراجات النارية"
+          "name": "اكسسوارات موتوسيكل"
         },
         "boats-watercraft": {
           "name": "قوارب ومراكب مائية"
@@ -254,19 +254,19 @@
       }
     },
     "mobiles-tablets": {
-      "name": "الجوالات والأجهزة اللوحية",
+      "name": "موبايل وتابلت",
       "categories": {
         "mobile-phones": {
-          "name": "هواتف محمولة"
+          "name": "موبايل"
         },
         "tablets": {
-          "name": "أجهزة لوحية"
+          "name": "تابلت"
         },
         "mobile-tablet-accessories": {
-          "name": "اكسسوارات الجوال والأجهزة اللوحية"
+          "name": "اكسسوارات موبايل وتابلت"
         },
         "mobile-numbers": {
-          "name": "أرقام جوال"
+          "name": "أرقام موبايل"
         }
       }
     },
@@ -345,10 +345,10 @@
           }
         },
         "computers-accessories": {
-          "name": "الحواسيب والاكسسوارات",
+          "name": "الكمبيوتر والاكسسوارات",
           "categories": {
-            "desktop-computers": { "name": "أجهزة كمبيوتر مكتبية" },
-            "laptop-computers": { "name": "أجهزة كمبيوتر محمولة" },
+            "desktop-computers": { "name": "كمبيوتر" },
+            "laptop-computers": { "name": "لابتوب" },
             "computer-accessories-spare-parts": {
               "name": "اكسسوارات وقطع غيار الكمبيوتر"
             }
@@ -373,22 +373,22 @@
         "home-appliances": {
           "name": "الأجهزة المنزلية",
           "categories": {
-            "refrigerators-freezers": { "name": "ثلاجات - فريزرات" },
-            "ovens-microwaves": { "name": "أفران - ميكروويف" },
-            "dishwashers": { "name": "غسالات الصحون" },
+            "refrigerators-freezers": { "name": "تلاجة - فريزر" },
+            "ovens-microwaves": { "name": "فرن - ميكروويف" },
+            "dishwashers": { "name": "غسالة أطباق" },
             "cooking-tools": { "name": "أدوات الطبخ" },
-            "washers-dryers": { "name": "غسالات - نشافات" },
-            "water-coolers-kettles": { "name": "مبردات مياه وغلايات" },
-            "air-conditioners-fans": { "name": "مكيفات ومراوح" },
+            "washers-dryers": { "name": "غسالة - نشافة" },
+            "water-coolers-kettles": { "name": "كولدير وغلايات" },
+            "air-conditioners-fans": { "name": "تكييف ومراوح" },
             "cleaning-appliances": { "name": "أجهزة التنظيف" },
-            "other-home-appliances": { "name": "أجهزة منزلية أخرى" },
+            "other-home-appliances": { "name": "أجهزة منزلية تانية" },
             "heaters": { "name": "دفايات" }
           }
         }
       }
     },
     "home-office": {
-      "name": "أثاث المنزل والمكتب",
+      "name": "أثاث البيت والمكتب",
       "categories": {
         "furniture": {
           "name": "الأثاث",
@@ -466,7 +466,7 @@
             "garden-furniture": { "name": "أثاث الحديقة" },
             "swings-hanging-chairs": { "name": "أراجيح وكراسي معلقة" },
             "pergolas-tents": { "name": "برجولات وخيام" },
-            "pools-and-accessories": { "name": "مسابح واكسسوارات المسابح" },
+            "pools-and-accessories": { "name": "مسابح واكسسوراتها" },
             "grills": { "name": "شوايات" },
             "other": { "name": "أخرى" }
           }
@@ -489,7 +489,7 @@
           "name": "ملابس رجالية"
         },
         "womens-cosmetics": {
-          "name": "مستحضرات تجميل نسائية"
+          "name": "مكياج وتجميل"
         },
         "womens-accessories-personal-care": {
           "name": "اكسسوارات شخصية واعتناء للنساء"
@@ -733,7 +733,7 @@
         "512GB": "512GB",
         "1TB": "1TB",
         ">1TB": "أكثر من 1TB",
-        "tyre": "إطار",
+        "tyre": "كاوتش",
         "battery": "بطارية",
         "oil": "زيت",
         "accessory": "إكسسوار",
@@ -753,19 +753,19 @@
         "toddler": "طفل صغير",
         "preschooler": "طفل ما قبل المدرسة",
         "school-age": "سن المدرسة",
-        "keyboard": "لوحة مفاتيح",
-        "mouse": "فأرة",
+        "keyboard": "كيبورد",
+        "mouse": "ماوس",
         "monitor": "شاشة",
         "speaker": "سماعة",
-        "headset": "سماعة رأس",
+        "headset": "هيدفون",
         "webcam": "كاميرا ويب",
         "adapter": "محول",
         "memory": "ذاكرة",
-        "hard-drive": "قرص صلب",
-        "motherboard": "اللوحة الأم",
-        "power-supply": "مزود الطاقة",
+        "hard-drive": "هارد ديسك",
+        "motherboard": "المازربورد",
+        "power-supply": "باور سبلاي",
         "cooling-fan": "مروحة تبريد",
-        "case": "صندوق"
+        "case": "كيس"
       }
     }
   },
