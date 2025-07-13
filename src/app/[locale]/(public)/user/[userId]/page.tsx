@@ -38,6 +38,11 @@ export default async function UserPage({ params: { userId } }: Props) {
             <div className="flex flex-row items-center gap-2 text-center md:text-left">
               <h2 className="text-2xl font-bold md:text-3xl">{user.name}</h2>
             </div>
+            {user.bio && (
+              <div className="space-y-2 text-center md:text-left">
+                <p>{user.bio}</p>
+              </div>
+            )}
             <CopyToClipboardButton
               toBeCopiedText={absoluteURL(`/user/${userId}`)}
               variant="outline"
@@ -45,9 +50,6 @@ export default async function UserPage({ params: { userId } }: Props) {
               copiedText={t("share-user.copied")}
               icon="share"
             />
-          </div>
-          <div className="space-y-2 text-center md:text-left">
-            <p>{user.bio}</p>
           </div>
         </div>
         {/* Advertises */}
