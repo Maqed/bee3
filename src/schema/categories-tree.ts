@@ -438,6 +438,7 @@ export const categoriesTree: CategoryTreeItem[] = [
             type: "select",
             options: ["XS", "S", "M", "L", "XL", "XXL", "special-sizes"],
           },
+          { name: "condition", type: "select", options: ["new", "used"] },
         ],
       },
       {
@@ -449,6 +450,7 @@ export const categoriesTree: CategoryTreeItem[] = [
             type: "select",
             options: ["XS", "S", "M", "L", "XL", "XXL", "special-sizes"],
           },
+          { name: "condition", type: "select", options: ["new", "used"] },
         ],
       },
       { id: "73", name: "womens-cosmetics" },
