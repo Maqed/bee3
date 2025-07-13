@@ -428,17 +428,29 @@ export const categoriesTree: CategoryTreeItem[] = [
   {
     id: "7",
     name: "fashion-beauty",
-    attributes: [
-      {
-        name: "size",
-        type: "select",
-        options: ["XS", "S", "M", "L", "XL", "XXL", "special-sizes"],
-      },
-      { name: "condition", type: "select", options: ["new", "used"] },
-    ],
     categories: [
-      { id: "71", name: "womens-clothing" },
-      { id: "72", name: "mens-clothing" },
+      {
+        id: "71",
+        name: "womens-clothing",
+        attributes: [
+          {
+            name: "size",
+            type: "select",
+            options: ["XS", "S", "M", "L", "XL", "XXL", "special-sizes"],
+          },
+        ],
+      },
+      {
+        id: "72",
+        name: "mens-clothing",
+        attributes: [
+          {
+            name: "size",
+            type: "select",
+            options: ["XS", "S", "M", "L", "XL", "XXL", "special-sizes"],
+          },
+        ],
+      },
       { id: "73", name: "womens-cosmetics" },
       { id: "74", name: "womens-accessories-personal-care" },
       { id: "75", name: "mens-accessories-personal-care" },
