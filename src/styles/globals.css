@@ -74,4 +74,7 @@
   .h-screen-without-navbar {
     @apply min-h-[calc(100vh-140.45px)];
   }
+  .glossy {
+    @apply bg-card/80 backdrop-blur-md;
+  }
 }

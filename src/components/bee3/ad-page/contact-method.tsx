@@ -22,7 +22,7 @@ export function MobileContactMethod({
   title,
 }: ContactMethodProps) {
   return (
-    <Card className="fixed bottom-0 left-0 w-full bg-card/90 md:hidden">
+    <Card className="glossy fixed bottom-0 left-0 w-full md:hidden">
       <CardContent className="flex items-center justify-center p-4">
         <Dialog>
           <DialogTrigger asChild>
