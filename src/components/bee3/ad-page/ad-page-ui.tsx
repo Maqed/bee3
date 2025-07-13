@@ -24,8 +24,8 @@ export default function AdPageUI({ ad, isPreview = false }: AdPageUIProps) {
         <AdImages ad={ad} />
         <div className="flex flex-col gap-y-5 max-sm:mx-1">
           <PriceAndTitle isPreview={isPreview} ad={ad} locale={locale} />
-          <AdDescription ad={ad} tAd={tAd} />
           <AdAttributes ad={ad} />
+          <AdDescription ad={ad} tAd={tAd} />
           <UserInformation ad={ad} tAd={tAd} locale={locale} variant="mobile" />
           <SafetyTipsCard className="md:hidden" />
           <Separator />
