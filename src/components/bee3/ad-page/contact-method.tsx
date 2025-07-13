@@ -1,3 +1,8 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { IoMdContact } from "react-icons/io";
+
 type ContactMethodProps = {
   contactMethod: string;
   title: string;
@@ -9,5 +14,28 @@ export function ContactMethod({ contactMethod, title }: ContactMethodProps) {
       <div className="text-xl font-bold">{title}</div>
       <div className="text-lg">{contactMethod}</div>
     </div>
+  );
+}
+
+export function MobileContactMethod({
+  contactMethod,
+  title,
+}: ContactMethodProps) {
+  return (
+    <Card className="fixed bottom-0 left-0 w-full bg-card/90 md:hidden">
+      <CardContent className="flex items-center justify-center p-4">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button size="icon">
+              <IoMdContact className="size-6" />
+            </Button>
+          </DialogTrigger>
+
+          <DialogContent>
+            <ContactMethod contactMethod={contactMethod} title={title} />{" "}
+          </DialogContent>
+        </Dialog>
+      </CardContent>
+    </Card>
   );
 }

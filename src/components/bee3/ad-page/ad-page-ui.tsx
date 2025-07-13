@@ -8,6 +8,7 @@ import SafetyTipsCard from "./safety-matters";
 import RelatedAds from "@/components/bee3/ad-page/related-ads";
 import type { AdWithUser } from "@/types/ad-page-types";
 import { useLocale, useTranslations } from "next-intl";
+import { MobileContactMethod } from "./contact-method";
 
 type AdPageUIProps = {
   ad: AdWithUser;
@@ -27,6 +28,10 @@ export default function AdPageUI({ ad, isPreview = false }: AdPageUIProps) {
           <AdAttributes ad={ad} />
           <AdDescription ad={ad} tAd={tAd} />
           <UserInformation ad={ad} tAd={tAd} locale={locale} variant="mobile" />
+          <MobileContactMethod
+            title={tAd("user.contact-method")}
+            contactMethod={ad.user.contactMethod ?? ""}
+          />
           <SafetyTipsCard className="md:hidden" />
           <Separator />
           {!isPreview && (
