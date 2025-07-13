@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getURLSearchParamsFromPageParams } from "@/lib/utils";
 import ShowingAds from "./showing-ads";
 import { useTranslations } from "next-intl";
+import ShowingAdsBreadcrumb from "./showing-ads-breadcrumb";
 
 type Props = {
   categoryPath?: string[];
@@ -24,6 +25,7 @@ function ShowingAdsPage({ categoryPath, searchParams }: Props) {
 
   return (
     <main className="container">
+      <ShowingAdsBreadcrumb categoryPath={categoryPath} />
       <h1 className="mb-5 text-2xl font-bold lg:text-3xl">
         {tShowingAdsPage("showing-ads-for", {
           title,

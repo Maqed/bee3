@@ -770,8 +770,12 @@
     }
   },
   "showing-ads-page": {
-    "showing-ads-for": "{title}"
+    "showing-ads-for": "{title}",
+    "breadcrumb": {
+      "home": "الرئيسية"
+    }
   },
+
   "not-found": {
     "title": "عفوًا، لم يتم العثور على الصفحة!",
     "paragraph": "الصفحة الذي تبحث عنه لا تبدو أنها موجودة.",

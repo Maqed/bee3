@@ -767,7 +767,10 @@
     }
   },
   "showing-ads-page": {
-    "showing-ads-for": "{title}"
+    "showing-ads-for": "{title}",
+    "breadcrumb": {
+      "home": "Home"
+    }
   },
   "not-found": {
     "title": "Oops, Page not found!",
