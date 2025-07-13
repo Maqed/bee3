@@ -767,7 +767,7 @@
     }
   },
   "showing-ads-page": {
-    "showing-ads-for": "Showing ads for {title}"
+    "showing-ads-for": "{title}"
   },
   "not-found": {
     "title": "Oops, Page not found!",

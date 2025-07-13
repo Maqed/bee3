@@ -770,7 +770,7 @@
     }
   },
   "showing-ads-page": {
-    "showing-ads-for": "اعلانات {title}"
+    "showing-ads-for": "{title}"
   },
   "not-found": {
     "title": "عفوًا، لم يتم العثور على الصفحة!",
