@@ -14,7 +14,6 @@ import {
 import LocationCombobox from "../location-combobox";
 import OptionsFilter from "./options-filter";
 import RangeFilter from "./range-filter";
-import { getCategoryAndSubCategory } from "@/lib/category";
 import { parseRangeValue, formatRangeValue } from "@/lib/utils";
 
 type Props = {
@@ -27,11 +26,6 @@ function FilterAds({ onApplyFilter, categoryPath }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  // Get category information if categoryPath is provided
-  const categoryInfo = categoryPath
-    ? getCategoryAndSubCategory(categoryPath)
-    : null;
 
   // Get initial values from search params
   const priceFilterValue = searchParams.get("price") || "";
@@ -157,9 +151,9 @@ function FilterAds({ onApplyFilter, categoryPath }: Props) {
       />
 
       {/* Category-specific attribute filters */}
-      {categoryInfo && (
+      {categoryPath && (
         <OptionsFilter
-          categoryInfo={categoryInfo}
+          categoryPath={categoryPath}
           attributeFilters={attributeFilters}
           onAttributeFiltersChange={handleAttributeFiltersChange}
         />

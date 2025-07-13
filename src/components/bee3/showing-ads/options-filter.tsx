@@ -13,50 +13,25 @@ import RangeFilter from "./range-filter";
 import { categoriesTree } from "@/schema/categories-tree";
 import { parseRangeValue, formatRangeValue } from "@/lib/utils";
 import {
-  toPathFormat,
   getApplicableAttributes,
   findAncestorCategories,
+  getCategoryByPath,
 } from "@/lib/category";
 
-type CategoryInfo = {
-  category: string;
-  subCategory?: string;
-};
-
 type Props = {
-  categoryInfo: CategoryInfo;
+  categoryPath: string[];
   attributeFilters: Record<string, string>;
   onAttributeFiltersChange: (filters: Record<string, string>) => void;
 };
 
 function OptionsFilter({
-  categoryInfo,
+  categoryPath,
   attributeFilters,
   onAttributeFiltersChange,
 }: Props) {
   const tCategory = useTranslations("category");
 
-  // Find the category from the tree based on path
-  const findCategoryFromPath = (categoryInfo: CategoryInfo) => {
-    // First find the main category
-    const mainCategory = categoriesTree.find(
-      (cat) => toPathFormat(cat.name) === categoryInfo.category,
-    );
-
-    if (!mainCategory) return null;
-
-    // If there's a subcategory, find it
-    if (categoryInfo.subCategory && mainCategory.categories) {
-      const subCategory = mainCategory.categories.find(
-        (subCat) => toPathFormat(subCat.name) === categoryInfo.subCategory,
-      );
-      return subCategory || mainCategory;
-    }
-
-    return mainCategory;
-  };
-
-  const category = findCategoryFromPath(categoryInfo);
+  const category = getCategoryByPath(categoryPath?.join("/"));
 
   if (!category) return null;
 
