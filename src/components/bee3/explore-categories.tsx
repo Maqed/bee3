@@ -80,7 +80,7 @@ function CategoryDialog({
 
   return (
     <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogTrigger>{children}</DialogTrigger>
       <DialogContent className="h-full max-w-2xl pb-0">
         <DialogHeader className="h-min">
           <DialogTitle>
