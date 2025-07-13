@@ -17,18 +17,6 @@ export function toPathFormat(str: string): string {
 }
 
 /**
- * Extract category and subcategory from a category path
- */
-export function getCategoryAndSubCategory(categoryPath: string[] | string) {
-  const [category, subCategory] =
-    typeof categoryPath === "string" ? categoryPath.split("/") : categoryPath;
-  if (!category) {
-    throw new Error("Invalid category");
-  }
-  return { category, subCategory };
-}
-
-/**
  * Get all subcategory paths for a given root path recursively
  */
 export function getSubCategoryPaths(rootPath: string): string[] {

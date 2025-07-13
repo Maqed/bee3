@@ -1,5 +1,5 @@
 import React from "react";
-import { getServerSideFullCategory } from "@/lib/server-side";
+import { getCategoryTranslations } from "@/lib/category-asynchronous";
 import AdsCarousel from "@/components/bee3/ads-carousel";
 import { db } from "@/server/db";
 import { getSubCategoryPaths, getFirstLevelCategories } from "@/lib/category";
@@ -51,11 +51,12 @@ async function AdsCategoriesCarousels() {
         };
       }),
     );
+    const { getAsynchronousFullCategory } = await getCategoryTranslations();
 
     // Get category titles for each category
     const categoriesData = await Promise.all(
       categories.map(async (categoryData) => {
-        const title = await getServerSideFullCategory(
+        const title = await getAsynchronousFullCategory(
           categoryData.categoryPath,
         );
         return {

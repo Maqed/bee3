@@ -1,9 +1,5 @@
 import ShowingAdsPage from "@/components/bee3/showing-ads/showing-ads-page";
-import {
-  getServerSideCategory,
-  getServerSideSubCategory,
-} from "@/lib/server-side";
-import { getCategoryAndSubCategory } from "@/lib/category";
+import { getCategoryTranslations } from "@/lib/category-asynchronous";
 import { getTranslations } from "next-intl/server";
 
 type Props = {
@@ -12,13 +8,9 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props) {
-  const { category, subCategory } = getCategoryAndSubCategory(
-    params.categoryPath,
-  );
+  const { getRecursiveCategoryName } = await getCategoryTranslations();
 
-  const localizedCategory = subCategory
-    ? await getServerSideSubCategory(category, subCategory)
-    : await getServerSideCategory(category);
+  const localizedCategory = await getRecursiveCategoryName(params.categoryPath);
 
   const t = await getTranslations("/[categoryPath].metadata");
 

@@ -1,15 +1,11 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
-import {
-  getServerSideCategory,
-  getServerSideSubCategory,
-} from "@/lib/server-side";
+import { getCategoryTranslations } from "@/lib/category-asynchronous";
 import { absoluteURL, getLocalizedPrice } from "@/lib/utils";
 import type { AdWithUser } from "@/types/ad-page-types";
 import AdPageUI from "@/components/bee3/ad-page/ad-page-ui";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getCategoryAndSubCategory } from "@/lib/category";
 
 async function fetchAdData(adId: string): Promise<AdWithUser | null> {
   const response = await fetch(absoluteURL(`/api/bee3/ad/${adId}`));
@@ -28,12 +24,8 @@ export async function generateMetadata({
     const tAd = await getTranslations("/ad/[adId].metadata");
     return { title: tAd("ad-not-found") };
   }
-  const { category, subCategory } = getCategoryAndSubCategory(ad.categoryPath);
-  let localizedCategory = await getServerSideCategory(category);
-
-  if (subCategory) {
-    localizedCategory = await getServerSideSubCategory(category, subCategory);
-  }
+  const { getRecursiveCategoryName } = await getCategoryTranslations();
+  let localizedCategory = await getRecursiveCategoryName(ad.categoryPath);
 
   const localizedPrice = getLocalizedPrice(params.locale, ad.price);
 

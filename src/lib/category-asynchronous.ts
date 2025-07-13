@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import {
   buildFullCategoryName,
   buildCategoryName,
@@ -6,49 +6,52 @@ import {
   buildRecursiveCategoryName,
 } from "./category-translations";
 
-export function useCategoryTranslations() {
-  const tCategory = useTranslations("categories");
+export async function getCategoryTranslations() {
+  const tCategory = await getTranslations("categories");
 
   // Function overloads for type safety
-  function getSynchronousFullCategory(
+  async function getAsynchronousFullCategory(
     pathSegments: string[] | string,
     options: {
       returnAs: "array";
     },
-  ): string[];
-  function getSynchronousFullCategory(
+  ): Promise<string[]>;
+  async function getAsynchronousFullCategory(
     pathSegments: string[] | string,
     options?: {
       returnAs: "string";
     },
-  ): string;
-  function getSynchronousFullCategory(
+  ): Promise<string>;
+  async function getAsynchronousFullCategory(
     pathSegments: string[] | string,
     options?: {
       returnAs: "string" | "array";
     },
-  ): string | string[] {
+  ): Promise<string | string[]> {
     return buildFullCategoryName(pathSegments, tCategory, options);
   }
 
-  const getSynchronousCategory = (category: string) => {
+  const getAsynchronousCategory = async (category: string) => {
     return buildCategoryName(category, tCategory);
   };
 
-  const getSynchronousSubCategory = (category: string, subCategory: string) => {
+  const getAsynchronousSubCategory = async (
+    category: string,
+    subCategory: string,
+  ) => {
     return buildSubCategoryName(category, subCategory, tCategory);
   };
 
-  const getRecursiveCategoryName = (
+  const getRecursiveCategoryName = async (
     pathSegments: string[] | string,
-  ): string => {
+  ): Promise<string> => {
     return buildRecursiveCategoryName(pathSegments, tCategory);
   };
 
   return {
-    getSynchronousFullCategory,
-    getSynchronousCategory,
-    getSynchronousSubCategory,
+    getAsynchronousFullCategory,
+    getAsynchronousCategory,
+    getAsynchronousSubCategory,
     getRecursiveCategoryName,
   };
 }
