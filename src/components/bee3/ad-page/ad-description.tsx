@@ -14,7 +14,7 @@ export function AdDescription({ ad, tAd }: DescriptionProps) {
         <CardTitle>{tAd("description")}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p>{ad.description}</p>
+        <p className="whitespace-pre-line">{ad.description}</p>
       </CardContent>
     </Card>
   );
