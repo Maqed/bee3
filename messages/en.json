@@ -667,7 +667,6 @@
         "bedrooms": "Example: 3",
         "bathrooms": "Example: 2",
         "floor": "Example: 5",
-        "salary": "Example: 5000",
         "experience": "Example: 3"
       },
       "attributes": {
@@ -686,7 +685,6 @@
         "ram": "RAM",
         "storage": "Storage",
         "employment-type": "Employment Type",
-        "salary": "Salary",
         "experience": "Experience",
         "education-level": "Education Level",
         "age-group": "Age Group",

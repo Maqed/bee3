@@ -158,7 +158,6 @@ export const categoriesTree: CategoryTreeItem[] = [
         type: "select",
         options: ["full-time", "part-time", "contract"],
       },
-      { name: "salary", type: "number" },
       { name: "experience", type: "number" },
       {
         name: "education-level",

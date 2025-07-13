@@ -665,7 +665,6 @@
         "bedrooms": "مثال: 3",
         "bathrooms": "مثال: 2",
         "floor": "مثال: 5",
-        "salary": "مثال: 5000",
         "experience": "مثال: 3"
       },
       "attributes": {
@@ -684,7 +683,6 @@
         "ram": "الذاكرة العشوائية",
         "storage": "التخزين",
         "employment-type": "نوع العمل",
-        "salary": "الراتب",
         "experience": "الخبرة",
         "education-level": "المستوى التعليمي",
         "age-group": "الفئة العمرية",
