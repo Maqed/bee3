@@ -23,6 +23,12 @@
     "Settings": "الاعدادات",
     "Logout": "تسجيل الخروج"
   },
+  "Admin": {
+    "Navigation": {
+      "Ads": "الإعلانات",
+      "Users": "المستخدمين"
+    }
+  },
   "search": {
     "in": "في",
     "placeholder": "ابحث عن ما تريد",

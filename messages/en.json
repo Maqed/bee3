@@ -27,6 +27,12 @@
     "Settings": "Settings",
     "Logout": "Logout"
   },
+  "Admin": {
+    "Navigation": {
+      "Ads": "Ads",
+      "Users": "Users"
+    }
+  },
   "search": {
     "in": "in",
     "placeholder": "Search for what you want",
