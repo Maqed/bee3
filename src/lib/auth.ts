@@ -5,7 +5,7 @@ import { db } from "@/server/db";
 import { env } from "@/env";
 import { headers } from "next/headers";
 import { AdTiers } from "@prisma/client";
-import { phoneNumber } from "better-auth/plugins";
+import { phoneNumber, admin } from "better-auth/plugins";
 import { toPathFormat } from "./category";
 import { createId } from "@paralleldrive/cuid2";
 import { NextRequest } from "next/server";
@@ -186,6 +186,7 @@ export const auth = betterAuth({
         });
       },
     }),
+    admin(),
   ],
   advanced: {
     cookiePrefix: "bee3",
