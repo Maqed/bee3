@@ -56,16 +56,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
+import { ArrowUpDown, Ban, Shield, MoreHorizontal } from "lucide-react";
 import {
-  ArrowUpDown,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  Ban,
-  Shield,
-  MoreHorizontal,
-} from "lucide-react";
+  BackwardChevron,
+  ForwardChevron,
+  BackwardChevrons,
+  ForwardChevrons,
+} from "@/components/ui/chevrons";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -717,7 +714,7 @@ export default function AdminUsersTable() {
               <span className="sr-only">
                 {t("table.pagination.go-to-first")}
               </span>
-              <ChevronsLeft className="h-4 w-4" />
+              <BackwardChevrons className="h-4 w-4" />
             </Button>
             <Button
               variant="outline"
@@ -728,7 +725,7 @@ export default function AdminUsersTable() {
               <span className="sr-only">
                 {t("table.pagination.go-to-previous")}
               </span>
-              <ChevronLeft className="h-4 w-4" />
+              <BackwardChevron className="h-4 w-4" />
             </Button>
             <Button
               variant="outline"
@@ -739,7 +736,7 @@ export default function AdminUsersTable() {
               <span className="sr-only">
                 {t("table.pagination.go-to-next")}
               </span>
-              <ChevronRight className="h-4 w-4" />
+              <ForwardChevron className="h-4 w-4" />
             </Button>
             <Button
               variant="outline"
@@ -750,7 +747,7 @@ export default function AdminUsersTable() {
               <span className="sr-only">
                 {t("table.pagination.go-to-last")}
               </span>
-              <ChevronsRight className="h-4 w-4" />
+              <ForwardChevrons className="h-4 w-4" />
             </Button>
           </div>
         </div>
