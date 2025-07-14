@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useLocale } from "next-intl";
-import { Button } from "@/components/ui/button";
 import { useRouter, usePathname } from "@/navigation";
 import { useSearchParams } from "next/navigation";
 import { ButtonProps } from "@/components/ui/button";
@@ -10,8 +9,9 @@ import { cn } from "@/lib/utils";
 function LocaleSwitcher({
   className,
   variant = "ghost",
+  RenderAs,
   ...props
-}: ButtonProps) {
+}: ButtonProps & { RenderAs: any }) {
   const router = useRouter();
   const locale = useLocale();
   const pathname = usePathname();
@@ -25,7 +25,7 @@ function LocaleSwitcher({
     );
   }
   return (
-    <Button
+    <RenderAs
       variant={variant}
       className={cn(
         "flex flex-row items-center justify-center gap-2",
@@ -58,7 +58,7 @@ function LocaleSwitcher({
           العربية
         </>
       )}
-    </Button>
+    </RenderAs>
   );
 }
 

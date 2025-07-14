@@ -31,8 +31,8 @@ export default function Navbar() {
         <nav className="min-w-1/2 flex items-center gap-x-2">
           <AdSearch />
           <div className="hidden md:flex md:items-center md:gap-x-2">
-            <ModeToggle />
-            <LocaleSwitcher />
+            <ModeToggle RenderAs={Button} />
+            <LocaleSwitcher RenderAs={Button} />
             <SellButton className="hidden md:flex" />
             <NavbarAuth
               trigger={
@@ -62,8 +62,12 @@ export default function Navbar() {
                 </SheetHeader>
               </VisuallyHidden>
               <div className="flex h-full flex-col items-start justify-end gap-3">
-                <ModeToggle showToggleThemeText={true} className="w-full" />
-                <LocaleSwitcher className="w-full" />
+                <ModeToggle
+                  RenderAs={Button}
+                  showToggleThemeText={true}
+                  className="w-full"
+                />
+                <LocaleSwitcher RenderAs={Button} className="w-full" />
                 <SellButton className="w-full" />
                 <NavbarAuth
                   trigger={

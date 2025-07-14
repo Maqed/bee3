@@ -4,22 +4,24 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { Button, ButtonProps } from "@/components/ui/button";
+import { ButtonProps } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 export default function ModeToggle({
   showToggleThemeText = false,
   variant = "ghost",
+  RenderAs,
   className,
   ...props
 }: ButtonProps & {
   showToggleThemeText?: boolean;
+  RenderAs: any;
 }) {
   const { setTheme, theme } = useTheme();
   const t = useTranslations("Mode Toggle");
   return (
-    <Button
+    <RenderAs
       variant={variant}
       size={showToggleThemeText ? "default" : "icon"}
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
@@ -40,6 +42,6 @@ export default function ModeToggle({
       <span className={cn({ "sr-only": !showToggleThemeText })}>
         {t("toggle-theme")}
       </span>
-    </Button>
+    </RenderAs>
   );
 }
