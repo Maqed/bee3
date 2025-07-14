@@ -42,7 +42,8 @@
           "role": "الدور",
           "status": "الحالة",
           "stats": "الإحصائيات",
-          "joined": "تاريخ التسجيل"
+          "joined": "تاريخ التسجيل",
+          "actions": "الإجراءات"
         },
         "badges": {
           "verified": "مؤكد",
@@ -52,6 +53,25 @@
           "banned": "محظور",
           "ban-expired": "انتهى الحظر",
           "active": "نشط"
+        },
+        "actions": {
+          "ban": "حظر المستخدم",
+          "unban": "إلغاء الحظر",
+          "ban-confirm": "هل أنت متأكد من أنك تريد حظر هذا المستخدم؟",
+          "unban-confirm": "هل أنت متأكد من أنك تريد إلغاء حظر هذا المستخدم؟",
+          "ban-reason-label": "سبب الحظر (اختياري)",
+          "ban-reason-placeholder": "أدخل سبب الحظر...",
+          "ban-duration-label": "مدة الحظر",
+          "ban-duration-permanent": "دائم",
+          "ban-duration-days": "{count} أيام",
+          "ban-success": "تم حظر المستخدم بنجاح",
+          "unban-success": "تم إلغاء حظر المستخدم بنجاح",
+          "ban-error": "فشل في حظر المستخدم",
+          "unban-error": "فشل في إلغاء حظر المستخدم",
+          "cannot-ban-admin": "لا يمكن حظر المستخدمين الإداريين",
+          "cancel": "إلغاء",
+          "banning": "جاري الحظر...",
+          "unbanning": "جاري إلغاء الحظر..."
         },
         "stats": {
           "ads": "إعلانات",

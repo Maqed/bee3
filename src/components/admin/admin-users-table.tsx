@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import {
   useReactTable,
@@ -27,12 +27,52 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useToast } from "@/components/ui/use-toast";
+import {
   ArrowUpDown,
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  Ban,
+  Shield,
+  MoreHorizontal,
 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { authClient } from "@/lib/auth-client";
 
 // Simple date formatting helper
 const formatDate = (date: Date) => {
@@ -81,13 +121,232 @@ async function fetchUsers(): Promise<User[]> {
   return data.users;
 }
 
+// Ban Dialog Component
+function BanDialog({ user, onSuccess }: { user: User; onSuccess: () => void }) {
+  const t = useTranslations("Admin.Users");
+  const { toast } = useToast();
+  const [open, setOpen] = React.useState(false);
+  const [banReason, setBanReason] = React.useState("");
+  const [banDuration, setBanDuration] = React.useState("permanent");
+
+  const banMutation = useMutation({
+    mutationFn: async ({
+      userId,
+      banReason,
+      banExpiresIn,
+    }: {
+      userId: string;
+      banReason?: string;
+      banExpiresIn?: number;
+    }) => {
+      return authClient.admin.banUser({
+        userId,
+        banReason: banReason || undefined,
+        banExpiresIn: banExpiresIn || undefined,
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: t("table.actions.ban-success"),
+        variant: "success",
+      });
+      setOpen(false);
+      setBanReason("");
+      setBanDuration("permanent");
+      onSuccess();
+    },
+    onError: (error) => {
+      toast({
+        title: t("table.actions.ban-error"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleBan = () => {
+    const banExpiresIn =
+      banDuration === "permanent"
+        ? undefined
+        : parseInt(banDuration) * 24 * 60 * 60; // Convert days to seconds
+
+    banMutation.mutate({
+      userId: user.id,
+      banReason: banReason.trim() || undefined,
+      banExpiresIn,
+    });
+  };
+
+  return (
+    <>
+      <DropdownMenuItem
+        className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+        onSelect={(e) => {
+          e.preventDefault();
+          setOpen(true);
+        }}
+      >
+        <Ban className="mr-2 h-4 w-4" />
+        {t("table.actions.ban")}
+      </DropdownMenuItem>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>{t("table.actions.ban")}</DialogTitle>
+            <DialogDescription>
+              {t("table.actions.ban-confirm")} ({user.name})
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="ban-reason">
+                {t("table.actions.ban-reason-label")}
+              </Label>
+              <Textarea
+                id="ban-reason"
+                placeholder={t("table.actions.ban-reason-placeholder")}
+                value={banReason}
+                onChange={(e) => setBanReason(e.target.value)}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="ban-duration">
+                {t("table.actions.ban-duration-label")}
+              </Label>
+              <Select value={banDuration} onValueChange={setBanDuration}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="permanent">
+                    {t("table.actions.ban-duration-permanent")}
+                  </SelectItem>
+                  <SelectItem value="1">
+                    {t("table.actions.ban-duration-days", { count: 1 })}
+                  </SelectItem>
+                  <SelectItem value="7">
+                    {t("table.actions.ban-duration-days", { count: 7 })}
+                  </SelectItem>
+                  <SelectItem value="30">
+                    {t("table.actions.ban-duration-days", { count: 30 })}
+                  </SelectItem>
+                  <SelectItem value="90">
+                    {t("table.actions.ban-duration-days", { count: 90 })}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setOpen(false)}>
+              {t("table.actions.cancel")}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleBan}
+              disabled={banMutation.isPending}
+            >
+              {banMutation.isPending
+                ? t("table.actions.banning")
+                : t("table.actions.ban")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+
+// Unban Confirmation Dialog Component
+function UnbanDialog({
+  user,
+  onSuccess,
+}: {
+  user: User;
+  onSuccess: () => void;
+}) {
+  const t = useTranslations("Admin.Users");
+  const { toast } = useToast();
+  const [open, setOpen] = React.useState(false);
+
+  const unbanMutation = useMutation({
+    mutationFn: async (userId: string) => {
+      return authClient.admin.unbanUser({ userId });
+    },
+    onSuccess: () => {
+      toast({
+        title: t("table.actions.unban-success"),
+        variant: "success",
+      });
+      setOpen(false);
+      onSuccess();
+    },
+    onError: (error) => {
+      toast({
+        title: t("table.actions.unban-error"),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleUnban = () => {
+    unbanMutation.mutate(user.id);
+  };
+
+  return (
+    <>
+      <DropdownMenuItem
+        className="bg-success text-success-foreground hover:bg-success/90"
+        onSelect={(e) => {
+          e.preventDefault();
+          setOpen(true);
+        }}
+      >
+        <Shield className="mr-2 h-4 w-4" />
+        {t("table.actions.unban")}
+      </DropdownMenuItem>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("table.actions.unban")}</DialogTitle>
+            <DialogDescription>
+              {t("table.actions.unban-confirm")} ({user.name})
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setOpen(false)}>
+              {t("table.actions.cancel")}
+            </Button>
+            <Button
+              variant="success"
+              onClick={handleUnban}
+              disabled={unbanMutation.isPending}
+            >
+              {unbanMutation.isPending
+                ? t("table.actions.unbanning")
+                : t("table.actions.unban")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+
 export default function AdminUsersTable() {
   const t = useTranslations("Admin.Users");
+  const queryClient = useQueryClient();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
   const [globalFilter, setGlobalFilter] = React.useState("");
+
+  // Refetch users data
+  const handleRefetch = () => {
+    queryClient.invalidateQueries({ queryKey: ["admin-users"] });
+  };
 
   // Define table columns with translations
   const columns: ColumnDef<User>[] = React.useMemo(
@@ -256,8 +515,44 @@ export default function AdminUsersTable() {
           );
         },
       },
+      {
+        id: "actions",
+        header: t("table.columns.actions"),
+        cell: ({ row }) => {
+          const user = row.original;
+          const isAdmin = user.role === "admin";
+          const isBanned = user.banned;
+
+          // Don't show actions for admin users
+          if (isAdmin) {
+            return (
+              <div className="text-xs text-muted-foreground">
+                {t("table.actions.cannot-ban-admin")}
+              </div>
+            );
+          }
+
+          return (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {isBanned ? (
+                  <UnbanDialog user={user} onSuccess={handleRefetch} />
+                ) : (
+                  <BanDialog user={user} onSuccess={handleRefetch} />
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          );
+        },
+      },
     ],
-    [t],
+    [t, handleRefetch],
   );
 
   // Fetch users data

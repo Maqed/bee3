@@ -46,7 +46,8 @@
           "role": "Role",
           "status": "Status",
           "stats": "Stats",
-          "joined": "Joined"
+          "joined": "Joined",
+          "actions": "Actions"
         },
         "badges": {
           "verified": "Verified",
@@ -56,6 +57,25 @@
           "banned": "Banned",
           "ban-expired": "Ban Expired",
           "active": "Active"
+        },
+        "actions": {
+          "ban": "Ban User",
+          "unban": "Unban User",
+          "ban-confirm": "Are you sure you want to ban this user?",
+          "unban-confirm": "Are you sure you want to unban this user?",
+          "ban-reason-label": "Ban Reason (Optional)",
+          "ban-reason-placeholder": "Enter reason for ban...",
+          "ban-duration-label": "Ban Duration",
+          "ban-duration-permanent": "Permanent",
+          "ban-duration-days": "{count} days",
+          "ban-success": "User banned successfully",
+          "unban-success": "User unbanned successfully",
+          "ban-error": "Failed to ban user",
+          "unban-error": "Failed to unban user",
+          "cannot-ban-admin": "Cannot ban admin users",
+          "cancel": "Cancel",
+          "banning": "Banning...",
+          "unbanning": "Unbanning..."
         },
         "stats": {
           "ads": "Ads",
