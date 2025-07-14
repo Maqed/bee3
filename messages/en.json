@@ -31,6 +31,55 @@
     "Navigation": {
       "Ads": "Ads",
       "Users": "Users"
+    },
+    "Users": {
+      "title": "Users",
+      "description": "Manage and view all registered users",
+      "search": {
+        "placeholder": "Search users..."
+      },
+      "table": {
+        "columns": {
+          "name": "Name",
+          "email": "Email",
+          "phone": "Phone",
+          "role": "Role",
+          "status": "Status",
+          "stats": "Stats",
+          "joined": "Joined"
+        },
+        "badges": {
+          "verified": "Verified",
+          "unverified": "Unverified",
+          "user": "User",
+          "admin": "Admin",
+          "banned": "Banned",
+          "ban-expired": "Ban Expired",
+          "active": "Active"
+        },
+        "stats": {
+          "ads": "Ads",
+          "favorites": "Favorites"
+        },
+        "status": {
+          "until": "Until:"
+        },
+        "empty": "No users found.",
+        "pagination": {
+          "of": "of",
+          "users-displayed": "user(s) displayed",
+          "rows-per-page": "Rows per page",
+          "page": "Page",
+          "go-to-first": "Go to first page",
+          "go-to-previous": "Go to previous page",
+          "go-to-next": "Go to next page",
+          "go-to-last": "Go to last page"
+        }
+      },
+      "error": {
+        "title": "Error loading users",
+        "description": "Something went wrong"
+      }
     }
   },
   "search": {
