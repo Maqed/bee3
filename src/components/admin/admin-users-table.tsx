@@ -560,7 +560,7 @@ export default function AdminUsersTable() {
   } = useQuery({
     queryKey: ["admin-users"],
     queryFn: fetchUsers,
-    refetchInterval: 30000, // Refetch every 30 seconds
+    refetchInterval: 60_000, // Refetch every 1 minute
   });
 
   const table = useReactTable({
