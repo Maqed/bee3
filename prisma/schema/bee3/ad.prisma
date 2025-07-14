@@ -43,6 +43,8 @@ model Ad {
     governorate   Governorate @relation(fields: [governorateId], references: [id])
     governorateId Int
 
+    deletedAt DateTime?
+
     analytics     AdAnalytics @relation(fields: [adAnalyticsId], references: [id])
     adAnalyticsId String
 }
