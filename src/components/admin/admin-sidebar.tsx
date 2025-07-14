@@ -26,14 +26,14 @@ export function AdminSidebar() {
 
   const navigationItems = [
     {
-      title: t("Ads"),
-      href: `/admin/ads`,
-      icon: FileText,
-    },
-    {
       title: t("Users"),
       href: `/admin/users`,
       icon: Users,
+    },
+    {
+      title: t("Ads"),
+      href: `/admin/ads`,
+      icon: FileText,
     },
   ];
 
