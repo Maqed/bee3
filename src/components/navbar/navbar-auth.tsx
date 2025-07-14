@@ -77,7 +77,7 @@ function NavbarAuth({
             {t("Settings")}
           </DropdownMenuItem>
         </Link>
-        <SignOutMenuItem title={t("Logout")} />
+        <SignOutMenuItem />
       </DropdownMenuContent>
     </DropdownMenu>
   );
