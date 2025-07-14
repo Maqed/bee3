@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
         .join(", ")}) AS similarity_score
     FROM "Ad"
     LEFT JOIN "Category" ON "Ad"."categoryPath" = "Category".path
-    WHERE (${wordConditions}) OR (${likeConditions})
+    WHERE ((${wordConditions}) OR (${likeConditions})) AND "Ad"."deletedAt" IS NULL
     ORDER BY similarity_score DESC
     LIMIT 8
   `,

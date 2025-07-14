@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/server/db";
 import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
+import { getNonDeletedAds } from "@/database/ad";
 
 export async function GET(request: NextRequest) {
   const adId = request.nextUrl.searchParams.get("adId");
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const relatedAds = await db.ad.findMany({
+    const relatedAds = await getNonDeletedAds({
       where: {
         categoryPath: categoryPath,
         NOT: {

@@ -1,17 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/server/db";
-import { categoriesTree, CategoryTreeItem } from "@/schema/categories-tree";
-import {
-  toPathFormat,
-  getSubCategoryPaths,
-  getTreeFromPath,
-} from "@/lib/category";
+import { getSubCategoryPaths } from "@/lib/category";
 import { Prisma } from "@prisma/client";
 import {
   DEFAULT_PAGE_SIZE,
   MIN_PAGE_SIZE,
   MAX_PAGE_SIZE,
 } from "@/consts/ad-search";
+import { getNonDeletedAds, countNonDeletedAds } from "@/database/ad";
 
 /**
  * Toggle visibility of a content tab
@@ -92,7 +88,7 @@ export async function GET(request: NextRequest) {
     AND: attributeConditions.length > 0 ? attributeConditions : undefined,
   };
 
-  const adsPromise = db.ad.findMany({
+  const adsPromise = getNonDeletedAds({
     orderBy: [
       { price: sort === "price" ? order : undefined },
       { createdAt: sort === "date" ? order : undefined },
@@ -110,14 +106,16 @@ export async function GET(request: NextRequest) {
     take: pageSize,
   });
 
-  const totalAdsPromise = db.ad.count({
-    where: queryWhereClause,
-  });
+  const totalAdsPromise = countNonDeletedAds(queryWhereClause);
 
   const [ads, totalAds] = await Promise.all([adsPromise, totalAdsPromise]);
-  const totalPages = Math.ceil(totalAds / pageSize);
+  const totalPages = Math.ceil((totalAds || 0) / pageSize);
 
-  return NextResponse.json({ ads, totalAds, totalPages });
+  return NextResponse.json({
+    ads: ads || [],
+    totalAds: totalAds || 0,
+    totalPages,
+  });
 }
 
 /**
@@ -167,6 +165,9 @@ async function performFuzzySearch({
   baseConditions.push(`(${wordSimilarityConditions})`);
   queryParams.push(similarityThreshold);
   paramIndex++;
+
+  // Ensure ads are not deleted
+  baseConditions.push(`"deletedAt" IS NULL`);
 
   // Add category filter
   if (categoryPaths.length > 0) {

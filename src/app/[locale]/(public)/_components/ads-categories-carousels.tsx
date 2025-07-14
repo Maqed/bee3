@@ -5,6 +5,7 @@ import { db } from "@/server/db";
 import { getSubCategoryPaths, getFirstLevelCategories } from "@/lib/category";
 import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
 import { Ad } from "@/types/bee3";
+import { getNonDeletedAds } from "@/database/ad";
 
 // Type for carousel ads that matches what we query from database
 type CarouselAd = Omit<Ad, "images"> & {
@@ -24,7 +25,7 @@ async function AdsCategoriesCarousels() {
         const allCategoryPaths = [category.path, ...subPaths];
 
         // Query only the required number of ads for this category
-        const categoryAds = await db.ad.findMany({
+        const categoryAds = await getNonDeletedAds({
           where: {
             categoryPath: {
               in: allCategoryPaths,
