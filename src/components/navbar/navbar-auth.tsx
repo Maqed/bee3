@@ -1,7 +1,7 @@
 "use client";
 import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
-import { Settings, User as UserIcon, Heart } from "lucide-react";
+import { Settings, User as UserIcon, Heart, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,7 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Session, User } from "better-auth";
+import { authClient } from "@/lib/auth-client";
 import SignOutMenuItem from "./sign-out-menu-item";
 import { ReactNode } from "react";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
@@ -25,7 +25,7 @@ function NavbarAuth({
   loginButtonProps,
   trigger,
 }: {
-  session: { session: Session; user: User } | null;
+  session: typeof authClient.$Infer.Session | null;
   isPending: boolean;
   dropdownMenuContentProps?: DropdownMenuContentProps;
   loginButtonProps?: ButtonProps;
@@ -57,6 +57,14 @@ function NavbarAuth({
             {t("Profile")}
           </DropdownMenuItem>
         </Link>
+        {session.user.role === "admin" && (
+          <Link href="/admin/users">
+            <DropdownMenuItem>
+              <Shield className="me-2 h-4 w-4" />
+              {t("Admin")}
+            </DropdownMenuItem>
+          </Link>
+        )}
         <Link href="/favorites">
           <DropdownMenuItem>
             <Heart className="me-2 h-4 w-4" />

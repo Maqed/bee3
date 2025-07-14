@@ -22,6 +22,7 @@
     "Greeting": "Hello!",
     "Login": "Login",
     "Profile": "Profile",
+    "Admin": "Admin",
     "Favorites": "Favorites",
     "Settings": "Settings",
     "Logout": "Logout"
