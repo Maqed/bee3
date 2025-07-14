@@ -67,6 +67,7 @@ function SellPage() {
           adAnalyticsId: "preview",
           tier: "Free",
           userId: session?.user.id!,
+          deletedAt: null,
           user: {
             id: session?.user.id!,
             name: session?.user.name!,
@@ -99,6 +100,7 @@ function SellPage() {
           categoryPath: "",
           createdAt: new Date(),
           updatedAt: new Date(),
+          deletedAt: null,
           adAnalyticsId: "preview",
           tier: "Free",
           userId: session?.user.id!,
