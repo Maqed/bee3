@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import ServerSideProviders from "@/providers/server-side";
 import ClientSideProviders from "@/providers/client-side";
 import { getMessages, getTranslations } from "next-intl/server";
+import { Databuddy } from "@databuddy/sdk";
 
 export async function generateMetadata({
   params: { locale },
@@ -77,6 +78,7 @@ export default function RootLayout({
         <body>
           <ClientSideProviders>{children}</ClientSideProviders>
           <Toaster />
+          <Databuddy clientId="lSOc5xZejKB-0TKWvJ4qG" enableBatching={true} />
         </body>
       </html>
     </ServerSideProviders>
