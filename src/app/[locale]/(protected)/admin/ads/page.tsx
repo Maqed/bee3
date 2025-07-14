@@ -1,7 +1,8 @@
+import AdminProtected from "@/components/admin/AdminProtected";
 import React from "react";
 
 function AdminAdsPage() {
-  return <div>AdminAdsPage</div>;
+  return <AdminProtected>{(session) => <></>}</AdminProtected>;
 }
 
 export default AdminAdsPage;
