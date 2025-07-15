@@ -10,6 +10,22 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function getLocalizedDate(locale: string, date: Date): string {
+  return date.toLocaleDateString(locale, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+export function getLocalizedTime(locale: string, date: Date): string {
+  return date.toLocaleTimeString(locale, {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
 export function getLocalizedPrice(locale: string, price: number) {
   return new Intl.NumberFormat(locale, {
     style: "currency",
