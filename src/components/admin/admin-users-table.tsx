@@ -58,23 +58,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { authClient } from "@/lib/auth-client";
-
-// Simple date formatting helper
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-};
-
-const formatTime = (date: Date) => {
-  return date.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  });
-};
+import { getLocalizedDate, getLocalizedTime } from "@/lib/utils";
+import { useLocale } from "next-intl";
 
 // Define the user type based on API response
 type User = {
@@ -321,6 +306,7 @@ function UnbanDialog({
 
 export default function AdminUsersTable() {
   const t = useTranslations("Admin.Users");
+  const locale = useLocale();
   const queryClient = useQueryClient();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -448,7 +434,8 @@ export default function AdminUsersTable() {
                 </Badge>
                 {banExpires && (
                   <div className="mt-1 text-xs text-muted-foreground">
-                    {t("table.status.until")} {formatDate(new Date(banExpires))}
+                    {t("table.status.until")}{" "}
+                    {getLocalizedDate(locale, new Date(banExpires))}
                   </div>
                 )}
               </div>
@@ -494,8 +481,10 @@ export default function AdminUsersTable() {
           const date = new Date(row.getValue("createdAt"));
           return (
             <div className="text-sm">
-              <div>{formatDate(date)}</div>
-              <div className="text-muted-foreground">{formatTime(date)}</div>
+              <div>{getLocalizedDate(locale, date)}</div>
+              <div className="text-muted-foreground">
+                {getLocalizedTime(locale, date)}
+              </div>
             </div>
           );
         },
