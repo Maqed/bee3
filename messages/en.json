@@ -21,6 +21,7 @@
   "Navbar": {
     "Greeting": "Hello!",
     "Login": "Login",
+    "MyAds": "My ads",
     "Profile": "Profile",
     "Admin": "Admin",
     "Favorites": "Favorites",

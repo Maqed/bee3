@@ -1,7 +1,13 @@
 "use client";
 import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
-import { Settings, User as UserIcon, Heart, Shield } from "lucide-react";
+import {
+  Settings,
+  User as UserIcon,
+  Heart,
+  Shield,
+  Megaphone,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -51,6 +57,12 @@ function NavbarAuth({
           <h4 className="text-xl text-primary">{session.user.name}</h4>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <Link href={`my-ads`}>
+          <DropdownMenuItem>
+            <Megaphone className="me-2 h-4 w-4" />
+            {t("MyAds")}
+          </DropdownMenuItem>
+        </Link>
         <Link href={`/user/${session.user.id}`}>
           <DropdownMenuItem>
             <UserIcon className="me-2 h-4 w-4" />
