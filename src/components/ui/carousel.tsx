@@ -10,6 +10,7 @@ import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useLocale } from "next-intl";
+import { BackwardArrow, ForwardArrow } from "./arrows";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -210,68 +211,70 @@ CarouselItem.displayName = "CarouselItem";
 
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
-  React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollPrev, canScrollPrev, direction } = useCarousel();
+  React.ComponentProps<typeof Button> & { arrowClassName?: string }
+>(
+  (
+    { className, variant = "outline", size = "icon", arrowClassName, ...props },
+    ref,
+  ) => {
+    const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
-  return (
-    <Button
-      ref={ref}
-      variant={variant}
-      size={size}
-      className={cn(
-        "absolute h-8 w-8 rounded-full disabled:hidden",
-        orientation === "horizontal"
-          ? "-start-6 top-1/2 -translate-y-1/2"
-          : "-top-6 start-1/2 -translate-x-1/2 rotate-90",
-        className,
-      )}
-      disabled={!canScrollPrev}
-      onClick={scrollPrev}
-      {...props}
-    >
-      {direction === "ltr" ? (
-        <ArrowLeft className="h-4 w-4" />
-      ) : (
-        <ArrowRight className="h-4 w-4" />
-      )}
-      <span className="sr-only">Previous slide</span>
-    </Button>
-  );
-});
+    return (
+      <Button
+        ref={ref}
+        variant={variant}
+        size={size}
+        className={cn(
+          "absolute h-8 w-8 rounded-full disabled:hidden",
+          orientation === "horizontal"
+            ? "-start-6 top-1/2 -translate-y-1/2"
+            : "-top-6 start-1/2 -translate-x-1/2 rotate-90",
+          className,
+        )}
+        disabled={!canScrollPrev}
+        onClick={scrollPrev}
+        {...props}
+      >
+        <BackwardArrow className={cn("size-4", arrowClassName)} />
+        <span className="sr-only">Previous slide</span>
+      </Button>
+    );
+  },
+);
 CarouselPrevious.displayName = "CarouselPrevious";
 
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
-  React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
-  const { orientation, scrollNext, canScrollNext, direction } = useCarousel();
-  return (
-    <Button
-      ref={ref}
-      variant={variant}
-      size={size}
-      className={cn(
-        "absolute h-8 w-8 rounded-full disabled:hidden",
-        orientation === "horizontal"
-          ? "-end-6 top-1/2 -translate-y-1/2"
-          : "-bottom-6 start-1/2 -translate-x-1/2 rotate-90",
-        className,
-      )}
-      disabled={!canScrollNext}
-      onClick={scrollNext}
-      {...props}
-    >
-      {direction === "ltr" ? (
-        <ArrowRight className="h-4 w-4" />
-      ) : (
-        <ArrowLeft className="h-4 w-4" />
-      )}
+  React.ComponentProps<typeof Button> & { arrowClassName?: string }
+>(
+  (
+    { className, variant = "outline", size = "icon", arrowClassName, ...props },
+    ref,
+  ) => {
+    const { orientation, scrollNext, canScrollNext } = useCarousel();
+    return (
+      <Button
+        ref={ref}
+        variant={variant}
+        size={size}
+        className={cn(
+          "absolute h-8 w-8 rounded-full disabled:hidden",
+          orientation === "horizontal"
+            ? "-end-6 top-1/2 -translate-y-1/2"
+            : "-bottom-6 start-1/2 -translate-x-1/2 rotate-90",
+          className,
+        )}
+        disabled={!canScrollNext}
+        onClick={scrollNext}
+        {...props}
+      >
+        <ForwardArrow className={cn("size-4", arrowClassName)} />
 
-      <span className="sr-only">Next slide</span>
-    </Button>
-  );
-});
+        <span className="sr-only">Next slide</span>
+      </Button>
+    );
+  },
+);
 CarouselNext.displayName = "CarouselNext";
 
 const CarouselDot = React.forwardRef<
