@@ -19,6 +19,12 @@ model Category {
     attributes CategoryAttribute[]
 }
 
+enum AD_STATUS {
+    REJECTED
+    PENDING
+    ACCEPTED
+}
+
 model Ad {
     id              String           @id
     userId          String?
@@ -42,6 +48,9 @@ model Ad {
 
     governorate   Governorate @relation(fields: [governorateId], references: [id])
     governorateId Int
+
+    adStatus    AD_STATUS @default(PENDING)
+    rejectedFor String?
 
     deletedAt DateTime?
 
