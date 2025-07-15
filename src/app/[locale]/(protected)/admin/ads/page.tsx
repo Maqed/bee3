@@ -1,4 +1,4 @@
-import AdminProtected from "@/components/admin/AdminProtected";
+import AdminProtected from "@/components/admin/admin-protected";
 import React from "react";
 
 function AdminAdsPage() {
