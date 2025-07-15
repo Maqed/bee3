@@ -15,7 +15,7 @@ const s3 = new S3Client({
 });
 
 export async function POST(req: NextRequest) {
-  const session = getServerAuthSession();
+  const session = await getServerAuthSession();
   if (!session) return NextResponse.json({ error: "must-be-logged-in" });
   try {
     const { fileTypes } = await req.json();
