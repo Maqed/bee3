@@ -7,7 +7,10 @@ import {
   MIN_PAGE_SIZE,
   MAX_PAGE_SIZE,
 } from "@/consts/ad-search";
-import { getNonDeletedAds, countNonDeletedAds } from "@/database/ad";
+import {
+  getAcceptedAdsFromNonBannedUsers,
+  countAcceptedAdsFromNonBannedUsers,
+} from "@/database/ad";
 
 /**
  * Toggle visibility of a content tab
@@ -88,7 +91,7 @@ export async function GET(request: NextRequest) {
     AND: attributeConditions.length > 0 ? attributeConditions : undefined,
   };
 
-  const adsPromise = getNonDeletedAds({
+  const adsPromise = getAcceptedAdsFromNonBannedUsers({
     orderBy: [
       { price: sort === "price" ? order : undefined },
       { createdAt: sort === "date" ? order : undefined },
@@ -106,7 +109,7 @@ export async function GET(request: NextRequest) {
     take: pageSize,
   });
 
-  const totalAdsPromise = countNonDeletedAds(queryWhereClause);
+  const totalAdsPromise = countAcceptedAdsFromNonBannedUsers(queryWhereClause);
 
   const [ads, totalAds] = await Promise.all([adsPromise, totalAdsPromise]);
   const totalPages = Math.ceil((totalAds || 0) / pageSize);
@@ -166,8 +169,14 @@ async function performFuzzySearch({
   queryParams.push(similarityThreshold);
   paramIndex++;
 
-  // Ensure ads are not deleted
+  // Ensure ads are not deleted, accepted, and user is not banned
   baseConditions.push(`"deletedAt" IS NULL`);
+  baseConditions.push(`"adStatus" = 'ACCEPTED'`);
+  baseConditions.push(`EXISTS (
+    SELECT 1 FROM "user" u 
+    WHERE u.id = "Ad"."userId" 
+    AND (u.banned IS NULL OR u.banned = false)
+  )`);
 
   // Add category filter
   if (categoryPaths.length > 0) {

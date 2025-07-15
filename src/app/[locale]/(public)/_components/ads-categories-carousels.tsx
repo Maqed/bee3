@@ -1,11 +1,10 @@
 import React from "react";
 import { getCategoryTranslations } from "@/lib/category-asynchronous";
 import AdsCarousel from "@/components/bee3/ads-carousel";
-import { db } from "@/server/db";
 import { getSubCategoryPaths, getFirstLevelCategories } from "@/lib/category";
 import { NUMBER_OF_ADS_IN_CAROUSEL } from "@/consts/ad";
 import { Ad } from "@/types/bee3";
-import { getNonDeletedAds } from "@/database/ad";
+import { getAcceptedAdsFromNonBannedUsers } from "@/database/ad";
 
 // Type for carousel ads that matches what we query from database
 type CarouselAd = Omit<Ad, "images"> & {
@@ -25,7 +24,7 @@ async function AdsCategoriesCarousels() {
         const allCategoryPaths = [category.path, ...subPaths];
 
         // Query only the required number of ads for this category
-        const categoryAds = await getNonDeletedAds({
+        const categoryAds = await getAcceptedAdsFromNonBannedUsers({
           where: {
             categoryPath: {
               in: allCategoryPaths,

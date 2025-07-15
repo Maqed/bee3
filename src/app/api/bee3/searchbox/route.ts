@@ -45,7 +45,14 @@ export async function GET(request: NextRequest) {
         .join(", ")}) AS similarity_score
     FROM "Ad"
     LEFT JOIN "Category" ON "Ad"."categoryPath" = "Category".path
-    WHERE ((${wordConditions}) OR (${likeConditions})) AND "Ad"."deletedAt" IS NULL
+    WHERE ((${wordConditions}) OR (${likeConditions})) 
+    AND "Ad"."deletedAt" IS NULL 
+    AND "Ad"."adStatus" = 'ACCEPTED'
+    AND EXISTS (
+      SELECT 1 FROM "user" u 
+      WHERE u.id = "Ad"."userId" 
+      AND (u.banned IS NULL OR u.banned = false)
+    )
     ORDER BY similarity_score DESC
     LIMIT 8
   `,

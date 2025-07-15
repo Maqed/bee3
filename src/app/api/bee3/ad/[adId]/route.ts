@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/server/db";
 import { getServerAuthSession } from "@/lib/auth";
-import { getNonDeletedAdById } from "@/database/ad";
+import { getAcceptedAdFromNonBannedUserById } from "@/database/ad";
 
 export async function GET(
   request: Request,
@@ -10,7 +10,7 @@ export async function GET(
   const { params } = context;
 
   try {
-    let ad = await getNonDeletedAdById(params.adId, {
+    let ad = await getAcceptedAdFromNonBannedUserById(params.adId, {
       include: {
         user: {
           select: {

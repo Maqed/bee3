@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { getServerAuthSession } from "@/lib/auth";
 import { getUserById } from "@/database/users";
 import { db } from "@/server/db";
-import { favAdSchema } from "../../../../schema/ad";
-import { getNonDeletedAdById } from "@/database/ad";
+import { favAdSchema } from "@/schema/ad";
+import { getAcceptedAdFromNonBannedUserById } from "@/database/ad";
 
 export async function POST(request: Request) {
   const session = await getServerAuthSession();
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   if (!req.success)
     return NextResponse.json({ error: req.error }, { status: 500 });
 
-  const ad = await getNonDeletedAdById(req.data!.adId);
+  const ad = await getAcceptedAdFromNonBannedUserById(req.data!.adId);
   if (!ad) return NextResponse.json({ error: "ad-not-found" }, { status: 404 });
 
   try {

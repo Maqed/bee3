@@ -2,13 +2,15 @@ import { type Prisma } from "@prisma/client";
 import { db } from "@/server/db";
 
 /**
- * Get ads that are not deleted (deletedAt is null) with customizable query options
+ * Get accepted ads from non-banned users (deletedAt is null, user not banned, adStatus is ACCEPTED)
  * @param options - Prisma query options (where, include, select, orderBy, etc.)
  * @returns Promise<Ad[]> or null if error occurs
  */
-export const getNonDeletedAds = async <T extends Prisma.AdFindManyArgs>(
+export const getAcceptedAdsFromNonBannedUsers = async <
+  T extends Prisma.AdFindManyArgs,
+>(
   options?: Omit<T, "where"> & {
-    where?: Omit<Prisma.AdWhereInput, "deletedAt">;
+    where?: Omit<Prisma.AdWhereInput, "deletedAt" | "adStatus" | "user">;
   },
 ) => {
   try {
@@ -17,6 +19,10 @@ export const getNonDeletedAds = async <T extends Prisma.AdFindManyArgs>(
     const ads = await db.ad.findMany({
       where: {
         deletedAt: null, // Ensure ad is not deleted
+        adStatus: "ACCEPTED", // Only accepted ads
+        user: {
+          OR: [{ banned: null }, { banned: false }],
+        }, // Ensure user is not banned
         ...customWhere, // Merge with custom where conditions
       },
       ...otherOptions, // Include other query options like include, select, orderBy, etc.
@@ -29,12 +35,14 @@ export const getNonDeletedAds = async <T extends Prisma.AdFindManyArgs>(
 };
 
 /**
- * Get a single non-deleted ad by ID
+ * Get a single accepted ad from non-banned user by ID
  * @param id - Ad ID
  * @param options - Additional Prisma query options (include, select)
  * @returns Promise<Ad> or null if not found or error occurs
  */
-export const getNonDeletedAdById = async <T extends Prisma.AdFindUniqueArgs>(
+export const getAcceptedAdFromNonBannedUserById = async <
+  T extends Prisma.AdFindUniqueArgs,
+>(
   id: string,
   options?: Omit<T, "where">,
 ) => {
@@ -43,6 +51,10 @@ export const getNonDeletedAdById = async <T extends Prisma.AdFindUniqueArgs>(
       where: {
         id,
         deletedAt: null, // Ensure ad is not deleted
+        adStatus: "ACCEPTED", // Only accepted ads
+        user: {
+          OR: [{ banned: null }, { banned: false }],
+        }, // Ensure user is not banned
       },
       ...options, // Include other query options like include, select
     } as T);
@@ -54,13 +66,15 @@ export const getNonDeletedAdById = async <T extends Prisma.AdFindUniqueArgs>(
 };
 
 /**
- * Get first non-deleted ad that matches the criteria
+ * Get first accepted ad from non-banned users that matches the criteria
  * @param options - Prisma query options (where, include, select, orderBy)
  * @returns Promise<Ad> or null if not found or error occurs
  */
-export const findFirstNonDeletedAd = async <T extends Prisma.AdFindFirstArgs>(
+export const findFirstAcceptedAdFromNonBannedUser = async <
+  T extends Prisma.AdFindFirstArgs,
+>(
   options?: Omit<T, "where"> & {
-    where?: Omit<Prisma.AdWhereInput, "deletedAt">;
+    where?: Omit<Prisma.AdWhereInput, "deletedAt" | "adStatus" | "user">;
   },
 ) => {
   try {
@@ -69,6 +83,10 @@ export const findFirstNonDeletedAd = async <T extends Prisma.AdFindFirstArgs>(
     const ad = await db.ad.findFirst({
       where: {
         deletedAt: null, // Ensure ad is not deleted
+        adStatus: "ACCEPTED", // Only accepted ads
+        user: {
+          OR: [{ banned: null }, { banned: false }],
+        }, // Ensure user is not banned
         ...customWhere, // Merge with custom where conditions
       },
       ...otherOptions, // Include other query options like include, select, orderBy
@@ -81,17 +99,21 @@ export const findFirstNonDeletedAd = async <T extends Prisma.AdFindFirstArgs>(
 };
 
 /**
- * Count non-deleted ads that match the criteria
- * @param where - Custom where conditions (deletedAt: null is automatically added)
+ * Count accepted ads from non-banned users that match the criteria
+ * @param where - Custom where conditions (deletedAt: null, adStatus: ACCEPTED, user not banned are automatically added)
  * @returns Promise<number> or null if error occurs
  */
-export const countNonDeletedAds = async (
-  where?: Omit<Prisma.AdWhereInput, "deletedAt">,
+export const countAcceptedAdsFromNonBannedUsers = async (
+  where?: Omit<Prisma.AdWhereInput, "deletedAt" | "adStatus" | "user">,
 ) => {
   try {
     const count = await db.ad.count({
       where: {
         deletedAt: null, // Ensure ad is not deleted
+        adStatus: "ACCEPTED", // Only accepted ads
+        user: {
+          OR: [{ banned: null }, { banned: false }],
+        }, // Ensure user is not banned
         ...where, // Merge with custom where conditions
       },
     });
