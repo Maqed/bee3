@@ -1151,6 +1151,27 @@
     "badge": "Legal Document",
     "footer": "Please review our legal documents carefully. For any questions, contact our legal team."
   },
+  "/my-ads": {
+    "title": "My Ads",
+    "description": "Manage and view all your advertisements",
+    "status": {
+      "all": "All",
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "rejected": "Rejected"
+    },
+    "empty": {
+      "title": "No ads found",
+      "description": {
+        "all": "You haven't created any ads yet. Start selling by creating your first ad!",
+        "filtered": "No ads found with {status} status."
+      }
+    },
+    "error": {
+      "title": "Error loading ads",
+      "description": "Something went wrong while loading your ads. Please try again."
+    }
+  },
   "errors": {
     "Required": "This input is required",
     "social": {
