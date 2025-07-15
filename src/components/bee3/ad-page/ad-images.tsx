@@ -28,7 +28,7 @@ export function AdImages({ ad }: AdImagesProps) {
           <CarouselContent className="mb-3">
             {ad.images.map((imageURL, index) => (
               <CarouselItem
-                key={`carousel-item-${imageURL}`}
+                key={`carousel-item-${imageURL}-${index}`}
                 className="min-w-0 shrink-0 grow-0 basis-full"
               >
                 <Image
@@ -43,15 +43,20 @@ export function AdImages({ ad }: AdImagesProps) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="start-0 h-full rounded-none bg-primary/80 text-primary-foreground hover:bg-primary/70" />
-          <CarouselNext className="end-0 h-full rounded-none bg-primary/80 text-primary-foreground hover:bg-primary/70" />
+          <CarouselPrevious
+            className="start-0 h-full w-10 rounded-none border-none bg-transparent hover:bg-transparent"
+            arrowClassName="size-6 md:size-10"
+          />
+          <CarouselNext
+            className="end-0 h-full w-10 rounded-none border-none bg-transparent hover:bg-transparent"
+            arrowClassName="size-6 md:size-10"
+          />
         </Carousel>
-
         <ScrollArea className="w-full whitespace-nowrap rounded-md border">
           <div className="flex w-max gap-x-2 px-2 py-3">
             {ad.images.map((imageURL, index) => (
               <button
-                key={`thumbnail-${imageURL}`}
+                key={`thumbnail-${imageURL}-${index}`}
                 className="inline hover:outline hover:outline-2 hover:outline-primary focus:outline focus:outline-2 focus:outline-primary"
                 onClick={() => api?.scrollTo(index)}
               >
