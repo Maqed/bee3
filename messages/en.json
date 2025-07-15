@@ -100,6 +100,81 @@
         "title": "Error loading users",
         "description": "Something went wrong"
       }
+    },
+    "Ads": {
+      "title": "Ads Management",
+      "description": "Manage and review all user advertisements",
+      "search": {
+        "placeholder": "Search ads..."
+      },
+      "filters": {
+        "status": {
+          "placeholder": "Filter by status",
+          "all": "All Statuses",
+          "pending": "Pending",
+          "accepted": "Accepted",
+          "rejected": "Rejected"
+        }
+      },
+      "table": {
+        "columns": {
+          "title": "Title",
+          "user": "User",
+          "price": "Price",
+          "status": "Status",
+          "tier": "Tier",
+          "location": "Location",
+          "analytics": "Analytics",
+          "created": "Created",
+          "actions": "Actions"
+        },
+        "badges": {
+          "pending": "Pending",
+          "accepted": "Accepted",
+          "rejected": "Rejected",
+          "negotiable": "Negotiable"
+        },
+        "actions": {
+          "accept": "Accept Ad",
+          "reject": "Reject Ad",
+          "accept-confirm": "Are you sure you want to accept this ad?",
+          "reject-confirm": "Are you sure you want to reject this ad?",
+          "reject-reason-label": "Rejection Reason",
+          "reject-reason-placeholder": "Select rejection reason...",
+          "reject-reason-required": "Rejection reason is required",
+          "reject-reasons": {
+            "repeated-ad": "Repeated ad",
+            "inappropriate-ad": "Inappropriate ad"
+          },
+          "accept-success": "Ad accepted successfully",
+          "reject-success": "Ad rejected successfully",
+          "accept-error": "Failed to accept ad",
+          "reject-error": "Failed to reject ad",
+          "already-processed": "Already processed",
+          "cancel": "Cancel",
+          "accepting": "Accepting...",
+          "rejecting": "Rejecting..."
+        },
+        "stats": {
+          "views": "views",
+          "favorites": "favorites"
+        },
+        "empty": "No ads found.",
+        "pagination": {
+          "of": "of",
+          "ads-displayed": "ad(s) displayed",
+          "rows-per-page": "Rows per page",
+          "page": "Page",
+          "go-to-first": "Go to first page",
+          "go-to-previous": "Go to previous page",
+          "go-to-next": "Go to next page",
+          "go-to-last": "Go to last page"
+        }
+      },
+      "error": {
+        "title": "Error loading ads",
+        "description": "Something went wrong"
+      }
     }
   },
   "search": {

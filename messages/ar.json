@@ -96,6 +96,81 @@
         "title": "خطأ في تحميل المستخدمين",
         "description": "حدث خطأ ما"
       }
+    },
+    "Ads": {
+      "title": "إدارة الإعلانات",
+      "description": "إدارة ومراجعة جميع إعلانات المستخدمين",
+      "search": {
+        "placeholder": "البحث في الإعلانات..."
+      },
+      "filters": {
+        "status": {
+          "placeholder": "فلتر حسب الحالة",
+          "all": "جميع الحالات",
+          "pending": "في الانتظار",
+          "accepted": "مقبول",
+          "rejected": "مرفوض"
+        }
+      },
+      "table": {
+        "columns": {
+          "title": "العنوان",
+          "user": "المستخدم",
+          "price": "السعر",
+          "status": "الحالة",
+          "tier": "الفئة",
+          "location": "الموقع",
+          "analytics": "الإحصائيات",
+          "created": "تاريخ الإنشاء",
+          "actions": "الإجراءات"
+        },
+        "badges": {
+          "pending": "في الانتظار",
+          "accepted": "مقبول",
+          "rejected": "مرفوض",
+          "negotiable": "قابل للتفاوض"
+        },
+        "actions": {
+          "accept": "قبول الإعلان",
+          "reject": "رفض الإعلان",
+          "accept-confirm": "هل أنت متأكد من أنك تريد قبول هذا الإعلان؟",
+          "reject-confirm": "هل أنت متأكد من أنك تريد رفض هذا الإعلان؟",
+          "reject-reason-label": "سبب الرفض",
+          "reject-reason-placeholder": "اختر سبب الرفض...",
+          "reject-reason-required": "سبب الرفض مطلوب",
+          "reject-reasons": {
+            "repeated-ad": "إعلان مكرر",
+            "inappropriate-ad": "إعلان غير لائق"
+          },
+          "accept-success": "تم قبول الإعلان بنجاح",
+          "reject-success": "تم رفض الإعلان بنجاح",
+          "accept-error": "فشل في قبول الإعلان",
+          "reject-error": "فشل في رفض الإعلان",
+          "already-processed": "تم معالجته بالفعل",
+          "cancel": "إلغاء",
+          "accepting": "جاري القبول...",
+          "rejecting": "جاري الرفض..."
+        },
+        "stats": {
+          "views": "مشاهدة",
+          "favorites": "المفضلات"
+        },
+        "empty": "لم يتم العثور على إعلانات.",
+        "pagination": {
+          "of": "من",
+          "ads-displayed": "إعلان معروض",
+          "rows-per-page": "عدد الصفوف لكل صفحة",
+          "page": "صفحة",
+          "go-to-first": "الانتقال إلى الصفحة الأولى",
+          "go-to-previous": "الانتقال إلى الصفحة السابقة",
+          "go-to-next": "الانتقال إلى الصفحة التالية",
+          "go-to-last": "الانتقال إلى الصفحة الأخيرة"
+        }
+      },
+      "error": {
+        "title": "خطأ في تحميل الإعلانات",
+        "description": "حدث خطأ ما"
+      }
     }
   },
   "search": {
