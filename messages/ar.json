@@ -1135,6 +1135,17 @@
       "copied": "تم نسخ رابط الإعلان!",
       "copy": "نسخ الرابط",
       "share": "مشاركة"
+    },
+    "tooltip": {
+      "ad-not-accepted": "هذا الإعلان لم يتم قبوله بعد"
+    },
+    "status": {
+      "pending": "هذا الإعلان في انتظار الموافقة",
+      "rejected": "تم رفض هذا الإعلان",
+      "reject-reasons": {
+        "repeated-ad": "إعلان مكرر",
+        "inappropriate-ad": "إعلان غير لائق"
+      }
     }
   },
   "/legal": {

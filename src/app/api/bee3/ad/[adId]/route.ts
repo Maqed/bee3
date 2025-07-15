@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/server/db";
 import { getServerAuthSession } from "@/lib/auth";
-import { getAcceptedAdFromNonBannedUserById } from "@/database/ad";
 
 export async function GET(
   request: Request,
@@ -10,7 +9,8 @@ export async function GET(
   const { params } = context;
 
   try {
-    let ad = await getAcceptedAdFromNonBannedUserById(params.adId, {
+    let ad = await db.ad.findUnique({
+      where: { id: params.adId },
       include: {
         user: {
           select: {
@@ -18,6 +18,8 @@ export async function GET(
             name: true,
             createdAt: true,
             contactMethod: true,
+            banned: true,
+            role: true,
           },
         },
         images: {
@@ -40,9 +42,30 @@ export async function GET(
       },
     });
 
+    if (!ad || ad.deletedAt !== null || ad.user?.banned) {
+      return NextResponse.json({ error: "Ad not found" }, { status: 404 });
+    }
+
+    if (ad.adStatus === "ACCEPTED") {
+      return NextResponse.json({ ad });
+    }
+    const session = await getServerAuthSession();
+    if (!session) {
+      return NextResponse.json({ error: "Ad not found" }, { status: 404 });
+    }
+
+    const isAdmin = session.user.role === "admin";
+    const isOwner = session.user.id === ad.userId;
+
+    if (ad.adStatus === "REJECTED" || ad.adStatus === "PENDING") {
+      if (!isAdmin && !isOwner) {
+        return NextResponse.json({ error: "Ad not found" }, { status: 404 });
+      }
+    }
+
     return NextResponse.json({ ad });
   } catch (e) {
-    return NextResponse.json({ error: e }, { status: 404 });
+    return NextResponse.json({ error: e }, { status: 500 });
   }
 }
 

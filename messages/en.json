@@ -1131,6 +1131,17 @@
       "copied": "Ad link copied!",
       "copy": "Copy link",
       "share": "Share"
+    },
+    "tooltip": {
+      "ad-not-accepted": "This ad is not yet accepted"
+    },
+    "status": {
+      "pending": "This ad is pending approval. Please wait.",
+      "rejected": "This ad has been rejected.",
+      "reject-reasons": {
+        "repeated-ad": "Repeated ad",
+        "inappropriate-ad": "Inappropriate ad"
+      }
     }
   },
   "/legal": {
