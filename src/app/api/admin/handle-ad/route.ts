@@ -3,6 +3,7 @@ import { getServerAuthSession } from "@/lib/auth";
 import { db } from "@/server/db";
 import { AD_STATUS } from "@prisma/client";
 import { ALLOWED_REJECTION_REASONS } from "@/consts/admin";
+import { deleteDiscordMessage } from "@/server/discord";
 
 export async function POST(request: Request) {
   try {
@@ -61,6 +62,7 @@ export async function POST(request: Request) {
         id: true,
         adStatus: true,
         title: true,
+        discordMessageId: true,
         user: {
           select: {
             id: true,
@@ -97,6 +99,39 @@ export async function POST(request: Request) {
         },
       },
     });
+
+    // Refund 1 token if rejected
+    if (adStatus === AD_STATUS.REJECTED && updatedAd.user?.id) {
+      // Only refund for Free tokens (adjust if you want to support Pro/Expert)
+      const tokenStore = await db.adTokenStore.findUnique({
+        where: {
+          userId_tokenType: {
+            userId: updatedAd.user.id,
+            tokenType: "Free",
+          },
+        },
+        select: { count: true, initialCount: true },
+      });
+      if (tokenStore && tokenStore.count < tokenStore.initialCount) {
+        await db.adTokenStore.update({
+          where: {
+            userId_tokenType: {
+              userId: updatedAd.user.id,
+              tokenType: "Free",
+            },
+          },
+          data: {
+            count: { increment: 1 },
+          },
+        });
+      }
+      // Optionally: add a comment/log here for auditing
+    }
+
+    // Delete Discord message if present
+    if (existingAd.discordMessageId) {
+      await deleteDiscordMessage(existingAd.discordMessageId);
+    }
 
     return NextResponse.json({
       message: "ad-status-updated-successfully",

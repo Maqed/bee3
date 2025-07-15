@@ -3,8 +3,12 @@ import { getServerAuthSession } from "@/lib/auth";
 import { getUserById } from "@/database/users";
 import { adSchemaServer } from "@/schema/ad";
 import { db } from "@/server/db";
+import { AD_STATUS } from "@prisma/client";
 import { createId } from "@paralleldrive/cuid2";
 import { cities } from "@/schema/cities";
+import { sendDiscordMessage } from "@/server/discord";
+import { findCategory } from "@/lib/category";
+import { governorates } from "@/schema/governorates";
 
 export async function POST(request: Request) {
   const session = await getServerAuthSession();
@@ -77,38 +81,49 @@ export async function POST(request: Request) {
     ? JSON.parse(req.data.categoryOptions)
     : {};
 
+  // Send Discord notification for admin review and get messageId first
+  const city = cities.find((c) => c.id === req.data.cityId);
+  const governorate = governorates.find((g) => g.id === city?.governorate_id);
+  const messageId = await sendDiscordMessage({
+    username: req.data.userName || user.name || "Unknown User",
+    email: user.email || "",
+    message: req.data.description || "",
+    type: "Ad Request",
+    dp: undefined, // Optionally add user image if available
+    title: req.data.title,
+    description: req.data.description || "",
+    price: req.data.price,
+    negotiable: req.data.negotiable,
+    images: req.data.images,
+    category: req.data.categoryId,
+    city: city?.city_name_en || req.data.cityId.toString(),
+    governorate: governorate?.governorate_name_en || (city?.governorate_id ? city.governorate_id.toString() : ""),
+  });
+
   // Create ad in a transaction to ensure all related data is created
   const ad = await db.$transaction(async (tx) => {
     // Create the ad first
     const newAd = await tx.ad.create({
       data: {
         id: adId,
+        adStatus: AD_STATUS.PENDING, // All new ads start as PENDING
         title: req.data.title,
         description: req.data.description,
         price: req.data.price,
         negotiable: req.data.negotiable,
         images: {
-          create: req.data.images.map((image) => ({
-            url: image,
-          })),
+          create: req.data.images.map((image) => ({ url: image })),
         },
-        user: {
-          connect: { id: user.id },
-        },
-        city: {
-          connect: { id: req.data.cityId },
-        },
+        user: { connect: { id: user.id } },
+        city: { connect: { id: req.data.cityId } },
         governorate: {
           connect: {
             id: cities.find((c) => c.id === req.data.cityId)!.governorate_id,
           },
         },
-        category: {
-          connect: { id: req.data.categoryId },
-        },
-        analytics: {
-          create: { views: 0, uniqueViews: 0 },
-        },
+        category: { connect: { id: req.data.categoryId } },
+        analytics: { create: { views: 0, uniqueViews: 0 } },
+        discordMessageId: messageId || undefined,
       },
     });
 
@@ -147,5 +162,6 @@ export async function POST(request: Request) {
     return newAd;
   });
 
+  // Return the created ad (still pending)
   return NextResponse.json({ result: ad });
 }

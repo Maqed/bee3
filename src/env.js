@@ -28,6 +28,8 @@ export const env = createEnv({
     // Resend
     RESEND_API_KEY: z.string(),
     RESEND_FROM_EMAIL: z.string(),
+    // Discord
+    DISCORD_WEBHOOK_URL: z.string().url(),
   },
 
   /**
@@ -62,6 +64,8 @@ export const env = createEnv({
       process.env.CLOUDFLARE_R2_SECRET_ACCESS_KEY,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL,
+    // Discord
+    DISCORD_WEBHOOK_URL: process.env.DISCORD_WEBHOOK_URL,
     NEXT_PUBLIC_CLOUDFLARE_PUBLIC_BUCKET_URL:
       process.env.NEXT_PUBLIC_CLOUDFLARE_PUBLIC_BUCKET_URL,
   },
