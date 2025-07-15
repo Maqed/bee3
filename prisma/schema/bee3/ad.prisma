@@ -56,6 +56,8 @@ model Ad {
 
     analytics     AdAnalytics @relation(fields: [adAnalyticsId], references: [id])
     adAnalyticsId String
+
+    discordMessageId String? // Discord webhook message id for deletion
 }
 
 model AdTokenStore {
