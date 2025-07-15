@@ -67,6 +67,8 @@ function SellPage() {
           adAnalyticsId: "preview",
           tier: "Free",
           userId: session?.user.id!,
+          adStatus: "PENDING",
+          rejectedFor: "",
           deletedAt: null,
           user: {
             id: session?.user.id!,
@@ -104,6 +106,8 @@ function SellPage() {
           adAnalyticsId: "preview",
           tier: "Free",
           userId: session?.user.id!,
+          adStatus: "PENDING",
+          rejectedFor: "",
           user: {
             id: session?.user.id!,
             name: session?.user.name!,
