@@ -170,7 +170,7 @@ function BanDialog({ user, onSuccess }: { user: User; onSuccess: () => void }) {
           setOpen(true);
         }}
       >
-        <Ban className="mr-2 h-4 w-4" />
+        <Ban className="me-2 h-4 w-4" />
         {t("table.actions.ban")}
       </DropdownMenuItem>
 
@@ -287,7 +287,7 @@ function UnbanDialog({
           setOpen(true);
         }}
       >
-        <Shield className="mr-2 h-4 w-4" />
+        <Shield className="me-2 h-4 w-4" />
         {t("table.actions.unban")}
       </DropdownMenuItem>
 
@@ -345,7 +345,7 @@ export default function AdminUsersTable() {
             className="h-auto p-0 font-semibold hover:bg-transparent"
           >
             {t("table.columns.name")}
-            <ArrowUpDown className="ml-2 h-4 w-4" />
+            <ArrowUpDown className="ms-2 h-4 w-4" />
           </Button>
         ),
         cell: ({ row }) => (
@@ -366,7 +366,7 @@ export default function AdminUsersTable() {
             className="h-auto p-0 font-semibold hover:bg-transparent"
           >
             {t("table.columns.email")}
-            <ArrowUpDown className="ml-2 h-4 w-4" />
+            <ArrowUpDown className="ms-2 h-4 w-4" />
           </Button>
         ),
         cell: ({ row }) => (
@@ -487,7 +487,7 @@ export default function AdminUsersTable() {
             className="h-auto p-0 font-semibold hover:bg-transparent"
           >
             {t("table.columns.joined")}
-            <ArrowUpDown className="ml-2 h-4 w-4" />
+            <ArrowUpDown className="ms-2 h-4 w-4" />
           </Button>
         ),
         cell: ({ row }) => {
