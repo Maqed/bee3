@@ -29,7 +29,7 @@ export function AdImages({ ad }: AdImagesProps) {
             {ad.images.map((imageURL, index) => (
               <CarouselItem
                 key={`carousel-item-${imageURL}-${index}`}
-                className="min-w-0 shrink-0 grow-0 basis-full"
+                className="flex min-w-0 shrink-0 grow-0 basis-full items-center justify-center"
               >
                 <Image
                   priority={index === 0 || index === 1}
