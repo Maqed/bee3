@@ -1,6 +1,6 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { CheckCircle2, X } from "lucide-react";
+import { CheckCircle2, X, AlertTriangle, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const alertVariants = cva(
@@ -8,8 +8,10 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        success: "bg-success/15 text-success",
-        destructive: "bg-destructive/15 text-destructive",
+        success: "bg-success text-success-foreground",
+        destructive: "bg-destructive text-destructive-foreground",
+        warning: "bg-warning text-warning-foreground",
+        info: "bg-info text-info-foreground",
       },
     },
   },
@@ -35,6 +37,8 @@ function Alert({
       <h6 className="font-bol flex items-center gap-1 text-base font-bold">
         {variant === "success" && <CheckCircle2 className="inline size-5" />}
         {variant === "destructive" && <X className="inline size-5" />}
+        {variant === "warning" && <AlertTriangle className="inline size-5" />}
+        {variant === "info" && <Info className="inline size-5" />}
         {message}
       </h6>
       <p>{description}</p>
