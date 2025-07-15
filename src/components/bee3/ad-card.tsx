@@ -16,15 +16,25 @@ import { Badge } from "../ui/badge";
 type Props = {
   ad: Ad;
   orientation?: "horizontal" | "vertical";
+  containerClassName?: string;
   cardClassName?: string;
 };
 
-function AdCard({ ad, orientation = "vertical", cardClassName }: Props) {
+function AdCard({
+  ad,
+  orientation = "vertical",
+  containerClassName,
+  cardClassName,
+}: Props) {
   const locale = useLocale();
   const tAd = useTranslations("/ad/[adId]");
 
   return (
-    <Link title={ad.title} href={`/ad/${ad.id}`}>
+    <Link
+      title={ad.title}
+      href={`/ad/${ad.id}`}
+      className={cn(containerClassName)}
+    >
       <Card
         className={cn(
           orientation === "vertical"

@@ -4,15 +4,17 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   orientation?: "horizontal" | "vertical";
+  cardClassName?: string;
 };
 
-function AdCardPlaceholder({ orientation = "vertical" }: Props) {
+function AdCardPlaceholder({ orientation = "vertical", cardClassName }: Props) {
   return (
     <Card
       className={cn(
         orientation === "vertical"
           ? "w-[225px] md:w-[275px] lg:w-[300px]"
           : "w-full",
+        cardClassName,
       )}
     >
       <CardContent
