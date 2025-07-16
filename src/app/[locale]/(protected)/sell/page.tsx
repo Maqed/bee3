@@ -67,9 +67,10 @@ function SellPage() {
           adAnalyticsId: "preview",
           tier: "Free",
           userId: session?.user.id!,
-          adStatus: "PENDING",
+          adStatus: "ACCEPTED",
           rejectedFor: "",
           deletedAt: null,
+          discordMessageId: "",
           user: {
             id: session?.user.id!,
             name: session?.user.name!,
@@ -106,8 +107,9 @@ function SellPage() {
           adAnalyticsId: "preview",
           tier: "Free",
           userId: session?.user.id!,
-          adStatus: "PENDING",
+          adStatus: "ACCEPTED",
           rejectedFor: "",
+          discordMessageId: "",
           user: {
             id: session?.user.id!,
             name: session?.user.name!,
