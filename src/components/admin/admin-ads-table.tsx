@@ -383,17 +383,15 @@ export default function AdminAdsTable() {
           </Button>
         ),
         cell: ({ row }) => (
-          <div className="max-w-[200px]">
-            <Link
-              href={`/ad/${row.original.id}`}
-              className="block truncate font-medium"
-            >
-              {row.getValue("title")}
-            </Link>
+          <Link
+            href={`/ad/${row.original.id}`}
+            className="block max-w-[200px] truncate font-medium"
+          >
+            {row.getValue("title")}
             <div className="truncate text-sm text-muted-foreground">
               {row.original.id}
             </div>
-          </div>
+          </Link>
         ),
       },
       {
