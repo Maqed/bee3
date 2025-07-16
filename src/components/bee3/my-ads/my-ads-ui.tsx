@@ -11,6 +11,7 @@ import AdCard from "@/components/bee3/ad-card";
 import AdCardPlaceholder from "@/components/placeholders/ad-card-placeholder";
 import SellButton from "@/components/bee3/sell-button";
 import { cn } from "@/lib/utils";
+import { authClient } from "@/lib/auth-client";
 
 // Define the ad type based on API response
 type MyAd = {
@@ -40,8 +41,9 @@ const STATUS_FILTERS = [
 ] as const;
 
 function useMyAds(status: string = "ALL") {
+  const { data: session } = authClient.useSession();
   return useQuery<MyAdsResponse, Error>({
-    queryKey: ["my-ads", status],
+    queryKey: ["my-ads", status, session?.user.id],
     queryFn: async () => {
       const url =
         status === "ALL"
@@ -56,6 +58,7 @@ function useMyAds(status: string = "ALL") {
 
       return response.json();
     },
+    enabled: !!session?.user.id,
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
