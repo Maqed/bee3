@@ -396,8 +396,6 @@ export default function AdminAdsTable() {
             <Link
               href={`/ad/${row.original.id}`}
               className="block truncate font-medium"
-              target="_blank"
-              rel="noopener noreferrer"
             >
               {row.getValue("title")}
             </Link>
