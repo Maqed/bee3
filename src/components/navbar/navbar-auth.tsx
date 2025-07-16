@@ -70,7 +70,7 @@ function NavbarAuth({
           </DropdownMenuItem>
         </Link>
         {session.user.role === "admin" && (
-          <Link href="/admin/users">
+          <Link href="/admin/ads">
             <DropdownMenuItem>
               <Shield className="me-2 h-4 w-4" />
               {t("Admin")}

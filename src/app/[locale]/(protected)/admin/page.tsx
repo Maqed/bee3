@@ -6,7 +6,7 @@ async function AdminRoute() {
   if (!session || session.user.role !== "admin") {
     redirect("/");
   }
-  redirect("/admin/users");
+  redirect("/admin/ads");
 }
 
 export default AdminRoute;
