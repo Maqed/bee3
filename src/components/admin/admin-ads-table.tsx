@@ -109,15 +109,9 @@ type Ad = {
 };
 
 // Fetch ads function
-async function fetchAds(filters?: {
-  userId?: string;
-  adStatus?: string;
-}): Promise<Ad[]> {
-  const params = new URLSearchParams();
-  if (filters?.userId) params.set("userId", filters.userId);
-  if (filters?.adStatus) params.set("adStatus", filters.adStatus);
-
-  const response = await fetch(`/api/admin/ads?${params.toString()}`);
+async function fetchAds(): Promise<Ad[]> {
+  // Remove status filtering from API call - get all ads
+  const response = await fetch(`/api/admin/ads`);
   if (!response.ok) {
     throw new Error("Failed to fetch ads");
   }
@@ -351,30 +345,27 @@ export default function AdminAdsTable() {
     defaultValue: "ALL",
     history: "push",
   });
-  const [debouncedStatusFilter, setDebouncedStatusFilter] =
-    React.useState<string>("ALL");
 
-  // Debounce status filter changes
+  // Handle status filter changes - update column filters
   React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedStatusFilter(statusFilter);
-    }, 300);
-
-    return () => clearTimeout(timer);
+    if (statusFilter === "ALL") {
+      // Remove status filter
+      setColumnFilters((prev) =>
+        prev.filter((filter) => filter.id !== "adStatus"),
+      );
+    } else {
+      // Add or update status filter
+      setColumnFilters((prev) => {
+        const otherFilters = prev.filter((filter) => filter.id !== "adStatus");
+        return [...otherFilters, { id: "adStatus", value: statusFilter }];
+      });
+    }
   }, [statusFilter]);
 
   // Refetch ads data
   const handleRefetch = React.useCallback(() => {
     queryClient.invalidateQueries({ queryKey: ["admin-ads"] });
   }, [queryClient]);
-
-  // Memoize the query function
-  const queryFn = React.useCallback(() => {
-    return fetchAds({
-      adStatus:
-        debouncedStatusFilter === "ALL" ? undefined : debouncedStatusFilter,
-    });
-  }, [debouncedStatusFilter]);
 
   // Define table columns with translations
   const columns: ColumnDef<Ad>[] = React.useMemo(
@@ -480,6 +471,10 @@ export default function AdminAdsTable() {
               )}
             </div>
           );
+        },
+        filterFn: (row, id, value) => {
+          const status = row.getValue(id) as string;
+          return status === value;
         },
       },
       {
@@ -597,17 +592,16 @@ export default function AdminAdsTable() {
         },
       },
     ],
-    [t, handleRefetch],
+    [t, handleRefetch, locale],
   );
 
-  // Fetch ads data
   const {
     data: ads = [],
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["admin-ads", debouncedStatusFilter],
-    queryFn,
+    queryKey: ["admin-ads"],
+    queryFn: fetchAds,
     staleTime: 30_000, // Data is considered fresh for 30 seconds
     refetchOnWindowFocus: false, // Prevent refetch on window focus
     retry: 3, // Retry failed requests 3 times
