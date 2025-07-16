@@ -1096,7 +1096,7 @@
         "title": "Ad is being processed by our servers",
         "description": "This is how it's going to look like"
       },
-      "submit-success": "Ad submitted successfully!"
+      "submit-success": "Ad submitted for review successfully!"
     },
     "submit": "Sell Now!",
     "loading": "Posting ad..."
