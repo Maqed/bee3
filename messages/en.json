@@ -1134,7 +1134,7 @@
       "share": "Share"
     },
     "tooltip": {
-      "ad-not-accepted": "This ad is not yet accepted"
+      "only-when-accepted": "Only when the ad is accepted."
     },
     "status": {
       "pending": "This ad is pending approval. Please wait.",

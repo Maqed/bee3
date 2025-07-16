@@ -35,7 +35,7 @@ export function PriceAndTitle({
   const adUrl = absoluteURL(`/${locale}/ad/${ad.id}`);
 
   const shouldShowTooltip = !isAccepted && !isPreview;
-  const tooltipContent = tAd("tooltip.ad-not-accepted");
+  const tooltipContent = tAd("tooltip.only-when-accepted");
 
   return (
     <TooltipProvider>
