@@ -10,7 +10,11 @@ import {
 
 function AdminTablePlaceholder() {
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border pt-3">
+      <div className="flex flex-col gap-2">
+        <Skeleton className="h-7 w-40" />
+        <Skeleton className="h-6 w-48" />
+      </div>
       <Table>
         <TableHeader>
           <TableRow>
