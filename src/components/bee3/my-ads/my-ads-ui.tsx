@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import AdCard from "@/components/bee3/ad-card";
 import AdCardPlaceholder from "@/components/placeholders/ad-card-placeholder";
 import SellButton from "@/components/bee3/sell-button";
@@ -112,11 +111,11 @@ function MyAdsUI() {
           <div className="mb-6 flex flex-wrap gap-2">
             {STATUS_FILTERS.map((filter) => (
               <button
+                key={filter.value}
                 className="rounded-full"
                 onClick={() => setSelectedStatus(filter.value)}
               >
                 <Badge
-                  key={filter.value}
                   size="lg"
                   variant={getBadgeVariant(filter.value)}
                   className={cn("cursor-pointer")}
