@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import { useQueryState } from "nuqs";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
@@ -62,7 +63,10 @@ function useMyAds(status: string = "ALL") {
 function MyAdsUI() {
   const t = useTranslations("/my-ads");
   const tAdmin = useTranslations("Admin.Ads");
-  const [selectedStatus, setSelectedStatus] = useState<string>("ALL");
+  const [selectedStatus, setSelectedStatus] = useQueryState("status", {
+    defaultValue: "ALL",
+    history: "push",
+  });
 
   const { data, isFetching, isLoading, isPending, error } =
     useMyAds(selectedStatus);

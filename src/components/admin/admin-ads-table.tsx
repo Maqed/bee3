@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { parseAsString, useQueryState } from "nuqs";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -346,7 +347,10 @@ export default function AdminAdsTable() {
     [],
   );
   const [globalFilter, setGlobalFilter] = React.useState("");
-  const [statusFilter, setStatusFilter] = React.useState<string>("ALL");
+  const [statusFilter, setStatusFilter] = useQueryState("status", {
+    defaultValue: "ALL",
+    history: "push",
+  });
   const [debouncedStatusFilter, setDebouncedStatusFilter] =
     React.useState<string>("ALL");
 
