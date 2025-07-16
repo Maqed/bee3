@@ -22,14 +22,14 @@
     --ring: 20 14.3% 4.1%;
     --radius: 0.5rem;
     /* Feedback colors */
-    --destructive: 10 78% 46%;
-    --destructive-foreground: 0 0% 100%;
-    --success: 131 78% 46%;
-    --success-foreground: 131 78% 6%;
-    --warning: 38 78% 46%;
-    --warning-foreground: 38 78% 6%;
-    --info: 211 78% 46%;
-    --info-foreground: 0 0% 100%;
+    --destructive: 0 72.2% 70%;
+    --destructive-foreground: 0 72.2% 20%;
+    --success: 98 78% 50%;
+    --success-foreground: 98 78% 16%;
+    --warning: 48 78% 50%;
+    --warning-foreground: 48 78% 16%;
+    --info: 229 78% 70%;
+    --info-foreground: 229 78% 10%;
     --sidebar-background: 0 0% 99%;
     --sidebar-foreground: 20 14.3% 4.1%;
     --sidebar-primary: 47.9 100% 45.38%;
@@ -59,8 +59,8 @@
     --ring: 45.4 93.4% 47.5%;
     --radius: 0.5rem;
     /* Feedback colors */
-    --destructive: 0 72.2% 50.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72.2% 20%;
+    --destructive-foreground: 0 72.2% 70%;
     --success: 98 78% 16%;
     --success-foreground: 98 78% 56%;
     --warning: 48 78% 16%;
