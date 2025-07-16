@@ -60,6 +60,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { getLocalizedDate, getLocalizedTime } from "@/lib/utils";
 import { useLocale } from "next-intl";
+import { Link } from "@/navigation";
 
 // Define the user type based on API response
 type User = {
@@ -335,12 +336,12 @@ export default function AdminUsersTable() {
           </Button>
         ),
         cell: ({ row }) => (
-          <div>
+          <Link href={`/user/${row.original.id}`}>
             <div className="font-medium">{row.getValue("name")}</div>
             <div className="text-sm text-muted-foreground">
               {row.original.id}
             </div>
-          </div>
+          </Link>
         ),
       },
       {
