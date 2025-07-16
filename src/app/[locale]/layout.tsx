@@ -1,10 +1,19 @@
 import "@/styles/globals.css";
-import { GeistSans } from "geist/font/sans";
+import { Outfit, Cairo } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import ServerSideProviders from "@/providers/server-side";
 import ClientSideProviders from "@/providers/client-side";
 import { getMessages, getTranslations } from "next-intl/server";
 import { Databuddy } from "@databuddy/sdk";
+
+const font = Outfit({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+const arFont = Cairo({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["arabic"],
+});
 
 export async function generateMetadata({
   params: { locale },
@@ -73,7 +82,7 @@ export default function RootLayout({
       <html
         lang={locale}
         dir={locale === "ar" ? "rtl" : "ltr"}
-        className={`${GeistSans.className}`}
+        className={`${font.className}`}
       >
         <body>
           <ClientSideProviders>{children}</ClientSideProviders>
