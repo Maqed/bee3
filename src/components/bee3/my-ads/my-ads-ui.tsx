@@ -128,16 +128,9 @@ function MyAdsUI() {
           </div>
           {(isLoading || isPending || isFetching) && (
             <>
-              {/* Status badges skeleton */}
-              <div className="mb-6 flex flex-wrap gap-2">
-                {STATUS_FILTERS.map((filter) => (
-                  <Skeleton key={filter.value} className="h-8 w-20" />
-                ))}
-              </div>
-
               {/* Ads grid skeleton */}
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {[...Array(6)].map((_, index) => (
+                {[...Array(3)].map((_, index) => (
                   <AdCardPlaceholder
                     cardClassName="w-full md:w-full lg:w-full"
                     key={index}
