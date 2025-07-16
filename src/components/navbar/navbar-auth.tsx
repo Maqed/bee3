@@ -57,7 +57,7 @@ function NavbarAuth({
           <h4 className="text-xl text-primary">{session.user.name}</h4>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href={`my-ads`}>
+        <Link href={`/my-ads`}>
           <DropdownMenuItem>
             <Megaphone className="me-2 h-4 w-4" />
             {t("MyAds")}
