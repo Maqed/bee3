@@ -12,12 +12,17 @@ export async function GET(request: NextRequest) {
     const user = await db.user.findUnique({
       where: {
         id,
+        OR: [{ banned: null }, { banned: false }],
       },
       select: {
         name: true,
         bio: true,
         contactMethod: true,
         ads: {
+          where: {
+            deletedAt: null,
+            adStatus: "ACCEPTED",
+          },
           include: {
             images: {
               select: { url: true },
