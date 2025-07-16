@@ -167,7 +167,7 @@ function AcceptAdDialog({ ad, onSuccess }: { ad: Ad; onSuccess: () => void }) {
   return (
     <>
       <DropdownMenuItem
-        className="bg-success text-success-foreground hover:bg-success/90"
+        className="bg-success text-success-foreground focus:bg-success/70"
         onSelect={(e) => {
           e.preventDefault();
           setOpen(true);
@@ -273,7 +273,7 @@ function RejectAdDialog({ ad, onSuccess }: { ad: Ad; onSuccess: () => void }) {
   return (
     <>
       <DropdownMenuItem
-        className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+        className="bg-destructive text-destructive-foreground focus:bg-destructive/70"
         onSelect={(e) => {
           e.preventDefault();
           setOpen(true);
