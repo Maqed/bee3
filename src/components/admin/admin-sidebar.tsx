@@ -10,8 +10,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import { FileText, Users } from "lucide-react";
 import Logo from "../bee3/logo";
 import { AdminNavUser } from "./admin-nav-user";
@@ -40,7 +40,9 @@ export function AdminSidebar() {
   return (
     <Sidebar side={locale === "ar" ? "right" : "left"}>
       <SidebarHeader>
-        <Logo />
+        <Link href="/">
+          <Logo />
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
