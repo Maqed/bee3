@@ -130,7 +130,7 @@ function ExploreCategories() {
               <CarouselItem key={categoryName}>
                 <CategoryDialog category={category}>
                   <div className="flex cursor-pointer flex-col items-center justify-center gap-0.5">
-                    <Avatar className="rounded-md bg-primary/60">
+                    <Avatar className="rounded-md bg-primary text-primary-foreground">
                       <CategoryIcon className="size-[18px]" />
                     </Avatar>
                     <p className="w-20 text-wrap text-center text-[12px]">
