@@ -23,6 +23,7 @@ import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
 import { ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
+import { PiUserCircleFill } from "react-icons/pi";
 
 function NavbarAuth({
   session,
@@ -41,8 +42,19 @@ function NavbarAuth({
   if (isPending) return <Skeleton className="h-11 w-24" />;
   if (!session)
     return (
-      <Button size="lg" {...loginButtonProps} asChild>
-        <Link href="/login">{t("Login")}</Link>
+      <Button
+        size="icon"
+        variant="ghost"
+        {...loginButtonProps}
+        className={cn(
+          "border-none text-secondary hover:text-secondary",
+          loginButtonProps?.className,
+        )}
+        asChild
+      >
+        <Link href="/login">
+          <PiUserCircleFill className="size-8 fill-secondary" />
+        </Link>
       </Button>
     );
   return (

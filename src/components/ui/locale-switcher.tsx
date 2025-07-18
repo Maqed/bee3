@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 function LocaleSwitcher({
   className,
-  variant = "ghost",
+  variant = "link",
   RenderAs,
   ...props
 }: ButtonProps & { RenderAs: any }) {
@@ -28,7 +28,7 @@ function LocaleSwitcher({
     <RenderAs
       variant={variant}
       className={cn(
-        "flex flex-row items-center justify-center gap-2",
+        "flex flex-row items-center justify-center gap-2 font-semibold",
         className,
       )}
       onClick={() => onSelectChange(locale === "ar" ? "en" : "ar")}

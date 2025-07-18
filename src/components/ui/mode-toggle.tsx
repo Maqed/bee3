@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Moon, Sun } from "lucide-react";
+import { Sun } from "lucide-react";
+import { RiMoonClearLine } from "react-icons/ri";
 import { useTheme } from "next-themes";
 
 import { ButtonProps } from "@/components/ui/button";
@@ -30,16 +31,22 @@ export default function ModeToggle({
     >
       <Sun
         className={cn(
-          "hidden h-[1.5rem] w-[1.3rem] fill-yellow-500 text-yellow-500 dark:block",
+          "hidden size-7 fill-yellow-500 text-yellow-500 dark:block",
           { "me-1": showToggleThemeText },
         )}
       />
-      <Moon
-        className={cn("h-5 w-5 fill-foreground dark:hidden", {
+      <RiMoonClearLine
+        className={cn("size-7 fill-secondary dark:hidden", {
           "me-1": showToggleThemeText,
         })}
       />
-      <span className={cn({ "sr-only": !showToggleThemeText })}>
+      <span
+        className={cn(
+          "font-semibold",
+          { "text-secondary": theme === "light" },
+          { "sr-only": !showToggleThemeText },
+        )}
+      >
         {t("toggle-theme")}
       </span>
     </RenderAs>

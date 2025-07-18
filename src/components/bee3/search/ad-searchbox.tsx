@@ -4,10 +4,10 @@ import AdSearchboxInput from "./ad-searchbox-input";
 const AdSearch = () => {
   return (
     <>
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <AdSearchboxInput />
       </div>
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <AdSearchBoxDialog />
       </div>
     </>

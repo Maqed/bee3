@@ -162,7 +162,7 @@ export function AsyncSearch<T>({
 
   return (
     <Command
-      className="relative w-full bg-transparent md:w-[300px] lg:w-[450px]"
+      className="relative w-full overflow-visible bg-transparent"
       shouldFilter={false}
     >
       <CommandInput
@@ -171,10 +171,10 @@ export function AsyncSearch<T>({
           if (e.key === "Enter" && searchTerm.length) onSubmit();
         }}
         className={cn(
-          "flex items-center rounded-b-xl border border-b-0 bg-accent px-3 text-accent-foreground md:rounded-xl",
+          "flex items-center rounded-b-xl border-0 bg-accent px-3 text-accent-foreground md:rounded-xl",
           { "rounded-b-none": isResultVisible },
         )}
-        inputClassName="flex h-11 w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+        inputClassName="flex h-11 w-full  bg-transparent py-3 text-sm outline-none placeholder:text-accent-foreground placeholder:font-semibold font-semibold disabled:cursor-not-allowed disabled:opacity-50"
         placeholder={placeholder}
         disabled={disabled}
         value={searchTerm}
@@ -202,7 +202,7 @@ export function AsyncSearch<T>({
       <CommandList
         ref={resultRef}
         className={cn(
-          "fixed top-11 w-full bg-accent shadow-xl md:top-16 md:w-[300px] lg:w-[450px]",
+          "absolute left-0 right-0 top-11 z-50 bg-accent shadow-xl",
           isResultVisible ? "block" : "hidden",
           { "rounded-b-xl": isResultVisible },
         )}

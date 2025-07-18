@@ -28,12 +28,14 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-2">
           <Logo />
         </Link>
-        <nav className="min-w-1/2 flex items-center gap-x-2">
-          <AdSearch />
-          <div className="hidden md:flex md:items-center md:gap-x-2">
-            <ModeToggle RenderAs={Button} />
-            <LocaleSwitcher RenderAs={Button} />
-            <SellButton className="hidden md:flex" />
+        <nav className="flex items-center gap-x-2 ps-20 lg:flex-1">
+          <ModeToggle RenderAs={Button} />
+          <div className="lg:flex-1">
+            <AdSearch />
+          </div>
+          <div className="hidden lg:flex lg:items-center lg:gap-x-5">
+            <LocaleSwitcher RenderAs={Button} className="px-0 pe-3 text-base" />
+            <SellButton className="hidden lg:flex" />
             <NavbarAuth
               trigger={
                 <DropdownMenuTrigger className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
@@ -52,7 +54,7 @@ export default function Navbar() {
             />
           </div>
           <Sheet>
-            <SheetTrigger className="md:hidden">
+            <SheetTrigger className="lg:hidden">
               <Menu />
             </SheetTrigger>
             <SheetContent className="w-52 sm:w-64">
@@ -67,7 +69,10 @@ export default function Navbar() {
                   showToggleThemeText={true}
                   className="w-full"
                 />
-                <LocaleSwitcher RenderAs={Button} className="w-full" />
+                <LocaleSwitcher
+                  RenderAs={Button}
+                  className="w-full text-base"
+                />
                 <SellButton className="w-full" />
                 <NavbarAuth
                   trigger={
@@ -93,7 +98,6 @@ export default function Navbar() {
                     sideOffset: 6,
                     className: "w-44",
                   }}
-                  loginButtonProps={{ className: "w-full font-bold text-base" }}
                   session={session}
                 />
               </div>

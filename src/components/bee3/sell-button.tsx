@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 function SellButton({ className }: { className?: string }) {
   const t = useTranslations("");
   return (
-    <Button asChild className={cn("text-base font-bold", className)} size="lg">
+    <Button asChild className={cn("px-8 text-base font-bold", className)}>
       <Link href="/sell">{t("Sell")}</Link>
     </Button>
   );
