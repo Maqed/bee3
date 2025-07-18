@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground dark:text-white hover:bg-primary",
+          "bg-primary text-primary-foreground dark:text-white hover:bg-primary/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         success: "bg-success text-success-foreground hover:bg-success/90",
@@ -22,7 +22,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         whatsapp: "bg-[#25d366] dark:bg-[#2A8E80]",
         ghost: "hover:bg-primary/20 hover:text-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+        link: "text-foreground hover:text-primary underline-offset-2 underline",
       },
       size: {
         default: "h-10 px-4 py-2",
