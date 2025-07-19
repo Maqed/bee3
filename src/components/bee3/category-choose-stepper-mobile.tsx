@@ -154,6 +154,8 @@ function CategoryChooseStepperMobile({
       {/* Categories grid */}
       <div className="flex w-full flex-col">
         {currentLevel.categories.map((category) => {
+          const isLast =
+            !category.categories || category.categories.length === 0;
           const displayName = getCategoryDisplayName(
             category,
             currentLevel.path,
@@ -174,9 +176,7 @@ function CategoryChooseStepperMobile({
                   )}
                   {displayName}
                 </div>
-                {category.categories && category.categories.length > 0 && (
-                  <ForwardArrow className="size-4" />
-                )}
+                {!isLast && <ForwardArrow className="size-4" />}
               </div>
             </Button>
           );
