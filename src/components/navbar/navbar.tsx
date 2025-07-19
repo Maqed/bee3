@@ -57,7 +57,7 @@ export default function Navbar() {
             <SheetTrigger className="lg:hidden">
               <Menu />
             </SheetTrigger>
-            <SheetContent className="w-52 sm:w-64">
+            <SheetContent className="w-64">
               <VisuallyHidden>
                 <SheetHeader>
                   <SheetTitle>Navbar content</SheetTitle>
@@ -91,7 +91,7 @@ export default function Navbar() {
                     align: "start",
                     side: "top",
                     sideOffset: 6,
-                    className: "w-44",
+                    className: "w-[200px]",
                   }}
                   session={session}
                 />

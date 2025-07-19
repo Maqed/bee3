@@ -70,38 +70,41 @@ function NavbarAuth({
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <Link href={`/my-ads`}>
-          <DropdownMenuItem>
-            <Megaphone className="me-2 h-4 w-4" />
+          <DropdownMenuItem className="text-lg">
+            <Megaphone className="me-2 size-5" />
             {t("MyAds")}
           </DropdownMenuItem>
         </Link>
         <Link href={`/user/${session.user.id}`}>
-          <DropdownMenuItem>
-            <UserIcon className="me-2 h-4 w-4" />
+          <DropdownMenuItem className="flex items-center text-lg">
+            <UserIcon className="me-2 size-5" />
             {t("Profile")}
           </DropdownMenuItem>
         </Link>
         {session.user.role === "admin" && (
           <Link href="/admin/ads">
-            <DropdownMenuItem>
-              <Shield className="me-2 h-4 w-4" />
+            <DropdownMenuItem className="flex items-center text-lg">
+              <Shield className="me-2 size-5" />
               {t("Admin")}
             </DropdownMenuItem>
           </Link>
         )}
         <Link href="/favorites">
-          <DropdownMenuItem>
-            <Heart className="me-2 h-4 w-4" />
+          <DropdownMenuItem className="flex items-center text-lg">
+            <Heart className="me-2 size-5" />
             {t("Favorites")}
           </DropdownMenuItem>
         </Link>
         <Link href="/user-settings">
-          <DropdownMenuItem>
-            <Settings className="me-2 h-4 w-4" />
+          <DropdownMenuItem className="flex items-center text-lg">
+            <Settings className="me-2 size-5" />
             {t("Settings")}
           </DropdownMenuItem>
         </Link>
-        <SignOutMenuItem />
+        <SignOutMenuItem
+          iconClassName="size-5"
+          className="flex items-center text-lg"
+        />
       </DropdownMenuContent>
     </DropdownMenu>
   );
