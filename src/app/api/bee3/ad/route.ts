@@ -7,7 +7,6 @@ import { AD_STATUS } from "@prisma/client";
 import { createId } from "@paralleldrive/cuid2";
 import { cities } from "@/schema/cities";
 import { sendDiscordMessage } from "@/server/discord";
-import { findCategory } from "@/lib/category";
 import { governorates } from "@/schema/governorates";
 
 export async function POST(request: Request) {
@@ -97,7 +96,9 @@ export async function POST(request: Request) {
     images: req.data.images,
     category: req.data.categoryId,
     city: city?.city_name_en || req.data.cityId.toString(),
-    governorate: governorate?.governorate_name_en || (city?.governorate_id ? city.governorate_id.toString() : ""),
+    governorate:
+      governorate?.governorate_name_en ||
+      (city?.governorate_id ? city.governorate_id.toString() : ""),
   });
 
   // Create ad in a transaction to ensure all related data is created
