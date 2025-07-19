@@ -64,11 +64,6 @@ export default function Navbar() {
                 </SheetHeader>
               </VisuallyHidden>
               <div className="flex h-full flex-col items-start justify-end gap-3">
-                <ModeToggle
-                  RenderAs={Button}
-                  showToggleThemeText={true}
-                  className="w-full"
-                />
                 <LocaleSwitcher
                   RenderAs={Button}
                   className="w-full text-base"
