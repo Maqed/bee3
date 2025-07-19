@@ -29,7 +29,7 @@ function CategoryChooseStepperMobile({
   defaultPath = "",
   categories = categoriesTree,
 }: {
-  onChoice: (chosenCategory: CategoryTreeItem) => void;
+  onChoice?: (chosenCategory: CategoryTreeItem) => void;
   onNavigationChange?: (currentPath: string[]) => void;
   defaultPath?: string;
   categories?: CategoryTreeItem[];
@@ -87,7 +87,7 @@ function CategoryChooseStepperMobile({
       setNavigationHistory([...navigationHistory, newLevel]);
     } else {
       // If no subcategories, this is a leaf category - call onChoice
-      onChoice(category);
+      onChoice?.(category);
     }
   };
 
