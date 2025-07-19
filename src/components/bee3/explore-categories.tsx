@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { categoryIcons, CategoryIconType } from "@/consts/category-icons";
 import { Avatar } from "@/components/ui/avatar";
 import { categoriesTree, CategoryTreeItem } from "@/schema/categories-tree";
-import { useRouter } from "@/navigation";
 
 import {
   Carousel,
@@ -34,7 +33,6 @@ function CategoryDialog({
   category: CategoryTreeItem;
   children: React.ReactNode;
 }) {
-  const router = useRouter();
   const tNavigation = useTranslations("/.navigation");
   const { getRecursiveCategoryName } = useCategoryTranslations();
 
@@ -54,19 +52,6 @@ function CategoryDialog({
   if (!hasSubcategories) {
     return <Link href={`/${categoryPath}`}>{children}</Link>;
   }
-
-  const handleCategoryChoice = (chosenCategory: CategoryTreeItem) => {
-    // Build the full path using the complete navigation path
-    const chosenCategoryPath = toPathFormat(chosenCategory.name);
-    const completePath =
-      currentNavigationPath.length > 0
-        ? [...currentNavigationPath, chosenCategoryPath]
-        : [toPathFormat(category.name), chosenCategoryPath];
-
-    const fullPath = `/${completePath.join("/")}`;
-
-    router.push(fullPath);
-  };
 
   const handleNavigationChange = (currentPath: string[]) => {
     setCurrentNavigationPath(currentPath);
@@ -101,10 +86,10 @@ function CategoryDialog({
               <Separator className="my-1 w-full" />
             </div>
             <CategoryChooseStepperMobile
-              onChoice={handleCategoryChoice}
               onNavigationChange={handleNavigationChange}
               defaultPath={category.name}
               categories={category.categories || []}
+              isLastLink={true}
             />
           </div>
         </ScrollArea>

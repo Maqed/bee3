@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/carousel";
 import AdCardPlaceholder from "./ad-card-placeholder";
 import { Skeleton } from "@/components/ui/skeleton";
+import { v4 as uuidv4 } from "uuid";
 
 function AdsCarouselPlaceholder() {
   return (
@@ -16,8 +17,8 @@ function AdsCarouselPlaceholder() {
       </div>
       <Carousel opts={{ dragFree: true }} className="w-full max-w-full">
         <CarouselContent>
-          {[...Array(4)].map((idx) => (
-            <CarouselItem key={`ad-carousel-placeholder-${idx}`}>
+          {[...Array(4)].map((_, idx) => (
+            <CarouselItem key={`ad-carousel-placeholder-${uuidv4()}`}>
               <AdCardPlaceholder orientation="vertical" />
             </CarouselItem>
           ))}
