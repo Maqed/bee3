@@ -14,13 +14,13 @@ export function Checkbox({ checked, className, ...props }: CheckboxProps) {
     <RadixCheckbox.Root
       {...props}
       className={cn(
-        "relative inline-block size-6 appearance-none rounded-md border border-primary bg-muted",
+        "relative inline-block size-6 appearance-none rounded-sm border border-primary bg-muted",
         className,
       )}
     >
       <AnimatePresence mode="popLayout">
         <RadixCheckbox.Indicator
-          className="absolute inset-0 flex items-center justify-center rounded bg-primary"
+          className="absolute inset-0 flex items-center justify-center rounded-sm bg-primary"
           asChild
         >
           <motion.div
