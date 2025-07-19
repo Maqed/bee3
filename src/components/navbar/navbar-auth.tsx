@@ -65,8 +65,8 @@ function NavbarAuth({
         className={cn("p-0", dropdownMenuContentProps?.className)}
       >
         <DropdownMenuLabel>
-          <h5 className="text-lg">{t("Greeting")} 👋</h5>
-          <h4 className="text-xl text-primary">{session.user.name}</h4>
+          <h5 className="text-xl">{t("Greeting")} 👋</h5>
+          <h4 className="text-2xl text-primary">{session.user.name}</h4>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <Link href={`/my-ads`}>
