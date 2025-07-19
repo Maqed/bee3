@@ -14,10 +14,16 @@ export default function ModeToggle({
   variant = "ghost",
   RenderAs,
   className,
+  sunIconClassName = "",
+  moonIconClassName = "",
+  textClassName = "",
   ...props
 }: ButtonProps & {
   showToggleThemeText?: boolean;
   RenderAs: any;
+  sunIconClassName?: string;
+  moonIconClassName?: string;
+  textClassName?: string;
 }) {
   const { setTheme, theme } = useTheme();
   const t = useTranslations("Mode Toggle");
@@ -33,18 +39,22 @@ export default function ModeToggle({
         className={cn(
           "hidden size-7 fill-yellow-500 text-yellow-500 dark:block",
           { "me-1": showToggleThemeText },
+          sunIconClassName,
         )}
       />
       <RiMoonClearLine
-        className={cn("size-7 fill-secondary dark:hidden", {
-          "me-1": showToggleThemeText,
-        })}
+        className={cn(
+          "size-7 fill-secondary dark:hidden",
+          { "me-1": showToggleThemeText },
+          moonIconClassName,
+        )}
       />
       <span
         className={cn(
           "font-semibold",
           { "text-secondary": theme === "light" },
           { "sr-only": !showToggleThemeText },
+          textClassName,
         )}
       >
         {t("toggle-theme")}
