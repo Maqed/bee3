@@ -70,6 +70,8 @@ export function AdminNavUser({
               />
               <ModeToggle
                 RenderAs={DropdownMenuItem}
+                moonIconClassName="fill-popover-foreground"
+                textClassName="text-popover-foreground"
                 showToggleThemeText={true}
               />
             </DropdownMenuGroup>
