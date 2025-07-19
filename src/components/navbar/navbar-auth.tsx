@@ -39,7 +39,7 @@ function NavbarAuth({
   trigger: ReactNode;
 }) {
   const t = useTranslations("Navbar");
-  if (isPending) return <Skeleton className="h-11 w-24" />;
+  if (isPending) return <Skeleton className="size-10 rounded-full" />;
   if (!session)
     return (
       <Button
