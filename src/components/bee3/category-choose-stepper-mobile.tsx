@@ -1,10 +1,11 @@
+"use client";
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import {
   categoriesTree,
   type CategoryTreeItem,
 } from "@/schema/categories-tree";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { BackwardArrow, ForwardArrow } from "@/components/ui/arrows";
 import { toPathFormat, getCategoryIcon } from "@/lib/category";
 import { useCategoryTranslations } from "@/lib/category-synchronous";
@@ -16,6 +17,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Link } from "@/navigation";
+import { cn } from "@/lib/utils";
 
 interface NavigationLevel {
   categories: CategoryTreeItem[];
@@ -28,11 +31,13 @@ function CategoryChooseStepperMobile({
   onNavigationChange,
   defaultPath = "",
   categories = categoriesTree,
+  isLastLink = false,
 }: {
   onChoice?: (chosenCategory: CategoryTreeItem) => void;
   onNavigationChange?: (currentPath: string[]) => void;
   defaultPath?: string;
   categories?: CategoryTreeItem[];
+  isLastLink?: boolean;
 }) {
   const t = useTranslations("category-stepper");
   const { getRecursiveCategoryName } = useCategoryTranslations();
@@ -49,12 +54,15 @@ function CategoryChooseStepperMobile({
 
   const currentLevel = navigationHistory[navigationHistory.length - 1]!;
 
+  const getFullPath = () => {
+    return defaultPath
+      ? [defaultPath, ...currentLevel.path]
+      : currentLevel.path;
+  };
+
   React.useEffect(() => {
     if (onNavigationChange) {
-      const fullPath = defaultPath
-        ? [defaultPath, ...currentLevel.path]
-        : currentLevel.path;
-      onNavigationChange(fullPath);
+      onNavigationChange(getFullPath());
     }
   }, [currentLevel.path]);
 
@@ -161,23 +169,44 @@ function CategoryChooseStepperMobile({
             currentLevel.path,
           );
           const CategoryIcon = isAtRoot ? getCategoryIcon(category) : null;
-
+          const isLinkAndLast = isLastLink && isLast;
+          const content = (
+            <div className="flex w-full items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                {CategoryIcon && (
+                  <CategoryIcon className="size-5 text-primary" />
+                )}
+                {displayName}
+              </div>
+              {!isLast && <ForwardArrow className="size-4" />}
+            </div>
+          );
+          const buttonClassName =
+            "h-auto w-full justify-start rounded-none border-t-0 p-4 text-start ring-inset first-of-type:border-t";
           return (
             <Button
               key={category.id}
               variant="outline"
-              className="h-auto w-full justify-start rounded-none border-t-0 p-4 text-start ring-inset first-of-type:border-t"
+              className={buttonClassName}
               onClick={() => handleCategoryClick(category)}
+              asChild={isLinkAndLast}
             >
-              <div className="flex w-full items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  {CategoryIcon && (
-                    <CategoryIcon className="size-5 text-primary" />
-                  )}
-                  {displayName}
-                </div>
-                {!isLast && <ForwardArrow className="size-4" />}
-              </div>
+              {isLinkAndLast ? (
+                <>
+                  <Link
+                    className={cn(
+                      buttonVariants({ variant: "outline" }),
+                      buttonClassName,
+                    )}
+                    onClick={() => handleCategoryClick(category)}
+                    href={`/${getFullPath().join("/")}/${category.name}`}
+                  >
+                    {content}
+                  </Link>
+                </>
+              ) : (
+                <>{content}</>
+              )}
             </Button>
           );
         })}
