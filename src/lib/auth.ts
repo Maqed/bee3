@@ -188,12 +188,6 @@ export const auth = betterAuth({
     }),
     admin(),
   ],
-  session: {
-    cookieCache: {
-      enabled: true,
-      maxAge: 60, // Cache for 1 minute
-    },
-  },
   advanced: {
     cookiePrefix: "bee3",
   },

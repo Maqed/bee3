@@ -8,7 +8,7 @@ import {
   DEFAULT_LOGIN_REDIRECT,
   ADMIN_ROUTES,
 } from "./consts/routes";
-import { getCookieCache, getSessionCookie } from "better-auth/cookies";
+import { getSessionCookie } from "better-auth/cookies";
 import { headers } from "next/headers";
 import { absoluteURL } from "./lib/utils";
 
