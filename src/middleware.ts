@@ -6,8 +6,11 @@ import {
   DEFAULT_UNAUTHENTICATED_REDIRECT,
   PROTECTED_ROUTES,
   DEFAULT_LOGIN_REDIRECT,
+  ADMIN_ROUTES,
 } from "./consts/routes";
-import { getSessionCookie } from "better-auth/cookies";
+import { getCookieCache, getSessionCookie } from "better-auth/cookies";
+import { headers } from "next/headers";
+import { absoluteURL } from "./lib/utils";
 
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -35,11 +38,25 @@ export default async function middleware(req: NextRequest) {
   const isProtectedRoute = PROTECTED_ROUTES.some((route) =>
     pathnameWithoutLocale.startsWith(route),
   );
+  const isAdminRoute = ADMIN_ROUTES.some((route) =>
+    pathnameWithoutLocale.startsWith(route),
+  );
 
-  if (isProtectedRoute && !sessionCookie) {
-    return NextResponse.redirect(
-      new URL(DEFAULT_UNAUTHENTICATED_REDIRECT, req.url),
-    );
+  if (isProtectedRoute) {
+    if (!sessionCookie) {
+      return NextResponse.redirect(
+        new URL(DEFAULT_UNAUTHENTICATED_REDIRECT, req.url),
+      );
+    }
+    if (isAdminRoute) {
+      const data = await fetch(absoluteURL("/api/auth/get-session"), {
+        headers: headers(),
+      });
+      const session = await data.json();
+      if (session?.user.role !== "admin") {
+        return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, req.url));
+      }
+    }
   }
 
   if (
