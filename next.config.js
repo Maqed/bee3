@@ -12,7 +12,9 @@ const config = {
   images: {
     unoptimized: true,
   },
-  serverExternalPackages: ["@prisma/client", ".prisma/client"],
+  experimental: {
+    serverComponentsExternalPackages: ["@prisma/client", ".prisma/client"],
+  },
 };
 
 export default withNextIntl(config);
