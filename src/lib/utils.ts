@@ -222,3 +222,7 @@ export function formatRangeValue(
   if (!min && !max) return "";
   return `${min ?? 0}-${max ?? ""}`;
 }
+
+export function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
