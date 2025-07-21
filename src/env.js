@@ -15,10 +15,6 @@ export const env = createEnv({
     // Google
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
-    // WhatsApp
-    WA_WABA_ID: z.string(),
-    WA_ACCESS_TOKEN: z.string(),
-    WA_PHONE_NUMBER_ID: z.string(),
     // Cloudflare
     CLOUDFLARE_R2_ENDPOINT: z.string(),
     CLOUDFLARE_R2_AD_IMAGE_BUCKET: z.string(),
@@ -53,9 +49,6 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-    WA_WABA_ID: process.env.WA_WABA_ID,
-    WA_ACCESS_TOKEN: process.env.WA_ACCESS_TOKEN,
-    WA_PHONE_NUMBER_ID: process.env.WA_PHONE_NUMBER_ID,
     CLOUDFLARE_R2_ENDPOINT: process.env.CLOUDFLARE_R2_ENDPOINT,
     CLOUDFLARE_R2_AD_IMAGE_BUCKET: process.env.CLOUDFLARE_R2_AD_IMAGE_BUCKET,
     CLOUDFLARE_R2_TOKEN_VALUE: process.env.CLOUDFLARE_R2_TOKEN_VALUE,
