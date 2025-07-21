@@ -3,7 +3,7 @@
  * for Docker builds.
  */
 
-import "@/env";
+await import("./src/env.js");
 
 const createNextIntlPlugin = require("next-intl/plugin");
 const withNextIntl = createNextIntlPlugin();
