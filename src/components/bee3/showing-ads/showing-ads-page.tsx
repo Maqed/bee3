@@ -1,54 +1,50 @@
-import { useCategoryTranslations } from "@/lib/category-synchronous";
-import FilterAds from "./filter-ads";
-import AdFilterDialog from "./ad-filter-dialog";
-import { Card, CardContent } from "@/components/ui/card";
 import { getURLSearchParamsFromPageParams } from "@/lib/utils";
-import ShowingAds from "./showing-ads";
-import { useTranslations } from "next-intl";
-import ShowingAdsBreadcrumb from "./showing-ads-breadcrumb";
+import { absoluteURL } from "@/lib/utils";
+import { Ad } from "@/types/bee3";
+import { notFound } from "next/navigation";
+import React from "react";
+import AdCard from "../ad-card";
+import ShowingAdsNotFound from "./showing-ads-not-found";
+import { PaginationWithLinks } from "@/components/ui/pagination-with-links";
+import { DEFAULT_PAGE_SIZE } from "@/consts/ad-search";
 
 type Props = {
   categoryPath?: string[];
   searchParams: Record<string, string | undefined>;
 };
 
-function ShowingAdsPage({ categoryPath, searchParams }: Props) {
+async function ShowingAdsPage({ searchParams, categoryPath }: Props) {
   let params = getURLSearchParamsFromPageParams(searchParams);
-  const tShowingAdsPage = useTranslations("showing-ads-page");
   if (categoryPath) params.set("category", categoryPath.join("/"));
-  const { getRecursiveCategoryName } = useCategoryTranslations();
-  let title = categoryPath
-    ? getRecursiveCategoryName(categoryPath)
-    : params.get("q")
-      ? params.get("q")
-      : "";
 
+  const searchResponse = await fetch(
+    absoluteURL(`/api/bee3/search?${params.toString()}`),
+    {
+      method: "GET",
+    },
+  );
+
+  if (searchResponse.status !== 200) {
+    notFound();
+  }
+
+  const { ads, totalPages }: { ads: Ad[]; totalPages: number } =
+    await searchResponse.json();
   return (
-    <main className="container">
-      <ShowingAdsBreadcrumb categoryPath={categoryPath} />
-      <h1 className="mb-5 text-2xl font-bold lg:text-3xl">
-        {tShowingAdsPage("showing-ads-for", {
-          title,
-        })}
-      </h1>
-      <div className="grid grid-cols-12 gap-3">
-        {/* Filter */}
-        <div className="lg:col-span-3">
-          {/* Mobile */}
-          <AdFilterDialog categoryPath={categoryPath} />
-          {/* Desktop */}
-          <Card className="hidden lg:block">
-            <CardContent className="p-4">
-              <FilterAds categoryPath={categoryPath} />
-            </CardContent>
-          </Card>
-        </div>
-        {/* Ads */}
-        <div className="col-span-12 flex flex-col gap-3 lg:col-span-9">
-          <ShowingAds params={params} />
-        </div>
-      </div>
-    </main>
+    <>
+      {ads.length ? (
+        ads.map((ad) => {
+          return <AdCard key={ad.id} orientation="horizontal" ad={ad} />;
+        })
+      ) : (
+        <ShowingAdsNotFound />
+      )}
+      <PaginationWithLinks
+        totalPageCount={totalPages}
+        page={Number(params.get("page")) ?? 1}
+        pageSize={DEFAULT_PAGE_SIZE}
+      />
+    </>
   );
 }
 

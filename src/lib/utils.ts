@@ -205,7 +205,7 @@ export function parseRangeValue(filterValue: string) {
     const [minStr, maxStr] = filterValue.split("-");
     return {
       min: minStr ? Number(minStr) : 0,
-      max: maxStr ? Number(maxStr) : 10000,
+      max: maxStr ? Number(maxStr) : undefined,
     };
   } else {
     return {
@@ -219,13 +219,10 @@ export function formatRangeValue(
   min: number | undefined,
   max: number | undefined,
 ): string {
-  if (min !== undefined && max !== undefined) {
-    return `${min}-${max}`;
-  } else if (min !== undefined) {
-    return min.toString();
-  } else if (max !== undefined) {
-    return `-${max}`;
-  } else {
-    return "";
-  }
+  if (!min && !max) return "";
+  return `${min ?? 0}-${max ?? ""}`;
+}
+
+export function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
