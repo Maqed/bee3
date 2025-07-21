@@ -1,11 +1,10 @@
 import { betterAuth } from "better-auth";
-import { APIError } from "better-auth/api";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { db } from "@/server/db";
 import { env } from "@/env";
 import { headers } from "next/headers";
 import { AdTiers } from "@prisma/client";
-import { phoneNumber, admin } from "better-auth/plugins";
+import { admin } from "better-auth/plugins";
 import { toPathFormat } from "./category";
 import { createId } from "@paralleldrive/cuid2";
 import { NextRequest } from "next/server";
@@ -117,75 +116,75 @@ export const auth = betterAuth({
     },
   },
   plugins: [
-    phoneNumber({
-      sendOTP: async ({ phoneNumber, code }, request) => {
-        if (!phoneNumber.startsWith("+20")) {
-          phoneNumber = "+20" + phoneNumber;
-        }
-        const session = await getServerAuthSession();
-        if (!session) {
-          throw new APIError("UNAUTHORIZED");
-        }
-        const isPhoneNumberExist = await db.user.findUnique({
-          where: {
-            phoneNumber,
-          },
-        });
-        if (!!isPhoneNumberExist) {
-          throw new APIError("BAD_REQUEST", {
-            message: "Phone number already exists",
-            code: "PHONE_NUMBER_EXISTS",
-          });
-        }
+    // phoneNumber({
+    //   sendOTP: async ({ phoneNumber, code }, request) => {
+    //     if (!phoneNumber.startsWith("+20")) {
+    //       phoneNumber = "+20" + phoneNumber;
+    //     }
+    //     const session = await getServerAuthSession();
+    //     if (!session) {
+    //       throw new APIError("UNAUTHORIZED");
+    //     }
+    //     const isPhoneNumberExist = await db.user.findUnique({
+    //       where: {
+    //         phoneNumber,
+    //       },
+    //     });
+    //     if (!!isPhoneNumberExist) {
+    //       throw new APIError("BAD_REQUEST", {
+    //         message: "Phone number already exists",
+    //         code: "PHONE_NUMBER_EXISTS",
+    //       });
+    //     }
 
-        const locale =
-          (request as NextRequest).cookies.get("NEXT_LOCALE")?.value ?? "ar";
-        const sendMessageURL = `https://graph.facebook.com/v22.0/${env.WA_PHONE_NUMBER_ID}/messages`;
-        const payload = {
-          messaging_product: "whatsapp",
-          recipient_type: "individual",
-          to: phoneNumber,
-          type: "template",
-          template: {
-            name: `otp_bee3_${locale}`,
-            language: {
-              code: locale,
-            },
-            components: [
-              {
-                type: "body",
-                parameters: [
-                  {
-                    type: "text",
-                    text: code,
-                  },
-                ],
-              },
-              {
-                type: "button",
-                sub_type: "url",
-                index: "0",
-                parameters: [
-                  {
-                    type: "text",
-                    text: code,
-                  },
-                ],
-              },
-            ],
-          },
-        };
+    //     const locale =
+    //       (request as NextRequest).cookies.get("NEXT_LOCALE")?.value ?? "ar";
+    //     const sendMessageURL = `https://graph.facebook.com/v22.0/${env.WA_PHONE_NUMBER_ID}/messages`;
+    //     const payload = {
+    //       messaging_product: "whatsapp",
+    //       recipient_type: "individual",
+    //       to: phoneNumber,
+    //       type: "template",
+    //       template: {
+    //         name: `otp_bee3_${locale}`,
+    //         language: {
+    //           code: locale,
+    //         },
+    //         components: [
+    //           {
+    //             type: "body",
+    //             parameters: [
+    //               {
+    //                 type: "text",
+    //                 text: code,
+    //               },
+    //             ],
+    //           },
+    //           {
+    //             type: "button",
+    //             sub_type: "url",
+    //             index: "0",
+    //             parameters: [
+    //               {
+    //                 type: "text",
+    //                 text: code,
+    //               },
+    //             ],
+    //           },
+    //         ],
+    //       },
+    //     };
 
-        const response = await fetch(sendMessageURL, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${env.WA_ACCESS_TOKEN}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
-      },
-    }),
+    //     const response = await fetch(sendMessageURL, {
+    //       method: "POST",
+    //       headers: {
+    //         Authorization: `Bearer ${env.WA_ACCESS_TOKEN}`,
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(payload),
+    //     });
+    //   },
+    // }),
     admin(),
   ],
   advanced: {
