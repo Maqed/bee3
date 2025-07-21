@@ -10,8 +10,9 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import("next").NextConfig} */
 const config = {
   images: {
-    unoptimized: true
+    unoptimized: true,
   },
+  serverExternalPackages: ["@prisma/client", ".prisma/client"],
 };
 
 export default withNextIntl(config);

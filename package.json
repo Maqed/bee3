@@ -12,7 +12,10 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.744.0",
@@ -20,6 +23,7 @@
     "@databuddy/sdk": "^1.4.0",
     "@dnd-kit/core": "^6.3.1",
     "@hookform/resolvers": "^3.9.0",
+    "@opennextjs/cloudflare": "^1.5.2",
     "@paralleldrive/cuid2": "^2.2.2",
     "@prisma/client": "^6.5.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
@@ -96,7 +100,8 @@
     "prettier-plugin-tailwindcss": "^0.6.5",
     "prisma": "^6.5.0",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "wrangler": "^4.25.0"
   },
   "overrides": {
     "@radix-ui/react-dismissable-layer": "^1.0.5",
