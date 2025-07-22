@@ -1,9 +1,8 @@
 import { Resend } from "resend";
-import { env } from "@/env";
 import EmailVerificationTemplate from "@/components/emails/email-verification-template";
 import ResetPasswordTemplate from "@/components/emails/reset-password-template";
 
-const resend = new Resend(env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendVerificationEmail({
   email,
@@ -23,7 +22,7 @@ export async function sendVerificationEmail({
 
   try {
     const { data, error } = await resend.emails.send({
-      from: `Bee3 <${env.RESEND_FROM_EMAIL || "noreply@yourdomain.com"}>`,
+      from: `Bee3 <${process.env.RESEND_FROM_EMAIL || "noreply@yourdomain.com"}>`,
       to: email,
       subject: subjects[locale as keyof typeof subjects] || subjects.en,
       react: EmailVerificationTemplate({
@@ -62,7 +61,7 @@ export async function sendResetPasswordEmail({
 
   try {
     const { data, error } = await resend.emails.send({
-      from: `Bee3 <${env.RESEND_FROM_EMAIL || "noreply@yourdomain.com"}>`,
+      from: `Bee3 <${process.env.RESEND_FROM_EMAIL || "noreply@yourdomain.com"}>`,
       to: email,
       subject: subjects[locale as keyof typeof subjects] || subjects.en,
       react: ResetPasswordTemplate({
