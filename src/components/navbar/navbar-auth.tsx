@@ -1,6 +1,7 @@
 "use client";
 import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import {
   Settings,
   User as UserIcon,
@@ -30,14 +31,33 @@ function NavbarAuth({
   dropdownMenuContentProps,
   loginButtonProps,
   trigger,
+  onNavigate,
 }: {
   session: typeof authClient.$Infer.Session | null;
   isPending: boolean;
   dropdownMenuContentProps?: DropdownMenuContentProps;
   loginButtonProps?: ButtonProps;
   trigger: ReactNode;
+  onNavigate?: () => void;
 }) {
   const t = useTranslations("Navbar");
+  const router = useRouter();
+
+  const handleMyAdsClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onNavigate?.();
+    // Use router.push instead of Link for my-ads specifically
+    router.push("/my-ads");
+    // Force a refresh to clear any stale state
+    setTimeout(() => {
+      router.refresh();
+    }, 10);
+  };
+
+  const handleLinkClick = () => {
+    onNavigate?.();
+  };
+
   if (isPending) return <Skeleton className="h-11 w-24" />;
   if (!session)
     return (
@@ -57,33 +77,33 @@ function NavbarAuth({
           <h4 className="text-xl text-primary">{session.user.name}</h4>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href={`/my-ads`}>
-          <DropdownMenuItem>
-            <Megaphone className="me-2 h-4 w-4" />
-            {t("MyAds")}
-          </DropdownMenuItem>
-        </Link>
-        <Link href={`/user/${session.user.id}`}>
+        {/* Special handling for My Ads link */}
+        <DropdownMenuItem onClick={handleMyAdsClick}>
+          <Megaphone className="me-2 h-4 w-4" />
+          {t("MyAds")}
+        </DropdownMenuItem>
+
+        <Link href={`/user/${session.user.id}`} onClick={handleLinkClick}>
           <DropdownMenuItem>
             <UserIcon className="me-2 h-4 w-4" />
             {t("Profile")}
           </DropdownMenuItem>
         </Link>
         {session.user.role === "admin" && (
-          <Link href="/admin/ads">
+          <Link href="/admin/ads" onClick={handleLinkClick}>
             <DropdownMenuItem>
               <Shield className="me-2 h-4 w-4" />
               {t("Admin")}
             </DropdownMenuItem>
           </Link>
         )}
-        <Link href="/favorites">
+        <Link href="/favorites" onClick={handleLinkClick}>
           <DropdownMenuItem>
             <Heart className="me-2 h-4 w-4" />
             {t("Favorites")}
           </DropdownMenuItem>
         </Link>
-        <Link href="/user-settings">
+        <Link href="/user-settings" onClick={handleLinkClick}>
           <DropdownMenuItem>
             <Settings className="me-2 h-4 w-4" />
             {t("Settings")}
