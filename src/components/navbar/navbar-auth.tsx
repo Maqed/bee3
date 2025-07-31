@@ -1,6 +1,7 @@
 "use client";
 import { Link } from "@/navigation";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import {
   Settings,
   User as UserIcon,
@@ -31,12 +32,14 @@ function NavbarAuth({
   dropdownMenuContentProps,
   loginButtonProps,
   trigger,
+  onNavigate,
 }: {
   session: typeof authClient.$Infer.Session | null;
   isPending: boolean;
   dropdownMenuContentProps?: DropdownMenuContentProps;
   loginButtonProps?: ButtonProps;
   trigger: ReactNode;
+  onNavigate?: () => void;
 }) {
   const t = useTranslations("Navbar");
   if (isPending) return <Skeleton className="size-10 rounded-full" />;
