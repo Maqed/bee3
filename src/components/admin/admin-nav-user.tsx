@@ -21,7 +21,6 @@ import {
 import { authClient } from "@/lib/auth-client";
 import SignOutMenuItem from "../navbar/sign-out-menu-item";
 import LocaleSwitcher from "../ui/locale-switcher";
-import ModeToggle from "../ui/mode-toggle";
 
 export function AdminNavUser({
   user,
@@ -67,12 +66,6 @@ export function AdminNavUser({
               <LocaleSwitcher
                 className="justify-start"
                 RenderAs={DropdownMenuItem}
-              />
-              <ModeToggle
-                RenderAs={DropdownMenuItem}
-                moonIconClassName="fill-popover-foreground"
-                textClassName="text-popover-foreground"
-                showToggleThemeText={true}
               />
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

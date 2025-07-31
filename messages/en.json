@@ -11,12 +11,6 @@
       "4": "Live"
     }
   },
-  "Mode Toggle": {
-    "Light": "Light",
-    "Dark": "Dark",
-    "System": "System",
-    "toggle-theme": "Toggle Theme"
-  },
   "Sell": "Sell",
   "Navbar": {
     "Greeting": "Hello!",

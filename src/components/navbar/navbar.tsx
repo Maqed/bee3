@@ -2,7 +2,6 @@
 import { Link } from "@/navigation";
 import NavbarAuth from "./navbar-auth";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
-import ModeToggle from "@/components/ui/mode-toggle";
 import SellButton from "../bee3/sell-button";
 import AdSearch from "../bee3/search/ad-searchbox";
 import Logo from "../bee3/logo";
@@ -29,7 +28,6 @@ export default function Navbar() {
           <Logo />
         </Link>
         <nav className="flex items-center gap-x-2 ps-20 lg:flex-1">
-          <ModeToggle RenderAs={Button} />
           <div className="lg:flex-1">
             <AdSearch />
           </div>
