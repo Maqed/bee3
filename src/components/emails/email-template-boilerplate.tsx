@@ -7,8 +7,8 @@ const emailTailwindConfig = {
       colors: {
         background: "#FFFFFF",
         foreground: "#0D0C0B",
-        primary: "#E6C000",
-        "primary-foreground": "#371F05",
+        primary: "#ffaa00",
+        "primary-foreground": "#ffffff",
         secondary: "#F5F5F0",
         "secondary-foreground": "#1A1814",
         muted: "#F4F4F1",
