@@ -22,37 +22,42 @@ import { authClient } from "@/lib/auth-client";
 export default function Navbar() {
   const { data: session, isPending } = authClient.useSession();
   return (
-    <header className="glossy sticky top-0 z-50 mb-5 flex flex-col justify-between gap-1 border-b border-border/50 py-4 shadow-sm">
-      <div className="container flex items-center justify-between">
+    <header className="glossy sticky top-0 z-50 mb-5 flex flex-col justify-between gap-1 border-b border-border/75 py-4">
+      <div className="container flex items-center justify-between ps-10">
         <Link href="/" className="flex items-center gap-2">
           <Logo />
         </Link>
-        <nav className="flex items-center gap-x-2 ps-20 lg:flex-1">
-          <div className="lg:flex-1">
+        <div className="hidden lg:flex lg:flex-1 lg:justify-center">
+          <div className="w-full max-w-lg">
             <AdSearch />
           </div>
-          <div className="hidden lg:flex lg:items-center lg:gap-x-5">
-            <LocaleSwitcher RenderAs={Button} className="px-0 pe-3 text-base" />
-            <SellButton className="hidden lg:flex" />
-            <NavbarAuth
-              trigger={
-                <DropdownMenuTrigger className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                  <Avatar>{session?.user.name[0]}</Avatar>
-                </DropdownMenuTrigger>
-              }
-              isPending={isPending}
-              dropdownMenuContentProps={{
-                align: "end",
-                className: "w-64",
-              }}
-              loginButtonProps={{
-                className: "font-bold text-base",
-              }}
-              session={session}
-            />
+        </div>
+        <div className="hidden lg:flex lg:items-center lg:gap-x-5">
+          <LocaleSwitcher RenderAs={Button} className="px-0 pe-3 text-base" />
+          <SellButton className="hidden lg:flex" />
+          <NavbarAuth
+            trigger={
+              <DropdownMenuTrigger className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                <Avatar>{session?.user.name[0]}</Avatar>
+              </DropdownMenuTrigger>
+            }
+            isPending={isPending}
+            dropdownMenuContentProps={{
+              align: "end",
+              className: "w-64",
+            }}
+            loginButtonProps={{
+              className: "font-bold text-base",
+            }}
+            session={session}
+          />
+        </div>
+        <div className="flex items-center gap-2 lg:hidden">
+          <div className="max-w-sm flex-1">
+            <AdSearch />
           </div>
           <Sheet>
-            <SheetTrigger className="lg:hidden">
+            <SheetTrigger>
               <Menu />
             </SheetTrigger>
             <SheetContent className="w-64">
@@ -96,7 +101,7 @@ export default function Navbar() {
               </div>
             </SheetContent>
           </Sheet>
-        </nav>
+        </div>
       </div>
     </header>
   );
