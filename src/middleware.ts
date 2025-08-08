@@ -1,5 +1,4 @@
 import createMiddleware from "next-intl/middleware";
-import { locales, localePrefix } from "./config";
 import { NextRequest, NextResponse } from "next/server";
 import {
   ONLY_UNAUTHENTICATED_ROUTES,
@@ -11,17 +10,9 @@ import {
 import { getSessionCookie } from "better-auth/cookies";
 import { headers } from "next/headers";
 import { absoluteURL } from "./lib/utils";
+import { routing } from "./i18n/routing";
 
-const intlMiddleware = createMiddleware({
-  // A list of all locales that are supported
-  locales,
-
-  // Used when no locale matches
-  defaultLocale: "ar",
-
-  // Configure locale prefix behavior
-  localePrefix,
-});
+const intlMiddleware = createMiddleware(routing);
 
 export default async function middleware(req: NextRequest) {
   const sessionCookie = getSessionCookie(req, {

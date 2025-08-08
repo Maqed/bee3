@@ -1,5 +1,5 @@
 "use client";
-import { Link } from "@/navigation";
+import { Link } from "@/i18n/navigation";
 import NavbarAuth from "./navbar-auth";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
 import SellButton from "../bee3/sell-button";

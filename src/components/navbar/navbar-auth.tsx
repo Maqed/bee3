@@ -1,7 +1,6 @@
 "use client";
-import { Link } from "@/navigation";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import {
   Settings,
   User as UserIcon,

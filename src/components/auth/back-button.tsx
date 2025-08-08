@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Link } from "@/navigation";
+import { Link } from "@/i18n/navigation";
 
 interface BackButton {
   label: string;

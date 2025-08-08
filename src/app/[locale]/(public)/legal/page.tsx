@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { getSortedMarkdownData } from "@/lib/markdown";
 import { getLocalizedTimeAgo } from "@/lib/utils";
-import { Link } from "@/navigation";
+import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { FileText, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";

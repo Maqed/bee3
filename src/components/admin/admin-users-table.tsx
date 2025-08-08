@@ -60,7 +60,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { getLocalizedDate, getLocalizedTime } from "@/lib/utils";
 import { useLocale } from "next-intl";
-import { Link } from "@/navigation";
+import { Link } from "@/i18n/navigation";
 
 // Define the user type based on API response
 type User = {

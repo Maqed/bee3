@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import { useLocale } from "next-intl";
-import { useRouter, usePathname } from "@/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { ButtonProps } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { absoluteURL, cn } from "@/lib/utils";
 
 function LocaleSwitcher({
   className,
@@ -17,12 +17,10 @@ function LocaleSwitcher({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   function onSelectChange(nextLocale: "ar" | "en") {
-    router.push(
-      `/${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`,
-      {
-        locale: nextLocale,
-      },
-    );
+    const url = `/${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
+    router.push(locale === "ar" ? url : absoluteURL(url), {
+      locale: nextLocale,
+    });
   }
   return (
     <RenderAs

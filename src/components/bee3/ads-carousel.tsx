@@ -1,5 +1,5 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { Link } from "@/navigation";
+import { Link } from "@/i18n/navigation";
 import {
   Carousel,
   CarouselContent,

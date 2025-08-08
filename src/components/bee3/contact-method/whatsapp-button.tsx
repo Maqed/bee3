@@ -2,7 +2,7 @@ import React from "react";
 import ContactButton from "./contact-button";
 import { useTranslations } from "next-intl";
 import Whatsapp from "@/components/icons/whatsapp";
-import { Link } from "@/navigation";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 function WhatsAppButton({

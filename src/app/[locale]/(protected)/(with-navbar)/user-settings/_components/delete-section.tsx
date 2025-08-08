@@ -1,6 +1,6 @@
 "use client";
 import { useTranslations } from "next-intl";
-import { Link } from "@/navigation";
+import { Link } from "@/i18n/navigation";
 
 function DeleteAccountSection() {
   const t = useTranslations("/user-settings");

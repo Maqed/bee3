@@ -2,7 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import LottieHeart from "../lottie/heart/lottie-heart";
-import { useRouter } from "@/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useFavoriteAds } from "@/hooks/useFavAds";

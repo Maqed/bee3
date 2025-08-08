@@ -1,6 +1,6 @@
 import { useCategoryTranslations } from "@/lib/category-synchronous";
 import { useTranslations } from "next-intl";
-import { Link } from "@/navigation";
+import { Link } from "@/i18n/navigation";
 import {
   Breadcrumb,
   BreadcrumbList,

@@ -22,8 +22,8 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { useTranslations } from "next-intl";
 import Spinner from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "@/navigation";
-import { Link } from "@/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
 
 function EmailLoginForm() {
   const [isPending, startTransition] = useTransition();

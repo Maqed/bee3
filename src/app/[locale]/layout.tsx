@@ -5,6 +5,9 @@ import ServerSideProviders from "@/providers/server-side";
 import ClientSideProviders from "@/providers/client-side";
 import { getMessages, getTranslations } from "next-intl/server";
 import { Databuddy } from "@databuddy/sdk";
+import { hasLocale } from "next-intl";
+import { routing } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 
 const interFont = Inter({
   weight: ["400", "600", "700"],
@@ -80,6 +83,9 @@ export default function RootLayout({
   children,
   params: { locale },
 }: Readonly<{ children: React.ReactNode; params: { locale: string } }>) {
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
   return (
     <ServerSideProviders>
       <html

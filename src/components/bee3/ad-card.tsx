@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { type Ad } from "@/types/bee3";
-import { Link } from "@/navigation";
+import { Link } from "@/i18n/navigation";
 import {
   cn,
   generateImagePlaceholder,

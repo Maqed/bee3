@@ -18,7 +18,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Link } from "@/navigation";
+import { Link } from "@/i18n/navigation";
 import { toPathFormat } from "@/lib/category";
 import { useTranslations } from "next-intl";
 import { useCategoryTranslations } from "@/lib/category-synchronous";

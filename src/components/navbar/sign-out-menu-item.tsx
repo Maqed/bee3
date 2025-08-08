@@ -2,7 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { LogOut } from "lucide-react";
-import { useRouter } from "@/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 

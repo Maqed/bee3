@@ -1,5 +1,5 @@
 import { getServerAuthSession } from "@/lib/auth";
-import { redirect } from "@/navigation";
+import { redirect } from "next/navigation";
 
 async function AdminRoute() {
   const session = await getServerAuthSession();
