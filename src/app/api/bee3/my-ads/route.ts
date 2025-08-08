@@ -3,6 +3,8 @@ import { getServerAuthSession } from "@/lib/auth";
 import { db } from "@/server/db";
 import { AD_STATUS } from "@prisma/client";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request) {
   try {
     // Check if user is authenticated

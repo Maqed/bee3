@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { getServerAuthSession } from "@/lib/auth";
 import { db } from "@/server/db";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     // Check if user is authenticated
