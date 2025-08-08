@@ -4,7 +4,7 @@ import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { ButtonProps } from "@/components/ui/button";
-import { absoluteURL, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 function LocaleSwitcher({
   className,
@@ -18,7 +18,7 @@ function LocaleSwitcher({
   const searchParams = useSearchParams();
   function onSelectChange(nextLocale: "ar" | "en") {
     const url = `/${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
-    router.push(locale === "ar" ? url : absoluteURL(url), {
+    router.push(url, {
       locale: nextLocale,
     });
   }
