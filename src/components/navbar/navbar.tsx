@@ -3,7 +3,7 @@ import { Link } from "@/navigation";
 import NavbarAuth from "./navbar-auth";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
 import SellButton from "../bee3/sell-button";
-import AdSearch from "../bee3/search/ad-searchbox";
+import AdSearchbox from "../bee3/search/ad-searchbox";
 import Logo from "../bee3/logo";
 import {
   Sheet,
@@ -24,12 +24,12 @@ export default function Navbar() {
   return (
     <header className="glossy sticky top-0 z-50 mb-5 flex flex-col justify-between gap-1 border-b border-border/75 py-4">
       <div className="container flex items-center justify-between ps-10">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center">
           <Logo />
         </Link>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-center">
-          <div className="w-full max-w-lg">
-            <AdSearch />
+        <div className="flex flex-1 justify-center">
+          <div className="mx-10 w-full max-w-lg lg:mx-0">
+            <AdSearchbox />
           </div>
         </div>
         <div className="hidden lg:flex lg:items-center lg:gap-x-5">
@@ -53,9 +53,6 @@ export default function Navbar() {
           />
         </div>
         <div className="flex items-center gap-2 lg:hidden">
-          <div className="max-w-sm flex-1">
-            <AdSearch />
-          </div>
           <Sheet>
             <SheetTrigger>
               <Menu />

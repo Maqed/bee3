@@ -184,9 +184,7 @@
     "copied": "{text} has been copied to clipboard!"
   },
   "ad-searchbox": {
-    "placeholder": "Search...",
-    "in": "in",
-    "not-found": "No results found"
+    "placeholder": "Search..."
   },
   "password-checklist": {
     "must-contain": "Must contain",

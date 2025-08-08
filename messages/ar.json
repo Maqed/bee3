@@ -180,9 +180,7 @@
     }
   },
   "ad-searchbox": {
-    "placeholder": "ابحث...",
-    "in": "في",
-    "not-found": "لا توجد نتائج"
+    "placeholder": "ابحث..."
   },
   "clipboard": {
     "copied": "تم نسخ {text} إلى الحافظة!"
