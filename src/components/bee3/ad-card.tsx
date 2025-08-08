@@ -11,7 +11,6 @@ import {
 import { getLocalizedLocation } from "@/lib/utils";
 import FavoritesHeart from "./favorites-heart";
 import { useLocale, useTranslations } from "next-intl";
-import { Badge } from "../ui/badge";
 
 type Props = {
   ad: Ad;
@@ -76,19 +75,18 @@ function AdCard({
             <CardTitle className="relative flex w-full items-center justify-between">
               <span
                 className={cn(
-                  "flex w-full items-center gap-1 text-xl font-semibold text-primary",
-                  orientation === "horizontal" && "md:text-3xl",
+                  "flex w-full items-center gap-1 text-base font-semibold text-primary",
+                  orientation === "horizontal" && "text-lg md:text-3xl",
                 )}
               >
                 {getLocalizedPrice(locale, ad.price)}
                 {ad.negotiable && (
-                  <Badge variant="secondary">{tAd("negotiable")}</Badge>
+                  <span className="text-sm text-secondary">
+                    {tAd("negotiable")}
+                  </span>
                 )}
               </span>
-              <FavoritesHeart
-                className={cn(orientation === "horizontal" && "md:size-7")}
-                adId={ad.id}
-              />
+              <FavoritesHeart className={cn("size-7")} adId={ad.id} />
             </CardTitle>
             <h1
               className={cn("text-sm", {
@@ -110,7 +108,7 @@ function AdCard({
             </p>
             <div
               className={cn("text-sm", {
-                "flex items-center justify-between":
+                "flex flex-wrap items-center justify-between gap-2":
                   orientation === "horizontal",
               })}
             >
