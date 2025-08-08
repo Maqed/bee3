@@ -17,7 +17,7 @@ function LocaleSwitcher({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   function onSelectChange(nextLocale: "ar" | "en") {
-    const url = `/${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
+    const url = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
     router.push(url, {
       locale: nextLocale,
     });
