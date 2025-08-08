@@ -22,13 +22,13 @@ import { authClient } from "@/lib/auth-client";
 export default function Navbar() {
   const { data: session, isPending } = authClient.useSession();
   return (
-    <header className="glossy sticky top-0 z-50 mb-5 flex flex-col justify-between gap-1 border-b border-border/75 py-4">
+    <header className="glossy top-0 z-50 mb-5 flex flex-col justify-between gap-2 border-b border-border/75 py-4 md:sticky">
       <div className="container flex items-center justify-between ps-10">
         <Link href="/" className="flex items-center">
           <Logo />
         </Link>
         <div className="flex flex-1 justify-center">
-          <div className="mx-10 w-full max-w-lg lg:mx-0">
+          <div className="hidden md:block md:w-full md:max-w-lg">
             <AdSearchbox />
           </div>
         </div>
@@ -99,6 +99,9 @@ export default function Navbar() {
             </SheetContent>
           </Sheet>
         </div>
+      </div>
+      <div className="container w-full max-w-lg md:hidden">
+        <AdSearchbox />
       </div>
     </header>
   );
