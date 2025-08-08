@@ -28,13 +28,13 @@ export default function Navbar() {
           <Logo />
         </Link>
         <div className="flex flex-1 justify-center">
-          <div className="hidden md:block md:w-full md:max-w-lg">
+          <div className="hidden md:block md:w-full md:max-w-lg md:px-3 lg:px-0">
             <AdSearchbox />
           </div>
         </div>
-        <div className="hidden lg:flex lg:items-center lg:gap-x-5">
+        <div className="hidden md:flex md:items-center md:gap-x-5">
           <LocaleSwitcher RenderAs={Button} className="px-0 pe-3 text-base" />
-          <SellButton className="hidden lg:flex" />
+          <SellButton className="hidden md:flex" />
           <NavbarAuth
             trigger={
               <DropdownMenuTrigger className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
@@ -52,7 +52,7 @@ export default function Navbar() {
             session={session}
           />
         </div>
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-2 md:hidden">
           <Sheet>
             <SheetTrigger>
               <Menu />
@@ -100,7 +100,7 @@ export default function Navbar() {
           </Sheet>
         </div>
       </div>
-      <div className="container w-full max-w-lg md:hidden">
+      <div className="container w-full md:hidden">
         <AdSearchbox />
       </div>
     </header>
