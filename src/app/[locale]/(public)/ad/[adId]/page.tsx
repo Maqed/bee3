@@ -18,6 +18,7 @@ async function fetchAdData(adId: string): Promise<AdWithUser | null> {
     headers: {
       Cookie: headersList.get("cookie") || "",
     },
+    cache: "force-cache",
     next: {
       tags: [generateAdCacheTag(adId)],
     },
