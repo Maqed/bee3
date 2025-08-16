@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { db } from "@/server/db";
 import { getServerAuthSession } from "@/lib/auth";
+import { revalidateTag } from "next/cache";
+import { generateAdCacheTag } from "@/lib/utils";
 
 export async function GET(
   request: Request,
@@ -83,7 +85,7 @@ export async function DELETE(
       where: { id: params.adId, userId: session.user.id },
       data: { deletedAt: new Date() },
     });
-
+    revalidateTag(generateAdCacheTag(ad.id));
     return NextResponse.json({ message: "Ad deleted successfully", ad });
   } catch (e) {
     return NextResponse.json({ error: e }, { status: 404 });

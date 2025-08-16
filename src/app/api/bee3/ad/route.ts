@@ -8,6 +8,8 @@ import { createId } from "@paralleldrive/cuid2";
 import { cities } from "@/schema/cities";
 import { sendDiscordMessage } from "@/server/discord";
 import { governorates } from "@/schema/governorates";
+import { revalidateTag } from "next/cache";
+import { generateAdCacheTag } from "@/lib/utils";
 
 export async function POST(request: Request) {
   const session = await getServerAuthSession();
@@ -162,7 +164,7 @@ export async function POST(request: Request) {
 
     return newAd;
   });
-
+  revalidateTag(generateAdCacheTag(ad.id));
   // Return the created ad (still pending)
   return NextResponse.json({ result: ad });
 }
