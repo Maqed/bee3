@@ -1163,6 +1163,27 @@
       "description": "Something went wrong while loading your ads. Please try again."
     }
   },
+  "footer": {
+    "about": {
+      "description": "Bee3 is a platform made for selling and buying online completely for free!"
+    },
+    "links": {
+      "bee3": {
+        "title": "Bee3",
+        "about-us": "About us",
+        "faq": "FAQ"
+      },
+      "legal": {
+        "title": "Legal",
+        "privacy": "Privacy",
+        "terms": "Terms"
+      }
+    },
+    "copyright": "© 2025 Bee3. All rights reserved.",
+    "social": {
+      "facebook": "Facebook"
+    }
+  },
   "errors": {
     "Required": "This input is required",
     "social": {
