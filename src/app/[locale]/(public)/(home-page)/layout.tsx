@@ -6,7 +6,7 @@ function HomePageLayout({ children }: { children: ReactNode }) {
     <main className="flex flex-col gap-y-5">
       <ExploreCategories />
       {children}
-      <SellButton className="fixed bottom-10 left-1/2 -translate-x-1/2 transform md:hidden" />
+      <SellButton className="fixed bottom-4 left-1/2 -translate-x-1/2 transform bg-primary/95 md:hidden" />
     </main>
   );
 }
