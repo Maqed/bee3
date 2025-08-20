@@ -1,7 +1,6 @@
 import createMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import {
-  ONLY_UNAUTHENTICATED_ROUTES,
   DEFAULT_UNAUTHENTICATED_REDIRECT,
   PROTECTED_ROUTES,
   DEFAULT_LOGIN_REDIRECT,
@@ -48,15 +47,6 @@ export default async function middleware(req: NextRequest) {
         return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, req.url));
       }
     }
-  }
-
-  if (
-    sessionCookie &&
-    ONLY_UNAUTHENTICATED_ROUTES.some((route) =>
-      pathnameWithoutLocale.startsWith(route),
-    )
-  ) {
-    return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, req.url));
   }
 
   return intlMiddleware(req);

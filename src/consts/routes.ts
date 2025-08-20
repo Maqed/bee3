@@ -12,11 +12,3 @@ export const PROTECTED_ROUTES = [
   "/my-ads",
   ...ADMIN_ROUTES,
 ];
-
-// Authentication routes that signed-in users shouldn't access
-export const ONLY_UNAUTHENTICATED_ROUTES = [
-  "/login",
-  "/register",
-  "/forgot-password",
-  "/reset-password",
-];
