@@ -14,7 +14,9 @@ function AdSearchbox() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        router.push(`/ads?q=${query}`);
+        if (query.length > 0) {
+          router.push(`/ads?q=${query}`);
+        }
       }}
       className="relative"
     >
