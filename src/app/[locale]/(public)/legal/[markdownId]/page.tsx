@@ -37,7 +37,7 @@ async function LegalPage({ params }: { params: { markdownId: string } }) {
     markdownId,
   );
   return (
-    <main className="prose prose-lg md:prose-xl prose-slate dark:prose-invert container mx-auto px-6">
+    <main className="container prose prose-lg mx-auto px-6 md:prose-xl">
       <div className="!mb-16">
         <h1 className="!mb-0 mt-4 text-3xl">{title}</h1>
         <p className="!m-0">{getLocalizedTimeAgo(locale, date)}</p>
