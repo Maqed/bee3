@@ -4,7 +4,7 @@
  */
 import createNextIntlPlugin from "next-intl/plugin";
 
-if (process.env.NODE_ENV === 'development'){
+if (process.env.NODE_ENV === "development") {
   await import("./src/env.js");
 }
 
@@ -13,7 +13,7 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import("next").NextConfig} */
 const config = {
   images: {
-    unoptimized: true
+    unoptimized: true,
   },
 };
 

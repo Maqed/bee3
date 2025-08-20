@@ -11,11 +11,8 @@ export default function Footer() {
   const footerLinks = {
     bee3: [
       { name: t("links.bee3.about-us"), href: "/about-us" },
-      { name: t("links.bee3.faq"), href: "/faq" },
-    ],
-    legal: [
-      { name: t("links.legal.privacy"), href: "/legal/privacy-policy" },
-      { name: t("links.legal.terms"), href: "/legal/terms-of-service" },
+      { name: t("links.bee3.privacy"), href: "/legal/privacy-policy" },
+      { name: t("links.bee3.terms"), href: "/legal/terms-of-service" },
     ],
   };
 
@@ -31,7 +28,7 @@ export default function Footer() {
     <footer id="footer" className="container">
       <div className="rounded-lg">
         <div className="flex flex-col py-12 pb-16 md:pb-12">
-          <div className="flex flex-col gap-6 md:flex-row md:justify-between">
+          <div className="flex flex-col gap-6 md:flex-row">
             <div className="space-y-4">
               <Link href="/" className="flex items-center gap-1 text-primary">
                 <Logo />
@@ -40,30 +37,13 @@ export default function Footer() {
                 {t("about.description")}
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 gap-8">
               <div className="space-y-3">
                 <h4 className="text-base font-semibold">
                   {t("links.bee3.title")}
                 </h4>
                 <ul className="space-y-2">
                   {footerLinks.bee3.map((link) => (
-                    <li key={link.name}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-muted-foreground hover:text-foreground"
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="space-y-3">
-                <h4 className="text-base font-semibold">
-                  {t("links.legal.title")}
-                </h4>
-                <ul className="space-y-2">
-                  {footerLinks.legal.map((link) => (
                     <li key={link.name}>
                       <Link
                         href={link.href}
