@@ -3,16 +3,17 @@ import ExploreCategories from "@/components/bee3/explore-categories";
 import SellButton from "@/components/bee3/sell-button";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 function HomePageLayout({ children }: { children: ReactNode }) {
   const locale = useLocale();
+  const t = useTranslations("");
   return (
     <main className="flex flex-col gap-y-5">
       <Link href="/about-us" className="container">
         <Image
           src={`/home-banner-${locale}.svg`}
-          alt=""
+          alt={t("home-banner.alt")}
           width={500}
           height={77}
           className="h-auto w-full"

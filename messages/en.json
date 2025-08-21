@@ -22,6 +22,9 @@
     "Settings": "Settings",
     "Logout": "Logout"
   },
+  "home-banner": {
+    "alt": "About us article"
+  },
   "Admin": {
     "Navigation": {
       "Ads": "Ads",
@@ -184,6 +187,7 @@
     "copied": "{text} has been copied to clipboard!"
   },
   "ad-searchbox": {
+    "search-button": "Search",
     "placeholder": "Search..."
   },
   "password-checklist": {

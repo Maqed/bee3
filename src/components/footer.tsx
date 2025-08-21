@@ -62,17 +62,20 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground">{t("copyright")}</p>
             <div className="flex items-center space-x-4">
               <ul className="flex items-center gap-4">
-                {socialLinks.map(({ icon: Icon, href, className }, idx) => (
-                  <li key={`footer-social-${idx}`}>
-                    <Link
-                      href={href}
-                      target="_blank"
-                      className="group inline-flex cursor-pointer items-center justify-start gap-1 text-muted-foreground duration-200 hover:text-foreground hover:opacity-90"
-                    >
-                      <Icon className={cn("size-6", className)} />
-                    </Link>
-                  </li>
-                ))}
+                {socialLinks.map(
+                  ({ icon: Icon, href, className, name }, idx) => (
+                    <li key={`footer-social-${idx}`}>
+                      <Link
+                        href={href}
+                        target="_blank"
+                        className="group inline-flex cursor-pointer items-center justify-start gap-1 text-muted-foreground duration-200 hover:text-foreground hover:opacity-90"
+                      >
+                        <div className="sr-only">{name}</div>
+                        <Icon className={cn("size-6", className)} />
+                      </Link>
+                    </li>
+                  ),
+                )}
               </ul>
             </div>
           </div>

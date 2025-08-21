@@ -33,6 +33,7 @@ function AdSearchbox() {
         size="icon"
         type="submit"
       >
+        <div className="sr-only">{t("search-button")}</div>
         <Search />
       </Button>
     </form>

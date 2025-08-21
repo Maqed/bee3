@@ -21,6 +21,9 @@
     "Settings": "الاعدادات",
     "Logout": "تسجيل الخروج"
   },
+  "home-banner": {
+    "alt": "مقال عنا"
+  },
   "Admin": {
     "Navigation": {
       "Ads": "الإعلانات",
@@ -180,6 +183,7 @@
     }
   },
   "ad-searchbox": {
+    "search-button": "البحث",
     "placeholder": "ابحث..."
   },
   "clipboard": {
