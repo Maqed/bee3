@@ -14,7 +14,7 @@ function HomePageLayout({ children }: { children: ReactNode }) {
           src={`/home-banner-${locale}.svg`}
           alt=""
           width={500}
-          height={100}
+          height={77}
           className="h-auto w-full"
         />
       </Link>
