@@ -79,6 +79,7 @@ type Ad = {
   tier: "Free" | "Pro" | "Expert";
   createdAt: Date;
   updatedAt: Date;
+  deletedAt: Date | null;
   categoryPath: string;
   user: {
     id: string;
@@ -710,6 +711,11 @@ export default function AdminAdsTable() {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className={
+                    row.original.deletedAt
+                      ? "border-destructive/20 bg-destructive/10"
+                      : ""
+                  }
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
