@@ -51,6 +51,7 @@ export async function GET(request: Request) {
         tier: true,
         createdAt: true,
         updatedAt: true,
+        deletedAt: true,
         categoryPath: true,
         user: {
           select: {
