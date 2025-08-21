@@ -46,6 +46,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   });
 
+  // about-us
+  sitemapEntries.push({
+    url: `${baseURL}/`,
+    lastModified: new Date(),
+    changeFrequency: "yearly",
+    priority: 0.3,
+    alternates: {
+      languages: {
+        ar: `${baseURL}/about-us`,
+        en: `${baseURL}/en/about-us`,
+      },
+    },
+  });
+
   // Ads page
   sitemapEntries.push({
     url: `${baseURL}/ads`,
