@@ -80,11 +80,16 @@ export async function DELETE(
   if (!session) return NextResponse.json({ error: "must-be-logged-in" });
 
   try {
-    // When adding admin plugin, Make sure that the admin and the user can delete the ad.
+    const where: any = { id: params.adId };
+    if (session.user.role !== "admin") {
+      where.userId = session.user.id;
+    }
+
     const ad = await db.ad.update({
-      where: { id: params.adId, userId: session.user.id },
+      where,
       data: { deletedAt: new Date() },
     });
+
     revalidateTag(generateAdCacheTag(ad.id));
     return NextResponse.json({ message: "Ad deleted successfully", ad });
   } catch (e) {
