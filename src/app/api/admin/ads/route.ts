@@ -27,9 +27,7 @@ export async function GET(request: Request) {
     const adStatus = searchParams.get("adStatus") as AD_STATUS | null;
 
     // Build where clause for filtering
-    const where: any = {
-      deletedAt: null, // Only show non-deleted ads
-    };
+    const where: any = {};
 
     if (userId) {
       where.userId = userId;
