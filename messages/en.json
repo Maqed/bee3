@@ -235,12 +235,10 @@
         "backButtonLabel": "Already have an account?",
         "email": {
           "name": {
-            "label": "Name",
-            "placeholder": "John Doe"
+            "label": "Name"
           },
           "email": {
-            "label": "Email",
-            "placeholder": "johndoe@email.com"
+            "label": "Email"
           },
           "password": {
             "label": "Password"
@@ -261,8 +259,7 @@
         "backButtonLabel": "Don't have an account?",
         "email": {
           "email": {
-            "label": "Email",
-            "placeholder": "johndoe@email.com"
+            "label": "Email"
           },
           "password": {
             "label": "Password"

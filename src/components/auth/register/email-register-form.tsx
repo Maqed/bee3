@@ -98,7 +98,6 @@ function EmailRegisterForm() {
                   autoFocus
                   disabled={isPending}
                   autoComplete="name"
-                  placeholder={t("name.placeholder")}
                   {...field}
                 />
               </FormControl>
@@ -122,7 +121,6 @@ function EmailRegisterForm() {
                   disabled={isPending}
                   autoComplete="email"
                   type="email"
-                  placeholder={t("email.placeholder")}
                   {...field}
                 />
               </FormControl>
@@ -145,7 +143,6 @@ function EmailRegisterForm() {
                 <PasswordInput
                   disabled={isPending}
                   autoComplete="current-password"
-                  placeholder="∗∗∗∗∗∗∗∗"
                   {...field}
                 />
               </FormControl>
@@ -167,7 +164,6 @@ function EmailRegisterForm() {
                 <PasswordInput
                   disabled={isPending}
                   autoComplete="new-password"
-                  placeholder="∗∗∗∗∗∗∗∗"
                   {...field}
                 />
               </FormControl>

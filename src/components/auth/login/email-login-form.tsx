@@ -81,7 +81,6 @@ function EmailLoginForm() {
                   autoFocus
                   autoComplete="email"
                   type="email"
-                  placeholder={tLoginEmail("email.placeholder")}
                   {...field}
                 />
               </FormControl>
@@ -103,7 +102,6 @@ function EmailLoginForm() {
                 <PasswordInput
                   disabled={isPending}
                   autoComplete="current-password"
-                  placeholder="∗∗∗∗∗∗∗∗"
                   {...field}
                 />
               </FormControl>

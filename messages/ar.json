@@ -234,12 +234,10 @@
         "backButtonLabel": "هل لديك حساب بالفعل؟",
         "email": {
           "name": {
-            "label": "الاسم",
-            "placeholder": "محمد احمد"
+            "label": "الاسم"
           },
           "email": {
-            "label": "البريد الإلكتروني",
-            "placeholder": "mohammedahmed@email.com"
+            "label": "البريد الإلكتروني"
           },
           "password": {
             "label": "كلمة المرور"
@@ -260,8 +258,7 @@
         "backButtonLabel": "لا تملك حسابًا؟",
         "email": {
           "email": {
-            "label": "البريد الإلكتروني",
-            "placeholder": "mohammedahmed@email.com"
+            "label": "البريد الإلكتروني"
           },
           "password": {
             "label": "كلمة المرور"
