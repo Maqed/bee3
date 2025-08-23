@@ -89,7 +89,6 @@ export default function ForgetPasswordForm() {
                     <FormControl>
                       <Input
                         id="email"
-                        placeholder={t("emailPlaceholder")}
                         type="email"
                         autoComplete="email"
                         disabled={isPending}

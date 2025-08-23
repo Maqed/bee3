@@ -279,7 +279,6 @@
       "title": "Forgot Password",
       "description": "Enter your email address to receive a password reset link.",
       "emailLabel": "Email",
-      "emailPlaceholder": "johndoe@mail.com",
       "submitButton": "Send Reset Link",
       "toast": {
         "success": "Password reset email sent. Please check your inbox.",
