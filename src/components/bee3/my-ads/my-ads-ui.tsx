@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useQueryState } from "nuqs";
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,27 +10,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import AdCard from "@/components/bee3/ad-card";
 import AdCardPlaceholder from "@/components/placeholders/ad-card-placeholder";
 import SellButton from "@/components/bee3/sell-button";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
-import { EllipsisVerticalIcon, Trash2 } from "lucide-react";
-import { toast } from "@/components/ui/use-toast";
+import { EllipsisVerticalIcon } from "lucide-react";
+import DeleteAdDialog from "../dialogs/delete-ad-dialog";
 
 // Define the ad type based on API response
 type MyAd = {
@@ -82,31 +72,6 @@ function useMyAds(status: string = "ALL") {
   });
 }
 
-function useDeleteAd() {
-  const queryClient = useQueryClient();
-  const { data: session } = authClient.useSession();
-
-  return useMutation({
-    mutationFn: async (adId: string) => {
-      const response = await fetch(`/api/bee3/ad/${adId}`, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to delete ad");
-      }
-
-      return response.json();
-    },
-    onSuccess: () => {
-      // Invalidate all my-ads queries to refresh the data
-      queryClient.invalidateQueries({
-        queryKey: ["my-ads"],
-      });
-    },
-  });
-}
-
 function MyAdsUI() {
   const t = useTranslations("/my-ads");
   const tAdmin = useTranslations("Admin.Ads");
@@ -114,28 +79,9 @@ function MyAdsUI() {
     defaultValue: "ALL",
     history: "push",
   });
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState<string | null>(null);
 
   const { data, isFetching, isLoading, isPending, error } =
     useMyAds(selectedStatus);
-
-  const deleteAdMutation = useDeleteAd();
-
-  const handleDeleteAd = async (adId: string) => {
-    try {
-      await deleteAdMutation.mutateAsync(adId);
-      toast({
-        title: t("toast.delete-success"),
-        variant: "success",
-      });
-      setDeleteDialogOpen(null);
-    } catch (error) {
-      toast({
-        title: t("toast.delete-error"),
-        variant: "destructive",
-      });
-    }
-  };
 
   // Get badge variant based on selection
   const getBadgeVariant = (status: string) => {
@@ -258,53 +204,7 @@ function MyAdsUI() {
                           {t("dropdown.manage-ad")}
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <Dialog
-                          open={deleteDialogOpen === ad.id}
-                          onOpenChange={(open) =>
-                            setDeleteDialogOpen(open ? ad.id : null)
-                          }
-                        >
-                          <DialogTrigger asChild>
-                            <DropdownMenuItem
-                              onSelect={(e) => {
-                                e.preventDefault();
-                                setDeleteDialogOpen(ad.id);
-                              }}
-                              className="flex items-center gap-1 bg-destructive text-destructive-foreground focus:bg-destructive/90 focus:text-destructive-foreground"
-                            >
-                              <Trash2 className="size-4" />
-                              {t("dropdown.delete")}
-                            </DropdownMenuItem>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>
-                                {t("delete-dialog.title")}
-                              </DialogTitle>
-                              <DialogDescription>
-                                {t("delete-dialog.description")}
-                              </DialogDescription>
-                            </DialogHeader>
-                            <DialogFooter>
-                              <Button
-                                variant="outline"
-                                onClick={() => setDeleteDialogOpen(null)}
-                                disabled={deleteAdMutation.isPending}
-                              >
-                                {t("delete-dialog.cancel")}
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                onClick={() => handleDeleteAd(ad.id)}
-                                disabled={deleteAdMutation.isPending}
-                              >
-                                {deleteAdMutation.isPending
-                                  ? t("delete-dialog.deleting")
-                                  : t("delete-dialog.delete")}
-                              </Button>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
+                        <DeleteAdDialog adId={ad.id} />
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>

@@ -902,6 +902,20 @@
       "home": "Home"
     }
   },
+  "dialogs": {
+    "delete": {
+      "trigger": "Delete Ad",
+      "dialog-title": "Are you absolutely sure?",
+      "dialog-description": "This action cannot be undone. It will permanently delete your ad and remove it from our servers.",
+      "dialog-cancel": "Cancel",
+      "dialog-delete": "Delete",
+      "dialog-deleting": "Deleting...",
+      "toast": {
+        "delete-success": "Ad deleted successfully",
+        "delete-error": "Failed to delete the ad. Please try again."
+      }
+    }
+  },
   "not-found": {
     "title": "Oops, Page not found!",
     "paragraph": "The page you're looking for doesn't seem to exist.",
