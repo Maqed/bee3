@@ -1,7 +1,9 @@
+import { useRouter } from "@/i18n/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useDeleteAd() {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: async (adId: string) => {
@@ -16,7 +18,8 @@ export function useDeleteAd() {
       return response.json();
     },
     onSuccess: () => {
-      // Invalidate all my-ads queries to refresh the data
+      router.refresh();
+      router.push("/my-ads");
       queryClient.invalidateQueries({
         queryKey: ["my-ads"],
       });
