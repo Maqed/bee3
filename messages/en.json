@@ -983,20 +983,10 @@
     },
     "delete": {
       "title": "Delete Account",
-      "paragraph": "To request account deletion, please contact us on our <facebook>Facebook page</facebook>. We'll process your request within 24-48 hours.",
-      "dialog": {
-        "title": "Are you absolutely sure?",
-        "paragraph": "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
-        "close": "Close",
-        "confirm-delete-name-input": "Type your name",
-        "confirm-delete-message-input": "Confirm by typing this message"
-      }
+      "paragraph": "To request account deletion, please contact us on our <facebook>Facebook page</facebook>. We'll process your request within 24-48 hours."
     },
     "toast": {
-      "deleted": "User has been deleted successfully!",
-      "updated": "User has been updated successfully!",
-      "must-be-logged-in": "You must be logged in!",
-      "please-wait": "Please wait a minute between each user update!"
+      "updated": "User has been updated successfully!"
     }
   },
   "/sell": {
