@@ -14,6 +14,7 @@ import { Trash2 } from "lucide-react";
 import { useDeleteAd } from "@/hooks/use-delete-ad";
 import { toast } from "@/components/ui/use-toast";
 import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 type DialogTriggerComponentType = ComponentType<any>;
 
@@ -68,7 +69,10 @@ function DeleteAdDialog({
           {...triggerProps}
           onClick={handleTriggerClick}
           onSelect={handleTriggerSelect}
-          className="flex items-center gap-1 bg-destructive text-destructive-foreground focus:bg-destructive/90 focus:text-destructive-foreground"
+          className={cn(
+            "flex items-center gap-1 bg-destructive text-destructive-foreground focus:bg-destructive/90 focus:text-destructive-foreground",
+            triggerProps?.className,
+          )}
         >
           <Trash2 className="size-4" />
           {t("trigger")}
