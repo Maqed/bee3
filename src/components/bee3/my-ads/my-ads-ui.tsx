@@ -172,45 +172,46 @@ function MyAdsUI() {
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {displayAds.map((ad) => (
-                <div key={ad.id} className="relative">
-                  <div
-                    className="absolute right-2 top-2 z-10 flex items-center justify-center gap-1"
-                    dir="ltr"
-                  >
-                    <Badge
-                      variant={
-                        ad.adStatus === "ACCEPTED"
-                          ? "success"
-                          : ad.adStatus === "REJECTED"
-                            ? "destructive"
-                            : "warning"
-                      }
-                      className="shadow-md"
+              {!(isLoading || isPending || isFetching) &&
+                displayAds.map((ad) => (
+                  <div key={ad.id} className="relative">
+                    <div
+                      className="absolute right-2 top-2 z-10 flex items-center justify-center gap-1"
+                      dir="ltr"
                     >
-                      {tAdmin(`table.badges.${ad.adStatus.toLowerCase()}`)}
-                    </Badge>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          size="icon"
-                          className="size-7 rounded-md bg-background text-sm text-foreground"
-                        >
-                          <EllipsisVerticalIcon />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="p-0">
-                        <DeleteAdDialog adId={ad.id} />
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                      <Badge
+                        variant={
+                          ad.adStatus === "ACCEPTED"
+                            ? "success"
+                            : ad.adStatus === "REJECTED"
+                              ? "destructive"
+                              : "warning"
+                        }
+                        className="shadow-md"
+                      >
+                        {tAdmin(`table.badges.${ad.adStatus.toLowerCase()}`)}
+                      </Badge>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            size="icon"
+                            className="size-7 rounded-md bg-background text-sm text-foreground"
+                          >
+                            <EllipsisVerticalIcon />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="p-0">
+                          <DeleteAdDialog adId={ad.id} />
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                    <AdCard
+                      ad={ad as any}
+                      containerClassName="w-full md:w-full lg:w-full"
+                      cardClassName="w-full md:w-full lg:w-full"
+                    />
                   </div>
-                  <AdCard
-                    ad={ad as any}
-                    containerClassName="w-full md:w-full lg:w-full"
-                    cardClassName="w-full md:w-full lg:w-full"
-                  />
-                </div>
-              ))}
+                ))}
             </div>
           )}
         </CardContent>
