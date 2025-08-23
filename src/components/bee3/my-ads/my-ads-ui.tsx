@@ -236,7 +236,7 @@ function MyAdsUI() {
                       variant={
                         ad.adStatus === "ACCEPTED"
                           ? "success"
-                          : ad.adStatus === "REJECTED"
+                        x  : ad.adStatus === "REJECTED"
                             ? "destructive"
                             : "warning"
                       }

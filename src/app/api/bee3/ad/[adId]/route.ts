@@ -45,19 +45,20 @@ export async function GET(
     });
 
     const session = await getServerAuthSession();
-    if (!session) {
-      return NextResponse.json({ error: "Ad not found" }, { status: 404 });
-    }
     if (
       !ad ||
       ((ad.deletedAt !== null || ad.user?.banned) &&
-        session?.user.role !== "admin")
+        (!session || session?.user.role) !== "admin")
     ) {
       return NextResponse.json({ error: "Ad not found" }, { status: 404 });
     }
 
     if (ad.adStatus === "ACCEPTED") {
       return NextResponse.json({ ad });
+    }
+
+    if (!session) {
+      return NextResponse.json({ error: "Ad not found" }, { status: 404 });
     }
 
     const isAdmin = session.user.role === "admin";
