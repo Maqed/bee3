@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import React, { useState, ComponentType } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,10 +14,23 @@ import { useDeleteAd } from "@/hooks/use-delete-ad";
 import { toast } from "@/components/ui/use-toast";
 import { useTranslations } from "next-intl";
 
-function DeleteAdDialog({ adId }: { adId: string }) {
+type DialogTriggerComponentType = ComponentType<any>;
+
+interface DeleteAdDialogProps {
+  adId: string;
+  DialogTriggerComponent: DialogTriggerComponentType;
+  triggerProps?: Record<string, any>;
+}
+
+function DeleteAdDialog({
+  adId,
+  DialogTriggerComponent,
+  triggerProps = {},
+}: DeleteAdDialogProps) {
   const deleteAdMutation = useDeleteAd();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<string | null>(null);
   const t = useTranslations("dialogs.delete");
+
   const handleDeleteAd = async (adId: string) => {
     try {
       await deleteAdMutation.mutateAsync(adId);
@@ -35,22 +47,31 @@ function DeleteAdDialog({ adId }: { adId: string }) {
     }
   };
 
+  const handleTriggerClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setDeleteDialogOpen(adId);
+  };
+
+  const handleTriggerSelect = (e: Event) => {
+    e.preventDefault();
+    setDeleteDialogOpen(adId);
+  };
+
   return (
     <Dialog
       open={deleteDialogOpen === adId}
       onOpenChange={(open) => setDeleteDialogOpen(open ? adId : null)}
     >
       <DialogTrigger asChild>
-        <DropdownMenuItem
-          onSelect={(e) => {
-            e.preventDefault();
-            setDeleteDialogOpen(adId);
-          }}
+        <DialogTriggerComponent
+          {...triggerProps}
+          onClick={handleTriggerClick}
+          onSelect={handleTriggerSelect}
           className="flex items-center gap-1 bg-destructive text-destructive-foreground focus:bg-destructive/90 focus:text-destructive-foreground"
         >
           <Trash2 className="size-4" />
           {t("trigger")}
-        </DropdownMenuItem>
+        </DialogTriggerComponent>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

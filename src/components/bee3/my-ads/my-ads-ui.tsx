@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import AdCard from "@/components/bee3/ad-card";
@@ -199,7 +200,10 @@ function MyAdsUI() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="p-0">
-                          <DeleteAdDialog adId={ad.id} />
+                          <DeleteAdDialog
+                            adId={ad.id}
+                            DialogTriggerComponent={DropdownMenuItem}
+                          />
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </div>
