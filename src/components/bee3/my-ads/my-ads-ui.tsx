@@ -245,8 +245,13 @@ function MyAdsUI() {
                       {tAdmin(`table.badges.${ad.adStatus.toLowerCase()}`)}
                     </Badge>
                     <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <EllipsisVerticalIcon />
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          size="icon"
+                          className="size-7 rounded-md bg-background text-sm text-foreground"
+                        >
+                          <EllipsisVerticalIcon />
+                        </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent className="p-0">
                         <DropdownMenuLabel>
