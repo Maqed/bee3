@@ -7,6 +7,7 @@ import AdPageUI from "@/components/bee3/ad-page/ad-page-ui";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
+import { getServerAuthSession } from "@/lib/auth";
 
 async function fetchAdData(adId: string): Promise<AdWithUser | null> {
   const headersList = headers();
@@ -57,10 +58,11 @@ export async function generateMetadata({
 
 export default async function AdPage({ params }: { params: { adId: string } }) {
   const ad = await fetchAdData(params.adId);
+  const session = await getServerAuthSession();
 
   if (!ad) {
     notFound();
   }
 
-  return <AdPageUI ad={ad} />;
+  return <AdPageUI ad={ad} session={session} />;
 }

@@ -46,6 +46,7 @@ function SellPage() {
     return (
       <AdPageUI
         isPreview={true}
+        session={session}
         ad={{
           id: "preview",
           title: form.getValues("title"),
@@ -85,6 +86,7 @@ function SellPage() {
     return (
       <AdPageUI
         isPreview={true}
+        session={session}
         ad={{
           id: "preview",
           title: submittedFormData.title,

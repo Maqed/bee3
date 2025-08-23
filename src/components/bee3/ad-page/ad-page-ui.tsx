@@ -10,13 +10,20 @@ import AdStatusIndicator from "./ad-status-indicator";
 import type { AdWithUser } from "@/types/ad-page-types";
 import { useLocale, useTranslations } from "next-intl";
 import { MobileContactMethod } from "./contact-method";
+import { authClient } from "@/lib/auth-client";
+import ManageAd from "./manage-ad";
 
 type AdPageUIProps = {
   ad: AdWithUser;
+  session: typeof authClient.$Infer.Session | null;
   isPreview?: boolean;
 };
 
-export default function AdPageUI({ ad, isPreview = false }: AdPageUIProps) {
+export default function AdPageUI({
+  ad,
+  session,
+  isPreview = false,
+}: AdPageUIProps) {
   const locale = useLocale();
   const tAd = useTranslations("/ad/[adId]");
   const isAccepted = ad.adStatus == "ACCEPTED";
@@ -33,6 +40,11 @@ export default function AdPageUI({ ad, isPreview = false }: AdPageUIProps) {
             ad={ad}
             locale={locale}
           />
+          <div className="md:hidden">
+            {ad.userId == session?.user.id && !isPreview && (
+              <ManageAd adId={ad.id} />
+            )}
+          </div>
           <AdAttributes ad={ad} />
           <AdDescription ad={ad} tAd={tAd} />
           <UserInformation ad={ad} tAd={tAd} locale={locale} variant="mobile" />
@@ -40,7 +52,9 @@ export default function AdPageUI({ ad, isPreview = false }: AdPageUIProps) {
             title={tAd("user.contact-method")}
             contactMethod={ad.user.contactMethod ?? ""}
           />
-          <SafetyTipsCard className="md:hidden" />
+          {ad.userId !== session?.user.id && (
+            <SafetyTipsCard className="md:hidden" />
+          )}
           <Separator />
           {!isPreview && (
             <RelatedAds adId={ad.id} relatedCategories={ad.categoryPath} />
@@ -48,8 +62,11 @@ export default function AdPageUI({ ad, isPreview = false }: AdPageUIProps) {
         </div>
       </div>
       <div className="hidden space-y-3 md:col-span-4 md:block">
+        {ad.userId == session?.user.id && !isPreview && (
+          <ManageAd adId={ad.id} />
+        )}
         <UserInformation ad={ad} tAd={tAd} locale={locale} />
-        <SafetyTipsCard />
+        {ad.userId !== session?.user.id && <SafetyTipsCard />}
       </div>
     </div>
   );
