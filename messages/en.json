@@ -298,19 +298,6 @@
     "continue": "Continue",
     "close": "Close"
   },
-  "phoneNumber": {
-    "go-back": "Go back",
-    "InputNumber": {
-      "title": "Enter your phone number to verify your account",
-      "placeholder": "Enter your phone number",
-      "sendCode": "Send Code"
-    },
-    "OTP": {
-      "title": "Enter your OTP code you recieved in your WhatsApp account.",
-      "otp-description": "",
-      "verifyCode": "Verify code"
-    }
-  },
   "pagination": {
     "previous": "Previous",
     "next": "Next"
@@ -975,10 +962,6 @@
         "description": "Buyers can contact you through this method",
         "placeholder": "Enter your contact method"
       },
-      "phoneNumber": {
-        "title": "Phone Number",
-        "placeholder": "Enter your phone number"
-      },
       "button-submit": "Update Profile"
     },
     "delete": {
@@ -1271,22 +1254,6 @@
       },
       "contact-method": {
         "invalid": "Contact method must be at most 75 characters."
-      }
-    },
-    "phone-number": {
-      "input-phone-number": {
-        "must-be-logged-in": "You must be logged in to verify your phone number",
-        "failed-too-many-requests": "You're sending your phone number too many times, Please try again in a minute.",
-        "unknown": "An unknown error occurred. Please try again.",
-        "invalid-number": "Please enter a valid 10-digit phone number",
-        "PHONE_NUMBER_EXISTS": "This phone number already exists, please try another one!"
-      },
-      "OTP": {
-        "must-be-logged-in": "You must be logged in to verify your phone number",
-        "code": "Please enter a valid 6-digit OTP",
-        "INVALID_OTP": "Your OTP is invalid, please try again!",
-        "OTP_EXPIRED": "OTP has expired, please try again!",
-        "OTP_NOT_FOUND": "OTP not found, please try agian!"
       }
     },
     "markdown": {
