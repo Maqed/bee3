@@ -71,11 +71,7 @@ function EditAccountSection({ isPending, startTransition }: Props) {
                   {isSessionPending ? (
                     <Skeleton className="h-10 w-full" />
                   ) : (
-                    <Input
-                      disabled={isPending}
-                      placeholder={t("settings.name.placeholder")}
-                      {...field}
-                    />
+                    <Input disabled={isPending} {...field} />
                   )}
                 </FormControl>
                 <FormDescription>
@@ -95,11 +91,7 @@ function EditAccountSection({ isPending, startTransition }: Props) {
                   {isSessionPending ? (
                     <Skeleton className="h-16 w-full" />
                   ) : (
-                    <Textarea
-                      disabled={isPending}
-                      placeholder={t("settings.bio.placeholder")}
-                      {...field}
-                    />
+                    <Textarea disabled={isPending} {...field} />
                   )}
                 </FormControl>
                 <FormDescription>
@@ -119,11 +111,7 @@ function EditAccountSection({ isPending, startTransition }: Props) {
                   {isSessionPending ? (
                     <Skeleton className="h-10 w-full" />
                   ) : (
-                    <Textarea
-                      disabled={isPending}
-                      placeholder={t("settings.contact-method.placeholder")}
-                      {...field}
-                    />
+                    <Textarea disabled={isPending} {...field} />
                   )}
                 </FormControl>
                 <FormDescription>

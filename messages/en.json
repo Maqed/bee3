@@ -949,18 +949,15 @@
       "title": "User Settings",
       "name": {
         "title": "Name",
-        "placeholder": "John Doe",
         "description": "Your name is shown to the public"
       },
       "bio": {
         "title": "Bio",
-        "placeholder": "My name is... and I sell ... I'm experienced in ...",
         "description": "Write about yourself here"
       },
       "contact-method": {
         "title": "Contact method",
-        "description": "Buyers can contact you through this method",
-        "placeholder": "Enter your contact method"
+        "description": "Buyers can contact you through this method"
       },
       "button-submit": "Update Profile"
     },
