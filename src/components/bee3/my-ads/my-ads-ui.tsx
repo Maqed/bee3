@@ -200,10 +200,6 @@ function MyAdsUI() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent className="p-0">
-                        <DropdownMenuLabel>
-                          {t("dropdown.manage-ad")}
-                        </DropdownMenuLabel>
-                        <DropdownMenuSeparator />
                         <DeleteAdDialog adId={ad.id} />
                       </DropdownMenuContent>
                     </DropdownMenu>
