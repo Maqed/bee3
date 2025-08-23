@@ -1145,21 +1145,6 @@
     "error": {
       "title": "Error loading ads",
       "description": "Something went wrong while loading your ads. Please try again."
-    },
-    "dropdown": {
-      "manage-ad": "Manage ad",
-      "delete": "Delete"
-    },
-    "delete-dialog": {
-      "title": "Are you absolutely sure?",
-      "description": "This action cannot be undone. This will permanently delete your ad and remove it from our servers.",
-      "cancel": "Cancel",
-      "delete": "Delete",
-      "deleting": "Deleting..."
-    },
-    "toast": {
-      "delete-success": "Ad deleted successfully",
-      "delete-error": "Failed to delete ad. Please try again."
     }
   },
   "footer": {
