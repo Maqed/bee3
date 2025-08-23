@@ -1,11 +1,7 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
 import { getCategoryTranslations } from "@/lib/category-asynchronous";
-import {
-  absoluteURL,
-  generateAdCacheTag,
-  getLocalizedPrice,
-} from "@/lib/utils";
+import { absoluteURL, getLocalizedPrice } from "@/lib/utils";
 import type { AdWithUser } from "@/types/ad-page-types";
 import AdPageUI from "@/components/bee3/ad-page/ad-page-ui";
 import { Metadata } from "next";
@@ -17,10 +13,6 @@ async function fetchAdData(adId: string): Promise<AdWithUser | null> {
   const response = await fetch(absoluteURL(`/api/bee3/ad/${adId}`), {
     headers: {
       Cookie: headersList.get("cookie") || "",
-    },
-    cache: "force-cache",
-    next: {
-      tags: [generateAdCacheTag(adId)],
     },
   });
   const { ad } = await response.json();

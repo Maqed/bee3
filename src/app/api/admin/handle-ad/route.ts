@@ -5,7 +5,6 @@ import { AD_STATUS } from "@prisma/client";
 import { ALLOWED_REJECTION_REASONS } from "@/consts/admin";
 import { deleteDiscordMessage } from "@/server/discord";
 import { revalidateTag } from "next/cache";
-import { generateAdCacheTag } from "@/lib/utils";
 
 export async function POST(request: Request) {
   try {
@@ -134,8 +133,6 @@ export async function POST(request: Request) {
     if (existingAd.discordMessageId) {
       await deleteDiscordMessage(existingAd.discordMessageId);
     }
-
-    revalidateTag(generateAdCacheTag(adId));
 
     return NextResponse.json({
       message: "ad-status-updated-successfully",
