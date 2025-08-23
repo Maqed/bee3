@@ -78,7 +78,7 @@ function useMyAds(status: string = "ALL") {
       return response.json();
     },
     enabled: !!session?.user.id,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: Infinity,
   });
 }
 
