@@ -6,8 +6,8 @@ import CopyToClipboardButton from "@/components/ui/copy-to-clipboard";
 import SellButton from "@/components/bee3/sell-button";
 import AdCard from "@/components/bee3/ad-card";
 import { getServerAuthSession } from "@/lib/auth";
-import { Ad } from "@/types/bee3";
 import { absoluteURL } from "@/lib/utils";
+import { db } from "@/server/db";
 
 type Props = {
   params: {
@@ -21,8 +21,28 @@ export default async function UserPage({ params: { userId } }: Props) {
   if (!userId) {
     return notFound();
   }
-  const userResponse = await fetch(absoluteURL(`/api/user?id=${userId}`));
-  const user = await userResponse.json();
+  const user = await db.user.findUnique({
+    where: {
+      id: userId,
+      OR: [{ banned: null }, { banned: false }],
+    },
+    select: {
+      name: true,
+      bio: true,
+      contactMethod: true,
+      ads: {
+        where: {
+          deletedAt: null,
+          adStatus: "ACCEPTED",
+        },
+        include: {
+          images: {
+            take: 1,
+          },
+        },
+      },
+    },
+  });
   if (!user) {
     return notFound();
   }
@@ -69,17 +89,13 @@ export default async function UserPage({ params: { userId } }: Props) {
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-4 px-3 sm:grid-cols-2 md:grid-cols-3">
-              {user.ads.map(
-                (
-                  ad: Ad, // Render ads if available
-                ) => (
-                  <AdCard
-                    cardClassName="w-full md:w-full lg:w-full"
-                    key={`AD-card-${ad.id}`}
-                    ad={ad}
-                  />
-                ),
-              )}
+              {user.ads.map((ad) => (
+                <AdCard
+                  cardClassName="w-full md:w-full lg:w-full"
+                  key={`AD-card-${ad.id}`}
+                  ad={ad}
+                />
+              ))}
             </div>
           )}
         </div>
