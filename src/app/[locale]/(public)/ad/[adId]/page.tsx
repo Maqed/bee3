@@ -41,6 +41,7 @@ async function fetchAdData(adId: string): Promise<AdWithUser | null> {
     });
 
     const session = await getServerAuthSession();
+    console.log({ session, ad });
     if (
       !ad ||
       !ad.user ||
