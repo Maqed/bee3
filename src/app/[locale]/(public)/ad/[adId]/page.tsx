@@ -41,7 +41,7 @@ async function fetchAdData(adId: string): Promise<AdWithUser | null> {
     });
 
     const session = await getServerAuthSession();
-    console.log({ session, ad });
+
     if (
       !ad ||
       !ad.user ||
@@ -79,6 +79,7 @@ export async function generateMetadata({
 }: {
   params: { locale: string; adId: string };
 }): Promise<Metadata> {
+  console.log({ adParamId: params.adId });
   const ad = await fetchAdData(params.adId);
 
   if (!ad) {
