@@ -798,7 +798,12 @@
         "bedrooms": "Example: 3",
         "bathrooms": "Example: 2",
         "floor": "Example: 5",
-        "experience": "Example: 3"
+        "experience": "Example: 3",
+        "storage": "Example: 64GB",
+        "condition": "Choose condition",
+        "warranty": "Choose warranty",
+        "fuel-type": "Choose fuel type",
+        "transmission": "Choose transmission"
       },
       "attributes": {
         "year": "Year",

@@ -802,7 +802,9 @@
         "experience": "مثال: 3",
         "storage": "مثال: 64GB",
         "condition": "اختر الحالة",
-        "warranty": "اختر الضمان"
+        "warranty": "اختر الضمان",
+        "fuel-type": "اختر نوع الوقود",
+        "transmission": "اختر ناقل الحركة"
       },
       "attributes": {
         "year": "السنة",
