@@ -11,8 +11,11 @@ import { db } from "@/server/db";
 
 async function fetchAdData(adId: string): Promise<AdWithUser | null> {
   try {
+    // Decode URL-encoded adId to handle Arabic characters
+    const decodedAdId = decodeURIComponent(adId);
+
     let ad = await db.ad.findUnique({
-      where: { id: adId },
+      where: { id: decodedAdId },
       include: {
         user: {
           select: {
@@ -79,7 +82,6 @@ export async function generateMetadata({
 }: {
   params: { locale: string; adId: string };
 }): Promise<Metadata> {
-  console.log({ adParamId: params.adId });
   const ad = await fetchAdData(params.adId);
 
   if (!ad) {

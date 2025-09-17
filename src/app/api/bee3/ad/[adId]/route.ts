@@ -11,7 +11,9 @@ export async function DELETE(
   if (!session) return NextResponse.json({ error: "must-be-logged-in" });
 
   try {
-    const where: any = { id: params.adId };
+    // Decode URL-encoded adId to handle Arabic characters
+    const decodedAdId = decodeURIComponent(params.adId);
+    const where: any = { id: decodedAdId };
     if (session.user.role !== "admin") {
       where.userId = session.user.id;
     }

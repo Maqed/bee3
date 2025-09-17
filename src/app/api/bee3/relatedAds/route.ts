@@ -11,11 +11,13 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    // Decode URL-encoded adId to handle Arabic characters
+    const decodedAdId = decodeURIComponent(adId);
     const relatedAds = await getAcceptedAdsFromNonBannedUsers({
       where: {
         categoryPath: categoryPath,
         NOT: {
-          id: adId,
+          id: decodedAdId,
         },
       },
       include: {
