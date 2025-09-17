@@ -47,7 +47,7 @@ export async function GET(
     if (
       !ad ||
       ((ad.deletedAt !== null || ad.user?.banned) &&
-        (!session || session?.user.role) !== "admin")
+        (!session || session.user.role !== "admin"))
     ) {
       return NextResponse.json({ error: "Ad not found" }, { status: 404 });
     }
