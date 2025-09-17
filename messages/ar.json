@@ -799,7 +799,10 @@
         "bedrooms": "مثال: 3",
         "bathrooms": "مثال: 2",
         "floor": "مثال: 5",
-        "experience": "مثال: 3"
+        "experience": "مثال: 3",
+        "storage": "مثال: 64GB",
+        "condition": "اختر الحالة",
+        "warranty": "اختر الضمان"
       },
       "attributes": {
         "year": "السنة",
