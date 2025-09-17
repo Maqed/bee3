@@ -1,23 +1,76 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
 import { getCategoryTranslations } from "@/lib/category-asynchronous";
-import { absoluteURL, getLocalizedPrice } from "@/lib/utils";
+import { getLocalizedPrice } from "@/lib/utils";
 import type { AdWithUser } from "@/types/ad-page-types";
 import AdPageUI from "@/components/bee3/ad-page/ad-page-ui";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { headers } from "next/headers";
 import { getServerAuthSession } from "@/lib/auth";
+import { db } from "@/server/db";
 
 async function fetchAdData(adId: string): Promise<AdWithUser | null> {
-  const headersList = headers();
-  const response = await fetch(absoluteURL(`/api/bee3/ad/${adId}`), {
-    headers: {
-      Cookie: headersList.get("cookie") || "",
-    },
-  });
-  const { ad } = await response.json();
-  return ad;
+  try {
+    let ad = await db.ad.findUnique({
+      where: { id: adId },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            createdAt: true,
+            contactMethod: true,
+            banned: true,
+            role: true,
+          },
+        },
+        images: true,
+        attributeValues: {
+          include: {
+            attribute: {
+              select: {
+                id: true,
+                name: true,
+                type: true,
+                unit: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const session = await getServerAuthSession();
+    if (
+      !ad ||
+      !ad.user ||
+      ((ad.deletedAt !== null || ad.user.banned) &&
+        (!session || session.user.role !== "admin"))
+    ) {
+      return null;
+    }
+
+    if (ad.adStatus === "ACCEPTED") {
+      return ad as AdWithUser;
+    }
+
+    if (!session) {
+      return null;
+    }
+
+    const isAdmin = session.user.role === "admin";
+    const isOwner = session.user.id === ad.userId;
+
+    if (ad.adStatus === "REJECTED" || ad.adStatus === "PENDING") {
+      if (!isAdmin && !isOwner) {
+        return null;
+      }
+    }
+
+    return ad as AdWithUser;
+  } catch (e) {
+    return null;
+  }
 }
 
 export async function generateMetadata({
